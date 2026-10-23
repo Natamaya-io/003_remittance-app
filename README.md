@@ -62,6 +62,313 @@ Aplikasi operasional remitansi perbankan berbasis PHP 8 dan MariaDB untuk pemros
 
 ---
 
+## Skema Komprehensif Sistem & Basis Data
+
+Bagian ini memuat arsitektur sistem berlapis, diagram relasi entitas (*Entity-Relationship Diagram* / ERD), serta katalog komprehensif 35 tabel basis data yang mendukung operasional remitansi.
+
+### 1. Skema Arsitektur Sistem (Hexagonal / Multi-Tier)
+
+```mermaid
+flowchart TD
+    subgraph CLIENT["Lapisan Klien / Web Client"]
+        Browser["Peramban Pengguna / SPA Native"]
+        CanvasUI["Rendering Grafik Canvas Native (Area & Donut)"]
+        PrintView["Cetak Faktur & Dokumen Standar A4"]
+    end
+
+    subgraph ENTRY["Titik Masuk & Keamanan"]
+        Index["public/index.php (Front Controller)"]
+        Router["app/Core/Router.php"]
+        Csrf["app/Core/Csrf.php"]
+        AuthMid["app/Core/Auth.php (Session & Role RBAC)"]
+        Policy["app/Core/Policy.php (Isolasi Tim Transaksi)"]
+    end
+
+    subgraph APPLOGIC["Kontroler Aplikasi (14 Modul)"]
+        DashCtrl["DashboardController"]
+        TxCtrl["TransactionController & TransactionBankController"]
+        PayerCtrl["PayerAccountController & CompanyController"]
+        ReportCtrl["ReportController"]
+        ComplaintCtrl["ComplaintController"]
+        InvoiceCtrl["InvoiceController & DocumentCenterController"]
+        AnalysisCtrl["AnalysisController"]
+        UserCtrl["UserController & ProfileController"]
+        AuditCtrl["AuditController"]
+    end
+
+    subgraph SERVICES["Engine Layanan & Logika Bisnis"]
+        FXSvc["BankIndonesiaFxService (SOAP XML Parser)"]
+        SPKSvc["EntropyTopsisEngine (Shannon Entropy + TOPSIS)"]
+        ReportSvc["ReportImportService & SpreadsheetReader"]
+        DocxSvc["DocxInvoiceTemplateService (ZIP XML Dynamic Tags)"]
+        AuditSvc["AuditService (Pencatatan JSON Non-Blocking)"]
+        UploadSvc["UploadService (Validasi MIME & Sanitasi Berkas)"]
+    end
+
+    subgraph STORAGE["Lapisan Persistensi & Berkas"]
+        MariaDB[("Basis Data MariaDB (35 Tabel)")]
+        FileCache["storage/cache/ (fx_bi_daily.json)"]
+        UploadsDir["public/uploads/ (Invoices, Reports, SI)"]
+    end
+
+    subgraph EXTERNAL["Layanan Eksternal"]
+        BISOAP["Server SOAP Bank Indonesia (getSubKursLokal4)"]
+    end
+
+    Browser --> Index
+    Index --> Router
+    Router --> Csrf --> AuthMid --> Policy
+    Policy --> APPLOGIC
+
+    DashCtrl --> FXSvc
+    DashCtrl --> MariaDB
+    TxCtrl --> ReportSvc
+    TxCtrl --> AuditSvc
+    TxCtrl --> MariaDB
+    ReportCtrl --> ReportSvc
+    ReportCtrl --> MariaDB
+    ComplaintCtrl --> UploadSvc
+    ComplaintCtrl --> AuditSvc
+    ComplaintCtrl --> MariaDB
+    InvoiceCtrl --> DocxSvc
+    InvoiceCtrl --> MariaDB
+    AnalysisCtrl --> SPKSvc
+    AnalysisCtrl --> MariaDB
+    UserCtrl --> AuditSvc
+    UserCtrl --> MariaDB
+    AuditCtrl --> MariaDB
+
+    FXSvc --> BISOAP
+    FXSvc --> FileCache
+    FXSvc --> MariaDB
+    ReportSvc --> UploadsDir
+    DocxSvc --> UploadsDir
+    UploadSvc --> UploadsDir
+```
+
+---
+
+### 2. Diagram Relasi Entitas (Entity-Relationship Diagram / ERD)
+
+```mermaid
+erDiagram
+    roles ||--o{ users : "assigns"
+    users ||--o{ audit_logs : "logs"
+    users ||--o{ companies : "registers"
+    companies ||--o{ payer_accounts : "owns"
+    companies ||--o{ transactions : "orders"
+    companies ||--o{ invoices : "billed"
+    transactions ||--o{ invoices : "references"
+    transactions ||--o{ complaints : "disputed"
+    report_batches ||--o{ report_rows : "contains"
+    report_rows ||--o{ complaints : "escalates"
+    complaints ||--o{ complaint_histories : "tracks"
+    bni_transaction_batches ||--o{ bni_transaction_rows : "contains"
+    si_templates ||--o{ si_documents : "formats"
+    si_documents ||--o{ si_document_items : "details"
+    document_template_types ||--o{ document_templates : "categorizes"
+    spk_sources ||--o{ spk_records : "imports"
+    spk_criteria ||--o{ spk_subcriteria : "splits"
+    spk_criteria ||--o{ spk_assessments : "weights"
+    spk_alternatives ||--o{ spk_assessments : "evaluated"
+    spk_runs ||--o{ spk_weights : "produces"
+    spk_runs ||--o{ spk_results : "calculates"
+    spk_alternatives ||--o{ spk_results : "ranks"
+
+    roles {
+        bigint id PK
+        varchar code UK
+        varchar name
+    }
+    users {
+        bigint id PK
+        bigint role_id FK
+        varchar username UK
+        varchar email UK
+        tinyint transaction_team
+        tinyint is_active
+        tinyint must_change_password
+    }
+    companies {
+        bigint id PK
+        varchar code UK
+        varchar name
+        varchar status
+        bigint created_by FK
+    }
+    payer_accounts {
+        bigint id PK
+        bigint company_id FK
+        varchar account_no
+        varchar bank_name
+        char currency
+        tinyint is_default
+    }
+    transactions {
+        bigint id PK
+        tinyint team_no
+        bigint payer_company_id FK
+        varchar beneficiary_name
+        varchar beneficiary_account
+        decimal amount
+        char currency
+        varchar swift
+        varchar status
+        char source_hash UK
+    }
+    report_batches {
+        bigint id PK
+        varchar name
+        char month_key
+        varchar client_name
+        int total_rows
+        int sent_rows
+    }
+    report_rows {
+        bigint id PK
+        bigint batch_id FK
+        date transaction_date
+        varchar bill_to
+        decimal amount
+        varchar delivery_status
+        varchar result_status
+    }
+    complaints {
+        bigint id PK
+        varchar ticket_no UK
+        bigint company_id FK
+        bigint transaction_id FK
+        bigint report_row_id FK
+        varchar priority
+        varchar status
+        bigint assigned_to FK
+    }
+    invoices {
+        bigint id PK
+        varchar invoice_no UK
+        bigint company_id FK
+        bigint transaction_id FK
+        date issue_date
+        date due_date
+        decimal amount
+        varchar status
+    }
+    si_documents {
+        bigint id PK
+        bigint template_id FK
+        varchar document_number
+        date document_date
+        varchar status
+    }
+    spk_criteria {
+        bigint id PK
+        varchar code UK
+        varchar name
+        varchar criterion_type
+    }
+    spk_alternatives {
+        bigint id PK
+        varchar alternative_key UK
+        varchar name
+    }
+    spk_assessments {
+        bigint id PK
+        bigint alternative_id FK
+        bigint criterion_id FK
+        decimal auto_value
+    }
+    spk_runs {
+        bigint id PK
+        varchar name
+        longtext criteria_snapshot_json
+    }
+    spk_results {
+        bigint id PK
+        bigint run_id FK
+        bigint alternative_id FK
+        decimal preference_value
+        int rank_position
+    }
+```
+
+---
+
+### 3. Katalog Skema Basis Data (35 Tabel dalam 7 Domain)
+
+Seluruh tabel menggunakan mesin penyimpanan **InnoDB** dengan set karakter `utf8mb4` dan kolasi `utf8mb4_unicode_ci`.
+
+#### Domain 1: Administrasi & Akses Pengguna (RBAC & Forensik Audit)
+
+| Nama Tabel | Peran & Fungsi | Primary Key | Foreign Key & Relasi | Kolom Utama | Indeks Kunci |
+|---|---|---|---|---|---|
+| `roles` | Definisi peran kontrol akses pengguna | `id` (BIGINT) | — | `code` (VARCHAR 50), `name` (VARCHAR 100), `description` | `code` (UNIQUE) |
+| `users` | Akun operator, penugasan tim transaksi, dan kredensial terenkripsi Bcrypt | `id` (BIGINT) | `role_id` ➔ `roles(id)` | `role_id`, `name`, `username`, `email`, `password`, `transaction_team`, `is_active`, `must_change_password`, `last_login_at` | `username` (UNIQUE), `email` (UNIQUE), `idx_users_role`, `idx_users_team` |
+| `audit_logs` | Catatan forensik mutasi transaksi dan operasi akun secara non-blocking | `id` (BIGINT) | `user_id` ➔ `users(id)` | `user_id`, `action`, `entity_type`, `entity_id`, `before_data` (JSON), `after_data` (JSON), `ip_address`, `user_agent`, `created_at` | `idx_audit_user`, `idx_audit_entity`, `idx_audit_created` |
+
+#### Domain 2: Master Korporat Mitra & Rekening Debet
+
+| Nama Tabel | Peran & Fungsi | Primary Key | Foreign Key & Relasi | Kolom Utama | Indeks Kunci |
+|---|---|---|---|---|---|
+| `companies` | Master profil badan hukum korporat klien/mitra | `id` (BIGINT) | `created_by` ➔ `users(id)` | `code` (VARCHAR 30), `name`, `tax_id`, `address`, `contact_name`, `contact_phone`, `email`, `status` (`active`/`inactive`) | `code` (UNIQUE), `idx_companies_name`, `idx_companies_status` |
+| `payer_accounts` | Master buku rekening debet korporat untuk transaksi remitansi dan SI | `id` (BIGINT) | `company_id` ➔ `companies(id)` | `company_id`, `account_no`, `account_name`, `bank_name`, `bank_branch`, `swift`, `currency`, `is_default`, `status` | `uq_payer_account_company_bank`, `idx_payer_company`, `idx_payer_default` |
+
+#### Domain 3: Operasional Transaksi Remitansi
+
+| Nama Tabel | Peran & Fungsi | Primary Key | Foreign Key & Relasi | Kolom Utama | Indeks Kunci |
+|---|---|---|---|---|---|
+| `transactions` | Buku transaksi pengiriman dana (*outward remittance*) utama | `id` (BIGINT) | `payer_company_id` ➔ `companies(id)`, `created_by` ➔ `users(id)` | `team_no`, `invoice_no`, `reference_no`, `transaction_date`, `payer_company_id`, `beneficiary_name`, `beneficiary_account`, `beneficiary_bank`, `amount` (DECIMAL 22,4), `currency`, `swift`, `status` (`PENDING`, `SUCCESS`, `FAILED`, `CANCELLED`), `refund_status`, `source_hash` | `source_hash` (UNIQUE), `idx_transactions_date`, `idx_transactions_company`, `idx_transactions_team`, `idx_transactions_status` |
+| `transaction_jobs` | Antrean dan status impor massal transaksi dari berkas Excel | `id` (BIGINT) | `created_by` ➔ `users(id)` | `file_name`, `file_hash`, `total_records`, `success_count`, `fail_count`, `status`, `error_log` | `idx_jobs_hash`, `idx_jobs_status` |
+| `bni_transaction_batches` | Pengelompokan pengiriman transaksi perbankan BNI batch | `id` (BIGINT) | `created_by` ➔ `users(id)` | `name`, `total_rows`, `created_at` | `idx_bni_batches_date` |
+| `bni_transaction_rows` | Rincian baris transfer per slip cetak transaksi BNI | `id` (BIGINT) | `batch_id` ➔ `bni_transaction_batches(id)` | `batch_id`, `row_no`, `transaction_date`, `beneficiary_name`, `remitter_name`, `currency`, `amount` (DECIMAL 22,4), `payload_json` | `idx_bni_rows_batch`, `idx_bni_rows_date` |
+
+#### Domain 4: Rekonsiliasi Report Harian & Tiket Kendala (Complaints)
+
+| Nama Tabel | Peran & Fungsi | Primary Key | Foreign Key & Relasi | Kolom Utama | Indeks Kunci |
+|---|---|---|---|---|---|
+| `report_batches` | Metadata arsip laporan transaksi bulanan yang diunggah klien | `id` (BIGINT) | `created_by` ➔ `users(id)` | `name`, `month_key` (CHAR 7), `report_date`, `client_name`, `team_name`, `source_filename`, `file_hash`, `total_rows`, `sent_rows`, `pending_rows` | `idx_report_batches_month`, `idx_report_batches_hash` |
+| `report_rows` | Baris rincian transfer harian multi-sheet dari laporan klien | `id` (BIGINT) | `batch_id` ➔ `report_batches(id)` | `batch_id`, `source_sheet`, `source_row`, `team_label`, `transaction_date`, `bill_to`, `beneficiary_name`, `beneficiary_account`, `amount` (DECIMAL 22,4), `currency`, `delivery_status` (`PENDING`, `SENT`), `result_status` (`PENDING`, `SUCCESS`, `FAILED`) | `idx_report_rows_batch`, `idx_report_rows_date`, `idx_report_rows_delivery`, `idx_report_rows_result` |
+| `complaints` | Tiket eskalasi dan investigasi transfer dana gagal atau pending | `id` (BIGINT) | `company_id` ➔ `companies(id)`, `transaction_id` ➔ `transactions(id)`, `report_row_id` ➔ `report_rows(id)`, `assigned_to` ➔ `users(id)` | `ticket_no` (VARCHAR 60), `subject`, `description`, `priority` (`low`, `medium`, `high`, `critical`), `status` (`open`, `in_progress`, `resolved`, `closed`), `resolution`, `attachment_path` | `ticket_no` (UNIQUE), `idx_complaints_company`, `idx_complaints_status`, `idx_complaints_priority` |
+| `complaint_histories` | Linimasa kronologis investigasi dan perubahan status tiket | `id` (BIGINT) | `complaint_id` ➔ `complaints(id)`, `user_id` ➔ `users(id)` | `complaint_id`, `action`, `note`, `status_from`, `status_to`, `user_id`, `created_at` | `idx_complaint_histories_complaint`, `idx_complaint_histories_date` |
+
+#### Domain 5: Penagihan (Invoicing) & Pengelola Dokumen Legal
+
+| Nama Tabel | Peran & Fungsi | Primary Key | Foreign Key & Relasi | Kolom Utama | Indeks Kunci |
+|---|---|---|---|---|---|
+| `invoices` | Faktur resmi penagihan fee jasa pemrosesan transaksi remitansi | `id` (BIGINT) | `company_id` ➔ `companies(id)`, `transaction_id` ➔ `transactions(id)` | `invoice_no` (VARCHAR 100), `company_id`, `transaction_id`, `issue_date`, `due_date`, `amount` (DECIMAL 22,4), `currency`, `status` (`draft`, `sent`, `paid`, `overdue`, `cancelled`), `notes`, `attachment_path` | `invoice_no` (UNIQUE), `idx_invoices_company`, `idx_invoices_due`, `idx_invoices_status` |
+| `invoice_template_documents` | Arsip berkas template invoice Word/HTML dinamis | `id` (BIGINT) | `created_by` ➔ `users(id)` | `name`, `file_path`, `variables_json`, `created_at` | `idx_inv_templates_name` |
+| `document_template_types` | Kategori jenis template dokumen legal perbankan | `id` (BIGINT) | — | `code` (VARCHAR 50), `name`, `description` | `code` (UNIQUE) |
+| `document_templates` | Pengelola berkas template DOCX dengan parser variabel `${TAG}` | `id` (BIGINT) | `type_id` ➔ `document_template_types(id)`, `created_by` ➔ `users(id)` | `type_id`, `name`, `file_path`, `variables_json`, `created_at` | `idx_doc_templates_type` |
+| `si_templates` | Format tata letak Standing Instruction resmi 7 bank nasional | `id` (BIGINT) | — | `code` (VARCHAR 80), `name`, `default_bank_name`, `default_bank_branch`, `sort_order`, `is_active` | `code` (UNIQUE), `idx_si_templates_order` |
+| `si_documents` | Dokumen surat Standing Instruction yang diterbitkan | `id` (BIGINT) | `template_id` ➔ `si_templates(id)`, `created_by` ➔ `users(id)` | `template_id`, `document_number`, `document_date`, `effective_date`, `company_name`, `bank_name`, `signatory_title`, `status` (`draft`, `final`, `cancelled`) | `idx_si_documents_date`, `idx_si_documents_status` |
+| `si_document_items` | Baris rincian penerima instruksi debet rekening pada surat SI | `id` (BIGINT) | `document_id` ➔ `si_documents(id)` | `document_id`, `item_order`, `sender_name`, `sender_account`, `receiver_name`, `receiver_account`, `receiver_bank`, `amount` (DECIMAL 22,4), `currency` | `idx_si_items_document` |
+
+#### Domain 6: Valuta Asing & Kurs Bank Indonesia
+
+| Nama Tabel | Peran & Fungsi | Primary Key | Foreign Key & Relasi | Kolom Utama | Indeks Kunci |
+|---|---|---|---|---|---|
+| `fx_rates` | Master kurs harian resmi Bank Indonesia (Beli, Jual, Tengah) | `id` (BIGINT) | — | `currency` (CHAR 3), `buy_rate` (DECIMAL 18,6), `sell_rate`, `middle_rate`, `spread_rate`, `rate_date`, `fetched_at` | `uq_fx_rates_curr_date`, `idx_fx_rates_date` |
+| `fx_live_rates` | Snapshot nilai tukar mata uang waktu nyata | `id` (BIGINT) | — | `currency` (CHAR 3), `rate` (DECIMAL 18,6), `effective_time` | `currency` (UNIQUE) |
+| `fx_rate_history` | Riwayat historis runtun waktu (*time-series*) kurs valas | `id` (BIGINT) | — | `currency` (CHAR 3), `middle_rate` (DECIMAL 18,6), `recorded_at` | `idx_fx_history_curr_date` |
+
+#### Domain 7: Sistem Pendukung Keputusan (SPK Entropy–TOPSIS)
+
+| Nama Tabel | Peran & Fungsi | Primary Key | Foreign Key & Relasi | Kolom Utama | Indeks Kunci |
+|---|---|---|---|---|---|
+| `spk_sources` | Dataset transaksi acuan evaluasi tahun 2024 (Report Sukses & Actual Refund) | `id` (BIGINT) | `created_by` ➔ `users(id)` | `name`, `file_type`, `file_path`, `total_rows`, `created_at` | `idx_spk_sources_name` |
+| `spk_records` | Normalisasi ribuan baris data transaksi untuk indikator SPK | `id` (BIGINT) | `source_id` ➔ `spk_sources(id)` | `source_id`, `period_code` (`P1`, `P2`), `company_key`, `tx_count`, `total_amount`, `currency_count`, `country_count`, `swift_count`, `refund_count` | `idx_spk_records_source`, `idx_spk_records_company_period` |
+| `spk_criteria` | Master 6 kriteria evaluasi kinerja mitra korporat ($C_1$ s.d. $C_6$) | `id` (BIGINT) | `created_by` ➔ `users(id)` | `code` (VARCHAR 10), `name`, `criterion_type` (`benefit`/`cost`), `data_rule`, `sort_order`, `is_active` | `code` (UNIQUE), `idx_spk_criteria_order` |
+| `spk_subcriteria` | Aturan pembobotan interval parameter kriteria | `id` (BIGINT) | `criterion_id` ➔ `spk_criteria(id)` | `criterion_id`, `name`, `min_val` (DECIMAL 18,6), `max_val`, `sub_weight` | `idx_spk_subcriteria_criterion` |
+| `spk_alternatives` | 4 Perusahaan mitra yang dievaluasi ($A_1$ s.d. $A_4$) | `id` (BIGINT) | — | `alternative_key` (VARCHAR 80), `name`, `is_active`, `source_note` | `alternative_key` (UNIQUE) |
+| `spk_assessments` | Matriks keputusan $X_{ij}$ teragregasi (presisi 8 angka desimal) | `id` (BIGINT) | `alternative_id` ➔ `spk_alternatives(id)`, `criterion_id` ➔ `spk_criteria(id)` | `alternative_id`, `criterion_id`, `auto_value` (DECIMAL 24,8), `override_value`, `source_detail_json` | `idx_spk_assessments_alt_crit` |
+| `spk_runs` | Snapshot riwayat eksekusi kalkulasi algoritma SPK | `id` (BIGINT) | `created_by` ➔ `users(id)` | `name`, `criteria_snapshot_json` (LONGTEXT), `matrix_json` (LONGTEXT), `entropy_json` (LONGTEXT), `topsis_json` (LONGTEXT), `created_at` | `idx_spk_runs_created` |
+| `spk_weights` | Bobot objektif hasil kalkulasi Shannon Entropy ($W_j$) | `id` (BIGINT) | `run_id` ➔ `spk_runs(id)` | `run_id`, `criterion_code`, `entropy_value` (DECIMAL 20,12), `dispersion_value` (DECIMAL 20,12), `weight_value` (DECIMAL 20,12) | `idx_spk_weights_run` |
+| `spk_results` | Nilai preferensi kedekatan relatif TOPSIS ($V_i$) dan ranking definitif | `id` (BIGINT) | `run_id` ➔ `spk_runs(id)`, `alternative_id` ➔ `spk_alternatives(id)` | `run_id`, `alternative_id`, `alternative_name`, `distance_positive` (DECIMAL 20,12), `distance_negative` (DECIMAL 20,12), `preference_value` (DECIMAL 20,12), `rank_position` (INT) | `idx_spk_results_run`, `idx_spk_results_rank` |
+| `analysis_runs` | Tabel riwayat kalkulasi (skema kompatibilitas analisis) | `id` (BIGINT) | `created_by` ➔ `users(id)` | `run_name`, `calculation_date`, `created_at` | `idx_analysis_runs_date` |
+| `analysis_weights` | Bobot kriteria (skema kompatibilitas analisis) | `id` (BIGINT) | `analysis_run_id` ➔ `analysis_runs(id)` | `analysis_run_id`, `criterion_id`, `weight` (DECIMAL 18,6) | `idx_analysis_weights_run` |
+| `analysis_results` | Hasil evaluasi alternatif (skema kompatibilitas analisis) | `id` (BIGINT) | `analysis_run_id` ➔ `analysis_runs(id)`, `company_id` ➔ `companies(id)` | `analysis_run_id`, `company_id`, `preference_score` (DECIMAL 20,12), `rank_order` | `idx_analysis_results_run` |
+
+---
+
 ## Spesifikasi & Diagram Alur 14 Fitur
 
 ---
