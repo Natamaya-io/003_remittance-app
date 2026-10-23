@@ -1,0 +1,25 @@
+
+/* CLEAN GLOBAL THEME */
+:root{
+ --primary:#8b5cf6;
+ --secondary:#ec4899;
+ --background:#fff7fc;
+ --text:#51365f;
+}
+body{background:var(--background)!important;color:var(--text)!important;}
+button,.button,.btn,input[type=submit]{
+ background:linear-gradient(135deg,var(--primary),var(--secondary))!important;
+ color:white!important;
+ border:none!important;
+}
+.card,.panel{
+ background:#fff!important;
+ border-color:#eadcf0!important;
+}
+input,select,textarea{
+ border-color:#dfcbea!important;
+}
+table th{
+ background:linear-gradient(135deg,#f0ddff,#ffe4f0)!important;
+ color:#624276!important;
+}

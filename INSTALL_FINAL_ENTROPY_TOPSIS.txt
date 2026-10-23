@@ -1,0 +1,2 @@
+Dokumen lama digantikan oleh INSTALL_ANALISIS_REPORT_ACTUAL.txt.
+Gunakan file tersebut sebagai petunjuk instalasi final modul Analysis.

@@ -1,0 +1,17 @@
+FABLE REMITOPS — HASIL VALIDASI SOURCE
+
+- 82 file PHP lolos pemeriksaan php -l.
+- public/assets/js/app.js lolos pemeriksaan sintaks Node.js.
+- Tidak ada dependensi Bootstrap CSS/JavaScript.
+- Grafik dashboard menggunakan JavaScript Canvas native; tidak membutuhkan Chart.js CDN.
+- File CSS utama memiliki jumlah kurung kurawal yang seimbang dan JavaScript utama lolos node --check.
+- Dashboard V14 dan panel kurs V14 berhasil dirender menggunakan data uji tanpa error PHP.
+- Parser Report Harian diuji dengan header seperti report klien: TEAM, tanggal, payer, beneficiary, nominal, status kirim, dan hasil.
+- Parser Transaksi diuji dengan struktur Data Base Bule.
+- Output transaksi memakai 14 kolom file bank: NomorRekDebet, Tgl|Curr|Nominal, Beneffaccount, REMARK, KODESHA, EMAIL, dan NO.
+- Template input XLSX dan contoh output XLS merupakan salinan identik dari file yang diberikan.
+- Report Harian tersimpan pada report_batches/report_rows dan tidak otomatis masuk ke transactions.
+- Tabel pembaruan database tersedia pada database/update_existing_database.sql.
+
+Catatan pengujian:
+Pengujian sintaks, struktur, parser, dan transformasi file telah selesai. Pengujian end-to-end Apache/PDO MySQL harus dijalankan pada XAMPP pengguna karena lingkungan pembuatan paket tidak menjalankan MariaDB XAMPP.

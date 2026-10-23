@@ -1,0 +1,1 @@
+<div class="error-page"><div class="error-icon"><i class="bi bi-shield-lock"></i></div><h2>Akses Ditolak</h2><p>Peran Anda tidak memiliki izin untuk membuka halaman ini.</p><a class="btn btn-primary" href="<?= url('/') ?>">Kembali ke Dashboard</a></div>

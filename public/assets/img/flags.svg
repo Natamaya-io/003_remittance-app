@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+  <symbol id="flag-world" viewBox="0 0 64 48">
+    <rect width="64" height="48" fill="#2563eb"/>
+    <circle cx="32" cy="24" r="16" fill="none" stroke="#fff" stroke-width="3"/>
+    <path d="M16 24h32M32 8c-7 6-7 26 0 32M32 8c7 6 7 26 0 32" fill="none" stroke="#fff" stroke-width="2"/>
+  </symbol>
+
+  <symbol id="flag-us" viewBox="0 0 64 48">
+    <rect width="64" height="48" fill="#fff"/>
+    <g fill="#b91c1c">
+      <rect y="0" width="64" height="4"/><rect y="8" width="64" height="4"/><rect y="16" width="64" height="4"/>
+      <rect y="24" width="64" height="4"/><rect y="32" width="64" height="4"/><rect y="40" width="64" height="4"/>
+    </g>
+    <rect width="28" height="24" fill="#1e3a8a"/>
+    <g fill="#fff">
+      <circle cx="5" cy="5" r="1.2"/><circle cx="12" cy="5" r="1.2"/><circle cx="19" cy="5" r="1.2"/><circle cx="25" cy="5" r="1.2"/>
+      <circle cx="8" cy="11" r="1.2"/><circle cx="15" cy="11" r="1.2"/><circle cx="22" cy="11" r="1.2"/>
+      <circle cx="5" cy="17" r="1.2"/><circle cx="12" cy="17" r="1.2"/><circle cx="19" cy="17" r="1.2"/><circle cx="25" cy="17" r="1.2"/>
+    </g>
+  </symbol>
+
+  <symbol id="flag-eu" viewBox="0 0 64 48">
+    <rect width="64" height="48" fill="#1d4ed8"/>
+    <g fill="#facc15">
+      <circle cx="32" cy="9" r="2"/><circle cx="39.5" cy="11" r="2"/><circle cx="45" cy="16.5" r="2"/>
+      <circle cx="47" cy="24" r="2"/><circle cx="45" cy="31.5" r="2"/><circle cx="39.5" cy="37" r="2"/>
+      <circle cx="32" cy="39" r="2"/><circle cx="24.5" cy="37" r="2"/><circle cx="19" cy="31.5" r="2"/>
+      <circle cx="17" cy="24" r="2"/><circle cx="19" cy="16.5" r="2"/><circle cx="24.5" cy="11" r="2"/>
+    </g>
+  </symbol>
+
+  <symbol id="flag-sg" viewBox="0 0 64 48">
+    <rect width="64" height="24" fill="#dc2626"/><rect y="24" width="64" height="24" fill="#fff"/>
+    <circle cx="18" cy="12" r="8" fill="#fff"/><circle cx="21" cy="12" r="7" fill="#dc2626"/>
+    <g fill="#fff"><circle cx="28" cy="6" r="1.2"/><circle cx="32" cy="10" r="1.2"/><circle cx="30.5" cy="15" r="1.2"/><circle cx="25.5" cy="15" r="1.2"/><circle cx="24" cy="10" r="1.2"/></g>
+  </symbol>
+
+  <symbol id="flag-au" viewBox="0 0 64 48">
+    <rect width="64" height="48" fill="#1e3a8a"/>
+    <rect width="30" height="22" fill="#1e3a8a"/>
+    <path d="M0 0l30 22M30 0L0 22" stroke="#fff" stroke-width="5"/>
+    <path d="M0 0l30 22M30 0L0 22" stroke="#dc2626" stroke-width="2"/>
+    <path d="M15 0v22M0 11h30" stroke="#fff" stroke-width="7"/>
+    <path d="M15 0v22M0 11h30" stroke="#dc2626" stroke-width="3"/>
+    <g fill="#fff"><circle cx="46" cy="13" r="2.5"/><circle cx="53" cy="24" r="2"/><circle cx="45" cy="34" r="2.3"/><circle cx="56" cy="38" r="1.8"/><circle cx="35" cy="24" r="2"/></g>
+  </symbol>
+
+  <symbol id="flag-gb" viewBox="0 0 64 48">
+    <rect width="64" height="48" fill="#1e3a8a"/>
+    <path d="M0 0l64 48M64 0L0 48" stroke="#fff" stroke-width="11"/>
+    <path d="M0 0l64 48M64 0L0 48" stroke="#dc2626" stroke-width="5"/>
+    <path d="M32 0v48M0 24h64" stroke="#fff" stroke-width="16"/>
+    <path d="M32 0v48M0 24h64" stroke="#dc2626" stroke-width="8"/>
+  </symbol>
+
+  <symbol id="flag-jp" viewBox="0 0 64 48">
+    <rect width="64" height="48" fill="#fff"/>
+    <circle cx="32" cy="24" r="13" fill="#dc2626"/>
+  </symbol>
+
+  <symbol id="flag-cn" viewBox="0 0 64 48">
+    <rect width="64" height="48" fill="#dc2626"/>
+    <polygon points="12,7 14,12 20,12 15,16 17,22 12,18 7,22 9,16 4,12 10,12" fill="#facc15"/>
+    <g fill="#facc15"><circle cx="25" cy="7" r="1.5"/><circle cx="30" cy="12" r="1.5"/><circle cx="30" cy="19" r="1.5"/><circle cx="24" cy="23" r="1.5"/></g>
+  </symbol>
+
+  <symbol id="flag-hk" viewBox="0 0 64 48">
+    <rect width="64" height="48" fill="#dc2626"/>
+    <g fill="#fff" transform="translate(32 24)">
+      <ellipse rx="4" ry="13" transform="rotate(0) translate(0 -7)"/>
+      <ellipse rx="4" ry="13" transform="rotate(72) translate(0 -7)"/>
+      <ellipse rx="4" ry="13" transform="rotate(144) translate(0 -7)"/>
+      <ellipse rx="4" ry="13" transform="rotate(216) translate(0 -7)"/>
+      <ellipse rx="4" ry="13" transform="rotate(288) translate(0 -7)"/>
+    </g>
+  </symbol>
+
+  <symbol id="flag-my" viewBox="0 0 64 48">
+    <rect width="64" height="48" fill="#fff"/>
+    <g fill="#dc2626"><rect y="0" width="64" height="4"/><rect y="8" width="64" height="4"/><rect y="16" width="64" height="4"/><rect y="24" width="64" height="4"/><rect y="32" width="64" height="4"/><rect y="40" width="64" height="4"/></g>
+    <rect width="30" height="24" fill="#1e3a8a"/>
+    <circle cx="13" cy="12" r="8" fill="#facc15"/><circle cx="16" cy="12" r="7" fill="#1e3a8a"/>
+    <polygon points="23,5 25,10 30,10 26,13 28,18 23,15 19,18 20,13 16,10 21,10" fill="#facc15"/>
+  </symbol>
+
+  <symbol id="flag-th" viewBox="0 0 64 48">
+    <rect width="64" height="48" fill="#b91c1c"/>
+    <rect y="8" width="64" height="32" fill="#fff"/>
+    <rect y="16" width="64" height="16" fill="#1e3a8a"/>
+  </symbol>
+
+  <symbol id="flag-kr" viewBox="0 0 64 48">
+    <rect width="64" height="48" fill="#fff"/>
+    <path d="M32 12a12 12 0 0 1 0 24a6 6 0 0 0 0-12a6 6 0 0 1 0-12" fill="#dc2626"/>
+    <path d="M32 36a12 12 0 0 1 0-24a6 6 0 0 0 0 12a6 6 0 0 1 0 12" fill="#2563eb"/>
+    <g stroke="#111827" stroke-width="2"><path d="M9 10l9 6M11 7l9 6M44 35l9 6M46 32l9 6"/><path d="M45 13l9-6M43 16l9-6M10 39l9-6M12 42l9-6"/></g>
+  </symbol>
+
+  <symbol id="flag-ch" viewBox="0 0 64 48">
+    <rect width="64" height="48" fill="#dc2626"/>
+    <rect x="26" y="10" width="12" height="28" fill="#fff"/>
+    <rect x="18" y="18" width="28" height="12" fill="#fff"/>
+  </symbol>
+
+  <symbol id="flag-ca" viewBox="0 0 64 48">
+    <rect width="64" height="48" fill="#fff"/>
+    <rect width="14" height="48" fill="#dc2626"/><rect x="50" width="14" height="48" fill="#dc2626"/>
+    <path d="M32 9l3 8 7-3-4 7 6 4-8 1 1 9-5-5-5 5 1-9-8-1 6-4-4-7 7 3z" fill="#dc2626"/>
+  </symbol>
+
+  <symbol id="flag-nz" viewBox="0 0 64 48">
+    <rect width="64" height="48" fill="#1e3a8a"/>
+    <rect width="28" height="21" fill="#1e3a8a"/>
+    <path d="M0 0l28 21M28 0L0 21" stroke="#fff" stroke-width="5"/>
+    <path d="M0 0l28 21M28 0L0 21" stroke="#dc2626" stroke-width="2"/>
+    <path d="M14 0v21M0 10.5h28" stroke="#fff" stroke-width="7"/>
+    <path d="M14 0v21M0 10.5h28" stroke="#dc2626" stroke-width="3"/>
+    <g fill="#dc2626" stroke="#fff" stroke-width="1"><circle cx="45" cy="12" r="2.5"/><circle cx="54" cy="22" r="2.5"/><circle cx="43" cy="32" r="2.5"/><circle cx="55" cy="38" r="2.5"/></g>
+  </symbol>
+
+  <symbol id="flag-sa" viewBox="0 0 64 48">
+    <rect width="64" height="48" fill="#15803d"/>
+    <text x="32" y="22" text-anchor="middle" font-size="9" font-family="Arial" fill="#fff">لا إله إلا الله</text>
+    <path d="M16 33h32M39 31l9 2-9 2" stroke="#fff" stroke-width="2" fill="none"/>
+  </symbol>
+
+  <symbol id="flag-ae" viewBox="0 0 64 48">
+    <rect width="64" height="16" fill="#16a34a"/>
+    <rect y="16" width="64" height="16" fill="#fff"/>
+    <rect y="32" width="64" height="16" fill="#111827"/>
+    <rect width="16" height="48" fill="#dc2626"/>
+  </symbol>
+</svg>

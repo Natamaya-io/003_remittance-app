@@ -1,0 +1,29 @@
+REVISI ALUR TEMPLATE INVOICE - 12 OKTOBER 2026
+
+ALUR BARU
+1. Template Invoice tidak lagi ditampilkan sebagai card pada menu Dokumen & Template.
+2. Menu Dokumen & Template sekarang fokus pada Standing Instruction dan Template Complain.
+3. Template Invoice dipindahkan secara visual ke halaman Invoice.
+4. Halaman Invoice sekarang menampilkan:
+   - ringkasan jumlah seluruh template invoice;
+   - 3 jenis template: Invoice Asli, Invoice Order, Invoice Terima Uang;
+   - jumlah data per jenis;
+   - daftar 6 template terbaru;
+   - tombol Preview dan Edit;
+   - tombol Kelola Template.
+5. Tombol Kelola Template membuka modul template invoice yang sudah ada, sehingga CRUD lama tetap digunakan dan tidak diduplikasi.
+6. Tombol Kembali pada modul Template Invoice sekarang kembali ke halaman Invoice.
+7. Invoice operasional tetap berada di bawah bagian Template Invoice, lengkap dengan pencarian, filter status, tambah, print, edit, dan delete.
+
+DATABASE
+- Tidak ada perubahan struktur database.
+- Data template tetap menggunakan tabel invoice_template_documents.
+
+FILE UTAMA YANG DIREVISI
+- app/Controllers/InvoiceController.php
+- app/Views/invoices/index.php
+- app/Controllers/DocumentCenterController.php
+- app/Views/documents/index.php
+- public/invoice_templates.php
+- public/assets/css/invoice-hub.css
+- app/Views/layouts/app.php

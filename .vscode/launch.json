@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Check Application Syntax",
+            "type": "shell",
+            "command": "C:\\xampp_1\\php\\php.exe",
+            "args": [
+                "-l",
+                "${workspaceFolder}\\public\\index.php"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}

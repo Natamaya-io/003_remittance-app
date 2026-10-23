@@ -1,0 +1,28 @@
+APLIKASIREMMITANCE - FULL APP DENGAN ALUR INVOICE TEMPLATE WORD
+
+Database:
+- SQL patch template_id sudah diasumsikan telah diimport oleh pengguna.
+- Paket ini tidak memerlukan import SQL ulang jika UPDATE_ALUR_TEMPLATE_INVOICE_WORD.sql sudah dijalankan.
+
+Alur baru Invoice:
+1. Menu Invoice menampilkan template invoice aktif yang berasal dari Document Template Manager.
+2. Kelola Template dipakai untuk membuat/upload template baru.
+3. Template invoice wajib file Word DOCX.
+4. Klik Invoice Baru -> pilih template yang sudah aktif.
+5. Setelah memilih template, pengguna mengisi data invoice operasional.
+6. Invoice menyimpan template_id yang dipilih.
+7. Preview/Print merender struktur Word DOCX dengan data invoice menggunakan placeholder.
+
+File utama alur baru:
+- app/Services/DocxInvoiceTemplateService.php
+- app/Controllers/InvoiceController.php
+- app/Views/invoices/template_select.php
+- app/Views/invoices/form.php
+- app/Views/invoices/index.php
+- app/Views/invoices/print.php
+- public/document_template_manager.php
+- public/assets/css/invoice-template-flow.css
+
+Catatan:
+- PHP extension ZIP harus aktif untuk membaca DOCX.
+- Setelah mengganti aplikasi: restart Apache dan Ctrl+F5.

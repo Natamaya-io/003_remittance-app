@@ -1,0 +1,44 @@
+{
+    "version": "2.0.0",
+
+    "tasks": [
+
+        {
+            "label": "Check Application Syntax",
+
+            "type": "process",
+
+            "command": "C:\\xampp\\php\\php.exe",
+
+            "args": [
+                "-l",
+                "${workspaceFolder}\\public\\index.php"
+            ],
+
+            "problemMatcher": [],
+
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "focus": false,
+                "clear": true,
+                "showReuseMessage": true
+            }
+        },
+
+        {
+            "label": "Check PHP Version",
+
+            "type": "process",
+
+            "command": "C:\\xampp\\php\\php.exe",
+
+            "args": [
+                "-v"
+            ],
+
+            "problemMatcher": []
+        }
+
+    ]
+}

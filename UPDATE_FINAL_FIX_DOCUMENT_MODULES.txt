@@ -1,0 +1,9 @@
+Perbaikan final modul dokumen dan analisis
+
+- Dibangun ulang dari ZIP basis yang masih utuh agar isi Template Invoice dan Template Complain tidak hilang.
+- Standing Instruction, Template Invoice, dan Template Complain memakai stylesheet baru standalone-docs.css yang konsisten dengan tema Fable RemitOps.
+- Tombol Kembali diperbaiki menggunakan path public aplikasi yang aktif.
+- Card Analysis dibuat 5 kolom pada layar besar.
+- Hasil Analysis memiliki print layout A4 landscape agar tabel tidak terpotong.
+- Teks /n dan deskripsi panjang pada Data Perhitungan dibersihkan.
+- Live FX memakai flag SVG dan ilustrasi login dibuat lebih menyatu dengan background.

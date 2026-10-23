@@ -1,0 +1,38 @@
+HOTFIX LOGIN - ERROR 500
+
+1. Ganti folder aplikasi lama dengan folder versi hotfix ini, atau minimal salin:
+   - app/Core/Auth.php
+   - public/index.php
+   - tools/login_diagnostic.php
+
+2. Pastikan file .env tersedia di folder utama aplikasi.
+   Salin .env.example menjadi .env dan gunakan:
+   APP_DEBUG=true
+   APP_URL=http://localhost/AplikasiRemmitance/public
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=AplikasiRemmitance
+   DB_USERNAME=root
+   DB_PASSWORD=
+
+3. Di phpMyAdmin pilih database AplikasiRemmitance, buka tab SQL, lalu jalankan:
+   database/repair_login.sql
+
+4. Restart Apache dan MySQL.
+
+5. Buka diagnostik:
+   http://localhost/AplikasiRemmitance/tools/login_diagnostic.php
+   Semua pemeriksaan utama harus berstatus OK.
+
+6. Login:
+   username: superadmin
+   password: Password123!
+
+7. Jika masih gagal, buka:
+   C:\xampp\htdocs\AplikasiRemmitance\storage\logs\app.log
+   dan Apache log:
+   C:\xampp\apache\logs\error.log
+
+Catatan:
+- Hotfix membuat kegagalan update last_login_at tidak lagi menggagalkan login.
+- Error aplikasi sekarang ditulis ke storage/logs/app.log.

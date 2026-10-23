@@ -1,0 +1,66 @@
+REMMITANCE APP - VALIDATION ENTROPY/TOPSIS 2024
+================================================
+
+SOURCE
+- Aplikasi dasar: AplikasiRemmitance.zip (uploaded)
+- Database dasar: AplikasiRemmitance.sql (uploaded)
+- Dataset: 2024 - REPORT SUKSES.xlsx (uploaded)
+
+ISOLATION
+Runtime files changed only in existing Analysis/Entropy-TOPSIS module plus one upload route.
+No TransactionController, ReportController, CompanyController, InvoiceController,
+ComplaintController, DashboardController, FX controller/service, document module,
+authentication, sidebar, or other operational module was modified.
+
+DATABASE
+Original AplikasiRemmitance.sql is preserved exactly as the prefix of database/AplikasiRemmitance.sql.
+New tables:
+1. entropy_topsis_datasets
+2. entropy_topsis_transactions
+3. entropy_topsis_runs
+4. entropy_topsis_weights
+5. entropy_topsis_results
+
+DATASET 2024
+Source data rows after header : 10,938
+Valid analysis rows           : 3,521
+Skipped rows                  : 7,417
+Valid range                   : 2024-05-09 to 2024-12-31
+FABLE                         : 2,474
+JURITA                        : 581
+GSB                           : 387
+KAIROS                        : 75
+GOSYEN                        : 1
+
+DEFAULT TEST PERIOD
+P1 = 2024-09-06 to 2024-10-31
+P2 = 2024-11-02 to 2024-12-27
+
+STANDARD ENTROPY WEIGHTS
+C1 = 0.415248552261
+C2 = 0.152468992814
+C3 = 0.091985217485
+C4 = 0.274604872244
+C5 = 0.065687645334
+C6 = 0.000004719862
+Sum = 1.000000000000
+
+TOPSIS PREFERENCES / RANKING
+1. JURITA = 0.984999482439
+2. FABLE  = 0.177691638926
+3. GSB    = 0.130440457598
+4. KAIROS = 0.117116653895
+
+CODE VALIDATION
+- All 96 PHP files: php -l passed (0 syntax failures).
+- AnalysisDatasetImportService tested with representative CSV:
+  payer normalization and SUCCESS/TERKIRIM/SUKSES mapping passed.
+- EntropyTopsisService math tested in PHP with the default-period decision matrix.
+  PHP output matched the independent calculation above.
+
+XAMPP REQUIREMENTS FOR FUTURE XLSX UPLOAD
+- PHP 8.0+
+- extension=zip
+- extension=dom
+- PDO MySQL
+- MariaDB/MySQL

@@ -1,0 +1,3 @@
+-- TIDAK DIGUNAKAN: perhitungan lama telah diganti.
+-- Gunakan UPDATE_DATABASE_ENTROPY_TOPSIS_2024.sql untuk instalasi eksisting.
+-- Untuk instalasi baru gunakan AplikasiRemmitance.sql.

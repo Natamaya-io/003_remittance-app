@@ -1,0 +1,13 @@
+AplikasiRemmitance - Perbaikan Invoice & Tema Dokumen
+Tanggal: 10 Oktober 2026
+
+Perbaikan:
+1. Semua modul Standing Instruction, Template Invoice, dan Template Complain menggunakan tema pastel ungu-pink yang sama dengan dashboard.
+2. Cache stylesheet dibump ke standalone-docs.css?v=4.0.0.
+3. Toolbar preview Standing Instruction dan Template Invoice tidak lagi navy.
+4. Print invoice operasional tidak otomatis membuka dialog print saat halaman dibuka.
+5. Halaman preview invoice memiliki tombol Kembali ke Invoice dan Cetak / Simpan PDF.
+6. Jika dialog print dibatalkan, halaman preview tetap normal dan tombol kembali tetap tersedia.
+7. Layout invoice print dibuat aman untuk A4 portrait dan tidak terpotong.
+8. Tombol print pada daftar invoice tidak lagi membuka tab baru.
+9. Link kembali pada modul dokumen diarahkan melalui URL aplikasi yang benar.

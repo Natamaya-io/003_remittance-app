@@ -1,0 +1,98 @@
+{
+    "version": "2.0.0",
+
+    "tasks": [
+        {
+            "label": "Check Application Syntax",
+            "type": "process",
+            "command": "C:\\xampp_1\\php\\php.exe",
+
+            "args": [
+                "-l",
+                "${workspaceFolder}\\public\\index.php"
+            ],
+
+            "problemMatcher": [],
+
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "focus": false,
+                "clear": true,
+                "showReuseMessage": true
+            }
+        },
+
+        {
+            "label": "Check FxService Syntax",
+            "type": "process",
+            "command": "C:\\xampp_1\\php\\php.exe",
+
+            "args": [
+                "-l",
+                "${workspaceFolder}\\app\\Services\\FxService.php"
+            ],
+
+            "problemMatcher": [],
+
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "focus": false,
+                "clear": true,
+                "showReuseMessage": true
+            }
+        },
+
+        {
+            "label": "Check Helpers Syntax",
+            "type": "process",
+            "command": "C:\\xampp_1\\php\\php.exe",
+
+            "args": [
+                "-l",
+                "${workspaceFolder}\\app\\helpers.php"
+            ],
+
+            "problemMatcher": []
+        },
+
+        {
+            "label": "Check Layout Syntax",
+            "type": "process",
+            "command": "C:\\xampp_1\\php\\php.exe",
+
+            "args": [
+                "-l",
+                "${workspaceFolder}\\app\\Views\\layouts\\app.php"
+            ],
+
+            "problemMatcher": []
+        },
+
+        {
+            "label": "Check Login Syntax",
+            "type": "process",
+            "command": "C:\\xampp_1\\php\\php.exe",
+
+            "args": [
+                "-l",
+                "${workspaceFolder}\\app\\Views\\auth\\login.php"
+            ],
+
+            "problemMatcher": []
+        },
+
+        {
+            "label": "Check PHP Version",
+            "type": "process",
+            "command": "C:\\xampp_1\\php\\php.exe",
+
+            "args": [
+                "-v"
+            ],
+
+            "problemMatcher": []
+        }
+    ]
+}

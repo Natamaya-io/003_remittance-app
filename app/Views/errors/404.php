@@ -1,0 +1,1 @@
+<div class="error-page"><div class="error-icon"><i class="bi bi-compass"></i></div><h2>Halaman Tidak Ditemukan</h2><p>Alamat yang dibuka tidak tersedia atau telah dipindahkan.</p><a class="btn btn-primary" href="<?= url('/') ?>">Kembali</a></div>

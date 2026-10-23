@@ -1,0 +1,71 @@
+PANDUAN UPDATE PERHITUNGAN ENTROPY + TOPSIS 2024
+==============================================
+
+TUJUAN
+- Mengganti perhitungan lama pada modul SPK saja, tanpa menghapus tabel transaksi operasional,
+  invoice, laporan operasional, akun pengguna, atau dokumen lain.
+- Menggunakan 3.473 transaksi sukses + 174 catatan refund terdeduplikasi
+  hanya untuk empat perusahaan penelitian pada periode September–Desember 2024.
+- Metode Entropy: K=X/max(X), a=K/sum(K), E, D=1-E, W=D/sum(D).
+- TOPSIS: Rij, Yij, ideal (+/-), jarak Euclidean, preferensi, ranking.
+
+CARA UPDATE INSTALASI SUDAH ADA (XAMPP)
+1. WAJIB: Export database saat ini dari phpMyAdmin sebagai cadangan.
+2. Backup folder C:\xampp\htdocs\AplikasiRemmitance\ (termasuk .env, storage, public/uploads).
+3. Salin/perbarui file PHP aplikasi dari ZIP ini; PERTAHANKAN .env aktif dan file upload milik Anda.
+4. Buka phpMyAdmin -> pilih database `aplikasiremmitance` yang sudah ada -> tab Import.
+5. Impor HANYA: database/UPDATE_DATABASE_ENTROPY_TOPSIS_2024.sql
+   (atau file SQL bernama sama yang dikirim terpisah).
+   Jangan impor AplikasiRemmitance.sql FULL ke database yang sudah aktif.
+6. Pastikan SQL selesai tanpa error; jika error, jangan lanjut sebelum dicari penyebabnya.
+7. Buka modul Analisis -> Hasil Akhir; pastikan hanya ada satu run final.
+8. Buka Data Penilaian untuk melihat C1-C6 yang dihitung otomatis.
+9. Bila Anda mengunggah Excel baru ke aplikasi, sistem akan menghapus run tersimpan lama.
+   Buka Perhitungan -> Simpan Perhitungan untuk membuat run berdasarkan sumber aktif terbaru.
+
+INSTALASI BARU SAJA
+- Buat database `aplikasiremmitance` kosong, kemudian import database/AplikasiRemmitance.sql.
+- Jangan impor SQL patch lagi jika sudah memakai dump penuh yang terbaru.
+
+SUMBER REFERENCE YANG DISERTAKAN DALAM ZIP
+- data_source/OLAH_DATA_REPORT_SUKSES_2024.xlsx
+- data_source/OLAH_DATA_ACTUAL_REFUND_2024.xlsx
+- data_source/PERHITUNGAN_MANUAL_ENTROPY_TOPSIS_2024.xlsx
+- data_source/2024 - REPORT SUKSES.xlsx (arsip sumber mentah)
+- data_source/actual LIST MT199 27.06.xlsx (arsip sumber mentah)
+
+JUMLAH BERDASARKAN SUMBER OLAHAN
+                     P1      P2    Refund P1   Refund P2
+FABLE               1069    1375       71          43
+JURITA               162     417       15          19
+GSB                  172     203       13          11
+KAIROS                32      43        2           0
+TOTAL               1435    2038      101          73
+
+BOBOT ENTROPY (6 DESIMAL)
+C1 0.443079
+C2 0.196102
+C3 0.055691
+C4 0.249139
+C5 0.054239
+C6 0.001750
+
+HASIL TOPSIS (6 DESIMAL)
+1. PT JURITA AGROTAMA INDONESIA   0.999802
+2. PT KAIROS SINERGI INDONESIA    0.182699
+3. PT FABLE TEKNOLOGI NUSANTARA  0.150054
+4. PT GEMA SAPTA BINTANG         0.049516
+
+PERUBAHAN PADA KODE
+- Override nilai penelitian manual dinonaktifkan dan dibersihkan setiap rebuild.
+- Perhitungan otomatis selalu diambil dari sumber aktif.
+- Menyimpan run baru menggantikan semua run SPK sebelumnya.
+- Import Excel baru menghapus hasil run yang tidak sesuai sumber terbaru.
+- Penyimpanan menghitung kembali alih-alih memakai preview sesi yang mungkin sudah usang.
+
+PEMERIKSAAN
+- Gunakan php tools/verify_reference_2024.php untuk memeriksa input olahan dan rumus
+  tanpa menyambungkan ke database (butuh ekstensi php zip/dom untuk membaca XLSX langsung).
+- Jumlah data dan rumus diuji dengan PHP, namun SQL patch belum dijalankan pada MySQL
+  aktif dalam lingkungan pembuatan ini. Verifikasi hasil impor di phpMyAdmin setempat wajib.
+- SQL UPDATE berisi transaksi; WAJIB backup sebelum dijalankan.
