@@ -33,7 +33,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
         editModalOpen: false,
         activeRow: {
             id: 0,
-            order: 0,
+            order: '1',
             payer: '',
             beneficiary: '',
             amount: '',
@@ -51,8 +51,17 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
             document.querySelectorAll('input[name=\'row_ids[]\']').forEach(el => el.checked = checked);
             this.updateCount();
         },
-        openEdit(row) {
-            this.activeRow = row;
+        openEditFromButton(btn) {
+            this.activeRow = {
+                id: parseInt(btn.dataset.rowId, 10) || 0,
+                order: btn.dataset.rowOrder || '1',
+                payer: btn.dataset.rowPayer || '',
+                beneficiary: btn.dataset.rowBeneficiary || '',
+                amount: btn.dataset.rowAmount || '',
+                delivery: btn.dataset.rowDelivery || 'PENDING',
+                result: btn.dataset.rowResult || 'PENDING',
+                notes: btn.dataset.rowNotes || ''
+            };
             this.editModalOpen = true;
         }
      }">
@@ -238,45 +247,76 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                 </thead>
                 <tbody class="divide-y divide-gray-100 text-gray-700">
                 <?php foreach ($rows as $row): ?>
+                    <?php
+                    $rowId = (int) ($row['id'] ?? 0);
+                    $itemNumber = (int) ($row['item_no'] ?: ($row['source_row'] ?? 1));
+                    $teamLabel = (string) ($row['team_label'] ?: $batch['effective_team'] ?: '-');
+                    $trxDate = (string) ($row['transaction_date'] ?? '');
+                    $payerName = (string) ($row['bill_to'] ?? '');
+                    $beneficiaryName = (string) ($row['beneficiary_name'] ?? '');
+                    $beneficiaryAccount = (string) ($row['beneficiary_account'] ?? '');
+                    $beneficiaryBank = (string) ($row['beneficiary_bank'] ?? '');
+                    $bankAddress = (string) ($row['beneficiary_bank_address'] ?? '');
+                    $amountNum = (float) ($row['amount'] ?? 0);
+                    $currencyStr = (string) ($row['currency'] ?: 'IDR');
+                    $amountFormatted = format_money($amountNum, $currencyStr);
+                    $countryStr = (string) ($row['beneficiary_country'] ?? '');
+                    $cityStr = (string) ($row['beneficiary_city'] ?? '');
+                    $beneficiaryAddress = (string) ($row['beneficiary_address'] ?? '');
+                    $swiftCode = (string) ($row['swift'] ?? '');
+                    $paymentDetails = (string) ($row['payment_details'] ?? '');
+                    $invoiceNo = (string) ($row['invoice_no'] ?? '');
+                    $contractNo = (string) ($row['contract_no'] ?? '');
+                    $corrBank = (string) ($row['correspondent_bank'] ?? '');
+                    $corrSwift = (string) ($row['correspondent_swift'] ?? '');
+                    $corrCountry = (string) ($row['correspondent_country'] ?? '');
+                    $bankOfPayer = (string) ($row['bank_of_payer'] ?? '');
+                    $invoiceLink = (string) ($row['invoice_link'] ?? '');
+                    $processingBank = (string) ($row['processing_bank'] ?? '');
+                    $deliveryStatus = (string) ($row['delivery_status'] ?? 'PENDING');
+                    $resultStatus = (string) ($row['result_status'] ?? 'PENDING');
+                    $notesStr = (string) ($row['notes'] ?? '');
+                    $sourceSheet = (string) ($row['source_sheet'] ?? '-');
+                    ?>
                     <tr class="even:bg-gray-50/50">
                         <?php if (can('report.manage')): ?>
                             <td class="py-3 px-3 text-center">
-                                <input type="checkbox" name="row_ids[]" value="<?= (int) $row['id'] ?>" form="bulkStatusForm" @change="updateCount()" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                <input type="checkbox" name="row_ids[]" value="<?= $rowId ?>" form="bulkStatusForm" @change="updateCount()" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
                             </td>
                         <?php endif; ?>
-                        <td class="py-3 px-3 font-semibold text-gray-900 whitespace-nowrap"><?= e((string) ($row['team_label'] ?: $batch['effective_team'] ?: '-')) ?></td>
-                        <td class="py-3 px-3 font-mono text-gray-500"><?= (int) $row['row_order'] ?></td>
-                        <td class="py-3 px-3 whitespace-nowrap"><?= e(format_date((string) ($row['transaction_date'] ?? ''))) ?></td>
-                        <td class="py-3 px-3 font-medium text-gray-900 whitespace-nowrap max-w-xs truncate" title="<?= e((string) ($row['payer_name'] ?? '')) ?>"><?= e((string) ($row['payer_name'] ?? '')) ?></td>
-                        <td class="py-3 px-3 font-medium text-gray-900 whitespace-nowrap max-w-xs truncate" title="<?= e((string) ($row['beneficiary_name'] ?? '')) ?>"><?= e((string) ($row['beneficiary_name'] ?? '')) ?></td>
-                        <td class="py-3 px-3 font-mono text-xs whitespace-nowrap"><?= e((string) ($row['beneficiary_account'] ?? '')) ?></td>
-                        <td class="py-3 px-3 whitespace-nowrap max-w-xs truncate" title="<?= e((string) ($row['beneficiary_bank'] ?? '')) ?>"><?= e((string) ($row['beneficiary_bank'] ?? '')) ?></td>
-                        <td class="py-3 px-3 whitespace-nowrap max-w-xs truncate text-gray-500" title="<?= e((string) ($row['bank_address'] ?? '')) ?>"><?= e((string) ($row['bank_address'] ?? '')) ?></td>
-                        <td class="py-3 px-3 text-right font-mono font-bold text-gray-900 whitespace-nowrap"><?= format_money((float) ($row['amount'] ?? 0), (string) ($row['currency'] ?: 'IDR')) ?></td>
-                        <td class="py-3 px-3 whitespace-nowrap"><?= e((string) ($row['country'] ?? '')) ?></td>
-                        <td class="py-3 px-3 whitespace-nowrap"><?= e((string) ($row['city'] ?? '')) ?></td>
-                        <td class="py-3 px-3 whitespace-nowrap max-w-xs truncate text-gray-500" title="<?= e((string) ($row['beneficiary_address'] ?? '')) ?>"><?= e((string) ($row['beneficiary_address'] ?? '')) ?></td>
-                        <td class="py-3 px-3 font-mono whitespace-nowrap"><?= e((string) ($row['swift_code'] ?? '')) ?></td>
-                        <td class="py-3 px-3 whitespace-nowrap max-w-xs truncate text-gray-500" title="<?= e((string) ($row['payment_details'] ?? '')) ?>"><?= e((string) ($row['payment_details'] ?? '')) ?></td>
-                        <td class="py-3 px-3 font-mono whitespace-nowrap"><?= e((string) ($row['currency'] ?? '')) ?></td>
-                        <td class="py-3 px-3 font-mono whitespace-nowrap"><?= e((string) ($row['invoice_number'] ?? '')) ?></td>
-                        <td class="py-3 px-3 whitespace-nowrap"><?= e((string) ($row['contract_number'] ?? '')) ?></td>
-                        <td class="py-3 px-3 whitespace-nowrap max-w-xs truncate text-gray-500" title="<?= e((string) ($row['correspondent_bank'] ?? '')) ?>"><?= e((string) ($row['correspondent_bank'] ?? '')) ?></td>
-                        <td class="py-3 px-3 font-mono whitespace-nowrap"><?= e((string) ($row['correspondent_swift'] ?? '')) ?></td>
-                        <td class="py-3 px-3 whitespace-nowrap"><?= e((string) ($row['correspondent_country'] ?? '')) ?></td>
-                        <td class="py-3 px-3 whitespace-nowrap"><?= e((string) ($row['bank_of_payer'] ?? '')) ?></td>
+                        <td class="py-3 px-3 font-semibold text-gray-900 whitespace-nowrap"><?= e($teamLabel) ?></td>
+                        <td class="py-3 px-3 font-mono text-gray-500"><?= $itemNumber ?></td>
+                        <td class="py-3 px-3 whitespace-nowrap"><?= e(format_date($trxDate)) ?></td>
+                        <td class="py-3 px-3 font-medium text-gray-900 whitespace-nowrap max-w-xs truncate" title="<?= e($payerName) ?>"><?= e($payerName) ?></td>
+                        <td class="py-3 px-3 font-medium text-gray-900 whitespace-nowrap max-w-xs truncate" title="<?= e($beneficiaryName) ?>"><?= e($beneficiaryName) ?></td>
+                        <td class="py-3 px-3 font-mono text-xs whitespace-nowrap"><?= e($beneficiaryAccount) ?></td>
+                        <td class="py-3 px-3 whitespace-nowrap max-w-xs truncate" title="<?= e($beneficiaryBank) ?>"><?= e($beneficiaryBank) ?></td>
+                        <td class="py-3 px-3 whitespace-nowrap max-w-xs truncate text-gray-500" title="<?= e($bankAddress) ?>"><?= e($bankAddress) ?></td>
+                        <td class="py-3 px-3 text-right font-mono font-bold text-gray-900 whitespace-nowrap"><?= $amountFormatted ?></td>
+                        <td class="py-3 px-3 whitespace-nowrap"><?= e($countryStr) ?></td>
+                        <td class="py-3 px-3 whitespace-nowrap"><?= e($cityStr) ?></td>
+                        <td class="py-3 px-3 whitespace-nowrap max-w-xs truncate text-gray-500" title="<?= e($beneficiaryAddress) ?>"><?= e($beneficiaryAddress) ?></td>
+                        <td class="py-3 px-3 font-mono whitespace-nowrap"><?= e($swiftCode) ?></td>
+                        <td class="py-3 px-3 whitespace-nowrap max-w-xs truncate text-gray-500" title="<?= e($paymentDetails) ?>"><?= e($paymentDetails) ?></td>
+                        <td class="py-3 px-3 font-mono whitespace-nowrap"><?= e($currencyStr) ?></td>
+                        <td class="py-3 px-3 font-mono whitespace-nowrap"><?= e($invoiceNo) ?></td>
+                        <td class="py-3 px-3 whitespace-nowrap"><?= e($contractNo) ?></td>
+                        <td class="py-3 px-3 whitespace-nowrap max-w-xs truncate text-gray-500" title="<?= e($corrBank) ?>"><?= e($corrBank) ?></td>
+                        <td class="py-3 px-3 font-mono whitespace-nowrap"><?= e($corrSwift) ?></td>
+                        <td class="py-3 px-3 whitespace-nowrap"><?= e($corrCountry) ?></td>
+                        <td class="py-3 px-3 whitespace-nowrap"><?= e($bankOfPayer) ?></td>
                         <td class="py-3 px-3 whitespace-nowrap">
-                            <?php if (!empty($row['invoice_link'])): ?>
-                                <a class="text-blue-600 hover:underline inline-flex items-center gap-1" href="<?= e((string) $row['invoice_link']) ?>" target="_blank" rel="noopener">
+                            <?php if ($invoiceLink !== ''): ?>
+                                <a class="text-blue-600 hover:underline inline-flex items-center gap-1" href="<?= e($invoiceLink) ?>" target="_blank" rel="noopener">
                                     <i class="bi bi-box-arrow-up-right"></i> Link
                                 </a>
                             <?php else: ?>
                                 <span class="text-gray-300">-</span>
                             <?php endif; ?>
                         </td>
-                        <td class="py-3 px-3 whitespace-nowrap"><?= e((string) ($row['bank_process'] ?: '-')) ?></td>
+                        <td class="py-3 px-3 whitespace-nowrap"><?= e($processingBank ?: '-') ?></td>
                         <td class="py-3 px-3 whitespace-nowrap">
-                            <?php if ($row['delivery_status'] === 'SENT'): ?>
+                            <?php if ($deliveryStatus === 'SENT'): ?>
                                 <span class="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">
                                     <i class="bi bi-send-check"></i> Terkirim
                                 </span>
@@ -287,11 +327,11 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                             <?php endif; ?>
                         </td>
                         <td class="py-3 px-3 whitespace-nowrap">
-                            <?php if ($row['result_status'] === 'SUCCESS'): ?>
+                            <?php if ($resultStatus === 'SUCCESS'): ?>
                                 <span class="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
                                     <i class="bi bi-check-lg"></i> Sukses
                                 </span>
-                            <?php elseif ($row['result_status'] === 'FAILED'): ?>
+                            <?php elseif ($resultStatus === 'FAILED'): ?>
                                 <span class="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-semibold bg-red-50 text-red-700 border border-red-200">
                                     <i class="bi bi-x-lg"></i> Gagal
                                 </span>
@@ -301,8 +341,8 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                                 </span>
                             <?php endif; ?>
                         </td>
-                        <td class="py-3 px-3 whitespace-nowrap max-w-xs truncate text-gray-500" title="<?= e((string) ($row['notes'] ?? '')) ?>"><?= e((string) ($row['notes'] ?: '-')) ?></td>
-                        <td class="py-3 px-3 text-gray-400 whitespace-nowrap"><?= e((string) ($row['source_sheet'] ?: '-')) ?></td>
+                        <td class="py-3 px-3 whitespace-nowrap max-w-xs truncate text-gray-500" title="<?= e($notesStr) ?>"><?= e($notesStr ?: '-') ?></td>
+                        <td class="py-3 px-3 text-gray-400 whitespace-nowrap"><?= e($sourceSheet) ?></td>
                         
                         <!-- STICKY ACTION COLUMN (ALWAYS PINNED TO THE RIGHT) -->
                         <td class="py-3 px-4 text-right sticky right-0 bg-white z-10 shadow-[-4px_0_10px_rgba(0,0,0,0.04)] whitespace-nowrap">
@@ -316,16 +356,15 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                                 <?php if (can('report.manage')): ?>
                                     <button
                                         type="button"
-                                        @click="openEdit({
-                                            id: <?= (int) $row['id'] ?>,
-                                            order: <?= (int) $row['row_order'] ?>,
-                                            payer: <?= htmlspecialchars(json_encode((string) ($row['payer_name'] ?? '')), ENT_QUOTES, 'UTF-8') ?>,
-                                            beneficiary: <?= htmlspecialchars(json_encode((string) ($row['beneficiary_name'] ?? '')), ENT_QUOTES, 'UTF-8') ?>,
-                                            amount: <?= htmlspecialchars(json_encode(format_money((float) ($row['amount'] ?? 0), (string) ($row['currency'] ?: 'IDR'))), ENT_QUOTES, 'UTF-8') ?>,
-                                            delivery: <?= htmlspecialchars(json_encode((string) ($row['delivery_status'] ?? 'PENDING')), ENT_QUOTES, 'UTF-8') ?>,
-                                            result: <?= htmlspecialchars(json_encode((string) ($row['result_status'] ?? 'PENDING')), ENT_QUOTES, 'UTF-8') ?>,
-                                            notes: <?= htmlspecialchars(json_encode((string) ($row['notes'] ?? '')), ENT_QUOTES, 'UTF-8') ?>
-                                        })"
+                                        data-row-id="<?= $rowId ?>"
+                                        data-row-order="<?= $itemNumber ?>"
+                                        data-row-payer="<?= e($payerName) ?>"
+                                        data-row-beneficiary="<?= e($beneficiaryName) ?>"
+                                        data-row-amount="<?= e($amountFormatted) ?>"
+                                        data-row-delivery="<?= e($deliveryStatus) ?>"
+                                        data-row-result="<?= e($resultStatus) ?>"
+                                        data-row-notes="<?= e($notesStr) ?>"
+                                        @click="openEditFromButton($el)"
                                         class="py-1 px-2.5 text-xs font-semibold rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1 transition-colors"
                                     >
                                         <i class="bi bi-pencil-square text-blue-600"></i>
