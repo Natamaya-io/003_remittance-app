@@ -88,8 +88,7 @@ $iconClass = static function (bool $condition): string {
                     <i class="bi bi-bank2"></i>
                 </div>
                 <div>
-                    <span class="block text-sm font-bold text-gray-900 leading-tight">Fable RemitOps</span>
-                    <span class="block text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Operations &amp; Decision</span>
+                    <span class="block text-base font-bold text-gray-900 leading-tight tracking-tight">Fable RemitOps</span>
                 </div>
             </a>
             <!-- Close Button on Mobile -->

@@ -10,11 +10,7 @@ $batch = is_array($batch ?? null) ? $batch : [];
      ========================================================= -->
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
     <div>
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-amber-50 text-amber-700 tracking-wider uppercase mb-1">
-            CRUD REPORT
-        </span>
         <h2 class="text-2xl font-bold text-gray-900">Edit Metadata Report</h2>
-        <p class="text-sm text-gray-500 mt-0.5">Perubahan ini tidak mengubah isi transaksi di dalam file. Gunakan halaman detail untuk mengubah status setiap baris.</p>
     </div>
     <div>
         <a class="inline-flex items-center gap-2 py-2 px-3.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-sm hover:bg-gray-50" href="<?= url('/reports/' . $batch['id']) ?>">

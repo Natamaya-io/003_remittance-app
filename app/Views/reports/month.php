@@ -32,11 +32,7 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
      ========================================================= -->
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
     <div>
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-blue-50 text-blue-700 tracking-wider uppercase mb-1">
-            TINGKAT TANGGAL
-        </span>
         <h2 class="text-2xl font-bold text-gray-900">Report <?= e($monthLabel) ?></h2>
-        <p class="text-sm text-gray-500 mt-0.5">Daftar hari transaksi aktif dalam periode bulan terpilih.</p>
     </div>
 
     <div class="flex items-center gap-2">

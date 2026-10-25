@@ -2063,9 +2063,9 @@ td[data-key="payer_country"] .payer-master-select {
      *
      * Tidak ada lagi:
      *
-     * 050201 — PT FABLE
-     * JAKARTA — 050201
-     * INDONESIA — 050201
+     * 050201 - PT FABLE
+     * JAKARTA - 050201
+     * INDONESIA - 050201
      *
      * Masing masing hanya menampilkan isi kolomnya.
      */

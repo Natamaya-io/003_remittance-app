@@ -734,18 +734,9 @@ if ($updatedAt !== '') {
 
             <!-- TITLE -->
 
-            <span class="login-label">
-                SECURE WORKSPACE
-            </span>
-
             <h2>
-                Selamat datang :)
+                Masuk
             </h2>
-
-            <p class="login-intro">
-                Masuk menggunakan username atau email
-                dan password akun yang telah terdaftar.
-            </p>
 
             <!-- =================================================
                  FORM

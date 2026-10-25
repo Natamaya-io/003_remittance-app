@@ -14,11 +14,7 @@ $queryText = (string) ($filters['q'] ?? '');
      ========================================================= -->
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
     <div>
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-blue-50 text-blue-700 tracking-wider uppercase mb-1">
-            PENCARIAN GLOBAL
-        </span>
         <h2 class="text-2xl font-bold text-gray-900">Hasil Pencarian Report</h2>
-        <p class="text-sm text-gray-500 mt-0.5">Pencarian dijalankan pada seluruh bulan, tanggal, tim, metadata file, dan isi transaksi.</p>
     </div>
     <a class="py-2 px-3.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-sm inline-flex items-center gap-2" href="<?= url('/reports') ?>">
         <i class="bi bi-arrow-left"></i>

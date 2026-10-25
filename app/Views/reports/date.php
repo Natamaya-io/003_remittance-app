@@ -33,11 +33,7 @@ $returnPath = '/reports/date/' . $date;
      ========================================================= -->
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
     <div>
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-blue-50 text-blue-700 tracking-wider uppercase mb-1">
-            TINGKAT TIM DAN REPORT
-        </span>
         <h2 class="text-2xl font-bold text-gray-900"><?= e($dateLabel) ?></h2>
-        <p class="text-sm text-gray-500 mt-0.5">Daftar berkas report batch per tim transaksi pada tanggal terpilih.</p>
     </div>
 
     <div class="flex flex-wrap items-center gap-2">
