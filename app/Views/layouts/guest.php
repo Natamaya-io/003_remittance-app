@@ -120,6 +120,19 @@ $flashes = Flash::all();
         b, strong, .font-bold {
             font-weight: 600 !important;
         }
+        .btn, .btn-primary, button, a, [role="button"], .card {
+            transform: none !important;
+        }
+        .btn:hover, .btn-primary:hover, button:hover, a:hover,
+        .btn:active, .btn-primary:active, button:active, a:active {
+            transform: none !important;
+        }
+        .btn-primary {
+            background-image: none !important;
+            background: #1f6bf0 !important;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08) !important;
+            text-shadow: none !important;
+        }
     </style>
 </head>
 

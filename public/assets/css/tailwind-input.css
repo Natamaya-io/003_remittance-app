@@ -60,6 +60,19 @@
   b, strong, .font-bold {
     font-weight: 600;
   }
+
+  /* =========================================================
+     HUKUM BEBAS TRANSFORM (STATE HOVER/FOCUS/ACTIVE STATIS)
+     ========================================================= */
+  .btn, .btn-primary, button, a, [role="button"], .card, .panel, .badge {
+    transform: none !important;
+  }
+
+  .btn:hover, .btn-primary:hover, button:hover, a:hover, [role="button"]:hover,
+  .btn:active, .btn-primary:active, button:active, a:active, [role="button"]:active,
+  .btn:focus, .btn-primary:focus, button:focus, a:focus, [role="button"]:focus {
+    transform: none !important;
+  }
 }
 
 @layer components {
@@ -85,28 +98,26 @@
     font-weight: 600;
     line-height: 1;
     color: var(--_text);
-    background: linear-gradient(180deg, var(--_from) 0%, var(--_to) 100%);
+    background: var(--_to, #1f6bf0);
     border: 1px solid var(--_border);
     border-radius: 9px;
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.32),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.16),
-      0 1px 2px rgba(0, 0, 0, 0.55);
-    text-shadow: var(--_text-shadow);
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      0 1px 2px rgba(0, 0, 0, 0.12);
+    text-shadow: none;
     cursor: pointer;
     user-select: none;
-    transition: filter 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+    transition: background-color 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
     text-decoration: none;
   }
 
   .btn-primary:hover {
-    filter: brightness(1.1);
+    filter: brightness(1.08);
   }
 
   .btn-primary:active {
-    transform: translateY(1px);
     filter: brightness(0.95);
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
   }
 
   .btn-primary:focus-visible {

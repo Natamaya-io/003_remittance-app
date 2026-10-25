@@ -1,25 +1,30 @@
 
 /* CLEAN GLOBAL THEME */
-:root{
- --primary:#8b5cf6;
- --secondary:#ec4899;
- --background:#fff7fc;
- --text:#51365f;
+:root {
+  --primary: #1f6bf0;
+  --secondary: #1553c7;
+  --background: #f8fafc;
+  --text: #1e293b;
 }
-body{background:var(--background)!important;color:var(--text)!important;}
-button,.button,.btn,input[type=submit]{
- background:linear-gradient(135deg,var(--primary),var(--secondary))!important;
- color:white!important;
- border:none!important;
+body { background: var(--background) !important; color: var(--text) !important; }
+button, .button, .btn, input[type=submit] {
+  background: var(--primary) !important;
+  color: white !important;
+  border: none !important;
+  transform: none !important;
 }
-.card,.panel{
- background:#fff!important;
- border-color:#eadcf0!important;
+button:hover, .button:hover, .btn:hover, button:active, .btn:active {
+  transform: none !important;
 }
-input,select,textarea{
- border-color:#dfcbea!important;
+.card, .panel {
+  background: #fff !important;
+  border-color: #e2e8f0 !important;
+  transform: none !important;
 }
-table th{
- background:linear-gradient(135deg,#f0ddff,#ffe4f0)!important;
- color:#624276!important;
+input, select, textarea {
+  border-color: #cbd5e1 !important;
+}
+table th {
+  background: #f1f5f9 !important;
+  color: #334155 !important;
 }

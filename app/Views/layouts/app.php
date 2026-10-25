@@ -4666,6 +4666,120 @@ $flashes = Flash::all();
         }
 
 
+        /* =========================================================
+           HUKUM SOLID COLOR & BEBAS TRANSFORM MUTLAK (ANTISLOP)
+           ========================================================= */
+
+        /* 1. Hilangkan seluruh gradien latar belakang ke warna solid */
+        body.app-body,
+        .app-main,
+        .content-wrap {
+            background-image: none !important;
+            background: #f8fafc !important;
+        }
+
+        .sidebar {
+            background-image: none !important;
+            background: #1e152a !important;
+        }
+
+        .brand-mark {
+            background-image: none !important;
+            background: #1f6bf0 !important;
+        }
+
+        .avatar-sm,
+        .avatar-initial {
+            background-image: none !important;
+            background: #2563eb !important;
+        }
+
+        .nav-item.active {
+            background-image: none !important;
+            background: #1f6bf0 !important;
+        }
+
+        .btn-primary,
+        .btn.btn-primary,
+        button.btn-primary,
+        a.btn-primary {
+            background-image: none !important;
+            background: var(--btn-primary-base, #1f6bf0) !important;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08) !important;
+            text-shadow: none !important;
+        }
+
+        .btn-success,
+        .btn.btn-success {
+            background-image: none !important;
+            background: #16a34a !important;
+        }
+
+        .btn-danger,
+        .btn.btn-danger {
+            background-image: none !important;
+            background: #dc2626 !important;
+        }
+
+        .btn-warning,
+        .btn.btn-warning {
+            background-image: none !important;
+            background: #d97706 !important;
+        }
+
+        .dashboard-hero,
+        .fx-idr-panel,
+        .login-visual {
+            background-image: none !important;
+            background: #0f172a !important;
+        }
+
+        .report-progress > span,
+        .progress-bar {
+            background-image: none !important;
+            background: #2563eb !important;
+        }
+
+        /* 2. Pemusnahan Transform pada Seluruh Interaksi (Bebas Transform Mutlak) */
+        *, *::before, *::after {
+            --tw-translate-x: 0;
+            --tw-translate-y: 0;
+            --tw-scale-x: 1;
+            --tw-scale-y: 1;
+        }
+
+        .btn,
+        .btn-primary,
+        button,
+        a,
+        [role="button"],
+        .card,
+        .nav-item,
+        .dropdown-item,
+        .badge {
+            transform: none !important;
+        }
+
+        .btn:hover,
+        .btn-primary:hover,
+        button:hover,
+        a:hover,
+        [role="button"]:hover,
+        .btn:active,
+        .btn-primary:active,
+        button:active,
+        a:active,
+        [role="button"]:active,
+        .btn:focus,
+        .btn-primary:focus,
+        button:focus,
+        a:focus,
+        [role="button"]:focus,
+        .nav-item:hover,
+        .card:hover {
+            transform: none !important;
+        }
+
         /* Sidebar and Shell layout handled natively by Preline UI */
 
         /* =================================================

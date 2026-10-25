@@ -112,7 +112,7 @@ $initial = strtoupper(
                     aria-expanded="false"
                     aria-label="User menu"
                 >
-                    <div class="size-7 rounded-lg bg-gradient-to-tr from-blue-700 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                    <div class="size-7 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
                         <?= e($initial) ?>
                     </div>
                     <span class="text-gray-700 text-xs font-semibold max-w-[130px] truncate hidden md:inline-block">

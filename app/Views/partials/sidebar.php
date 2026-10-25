@@ -84,7 +84,7 @@ $iconClass = static function (bool $condition): string {
         <!-- Brand Header -->
         <div class="px-5 py-4 flex items-center justify-between border-b border-gray-200/80">
             <a class="flex items-center gap-x-3 text-gray-900 no-underline focus:outline-none" href="<?= url('/') ?>">
-                <div class="size-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-base shadow-sm">
+                <div class="size-9 rounded-xl bg-blue-600 flex items-center justify-center text-white text-base shadow-sm">
                     <i class="bi bi-bank2"></i>
                 </div>
                 <div>
@@ -240,7 +240,7 @@ $iconClass = static function (bool $condition): string {
     <!-- User Profile Pill Footer -->
     <div class="p-3 border-t border-gray-200/80 bg-gray-50/60">
         <div class="flex items-center gap-x-3 p-2 rounded-xl bg-white border border-gray-200 shadow-xs">
-            <div class="size-8 rounded-lg bg-gradient-to-tr from-blue-700 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+            <div class="size-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
                 <?= e($userInitial) ?>
             </div>
             <div class="min-w-0 flex-1">

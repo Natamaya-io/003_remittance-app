@@ -398,12 +398,12 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
     <?php if (can('report.manage')): ?>
         <div
             x-show="selectedCount > 0"
-            x-transition:enter="transition ease-out duration-300 transform"
-            x-transition:enter-start="translate-y-8 opacity-0"
-            x-transition:enter-end="translate-y-0 opacity-100"
-            x-transition:leave="transition ease-in duration-200 transform"
-            x-transition:leave-start="translate-y-0 opacity-100"
-            x-transition:leave-end="translate-y-8 opacity-0"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
             class="fixed bottom-6 inset-x-0 z-40 max-w-2xl mx-auto px-4 pointer-events-none"
             style="display: none;"
         >
