@@ -83,13 +83,9 @@ $iconClass = static function (bool $condition): string {
     <div>
         <!-- Brand Header -->
         <div class="px-5 py-4 flex items-center justify-between border-b border-gray-200/80">
-            <a class="flex items-center gap-x-3 text-gray-900 no-underline focus:outline-none" href="<?= url('/') ?>">
-                <div class="size-9 rounded-xl bg-blue-600 flex items-center justify-center text-white text-base shadow-sm">
-                    <i class="bi bi-bank2"></i>
-                </div>
-                <div>
-                    <span class="block text-base font-bold text-gray-900 leading-tight tracking-tight">Fable RemitOps</span>
-                </div>
+            <a class="flex items-center gap-x-2.5 text-gray-900 no-underline focus:outline-none" href="<?= url('/') ?>">
+                <i class="bi bi-bank2 text-2xl text-blue-600"></i>
+                <span class="text-base font-bold text-gray-900 leading-tight tracking-tight">Fable RemitOps</span>
             </a>
             <!-- Close Button on Mobile -->
             <button
