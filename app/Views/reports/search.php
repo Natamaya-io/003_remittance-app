@@ -34,19 +34,10 @@ $queryText = (string) ($filters['q'] ?? '');
         <form class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" method="get" action="<?= e(url('/reports/search')) ?>">
             <div class="sm:col-span-2 lg:col-span-4">
                 <label class="block text-xs font-semibold text-gray-700 mb-1.5">Kata kunci pencarian *</label>
-                <div class="relative">
-                    <input
-                        class="py-2.5 px-4 ps-10 block w-full border border-gray-300 rounded-xl text-xs sm:text-sm focus:border-blue-500 focus:ring-blue-500 shadow-xs"
-                        type="search"
-                        name="q"
-                        required
-                        value="<?= e($queryText) ?>"
-                        placeholder="Cari tim, nama berkas, payer, beneficiary, bank, invoice, SWIFT..."
-                    >
-                    <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3.5 text-gray-400">
-                        <i class="bi bi-search text-xs sm:text-sm"></i>
-                    </div>
-                </div>
+                <?= render_search_input('q', $queryText, [
+                    'placeholder' => 'Cari tim, nama berkas, payer, beneficiary, bank, invoice, SWIFT...',
+                    'required' => true,
+                ]) ?>
             </div>
 
             <div>

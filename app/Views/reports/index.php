@@ -49,20 +49,11 @@ $activeAdvancedFilters = array_filter(
             </div>
 
             <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 flex-1 max-w-xl">
-                <div class="relative flex-1 min-w-[200px]">
-                    <input
-                        class="py-2 px-3 ps-9 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs"
-                        type="search"
-                        name="q"
-                        required
-                        autocomplete="off"
-                        placeholder="Ketik kata kunci pencarian..."
-                        value="<?= e((string) ($filters['q'] ?? '')) ?>"
-                    >
-                    <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3 text-gray-400">
-                        <i class="bi bi-search text-xs"></i>
-                    </div>
-                </div>
+                <?= render_search_input('q', (string) ($filters['q'] ?? ''), [
+                    'placeholder' => 'Ketik kata kunci pencarian...',
+                    'required' => true,
+                    'wrapperClass' => 'flex-1 min-w-[200px]',
+                ]) ?>
 
                 <button class="btn btn-primary py-2 px-3.5 inline-flex items-center justify-center gap-x-1.5 text-xs font-semibold rounded-lg shrink-0 focus:outline-none" type="submit">
                     <i class="bi bi-search"></i>

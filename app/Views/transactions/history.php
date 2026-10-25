@@ -151,22 +151,12 @@ $filters = array_replace(
             class="trx-filter-grid"
         >
 
-            <label class="trx-search-field">
-
-                <span>
-                    Pencarian
-                </span>
-
-                <input
-                    class="form-control"
-                    name="q"
-                    value="<?= e(
-                        (string) $filters['q']
-                    ) ?>"
-                    placeholder="Referensi, invoice, beneficiary, SWIFT, rekening..."
-                >
-
-            </label>
+            <div class="trx-search-field">
+                <span class="block text-xs font-semibold text-gray-700 mb-1">Pencarian</span>
+                <?= render_search_input('q', (string) ($filters['q'] ?? ''), [
+                    'placeholder' => 'Referensi, invoice, beneficiary, SWIFT, rekening...',
+                ]) ?>
+            </div>
 
 
             <label>

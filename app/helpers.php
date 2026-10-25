@@ -381,3 +381,80 @@ function render_datepicker(string $name, string $value = '', array $options = []
     <?php
     return (string) ob_get_clean();
 }
+
+/**
+ * Render Custom Asphalt/Tailwind Search Bar Component (Alpine.js driven)
+ * Completely eliminates browser-native search pseudo-elements and styles.
+ *
+ * @param string $name Form field name (default 'q')
+ * @param string $value Current search query
+ * @param array{
+ *   placeholder?: string,
+ *   required?: bool,
+ *   autofocus?: bool,
+ *   size?: 'md'|'sm'|'pill',
+ *   wrapperClass?: string,
+ *   inputClass?: string,
+ *   id?: string,
+ *   showKbd?: bool,
+ *   clearable?: bool
+ * } $options
+ */
+function render_search_input(string $name = 'q', string $value = '', array $options = []): string
+{
+    $placeholder = (string) ($options['placeholder'] ?? 'Ketik kata kunci pencarian...');
+    $required = !empty($options['required']);
+    $autofocus = !empty($options['autofocus']);
+    $size = (string) ($options['size'] ?? 'md');
+    $wrapperClass = (string) ($options['wrapperClass'] ?? '');
+    $inputClass = (string) ($options['inputClass'] ?? '');
+    $id = (string) ($options['id'] ?? ('search_' . preg_replace('/[^a-zA-Z0-9_]/', '_', $name) . '_' . bin2hex(random_bytes(2))));
+    $showKbd = array_key_exists('showKbd', $options) ? (bool) $options['showKbd'] : true;
+    $clearable = array_key_exists('clearable', $options) ? (bool) $options['clearable'] : true;
+
+    $sizeClass = match ($size) {
+        'sm' => 'custom-search-input-sm',
+        'pill' => 'custom-search-input-pill',
+        default => '',
+    };
+
+    ob_start();
+    ?>
+    <div class="custom-search-bar <?= e($wrapperClass) ?>" x-data="{ query: '<?= addslashes(e($value)) ?>' }">
+        <span class="search-leading-icon" aria-hidden="true">
+            <i class="bi bi-search"></i>
+        </span>
+        <input
+            x-ref="searchInput"
+            x-model="query"
+            type="search"
+            name="<?= e($name) ?>"
+            id="<?= e($id) ?>"
+            class="custom-search-input <?= e($sizeClass) ?> <?= e($inputClass) ?>"
+            placeholder="<?= e($placeholder) ?>"
+            value="<?= e($value) ?>"
+            autocomplete="off"
+            <?= $required ? 'required' : '' ?>
+            <?= $autofocus ? 'autofocus' : '' ?>
+        >
+        <?php if ($clearable): ?>
+            <button
+                type="button"
+                x-show="query && query.length > 0"
+                x-cloak
+                @click="query = ''; $refs.searchInput.value = ''; $refs.searchInput.focus(); $refs.searchInput.dispatchEvent(new Event('input'))"
+                class="search-clear-btn"
+                aria-label="Hapus kata kunci pencarian"
+                title="Hapus pencarian"
+            >
+                <i class="bi bi-x-circle-fill text-xs leading-none"></i>
+            </button>
+        <?php endif; ?>
+        <?php if ($showKbd): ?>
+            <kbd x-show="!query || query.length === 0" class="search-kbd-hint" aria-hidden="true">/</kbd>
+        <?php endif; ?>
+    </div>
+    <?php
+    return (string) ob_get_clean();
+}
+

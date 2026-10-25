@@ -313,25 +313,10 @@ $filters = array_replace(
 
             <label class="payer-filter-search">
 
-                <span>
-                    Pencarian
-                </span>
-
-                <div class="payer-input-icon">
-
-                    <i class="bi bi-search"></i>
-
-                    <input
-                        class="form-control"
-                        type="text"
-                        name="q"
-                        value="<?= e(
-                            (string) $filters['q']
-                        ) ?>"
-                        placeholder="Nomor rekening, bank, perusahaan, SWIFT..."
-                    >
-
-                </div>
+                <span class="block text-xs font-semibold text-gray-700 mb-1">Pencarian</span>
+                <?= render_search_input('q', (string) ($filters['q'] ?? ''), [
+                    'placeholder' => 'Nomor rekening, bank, perusahaan, SWIFT...',
+                ]) ?>
 
             </label>
 

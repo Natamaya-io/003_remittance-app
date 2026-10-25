@@ -401,6 +401,161 @@
   }
 
   /* =========================================================
+     GLOBAL CUSTOM UI: SEARCH BAR (ANTI-NATIVE BROWSER SEARCH)
+     ========================================================= */
+
+  /* Reset WebKit/Blink Browser-Native Pseudo-Elements */
+  input[type="search"]::-webkit-search-cancel-button,
+  input[type="search"]::-webkit-search-decoration,
+  input[type="search"]::-webkit-search-results-button,
+  input[type="search"]::-webkit-search-results-decoration {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    display: none !important;
+  }
+
+  /* Reset Native Styling on Search Inputs */
+  input[type="search"],
+  .form-search,
+  .search-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+  }
+
+  /* Custom Search Bar Root / Wrapper */
+  .custom-search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    transform: none !important;
+  }
+
+  /* Custom Search Bar Input */
+  .custom-search-input {
+    display: block;
+    width: 100%;
+    height: 40px;
+    padding: 8px 40px 8px 38px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #111827;
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+    transform: none !important;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .custom-search-input::placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+  }
+
+  .custom-search-input:hover {
+    border-color: #9ca3af;
+  }
+
+  .custom-search-input:focus {
+    outline: none;
+    border-color: #1f6bf0;
+    box-shadow: 0 0 0 3px rgba(31, 107, 240, 0.15);
+    background-color: #ffffff;
+  }
+
+  /* Compact Variant (e.g. for toolbars) */
+  .custom-search-input.sm,
+  .custom-search-input-sm {
+    height: 36px;
+    padding: 6px 36px 6px 34px;
+    font-size: 12.5px;
+    border-radius: 10px;
+  }
+
+  /* Pill / Capsule Variant */
+  .custom-search-input.pill,
+  .custom-search-input-pill {
+    border-radius: 9999px;
+    padding-inline-start: 42px;
+    padding-inline-end: 42px;
+  }
+
+  /* Leading Search Icon */
+  .search-leading-icon {
+    position: absolute;
+    inset-inline-start: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    color: #9ca3af;
+    font-size: 14px;
+    transition: color 0.15s ease;
+    z-index: 2;
+  }
+
+  .custom-search-bar:focus-within .search-leading-icon {
+    color: #1f6bf0;
+  }
+
+  /* Trailing Clear Button (Interactive X) */
+  .search-clear-btn {
+    position: absolute;
+    inset-inline-end: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    border-radius: 9999px;
+    color: #9ca3af;
+    cursor: pointer;
+    transition: color 0.15s ease, background-color 0.15s ease;
+    z-index: 3;
+  }
+
+  .search-clear-btn:hover {
+    color: #ef4444;
+    background-color: #fee2e2;
+  }
+
+  .search-clear-btn:focus-visible {
+    outline: 2px solid #1f6bf0;
+    outline-offset: 1px;
+  }
+
+  /* Trailing Keyboard Shortcut Pill (KBD) */
+  .search-kbd-hint {
+    position: absolute;
+    inset-inline-end: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    min-width: 20px;
+    padding: 0 5px;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
+    background-color: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* =========================================================
      GLOBAL CUSTOM UI: SELECT & COMBOBOX (ANTI-NATIVE DROPDOWN)
      ========================================================= */
   select,

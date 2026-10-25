@@ -28,6 +28,21 @@
 
   /* data-confirm handled globally by custom-dialogs.js */
 
+  /* Global keyboard shortcut '/' to focus custom search input */
+  document.addEventListener('keydown', (event) => {
+    if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey) {
+      const activeEl = document.activeElement;
+      if (activeEl && ['INPUT', 'TEXTAREA', 'SELECT'].includes(activeEl.tagName)) return;
+      if (activeEl?.isContentEditable) return;
+      const searchInput = qs('.custom-search-input');
+      if (searchInput) {
+        event.preventDefault();
+        searchInput.focus();
+        searchInput.select?.();
+      }
+    }
+  });
+
   qsa('.password-toggle').forEach((button) => {
     button.addEventListener('click', () => {
       const input = document.getElementById(button.dataset.target || '');

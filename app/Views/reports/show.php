@@ -219,18 +219,9 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
             <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
                 <div class="md:col-span-2">
                     <label class="block text-xs font-semibold text-gray-700 mb-1">Cari transaksi dalam report ini</label>
-                    <div class="relative">
-                        <input
-                            class="py-2 px-3 ps-9 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs"
-                            type="search"
-                            name="q"
-                            placeholder="Cari payer, beneficiary, bank, invoice, SWIFT, akun..."
-                            value="<?= e($queryText) ?>"
-                        >
-                        <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3 text-gray-400">
-                            <i class="bi bi-search text-xs"></i>
-                        </div>
-                    </div>
+                    <?= render_search_input('q', $queryText, [
+                        'placeholder' => 'Cari payer, beneficiary, bank, invoice, SWIFT, akun...',
+                    ]) ?>
                 </div>
 
                 <div x-data="{

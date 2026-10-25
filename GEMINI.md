@@ -279,7 +279,76 @@ Setiap halaman di dalam aplikasi remittance beroperasi di bawah prinsip **Naked 
 
 ---
 
-## 6. Protokol Keamanan, Git & Kompilasi Aset
+## 6. Aturan Terkunci: Sistem Search Bar Kustom Global (Anti-Native Search Bar Law)
+
+Penggunaan input pencarian dengan gaya bawaan browser memicu tombol batal (cancel 'x') abu-abu native WebKit/Blink, outline kaku, dan sudut yang tidak seragam lintas perangkat. Oleh karena itu, seluruh komponen pencarian di RemitGo! **MUTLAK WAJIB** menggunakan sistem Search Bar Kustom non-native berbasis Alpine.js dan TailwindCSS.
+
+### 6.1. Pemusnahan Gaya Bawaan Browser (Anti-Native Search Reset)
+Seluruh pseudo-element native browser pada input pencarian diharamkan secara mutlak:
+```css
+/* Pemusnahan Cancel Button Abu-Abu & Dekorasi Native WebKit/Blink */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  display: none !important;
+}
+
+/* Reset Tampilan Native */
+input[type="search"],
+.form-search,
+.search-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+}
+```
+
+### 6.2. Anatomi 4 Lapisan Search Bar Kustom
+1. **Container Wrapper (`.custom-search-bar`):**
+   - Wadah `relative flex items-center w-full`. Bebas translasi dan scale.
+   - Menggunakan state Alpine `x-data="{ query: '...' }"`.
+2. **Leading Search Icon (`.search-leading-icon`):**
+   - Ikon pencarian `<i class="bi bi-search"></i>` terletak presisi di sisi kiri (`left: 12px` / `ps-3.5`).
+   - Warna default `#9ca3af` (`gray-400`), otomatis berubah menjadi warna brand `#1f6bf0` saat input aktif (`.custom-search-bar:focus-within .search-leading-icon`).
+3. **Input Pencarian Kustom (`.custom-search-input`):**
+   - Geometri: Tinggi 40px (atau 36px untuk `.custom-search-input-sm`), padding horizontal `8px 40px 8px 38px`.
+   - Radius: Membulat halus 12px (`rounded-xl` / `.rounded-2xl`) atau opsi kapsul (`.custom-search-input-pill`).
+   - Warna & Border: Background solid `#ffffff`, border solid 1px `#d1d5db`, teks `#111827`, placeholder `#9ca3af`.
+   - Focus Ring: `border-color: #1f6bf0; box-shadow: 0 0 0 3px rgba(31, 107, 240, 0.15);`.
+   - Zero-Transform: Bebas dari efek bounce, translateY, atau zoom.
+4. **Interactive Clear Button (`.search-clear-btn`):**
+   - Tombol hapus kustom berbentuk lingkaran halus 22px dengan ikon `<i class="bi bi-x-circle-fill"></i>`.
+   - Muncul HANYA ketika input memiliki nilai (`x-show="query && query.length > 0" x-cloak`).
+   - Saat ditekan: mengosongkan input seketika (`query = ''; $refs.searchInput.value = ''`), memicu event `input`, dan mengembalikan fokus kursor tanpa me-reload halaman.
+5. **Keyboard Shortcut Hint (`.search-kbd-hint`):**
+   - Hint tombol `<kbd>/</kbd>` yang halus muncul di sisi kanan saat input kosong.
+   - Menekan tombol `/` pada keyboard (di luar input/textarea aktif) otomatis memindahkan fokus kursor ke search bar aktif.
+
+### 6.3. Penggunaan via Helper PHP Resmi
+Setiap view yang membutuhkan input pencarian **MUTLAK WAJIB** menggunakan helper `render_search_input()` di `app/helpers.php`:
+```php
+<!-- Standar Pencarian Form -->
+<?= render_search_input('q', (string) ($filters['q'] ?? ''), [
+    'placeholder'  => 'Ketik kata kunci pencarian...',
+    'required'     => true,
+    'wrapperClass' => 'flex-1 min-w-[200px]',
+]) ?>
+
+<!-- Compact Toolbar Variant -->
+<?= render_search_input('q', (string) $q, [
+    'placeholder'  => 'Cari perusahaan...',
+    'size'         => 'sm',
+    'wrapperClass' => 'w-64',
+]) ?>
+```
+
+---
+
+## 7. Protokol Keamanan, Git & Kompilasi Aset
 
 1. **Kompilasi Aset Tailwind:**
    - Setelah mengedit kelas styling di `public/assets/css/tailwind-input.css`, WAJIB menjalankan:
