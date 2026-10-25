@@ -21,6 +21,7 @@ final class Router
     public function dispatch(): void
     {
         $method = strtoupper($_POST['_method'] ?? $_SERVER['REQUEST_METHOD'] ?? 'GET');
+        $matchMethod = $method === 'HEAD' ? 'GET' : $method;
         $requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
         $basePath = parse_url((string) App::config('app.url'), PHP_URL_PATH) ?: '';
         if ($basePath !== '' && str_starts_with($requestPath, $basePath)) {
@@ -36,7 +37,7 @@ final class Router
         }
 
         foreach ($this->routes as $route) {
-            if ($route['method'] !== $method) {
+            if ($route['method'] !== $matchMethod) {
                 continue;
             }
             $pattern = preg_replace('#\{([a-zA-Z_][a-zA-Z0-9_]*)\}#', '(?P<$1>[^/]+)', $route['path']);
