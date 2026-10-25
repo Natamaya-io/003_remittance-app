@@ -5195,31 +5195,41 @@ $flashes = Flash::all();
                 <?php
                 $flashType = trim((string) ($flash['type'] ?? 'info'));
                 $flashMessage = trim((string) ($flash['message'] ?? ''));
-                $alertColor = match($flashType) {
-                    'success' => 'bg-emerald-50 border-emerald-200 text-emerald-800',
-                    'danger', 'error' => 'bg-red-50 border-red-200 text-red-800',
-                    'warning' => 'bg-amber-50 border-amber-200 text-amber-800',
-                    default => 'bg-blue-50 border-blue-200 text-blue-800',
+                $alertClass = match($flashType) {
+                    'success' => 'alert-success',
+                    'danger', 'error' => 'alert-danger',
+                    'warning' => 'alert-warning',
+                    default => 'alert-info',
+                };
+                $alertIcon = match($flashType) {
+                    'success' => 'bi-check-circle-fill',
+                    'danger', 'error' => 'bi-x-circle-fill',
+                    'warning' => 'bi-exclamation-triangle-fill',
+                    default => 'bi-info-circle-fill',
                 };
                 ?>
 
                 <?php if ($flashMessage !== ''): ?>
                     <div
-                        class="flex items-center justify-between p-4 rounded-xl border text-sm <?= $alertColor ?> shadow-xs"
+                        class="alert <?= $alertClass ?> mb-4"
                         role="alert"
                         x-data="{ show: true }"
                         x-show="show"
-                        x-transition:leave="transition ease-in duration-200"
-                        x-transition:leave-start="opacity-100 scale-100"
-                        x-transition:leave-end="opacity-0 scale-95"
+                        x-transition:leave="transition ease-in duration-150"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
                     >
-                        <div class="flex items-center gap-x-2.5">
-                            <i class="bi bi-info-circle-fill text-base"></i>
-                            <span><?= e($flashMessage) ?></span>
+                        <div class="alert-content">
+                            <span class="alert-icon">
+                                <i class="bi <?= $alertIcon ?>"></i>
+                            </span>
+                            <div class="alert-body">
+                                <div class="alert-message"><?= e($flashMessage) ?></div>
+                            </div>
                         </div>
 
                         <button
-                            class="inline-flex rounded-lg p-1.5 hover:bg-black/5 focus:outline-none transition-colors"
+                            class="alert-close"
                             type="button"
                             @click="show = false"
                             aria-label="Tutup notifikasi"
