@@ -5003,7 +5003,6 @@ $flashes = Flash::all();
     >
 
     <link rel="stylesheet" href="<?= e(asset('css/invoice-hub.css?v=1.0.0')) ?>">
-    <link rel="stylesheet" href="<?= e(asset('css/theme-clean-global.css')) ?>">
 </head>
 
 

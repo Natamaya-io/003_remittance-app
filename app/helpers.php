@@ -193,36 +193,36 @@ function checked(
 function status_badge(
     string $status
 ): string {
-    $normalized = strtolower($status);
+    $normalized = strtolower(trim($status));
 
-    $class = match (true) {
+    $colorClasses = match (true) {
         str_contains($normalized, 'success'),
         str_contains($normalized, 'sukses'),
         $normalized === 'paid',
         $normalized === 'resolved',
         $normalized === 'sent',
         $normalized === 'terkirim'
-            => 'success',
+            => 'bg-emerald-50 text-emerald-700 border-emerald-200',
 
         str_contains($normalized, 'pending'),
         $normalized === 'open',
         $normalized === 'draft',
         $normalized === 'in_progress'
-            => 'warning',
+            => 'bg-amber-50 text-amber-700 border-amber-200',
 
         str_contains($normalized, 'refund'),
         str_contains($normalized, 'reject'),
         $normalized === 'overdue',
         $normalized === 'cancelled',
         $normalized === 'failed'
-            => 'danger',
+            => 'bg-red-50 text-red-700 border-red-200',
 
         default
-            => 'secondary',
+            => 'bg-gray-100 text-gray-700 border-gray-200',
     };
 
-    return '<span class="badge text-bg-' .
-        $class .
+    return '<span class="inline-flex items-center gap-1 py-0.5 px-2.5 rounded-full text-[11px] font-semibold border ' .
+        $colorClasses .
         '">' .
         e(
             strtoupper(

@@ -103,9 +103,21 @@ $defaultReportName = 'REPORT HARIAN - ' . ($monthNames[$monthNumber] ?? strtoupp
                                 </div>
                             </template>
                             <template x-if="fileName">
-                                <div class="bg-blue-50 border border-blue-200 rounded-xl py-2 px-4 inline-flex items-center gap-2">
-                                    <i class="bi bi-file-earmark-spreadsheet text-blue-600 text-lg"></i>
-                                    <span class="text-xs font-bold text-blue-800" x-text="fileName"></span>
+                                <div class="space-y-3 pointer-events-auto">
+                                    <div class="bg-blue-50 border border-blue-200 rounded-xl py-2 px-4 inline-flex items-center gap-2 shadow-xs">
+                                        <i class="bi bi-file-earmark-spreadsheet text-blue-600 text-lg"></i>
+                                        <span class="text-xs font-bold text-blue-800" x-text="fileName"></span>
+                                    </div>
+                                    <div>
+                                        <button
+                                            type="button"
+                                            @click.stop="$refs.fileInput.value = ''; fileName = '';"
+                                            class="py-1 px-2.5 text-xs font-semibold rounded-lg text-red-600 hover:bg-red-50 border border-red-200 inline-flex items-center gap-1 transition-colors"
+                                        >
+                                            <i class="bi bi-trash"></i>
+                                            Hapus &amp; Pilih Berkas Lain
+                                        </button>
+                                    </div>
                                 </div>
                             </template>
                         </div>

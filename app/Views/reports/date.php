@@ -127,7 +127,7 @@ $returnPath = '/reports/date/' . $date;
     <!-- =========================================================
          HIERARKI TINGKAT 3 (STEPPER PILLS)
          ========================================================= -->
-    <div class="flex items-center gap-2 text-xs font-medium text-gray-500">
+    <div class="flex flex-wrap items-center gap-2 text-xs font-medium text-gray-500">
         <a class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors" href="<?= e(url('/reports')) ?>">
             <span class="size-4 rounded-full bg-gray-300 text-gray-700 text-[10px] inline-flex items-center justify-center font-bold">1</span>
             Bulan
@@ -161,15 +161,14 @@ $returnPath = '/reports/date/' . $date;
 
             <div class="flex items-center gap-2">
                 <!-- Preline UI Dropdown -->
-                <div class="hs-dropdown relative inline-flex" x-data="{ open: false }">
+                <div class="hs-dropdown relative inline-flex">
                     <button
                         id="hs-dropdown-date-options"
                         type="button"
-                        class="hs-dropdown-toggle inline-flex items-center gap-x-2 py-1.5 px-3 text-xs font-semibold rounded-xl border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none"
+                        class="hs-dropdown-toggle inline-flex items-center gap-x-2 py-1.5 px-3 text-xs font-semibold rounded-xl border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none transition-colors"
                         aria-haspopup="menu"
                         aria-expanded="false"
                         aria-label="Menu Opsi"
-                        @click="open = !open"
                     >
                         <i class="bi bi-gear"></i>
                         Opsi
@@ -178,8 +177,6 @@ $returnPath = '/reports/date/' . $date;
 
                     <div
                         class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-48 bg-white shadow-lg rounded-xl p-1.5 border border-gray-200 z-50"
-                        :class="{ 'opacity-100 !block': open }"
-                        @click.outside="open = false"
                         role="menu"
                         aria-orientation="vertical"
                         aria-labelledby="hs-dropdown-date-options"
@@ -193,11 +190,11 @@ $returnPath = '/reports/date/' . $date;
                             Export Semua Berkas
                         </a>
                         <hr class="my-1 border-gray-100">
-                        <button type="button" @click="viewMode = 'table'; open = false" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none">
+                        <button type="button" @click="viewMode = 'table'" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none">
                             <i class="bi bi-table text-indigo-600"></i>
                             Tampilan Tabel
                         </button>
-                        <button type="button" @click="viewMode = 'list'; open = false" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none">
+                        <button type="button" @click="viewMode = 'list'" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none">
                             <i class="bi bi-list-ul text-amber-600"></i>
                             Tampilan List
                         </button>

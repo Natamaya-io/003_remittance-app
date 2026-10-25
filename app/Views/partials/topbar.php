@@ -102,16 +102,15 @@ $initial = strtoupper(
                 Sistem aktif
             </div>
 
-            <!-- User Dropdown (Preline hs-dropdown + Alpine fallback) -->
-            <div class="hs-dropdown [--placement:bottom-right] relative inline-flex" x-data="{ open: false }">
+            <!-- User Dropdown (Preline Native hs-dropdown) -->
+            <div class="hs-dropdown [--placement:bottom-right] relative inline-flex">
                 <button
                     id="hs-dropdown-topbar-user"
                     type="button"
-                    class="hs-dropdown-toggle inline-flex items-center gap-x-2 py-1.5 px-2.5 text-sm font-semibold rounded-xl border border-gray-200 bg-white text-gray-800 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
+                    class="hs-dropdown-toggle inline-flex items-center gap-x-2 py-1.5 px-2.5 text-sm font-semibold rounded-xl border border-gray-200 bg-white text-gray-800 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors"
                     aria-haspopup="menu"
                     aria-expanded="false"
                     aria-label="User menu"
-                    @click="open = !open"
                 >
                     <div class="size-7 rounded-lg bg-gradient-to-tr from-blue-700 to-indigo-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
                         <?= e($initial) ?>
@@ -124,9 +123,6 @@ $initial = strtoupper(
 
                 <div
                     class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white shadow-lg rounded-xl p-2 border border-gray-200 z-[60]"
-                    :class="{ 'opacity-100 !block': open }"
-                    @click.outside="open = false"
-                    @keydown.escape.window="open = false"
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="hs-dropdown-topbar-user"
