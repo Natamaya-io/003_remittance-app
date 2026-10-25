@@ -42,23 +42,20 @@ $activeAdvancedFilters = array_filter(
          PENCARIAN GLOBAL
          ========================================================= -->
     <section class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-xs">
-        <form method="get" action="<?= e(url('/reports/search')) ?>" class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div class="flex-1">
                 <strong class="text-sm font-bold text-gray-900 block">Pencarian Transaksi</strong>
                 <span class="text-xs text-gray-500 mt-0.5 block">Cari data di seluruh bulan, tanggal, tim, berkas, payer, dan beneficiary.</span>
             </div>
 
-            <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 flex-1 max-w-xl">
-                <?= render_search_input('q', (string) ($filters['q'] ?? ''), [
-                    'placeholder' => 'Ketik kata kunci pencarian...',
-                    'required' => true,
-                    'wrapperClass' => 'flex-1 min-w-[200px]',
+            <div class="flex items-center gap-2 shrink-0">
+                <?= render_search_modal_trigger([
+                    'action' => url('/reports/search'),
+                    'title' => 'Pencarian Transaksi Global',
+                    'subtitle' => 'Cari data di seluruh bulan, tanggal, tim, berkas, payer, dan beneficiary.',
+                    'placeholder' => 'Ketik kata kunci transaksi...',
+                    'query' => (string) ($filters['q'] ?? ''),
                 ]) ?>
-
-                <button class="btn btn-primary py-2 px-3.5 inline-flex items-center justify-center gap-x-1.5 text-xs font-semibold rounded-lg shrink-0 focus:outline-none" type="submit">
-                    <i class="bi bi-search"></i>
-                    Cari
-                </button>
 
                 <?php if (can('report.manage')): ?>
                     <a class="btn btn-primary py-2 px-3.5 inline-flex items-center justify-center gap-x-2 text-xs font-semibold rounded-lg shrink-0 focus:outline-none" href="<?= e(url('/reports/create')) ?>">
@@ -67,7 +64,7 @@ $activeAdvancedFilters = array_filter(
                     </a>
                 <?php endif; ?>
             </div>
-        </form>
+        </div>
     </section>
 
     <!-- =========================================================

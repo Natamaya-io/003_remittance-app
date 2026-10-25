@@ -5350,6 +5350,120 @@ $flashes = Flash::all();
 </div>
 
 <!-- =========================================================
+     GLOBAL SEARCH MODAL (SEARCH BAR SEBAGAI MODAL TERPISAH)
+     ========================================================= -->
+<div
+    x-data="remitSearchModal"
+    x-cloak
+    @open-search-modal.window="openModal($event.detail)"
+>
+    <div
+        x-show="isOpen"
+        class="fixed inset-0 z-[9998] flex items-start justify-center p-4 pt-16 sm:pt-24 bg-gray-900/60 backdrop-blur-xs overflow-y-auto"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        role="dialog"
+        aria-modal="true"
+        style="display: none;"
+    >
+        <div
+            class="bg-white rounded-2xl max-w-xl w-full p-5 shadow-2xl border border-gray-200 relative"
+            @click.outside="closeModal()"
+            @keydown.escape.window="closeModal()"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 -translate-y-2"
+            x-transition:enter-end="opacity-100 translate-y-0"
+        >
+            <!-- Header Modal -->
+            <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-100">
+                <div class="flex items-center gap-2.5">
+                    <span class="size-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-base">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <div>
+                        <strong class="text-sm font-bold text-gray-900 block" x-text="title"></strong>
+                        <span class="text-xs text-gray-500 block" x-text="subtitle"></span>
+                    </div>
+                </div>
+                <button
+                    type="button"
+                    @click="closeModal()"
+                    class="size-8 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 flex items-center justify-center transition-colors"
+                    aria-label="Tutup pencarian"
+                >
+                    <i class="bi bi-x-lg text-xs"></i>
+                </button>
+            </div>
+
+            <!-- Form Pencarian Modal -->
+            <form :action="action" method="get" @submit="submitSearch($event)">
+                <template x-for="(val, key) in extraParams" :key="key">
+                    <input type="hidden" :name="key" :value="val">
+                </template>
+
+                <div class="custom-search-bar mb-4">
+                    <span class="search-leading-icon" aria-hidden="true">
+                        <i class="bi bi-search text-base"></i>
+                    </span>
+                    <input
+                        x-ref="modalSearchInput"
+                        x-model="query"
+                        type="search"
+                        name="q"
+                        class="custom-search-input h-11 text-sm ps-10 pe-10 rounded-xl"
+                        :placeholder="placeholder"
+                        autocomplete="off"
+                        required
+                    >
+                    <button
+                        type="button"
+                        x-show="query && query.length > 0"
+                        x-cloak
+                        @click="query = ''; $refs.modalSearchInput.focus()"
+                        class="search-clear-btn"
+                        aria-label="Hapus kata kunci pencarian"
+                    >
+                        <i class="bi bi-x-circle-fill text-xs"></i>
+                    </button>
+                </div>
+
+                <!-- Footer Aksi -->
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-gray-100 text-xs">
+                    <div class="flex items-center gap-1.5 text-gray-400 text-[11px]">
+                        <span>Tekan</span>
+                        <kbd class="py-0.5 px-1.5 bg-gray-100 border border-gray-200 rounded font-mono text-gray-600">Enter ↵</kbd>
+                        <span>untuk mencari,</span>
+                        <kbd class="py-0.5 px-1.5 bg-gray-100 border border-gray-200 rounded font-mono text-gray-600">ESC</kbd>
+                        <span>untuk tutup</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                        <button
+                            type="button"
+                            @click="closeModal()"
+                            class="py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors"
+                        >
+                            Batal
+                        </button>
+                        <button
+                            type="submit"
+                            class="btn btn-primary py-2 px-4 text-xs font-semibold rounded-lg inline-flex items-center gap-1.5"
+                        >
+                            <i class="bi bi-search text-xs"></i>
+                            <span>Cari Sekarang</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- =========================================================
      JAVASCRIPT UTAMA
 ========================================================= -->
 

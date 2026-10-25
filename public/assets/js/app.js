@@ -28,17 +28,25 @@
 
   /* data-confirm handled globally by custom-dialogs.js */
 
-  /* Global keyboard shortcut '/' to focus custom search input */
+  /* Global keyboard shortcut '/' or Ctrl+K / Cmd+K to open Search Modal */
   document.addEventListener('keydown', (event) => {
-    if (event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey) {
+    const isSlash = event.key === '/' && !event.ctrlKey && !event.metaKey && !event.altKey;
+    const isCmdK = (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k';
+
+    if (isSlash || isCmdK) {
       const activeEl = document.activeElement;
-      if (activeEl && ['INPUT', 'TEXTAREA', 'SELECT'].includes(activeEl.tagName)) return;
-      if (activeEl?.isContentEditable) return;
-      const searchInput = qs('.custom-search-input');
-      if (searchInput) {
-        event.preventDefault();
-        searchInput.focus();
-        searchInput.select?.();
+      if (isSlash && activeEl && ['INPUT', 'TEXTAREA', 'SELECT'].includes(activeEl.tagName)) return;
+      if (isSlash && activeEl?.isContentEditable) return;
+
+      event.preventDefault();
+      if (typeof window.openSearchModal === 'function') {
+        window.openSearchModal();
+      } else {
+        const searchInput = qs('.custom-search-input');
+        if (searchInput) {
+          searchInput.focus();
+          searchInput.select?.();
+        }
       }
     }
   });

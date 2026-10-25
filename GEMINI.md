@@ -328,21 +328,36 @@ input[type="search"],
    - Hint tombol `<kbd>/</kbd>` yang halus muncul di sisi kanan saat input kosong.
    - Menekan tombol `/` pada keyboard (di luar input/textarea aktif) otomatis memindahkan fokus kursor ke search bar aktif.
 
-### 6.3. Penggunaan via Helper PHP Resmi
-Setiap view yang membutuhkan input pencarian **MUTLAK WAJIB** menggunakan helper `render_search_input()` di `app/helpers.php`:
+### 6.3. Arsitektur Search Bar Sebagai Modal Terpisah (Search Modal Architecture)
+Untuk menjaga kebersihan tata letak halaman (*Naked Page Architecture*) dan efisiensi ruang layar, bar pencarian utama pada area kartu dan header **DITAMPILKAN SEBAGAI MODAL TERPISAH**:
+1. **Pemicu Modal (Search Trigger Button):**
+   - Halaman merender tombol aksi ramping `.btn-primary` (atau tombol ikon topbar) berlabel "Cari" dengan ikon `<i class="bi bi-search"></i>` dan hint shortcut `<kbd>/</kbd>`.
+   - Menggunakan helper resmi `render_search_modal_trigger()` yang otomatis memicu event `$dispatch('open-search-modal', { ... })`.
+2. **Modal Pencarian Global (`remitSearchModal`):**
+   - Dirender terpusat di `app/Views/layouts/app.php` dengan backdrop blur halus (`bg-gray-900/60 backdrop-blur-xs`).
+   - Dialog mengambang `max-w-xl` dengan animasi transisi opasitas murni.
+   - Input pencarian kustom langsung mendapatkan fokus otomatis (`$refs.modalSearchInput.focus()`).
+   - Tombol shortcut global: Menekan tombol `/` atau kombinasi `Ctrl+K` / `Cmd+K` di mana saja (di luar input/textarea aktif) otomatis membuka Search Modal.
+   - Menekan tombol `ESC` atau klik di luar area dialog otomatis menutup modal.
+
+### 6.4. Penggunaan via Helper PHP Resmi
+Setiap view yang membutuhkan kontrol pencarian **MUTLAK WAJIB** menggunakan helper berikut di `app/helpers.php`:
+
 ```php
-<!-- Standar Pencarian Form -->
+<!-- Mode 1: Pemicu Modal Terpisah (Direkomendasikan untuk Header/Card) -->
+<?= render_search_modal_trigger([
+    'action'      => url('/reports/search'),
+    'title'       => 'Pencarian Transaksi Global',
+    'subtitle'    => 'Cari data di seluruh bulan, tanggal, tim, berkas, payer, dan beneficiary.',
+    'placeholder' => 'Ketik kata kunci transaksi...',
+    'query'       => (string) ($filters['q'] ?? ''),
+]) ?>
+
+<!-- Mode 2: Input Form Tersemat (Khusus Halaman Hasil / Filter Parameter) -->
 <?= render_search_input('q', (string) ($filters['q'] ?? ''), [
     'placeholder'  => 'Ketik kata kunci pencarian...',
     'required'     => true,
     'wrapperClass' => 'flex-1 min-w-[200px]',
-]) ?>
-
-<!-- Compact Toolbar Variant -->
-<?= render_search_input('q', (string) $q, [
-    'placeholder'  => 'Cari perusahaan...',
-    'size'         => 'sm',
-    'wrapperClass' => 'w-64',
 ]) ?>
 ```
 

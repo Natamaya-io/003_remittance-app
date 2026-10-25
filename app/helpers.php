@@ -458,3 +458,57 @@ function render_search_input(string $name = 'q', string $value = '', array $opti
     return (string) ob_get_clean();
 }
 
+/**
+ * Render Search Trigger Button (opens Search Modal)
+ *
+ * @param array{
+ *   label?: string,
+ *   icon?: string,
+ *   showKbd?: bool,
+ *   action?: string,
+ *   title?: string,
+ *   subtitle?: string,
+ *   placeholder?: string,
+ *   query?: string,
+ *   extraParams?: array<string, string>,
+ *   class?: string
+ * } $options
+ */
+function render_search_modal_trigger(array $options = []): string
+{
+    $label = (string) ($options['label'] ?? 'Cari');
+    $icon = (string) ($options['icon'] ?? 'bi-search');
+    $showKbd = array_key_exists('showKbd', $options) ? (bool) $options['showKbd'] : true;
+    $class = (string) ($options['class'] ?? 'btn btn-primary py-2 px-3.5 inline-flex items-center justify-center gap-x-1.5 text-xs font-semibold rounded-lg shrink-0 focus:outline-none');
+
+    $modalConfig = [
+        'action' => (string) ($options['action'] ?? url('/reports/search')),
+        'title' => (string) ($options['title'] ?? 'Pencarian Transaksi'),
+        'subtitle' => (string) ($options['subtitle'] ?? 'Ketik kata kunci lalu tekan Enter untuk mencari.'),
+        'placeholder' => (string) ($options['placeholder'] ?? 'Ketik kata kunci transaksi...'),
+        'query' => (string) ($options['query'] ?? ''),
+        'extraParams' => (array) ($options['extraParams'] ?? []),
+    ];
+
+    $jsonConfig = json_encode($modalConfig, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
+
+    ob_start();
+    ?>
+    <button
+        type="button"
+        @click="$dispatch('open-search-modal', <?= e($jsonConfig) ?>)"
+        class="<?= e($class) ?>"
+        aria-label="<?= e($label) ?>"
+        title="<?= e($label) ?> (Tekan / atau Ctrl+K)"
+    >
+        <i class="bi <?= e($icon) ?>"></i>
+        <span><?= e($label) ?></span>
+        <?php if ($showKbd): ?>
+            <kbd class="ms-1 py-0.5 px-1.5 text-[10px] bg-white/20 border border-white/30 rounded text-white font-mono">/</kbd>
+        <?php endif; ?>
+    </button>
+    <?php
+    return (string) ob_get_clean();
+}
+
+

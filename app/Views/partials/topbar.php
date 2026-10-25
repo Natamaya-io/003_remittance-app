@@ -102,6 +102,19 @@ $initial = strtoupper(
                 Sistem aktif
             </div>
 
+            <!-- Search Modal Trigger -->
+            <button
+                type="button"
+                @click="$dispatch('open-search-modal')"
+                class="inline-flex items-center gap-x-1.5 py-1.5 px-2.5 text-xs font-semibold rounded-xl border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors"
+                aria-label="Buka pencarian"
+                title="Pencarian (Tekan / atau Ctrl+K)"
+            >
+                <i class="bi bi-search text-gray-500"></i>
+                <span class="hidden md:inline text-xs text-gray-600">Cari...</span>
+                <kbd class="hidden md:inline-block ms-0.5 py-0.5 px-1.5 text-[10px] bg-gray-100 border border-gray-200 rounded text-gray-400 font-mono">/</kbd>
+            </button>
+
             <!-- User Dropdown (Preline Native hs-dropdown) -->
             <div class="hs-dropdown [--placement:bottom-right] relative inline-flex">
                 <button

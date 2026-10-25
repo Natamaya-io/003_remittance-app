@@ -84,9 +84,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }, true);
 });
 
+// Global Search Modal helper
+window.openSearchModal = function (config) {
+  window.dispatchEvent(new CustomEvent('open-search-modal', { detail: config || {} }));
+};
+
 // Alpine data bindings
 function initRemitDialogs() {
   if (!window.Alpine) return;
+
   window.Alpine.data('remitGlobalDialogs', () => ({
     get confirm() {
       return window.RemitDialogs.confirmState;
@@ -109,6 +115,46 @@ function initRemitDialogs() {
 
     closeAlert() {
       this.alert.open = false;
+    }
+  }));
+
+  window.Alpine.data('remitSearchModal', () => ({
+    isOpen: false,
+    title: 'Pencarian Transaksi',
+    subtitle: 'Ketik kata kunci lalu tekan Enter untuk mencari.',
+    placeholder: 'Cari tim, payer, beneficiary, bank, invoice, SWIFT...',
+    action: '/reports/search',
+    query: '',
+    extraParams: {},
+
+    openModal(config = {}) {
+      if (typeof config === 'object' && config !== null) {
+        if (config.title) this.title = config.title;
+        if (config.subtitle) this.subtitle = config.subtitle;
+        if (config.placeholder) this.placeholder = config.placeholder;
+        if (config.action) this.action = config.action;
+        if (config.query !== undefined) this.query = config.query;
+        if (config.extraParams) this.extraParams = config.extraParams;
+      }
+      this.isOpen = true;
+      this.$nextTick(() => {
+        const input = this.$refs.modalSearchInput;
+        if (input) {
+          input.focus();
+          input.select?.();
+        }
+      });
+    },
+
+    closeModal() {
+      this.isOpen = false;
+    },
+
+    submitSearch(e) {
+      if (!this.query.trim()) {
+        e.preventDefault();
+        this.$refs.modalSearchInput?.focus();
+      }
     }
   }));
 }
