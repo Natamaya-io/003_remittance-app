@@ -2,148 +2,421 @@
 
 declare(strict_types=1);
 
+/*
+|--------------------------------------------------------------------------
+| REPORT HARIAN - TINGKAT TIM DAN REPORT (TABLE & LIST VIEW OVERHAUL)
+|--------------------------------------------------------------------------
+| Menampilkan daftar berkas batch report pada tanggal tertentu dalam format
+| Tabel Zebra dan List terstruktur dengan kontrol peralihan instan.
+|--------------------------------------------------------------------------
+*/
+
 $batches = is_array($batches ?? null) ? $batches : [];
 $filters = is_array($filters ?? null) ? $filters : [];
 $teams = is_array($teams ?? null) ? $teams : [];
 $date = (string) ($date ?? date('Y-m-d'));
 $dateObject = new \DateTime($date);
+
 $monthNames = [
     1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
     5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
     9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember',
 ];
+
 $dateLabel = $dateObject->format('j') . ' ' . ($monthNames[(int) $dateObject->format('n')] ?? '') . ' ' . $dateObject->format('Y');
 $monthKey = $dateObject->format('Y-m');
 $returnPath = '/reports/date/' . $date;
 ?>
 
+<!-- =========================================================
+     PAGE HEADING
+     ========================================================= -->
 <div class="page-heading">
     <div>
         <span class="eyebrow dark">TINGKAT TIM DAN REPORT</span>
         <h2><?= e($dateLabel) ?></h2>
-        <p>Setiap kartu menampilkan satu file report dari satu tim. Buka report untuk melihat seluruh baris transaksi.</p>
     </div>
+
     <div class="page-heading-actions">
-        <a class="btn btn-light" href="<?= url('/reports/month/' . $monthKey) ?>"><i class="bi bi-arrow-left"></i>Daftar Tanggal</a>
-        <a class="btn btn-light" href="<?= url('/reports/date/' . $date . '/export') ?>"><i class="bi bi-file-earmark-excel"></i>Export Semua</a>
+        <a class="btn btn-light" href="<?= e(url('/reports/month/' . $monthKey)) ?>">
+            <i class="bi bi-arrow-left"></i>
+            Daftar Tanggal
+        </a>
+        <a class="btn btn-light" href="<?= e(url('/reports/date/' . $date . '/export')) ?>">
+            <i class="bi bi-file-earmark-excel"></i>
+            Export Semua
+        </a>
         <?php if (can('report.manage')): ?>
-            <a class="btn btn-primary" href="<?= url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date])) ?>"><i class="bi bi-plus-lg"></i>Tambah Excel pada Tanggal Ini</a>
+            <a class="btn btn-primary" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
+                <i class="bi bi-cloud-arrow-up"></i>
+                Tambah Excel
+            </a>
         <?php endif; ?>
     </div>
 </div>
 
+<!-- =========================================================
+     PENCARIAN GLOBAL
+     ========================================================= -->
 <section class="panel-card report-global-search mb-4">
-    <form method="get" action="<?= url('/reports/search') ?>">
+    <form method="get" action="<?= e(url('/reports/search')) ?>">
         <div class="global-search-copy">
             <strong>Pencarian global</strong>
-            <span>Mencari seluruh bulan, tanggal, tim, file, payer, beneficiary, bank, dan transaksi.</span>
+            <span>Mencari seluruh bulan, tanggal, tim, berkas, payer, beneficiary, bank, dan transaksi.</span>
         </div>
+
         <div class="global-search-input">
             <i class="bi bi-search"></i>
-            <input class="form-control" type="search" name="q" required placeholder="Cari seluruh data report..." value="<?= e($filters['q'] ?? '') ?>">
+            <input class="form-control" type="search" name="q" required placeholder="Cari seluruh data report..." value="<?= e((string) ($filters['q'] ?? '')) ?>">
         </div>
+
         <button class="btn btn-primary" type="submit">Cari</button>
     </form>
 </section>
 
+<!-- =========================================================
+     FILTER STATUS & TIM
+     ========================================================= -->
 <div class="panel-card mb-4">
-    <form class="report-inline-filter" method="get" action="<?= url('/reports/date/' . $date) ?>">
+    <form class="report-inline-filter" method="get" action="<?= e(url('/reports/date/' . $date)) ?>">
         <label>
             <span>Tim</span>
             <select class="form-select" name="team">
                 <option value="">Semua tim</option>
                 <?php foreach ($teams as $team): ?>
-                    <option value="<?= e($team) ?>" <?= selected($filters['team'] ?? '', $team) ?>><?= e($team) ?></option>
+                    <option value="<?= e($team) ?>" <?= selected((string) ($filters['team'] ?? ''), $team) ?>><?= e($team) ?></option>
                 <?php endforeach; ?>
             </select>
         </label>
+
         <label>
             <span>Status kirim</span>
             <select class="form-select" name="delivery_status">
                 <option value="">Semua</option>
-                <option value="PENDING" <?= selected($filters['delivery_status'] ?? '', 'PENDING') ?>>Pending</option>
-                <option value="SENT" <?= selected($filters['delivery_status'] ?? '', 'SENT') ?>>Terkirim</option>
+                <option value="PENDING" <?= selected((string) ($filters['delivery_status'] ?? ''), 'PENDING') ?>>Pending</option>
+                <option value="SENT" <?= selected((string) ($filters['delivery_status'] ?? ''), 'SENT') ?>>Terkirim</option>
             </select>
         </label>
+
         <label>
             <span>Hasil</span>
             <select class="form-select" name="result_status">
                 <option value="">Semua</option>
-                <option value="PENDING" <?= selected($filters['result_status'] ?? '', 'PENDING') ?>>Pending</option>
-                <option value="SUCCESS" <?= selected($filters['result_status'] ?? '', 'SUCCESS') ?>>Success</option>
-                <option value="FAILED" <?= selected($filters['result_status'] ?? '', 'FAILED') ?>>Failed</option>
+                <option value="PENDING" <?= selected((string) ($filters['result_status'] ?? ''), 'PENDING') ?>>Pending</option>
+                <option value="SUCCESS" <?= selected((string) ($filters['result_status'] ?? ''), 'SUCCESS') ?>>Success</option>
+                <option value="FAILED" <?= selected((string) ($filters['result_status'] ?? ''), 'FAILED') ?>>Failed</option>
             </select>
         </label>
+
         <div class="filter-actions">
             <button class="btn btn-primary" type="submit">Terapkan</button>
-            <a class="btn btn-light" href="<?= url('/reports/date/' . $date) ?>">Reset</a>
+            <a class="btn btn-light" href="<?= e(url('/reports/date/' . $date)) ?>">Reset</a>
         </div>
     </form>
 </div>
 
+<!-- =========================================================
+     HIERARKI TINGKAT 3
+     ========================================================= -->
 <div class="report-hierarchy-note mb-4">
-    <a href="<?= url('/reports') ?>"><b>1</b>Bulan</a>
+    <a href="<?= e(url('/reports')) ?>"><b>1</b>Bulan</a>
     <i class="bi bi-chevron-right"></i>
-    <a href="<?= url('/reports/month/' . $monthKey) ?>"><b>2</b>Tanggal</a>
+    <a href="<?= e(url('/reports/month/' . $monthKey)) ?>"><b>2</b>Tanggal</a>
     <i class="bi bi-chevron-right"></i>
     <span class="active"><b>3</b>Tim dan Report</span>
 </div>
 
-<div class="report-team-grid">
-    <?php foreach ($batches as $batch): ?>
-        <?php
-        $total = (int) ($batch['total_rows_live'] ?? $batch['total_rows'] ?? 0);
-        $sent = (int) ($batch['sent_rows_live'] ?? $batch['sent_rows'] ?? 0);
-        $pending = (int) ($batch['pending_rows_live'] ?? $batch['pending_rows'] ?? 0);
-        $success = (int) ($batch['success_rows_live'] ?? 0);
-        $failed = (int) ($batch['failed_rows_live'] ?? 0);
-        $progress = $total > 0 ? min(100, (int) round(($sent / $total) * 100)) : 0;
-        ?>
-        <article class="report-team-card">
-            <div class="report-team-top">
-                <span class="team-chip">TEAM: <?= e(strtoupper((string) ($batch['effective_team'] ?? 'Tanpa Tim'))) ?></span>
-                <span class="batch-chip">Batch #<?= (int) $batch['id'] ?></span>
-            </div>
+<!-- =========================================================
+     TOOLBAR MODE TAMPILAN: TABEL VS LIST
+     ========================================================= -->
+<div class="report-view-toolbar">
+    <div class="report-view-summary">
+        <span>Berkas Report Tanggal <?= e($dateLabel) ?></span>
+        <span class="count-badge"><?= count($batches) ?> Berkas Batch</span>
+    </div>
 
-            <h3 title="<?= e($batch['source_filename']) ?>"><?= e($batch['source_filename']) ?></h3>
-            <p><?= e($batch['name']) ?></p>
+    <div class="view-mode-switcher" id="reportViewSwitcherDate">
+        <button type="button" class="view-mode-btn active" data-view="table">
+            <i class="bi bi-table"></i>
+            Tabel
+        </button>
+        <button type="button" class="view-mode-btn" data-view="list">
+            <i class="bi bi-list-ul"></i>
+            List
+        </button>
+    </div>
+</div>
 
-            <div class="report-progress"><span style="width:<?= $progress ?>%"></span></div>
+<!-- =========================================================
+     WADAH TAMPILAN: TABEL & LIST MUTLAK
+     ========================================================= -->
+<div class="report-view-container mode-table" id="reportViewContainerDate">
 
-            <div class="report-card-stats three">
-                <div><strong><?= number_format($total, 0, ',', '.') ?></strong><small>Total</small></div>
-                <div><strong><?= number_format($sent, 0, ',', '.') ?></strong><small>Terkirim</small></div>
-                <div><strong><?= number_format($pending, 0, ',', '.') ?></strong><small>Pending</small></div>
-            </div>
+    <!-- 1. TAMPILAN TABEL ZEBRA (HIGH DENSITY) -->
+    <div class="report-table-view">
+        <div class="report-table-responsive">
+            <table class="report-zebra-table">
+                <thead>
+                    <tr>
+                        <th>Batch & Tim</th>
+                        <th>Berkas & Nama Report</th>
+                        <th class="text-end">Total Baris</th>
+                        <th style="min-width: 170px;">Status Kirim</th>
+                        <th>Hasil Eksekusi</th>
+                        <th class="text-end">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($batches as $batch): ?>
+                        <?php
+                        $total = (int) ($batch['total_rows_live'] ?? $batch['total_rows'] ?? 0);
+                        $sent = (int) ($batch['sent_rows_live'] ?? $batch['sent_rows'] ?? 0);
+                        $pending = (int) ($batch['pending_rows_live'] ?? $batch['pending_rows'] ?? 0);
+                        $success = (int) ($batch['success_rows_live'] ?? 0);
+                        $failed = (int) ($batch['failed_rows_live'] ?? 0);
+                        $skipped = (int) ($batch['skipped_rows'] ?? 0);
+                        $progress = $total > 0 ? min(100, (int) round(($sent / $total) * 100)) : 0;
+                        ?>
+                        <tr>
+                            <td>
+                                <div>
+                                    <span class="status-pill secondary">Batch #<?= (int) $batch['id'] ?></span>
+                                    <strong style="display: block; margin-top: 4px; color: #1e293b; font-size: 13px;">
+                                        TEAM: <?= e(strtoupper((string) ($batch['effective_team'] ?? 'Tanpa Tim'))) ?>
+                                    </strong>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <strong style="color: #0f172a; font-size: 14px;" title="<?= e($batch['source_filename']) ?>">
+                                        <i class="bi bi-file-earmark-excel text-success me-1"></i>
+                                        <?= e($batch['source_filename']) ?>
+                                    </strong>
+                                    <small style="display: block; color: #64748b; margin-top: 2px;">
+                                        <?= e($batch['name']) ?>
+                                    </small>
+                                </div>
+                            </td>
+                            <td class="text-end">
+                                <strong style="font-size: 14px; color: #0f172a;">
+                                    <?= number_format($total, 0, ',', '.') ?>
+                                </strong>
+                            </td>
+                            <td>
+                                <div class="table-progress-wrap">
+                                    <div class="table-progress-bar">
+                                        <div class="table-progress-fill" style="width: <?= $progress ?>%;"></div>
+                                    </div>
+                                    <div class="table-progress-labels">
+                                        <span class="sent-txt"><?= number_format($sent, 0, ',', '.') ?> Kirim</span>
+                                        <span class="pending-txt"><?= number_format($pending, 0, ',', '.') ?> Pnd</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                                    <span class="status-pill success" title="Berhasil">
+                                        <i class="bi bi-check me-1"></i><?= $success ?>
+                                    </span>
+                                    <?php if ($failed > 0): ?>
+                                        <span class="status-pill danger" title="Gagal / Retur">
+                                            <i class="bi bi-x me-1"></i><?= $failed ?>
+                                        </span>
+                                    <?php endif; ?>
+                                    <?php if ($skipped > 0): ?>
+                                        <span class="status-pill secondary" title="Dilewati">
+                                            <?= $skipped ?> skip
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+                            </td>
+                            <td class="text-end">
+                                <div style="display: inline-flex; align-items: center; gap: 4px;">
+                                    <a class="btn btn-primary btn-sm" href="<?= e(url('/reports/' . $batch['id'])) ?>">
+                                        <i class="bi bi-table me-1"></i> Buka
+                                    </a>
+                                    <a class="btn btn-light btn-sm" href="<?= e(url('/reports/' . $batch['id'] . '/export')) ?>" title="Export Excel">
+                                        <i class="bi bi-file-earmark-excel"></i>
+                                    </a>
+                                    <?php if (can('report.manage')): ?>
+                                        <a class="btn btn-light btn-sm" href="<?= e(url('/reports/' . $batch['id'] . '/edit')) ?>" title="Edit">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <form class="d-inline" method="post" action="<?= e(url('/reports/' . $batch['id'])) ?>" data-confirm="Hapus report ini beserta seluruh barisnya?">
+                                            <?= csrf_field() ?>
+                                            <?= method_field('DELETE') ?>
+                                            <input type="hidden" name="return_to" value="<?= e($returnPath) ?>">
+                                            <button class="btn btn-outline-danger btn-sm" type="submit" title="Hapus">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    <?php endif; ?>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
 
-            <div class="report-result-strip">
-                <span class="success"><i class="bi bi-check-circle"></i><?= $success ?> success</span>
-                <span class="danger"><i class="bi bi-x-circle"></i><?= $failed ?> failed</span>
-                <span><i class="bi bi-skip-forward"></i><?= (int) ($batch['skipped_rows'] ?? 0) ?> dilewati</span>
-            </div>
+                    <?php if ($batches === []): ?>
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 48px 24px;">
+                                <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                    <i class="bi bi-file-earmark-x" style="font-size: 32px; color: #94a3b8;"></i>
+                                    <strong style="color: #475569; font-size: 15px;">Tidak ada report tim</strong>
+                                    <span style="color: #94a3b8; font-size: 13px;">Belum ada berkas pada tanggal ini atau data tidak cocok dengan filter yang dipilih.</span>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-            <div class="report-team-actions">
-                <a class="btn btn-primary btn-sm" href="<?= url('/reports/' . $batch['id']) ?>"><i class="bi bi-table"></i>Buka Report</a>
-                <a class="btn btn-light btn-sm" href="<?= url('/reports/' . $batch['id'] . '/export') ?>"><i class="bi bi-file-earmark-excel"></i>Excel</a>
+    <!-- 2. TAMPILAN LIST VIEW -->
+    <div class="report-list-view">
+        <?php foreach ($batches as $batch): ?>
+            <?php
+            $total = (int) ($batch['total_rows_live'] ?? $batch['total_rows'] ?? 0);
+            $sent = (int) ($batch['sent_rows_live'] ?? $batch['sent_rows'] ?? 0);
+            $pending = (int) ($batch['pending_rows_live'] ?? $batch['pending_rows'] ?? 0);
+            $success = (int) ($batch['success_rows_live'] ?? 0);
+            $failed = (int) ($batch['failed_rows_live'] ?? 0);
+            $skipped = (int) ($batch['skipped_rows'] ?? 0);
+            $progress = $total > 0 ? min(100, (int) round(($sent / $total) * 100)) : 0;
+            ?>
+            <article class="report-list-item">
+                <div class="report-list-header">
+                    <div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <strong style="font-size: 15px; color: #0f172a;"><?= e($batch['source_filename']) ?></strong>
+                            <span class="status-pill secondary">Batch #<?= (int) $batch['id'] ?></span>
+                            <span class="chip-meta" style="font-weight: 700; color: #1e3a8a;">
+                                TEAM: <?= e(strtoupper((string) ($batch['effective_team'] ?? 'Tanpa Tim'))) ?>
+                            </span>
+                        </div>
+                        <span style="font-size: 12px; color: #64748b; margin-top: 2px; display: block;">
+                            <?= e($batch['name']) ?>
+                        </span>
+                    </div>
+
+                    <div style="display: inline-flex; align-items: center; gap: 6px;">
+                        <a class="btn btn-primary btn-sm" href="<?= e(url('/reports/' . $batch['id'])) ?>">
+                            <i class="bi bi-table me-1"></i> Buka Report
+                        </a>
+                        <a class="btn btn-light btn-sm" href="<?= e(url('/reports/' . $batch['id'] . '/export')) ?>">
+                            <i class="bi bi-file-earmark-excel"></i>
+                        </a>
+                        <?php if (can('report.manage')): ?>
+                            <a class="btn btn-light btn-sm" href="<?= e(url('/reports/' . $batch['id'] . '/edit')) ?>" title="Edit">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <form class="d-inline" method="post" action="<?= e(url('/reports/' . $batch['id'])) ?>" data-confirm="Hapus report ini beserta seluruh barisnya?">
+                                <?= csrf_field() ?>
+                                <?= method_field('DELETE') ?>
+                                <input type="hidden" name="return_to" value="<?= e($returnPath) ?>">
+                                <button class="btn btn-outline-danger btn-sm" type="submit" title="Hapus">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        <?php endif; ?>
+                    </div>
+                </div>
+
+                <div class="report-list-body">
+                    <div class="report-list-stat-item">
+                        <span class="stat-label">Total Baris</span>
+                        <span class="stat-val"><?= number_format($total, 0, ',', '.') ?></span>
+                    </div>
+                    <div class="report-list-stat-item">
+                        <span class="stat-label">Terkirim</span>
+                        <span class="stat-val" style="color: #059669;"><?= number_format($sent, 0, ',', '.') ?></span>
+                    </div>
+                    <div class="report-list-stat-item">
+                        <span class="stat-label">Pending</span>
+                        <span class="stat-val" style="color: #d97706;"><?= number_format($pending, 0, ',', '.') ?></span>
+                    </div>
+                    <div class="report-list-stat-item">
+                        <span class="stat-label">Hasil Sukses / Gagal</span>
+                        <span class="stat-val">
+                            <span class="text-success"><?= $success ?> OK</span> / 
+                            <span class="text-danger"><?= $failed ?> Fail</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="report-list-footer">
+                    <div style="flex: 1; max-width: 320px;">
+                        <div class="table-progress-bar">
+                            <div class="table-progress-fill" style="width: <?= $progress ?>%;"></div>
+                        </div>
+                        <div class="table-progress-labels">
+                            <span class="sent-txt"><?= $progress ?>% Terkirim</span>
+                            <span><?= number_format($sent, 0, ',', '.') ?> dari <?= number_format($total, 0, ',', '.') ?></span>
+                        </div>
+                    </div>
+                    <div>
+                        <span>Dilewati: <strong><?= $skipped ?></strong> baris</span>
+                    </div>
+                </div>
+            </article>
+        <?php endforeach; ?>
+
+        <?php if ($batches === []): ?>
+            <div class="empty-card" style="padding: 48px 24px; text-align: center; background: #ffffff; border: 1px solid #dce6f0; border-radius: 16px;">
+                <i class="bi bi-file-earmark-x" style="font-size: 32px; color: #94a3b8; display: block; margin-bottom: 12px;"></i>
+                <h3 style="font-size: 16px; color: #1e293b; margin-bottom: 6px;">Tidak ada report tim</h3>
+                <p style="color: #64748b; font-size: 13px; margin-bottom: 16px;">Belum ada file pada tanggal ini atau data tidak cocok dengan filter yang dipilih.</p>
                 <?php if (can('report.manage')): ?>
-                    <a class="btn btn-light btn-sm" href="<?= url('/reports/' . $batch['id'] . '/edit') ?>"><i class="bi bi-pencil"></i>Edit</a>
-                    <form method="post" action="<?= url('/reports/' . $batch['id']) ?>" data-confirm="Hapus report ini beserta seluruh barisnya?">
-                        <?= csrf_field() ?>
-                        <?= method_field('DELETE') ?>
-                        <input type="hidden" name="return_to" value="<?= e($returnPath) ?>">
-                        <button class="btn btn-outline-danger btn-sm" type="submit" title="Hapus report"><i class="bi bi-trash"></i></button>
-                    </form>
+                    <a class="btn btn-primary" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
+                        <i class="bi bi-cloud-arrow-up me-1"></i>
+                        Tambah Excel
+                    </a>
                 <?php endif; ?>
             </div>
-        </article>
-    <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
 
-    <?php if ($batches === []): ?>
-        <div class="empty-card">
-            <i class="bi bi-file-earmark-x"></i>
-            <h3>Tidak ada report tim</h3>
-            <p>Belum ada file pada tanggal ini atau data tidak cocok dengan filter yang dipilih.</p>
-            <?php if (can('report.manage')): ?><a class="btn btn-primary" href="<?= url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date])) ?>">Tambah Excel</a><?php endif; ?>
-        </div>
-    <?php endif; ?>
 </div>
+
+<!-- =========================================================
+     JAVASCRIPT: PERALIHAN MODE TABEL / LIST
+     ========================================================= -->
+<script>
+(() => {
+    const container = document.getElementById('reportViewContainerDate');
+    const switcher = document.getElementById('reportViewSwitcherDate');
+    if (!container || !switcher) return;
+
+    const savedMode = localStorage.getItem('fable_report_view_mode') || 'table';
+    setMode(savedMode);
+
+    switcher.addEventListener('click', (e) => {
+        const btn = e.target.closest('.view-mode-btn');
+        if (!btn) return;
+        const mode = btn.getAttribute('data-view');
+        if (mode) {
+            setMode(mode);
+            localStorage.setItem('fable_report_view_mode', mode);
+        }
+    });
+
+    function setMode(mode) {
+        if (mode === 'list') {
+            container.classList.remove('mode-table');
+            container.classList.add('mode-list');
+        } else {
+            container.classList.remove('mode-list');
+            container.classList.add('mode-table');
+        }
+
+        const buttons = switcher.querySelectorAll('.view-mode-btn');
+        buttons.forEach(b => {
+            if (b.getAttribute('data-view') === mode) {
+                b.classList.add('active');
+            } else {
+                b.classList.remove('active');
+            }
+        });
+    }
+})();
+</script>

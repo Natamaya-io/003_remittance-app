@@ -2,135 +2,410 @@
 
 declare(strict_types=1);
 
+/*
+|--------------------------------------------------------------------------
+| REPORT HARIAN - TINGKAT TANGGAL (TABLE & LIST VIEW OVERHAUL)
+|--------------------------------------------------------------------------
+| Menampilkan daftar tanggal transaksi dalam bulan tertentu menggunakan format
+| Tabel Zebra dan List terstruktur dengan kontrol peralihan instan.
+|--------------------------------------------------------------------------
+*/
+
 $dates = is_array($dates ?? null) ? $dates : [];
 $filters = is_array($filters ?? null) ? $filters : [];
 $teams = is_array($teams ?? null) ? $teams : [];
 $month = (string) ($month ?? date('Y-m'));
+
 $monthNames = [
     1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
     5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
     9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember',
 ];
-$monthLabel = ($monthNames[(int) substr($month, 5, 2)] ?? $month) . ' ' . substr($month, 0, 4);
+
+$monthNum = (int) substr($month, 5, 2);
+$yearNum = substr($month, 0, 4);
+$monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
 ?>
 
+<!-- =========================================================
+     PAGE HEADING
+     ========================================================= -->
 <div class="page-heading">
     <div>
         <span class="eyebrow dark">TINGKAT TANGGAL</span>
         <h2>Report <?= e($monthLabel) ?></h2>
-        <p>Satu kartu mewakili satu tanggal. Klik tanggal untuk menampilkan report dari semua tim pada tanggal tersebut.</p>
     </div>
+
     <div class="page-heading-actions">
-        <a class="btn btn-light" href="<?= url('/reports') ?>"><i class="bi bi-arrow-left"></i>Daftar Bulan</a>
+        <a class="btn btn-light" href="<?= e(url('/reports')) ?>">
+            <i class="bi bi-arrow-left"></i>
+            Daftar Bulan
+        </a>
         <?php if (can('report.manage')): ?>
-            <a class="btn btn-primary" href="<?= url('/reports/create?month=' . urlencode($month)) ?>"><i class="bi bi-plus-lg"></i>Upload Excel</a>
+            <a class="btn btn-primary" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
+                <i class="bi bi-cloud-arrow-up"></i>
+                Upload Excel
+            </a>
         <?php endif; ?>
     </div>
 </div>
 
+<!-- =========================================================
+     PENCARIAN GLOBAL
+     ========================================================= -->
 <section class="panel-card report-global-search mb-4">
-    <form method="get" action="<?= url('/reports/search') ?>">
+    <form method="get" action="<?= e(url('/reports/search')) ?>">
         <div class="global-search-copy">
             <strong>Pencarian global</strong>
-            <span>Mencari seluruh bulan, tanggal, tim, file, payer, beneficiary, bank, dan transaksi.</span>
+            <span>Mencari data transaksi di seluruh bulan, tanggal, tim, file, payer, beneficiary, dan bank.</span>
         </div>
+
         <div class="global-search-input">
             <i class="bi bi-search"></i>
-            <input class="form-control" type="search" name="q" required placeholder="Cari seluruh data report..." value="<?= e($filters['q'] ?? '') ?>">
+            <input class="form-control" type="search" name="q" required placeholder="Cari seluruh data report..." value="<?= e((string) ($filters['q'] ?? '')) ?>">
         </div>
+
         <button class="btn btn-primary" type="submit">Cari</button>
     </form>
 </section>
 
+<!-- =========================================================
+     FILTER TANGGAL & TIM
+     ========================================================= -->
 <div class="panel-card mb-4">
-    <form class="report-inline-filter" method="get" action="<?= url('/reports/month/' . $month) ?>">
+    <form class="report-inline-filter" method="get" action="<?= e(url('/reports/month/' . $month)) ?>">
         <label>
             <span>Tim</span>
             <select class="form-select" name="team">
                 <option value="">Semua tim</option>
                 <?php foreach ($teams as $team): ?>
-                    <option value="<?= e($team) ?>" <?= selected($filters['team'] ?? '', $team) ?>><?= e($team) ?></option>
+                    <option value="<?= e($team) ?>" <?= selected((string) ($filters['team'] ?? ''), $team) ?>><?= e($team) ?></option>
                 <?php endforeach; ?>
             </select>
         </label>
+
         <label>
             <span>Tanggal mulai</span>
-            <input class="form-control" type="date" name="date_from" value="<?= e($filters['date_from'] ?? '') ?>">
+            <input class="form-control" type="date" name="date_from" value="<?= e((string) ($filters['date_from'] ?? '')) ?>">
         </label>
+
         <label>
             <span>Tanggal akhir</span>
-            <input class="form-control" type="date" name="date_to" value="<?= e($filters['date_to'] ?? '') ?>">
+            <input class="form-control" type="date" name="date_to" value="<?= e((string) ($filters['date_to'] ?? '')) ?>">
         </label>
+
         <label>
             <span>Status kirim</span>
             <select class="form-select" name="delivery_status">
                 <option value="">Semua</option>
-                <option value="PENDING" <?= selected($filters['delivery_status'] ?? '', 'PENDING') ?>>Pending</option>
-                <option value="SENT" <?= selected($filters['delivery_status'] ?? '', 'SENT') ?>>Terkirim</option>
+                <option value="PENDING" <?= selected((string) ($filters['delivery_status'] ?? ''), 'PENDING') ?>>Pending</option>
+                <option value="SENT" <?= selected((string) ($filters['delivery_status'] ?? ''), 'SENT') ?>>Terkirim</option>
             </select>
         </label>
+
         <div class="filter-actions">
             <button class="btn btn-primary" type="submit">Terapkan</button>
-            <a class="btn btn-light" href="<?= url('/reports/month/' . $month) ?>">Reset</a>
+            <a class="btn btn-light" href="<?= e(url('/reports/month/' . $month)) ?>">Reset</a>
         </div>
     </form>
 </div>
 
+<!-- =========================================================
+     HIERARKI TINGKAT 2
+     ========================================================= -->
 <div class="report-hierarchy-note mb-4">
-    <a href="<?= url('/reports') ?>"><b>1</b>Bulan</a>
+    <a href="<?= e(url('/reports')) ?>"><b>1</b>Bulan</a>
     <i class="bi bi-chevron-right"></i>
     <span class="active"><b>2</b>Tanggal</span>
     <i class="bi bi-chevron-right"></i>
     <span><b>3</b>Tim dan Report</span>
 </div>
 
-<div class="report-date-grid">
-    <?php foreach ($dates as $dateCard): ?>
-        <?php
-        $dateValue = (string) $dateCard['report_day'];
-        $dateObject = new \DateTime($dateValue);
-        $dateLabel = $dateObject->format('j') . ' ' . ($monthNames[(int) $dateObject->format('n')] ?? '') . ' ' . $dateObject->format('Y');
-        $total = (int) ($dateCard['total_rows'] ?? 0);
-        $sent = (int) ($dateCard['sent_rows'] ?? 0);
-        $pending = (int) ($dateCard['pending_rows'] ?? 0);
-        $progress = $total > 0 ? min(100, (int) round(($sent / $total) * 100)) : 0;
-        $query = array_filter([
-            'team' => $filters['team'] ?? '',
-            'delivery_status' => $filters['delivery_status'] ?? '',
-            'result_status' => $filters['result_status'] ?? '',
-        ], static fn($value) => $value !== '');
-        $dateUrl = '/reports/date/' . $dateValue . ($query ? '?' . http_build_query($query) : '');
-        ?>
-        <article class="report-date-card">
-            <div class="report-date-head">
-                <div class="report-card-icon"><i class="bi bi-calendar-date"></i></div>
-                <span class="status-pill <?= $pending > 0 ? 'warning' : 'success' ?>"><?= $pending > 0 ? $pending . ' pending' : 'Selesai' ?></span>
-            </div>
-            <h3><?= e($dateLabel) ?></h3>
-            <p><?= (int) $dateCard['file_count'] ?> file · <?= (int) $dateCard['team_count'] ?> tim</p>
+<!-- =========================================================
+     TOOLBAR MODE TAMPILAN: TABEL VS LIST
+     ========================================================= -->
+<div class="report-view-toolbar">
+    <div class="report-view-summary">
+        <span>Tanggal Transaksi Bulan <?= e($monthLabel) ?></span>
+        <span class="count-badge"><?= count($dates) ?> Hari Transaksi</span>
+    </div>
 
-            <div class="report-progress"><span style="width:<?= $progress ?>%"></span></div>
-
-            <div class="report-card-stats four">
-                <div><strong><?= number_format($total, 0, ',', '.') ?></strong><small>Total baris</small></div>
-                <div><strong><?= number_format($sent, 0, ',', '.') ?></strong><small>Terkirim</small></div>
-                <div><strong><?= number_format($pending, 0, ',', '.') ?></strong><small>Pending</small></div>
-                <div><strong><?= number_format((int) ($dateCard['skipped_rows'] ?? 0), 0, ',', '.') ?></strong><small>Dilewati</small></div>
-            </div>
-
-            <div class="report-card-footer">
-                <span>Upload terakhir <?= e(format_datetime($dateCard['last_upload'] ?? null)) ?></span>
-                <a class="btn btn-primary btn-sm" href="<?= url($dateUrl) ?>">Lihat Report Tim <i class="bi bi-arrow-right"></i></a>
-            </div>
-        </article>
-    <?php endforeach; ?>
-
-    <?php if ($dates === []): ?>
-        <div class="empty-card">
-            <i class="bi bi-calendar-x"></i>
-            <h3>Belum ada report pada bulan ini</h3>
-            <p>Upload file Excel dan tentukan tanggal report agar kartu tanggal terbentuk otomatis.</p>
-            <?php if (can('report.manage')): ?><a class="btn btn-primary" href="<?= url('/reports/create?month=' . urlencode($month)) ?>">Upload Excel</a><?php endif; ?>
-        </div>
-    <?php endif; ?>
+    <div class="view-mode-switcher" id="reportViewSwitcherMonth">
+        <button type="button" class="view-mode-btn active" data-view="table">
+            <i class="bi bi-table"></i>
+            Tabel
+        </button>
+        <button type="button" class="view-mode-btn" data-view="list">
+            <i class="bi bi-list-ul"></i>
+            List
+        </button>
+    </div>
 </div>
+
+<!-- =========================================================
+     WADAH TAMPILAN: TABEL & LIST MUTLAK
+     ========================================================= -->
+<div class="report-view-container mode-table" id="reportViewContainerMonth">
+
+    <!-- 1. TAMPILAN TABEL ZEBRA (HIGH DENSITY) -->
+    <div class="report-table-view">
+        <div class="report-table-responsive">
+            <table class="report-zebra-table">
+                <thead>
+                    <tr>
+                        <th>Tanggal Transaksi</th>
+                        <th>Berkas</th>
+                        <th>Tim</th>
+                        <th class="text-end">Total Baris</th>
+                        <th style="min-width: 170px;">Progress Kirim</th>
+                        <th class="text-center">Dilewati</th>
+                        <th>Upload Terakhir</th>
+                        <th class="text-end">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($dates as $dateCard): ?>
+                        <?php
+                        $dateValue = (string) $dateCard['report_day'];
+                        $dateObject = new \DateTime($dateValue);
+                        $dateLabel = $dateObject->format('j') . ' ' . ($monthNames[(int) $dateObject->format('n')] ?? '') . ' ' . $dateObject->format('Y');
+
+                        $total = (int) ($dateCard['total_rows'] ?? 0);
+                        $sent = (int) ($dateCard['sent_rows'] ?? 0);
+                        $pending = (int) ($dateCard['pending_rows'] ?? 0);
+                        $skipped = (int) ($dateCard['skipped_rows'] ?? 0);
+                        $progress = $total > 0 ? min(100, (int) round(($sent / $total) * 100)) : 0;
+
+                        $query = array_filter([
+                            'team' => $filters['team'] ?? '',
+                            'delivery_status' => $filters['delivery_status'] ?? '',
+                            'result_status' => $filters['result_status'] ?? '',
+                        ], static fn($v) => $v !== '');
+
+                        $dateUrl = '/reports/date/' . $dateValue . ($query ? '?' . http_build_query($query) : '');
+                        $lastUpload = $dateCard['last_upload'] ?? null;
+                        ?>
+                        <tr>
+                            <td>
+                                <div class="report-month-title">
+                                    <div class="month-icon">
+                                        <i class="bi bi-calendar-event"></i>
+                                    </div>
+                                    <div>
+                                        <strong><?= e($dateLabel) ?></strong>
+                                        <small><?= e($dateValue) ?></small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="chip-meta">
+                                    <i class="bi bi-files"></i>
+                                    <?= (int) $dateCard['file_count'] ?> Berkas
+                                </span>
+                            </td>
+                            <td>
+                                <span class="chip-meta">
+                                    <i class="bi bi-people"></i>
+                                    <?= (int) $dateCard['team_count'] ?> Tim
+                                </span>
+                            </td>
+                            <td class="text-end">
+                                <strong style="font-size: 14px; color: #0f172a;">
+                                    <?= number_format($total, 0, ',', '.') ?>
+                                </strong>
+                            </td>
+                            <td>
+                                <div class="table-progress-wrap">
+                                    <div class="table-progress-bar">
+                                        <div class="table-progress-fill" style="width: <?= $progress ?>%;"></div>
+                                    </div>
+                                    <div class="table-progress-labels">
+                                        <span class="sent-txt"><?= $progress ?>% Kirim</span>
+                                        <span class="pending-txt"><?= number_format($pending, 0, ',', '.') ?> Pnd</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <?php if ($skipped > 0): ?>
+                                    <span class="status-pill warning"><?= number_format($skipped, 0, ',', '.') ?></span>
+                                <?php else: ?>
+                                    <span style="color: #94a3b8;">0</span>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <span style="font-size: 12px; color: #64748b;">
+                                    <?= e(format_datetime($lastUpload)) ?>
+                                </span>
+                            </td>
+                            <td class="text-end">
+                                <a class="btn btn-primary btn-sm" href="<?= e(url($dateUrl)) ?>">
+                                    Buka Tanggal
+                                    <i class="bi bi-arrow-right ms-1"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+
+                    <?php if ($dates === []): ?>
+                        <tr>
+                            <td colspan="8" style="text-align: center; padding: 48px 24px;">
+                                <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                    <i class="bi bi-calendar-x" style="font-size: 32px; color: #94a3b8;"></i>
+                                    <strong style="color: #475569; font-size: 15px;">Belum ada report pada bulan ini</strong>
+                                    <span style="color: #94a3b8; font-size: 13px;">Upload berkas Excel untuk membentuk daftar tanggal transaksi otomatis.</span>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 2. TAMPILAN LIST VIEW -->
+    <div class="report-list-view">
+        <?php foreach ($dates as $dateCard): ?>
+            <?php
+            $dateValue = (string) $dateCard['report_day'];
+            $dateObject = new \DateTime($dateValue);
+            $dateLabel = $dateObject->format('j') . ' ' . ($monthNames[(int) $dateObject->format('n')] ?? '') . ' ' . $dateObject->format('Y');
+
+            $total = (int) ($dateCard['total_rows'] ?? 0);
+            $sent = (int) ($dateCard['sent_rows'] ?? 0);
+            $pending = (int) ($dateCard['pending_rows'] ?? 0);
+            $skipped = (int) ($dateCard['skipped_rows'] ?? 0);
+            $progress = $total > 0 ? min(100, (int) round(($sent / $total) * 100)) : 0;
+
+            $query = array_filter([
+                'team' => $filters['team'] ?? '',
+                'delivery_status' => $filters['delivery_status'] ?? '',
+                'result_status' => $filters['result_status'] ?? '',
+            ], static fn($v) => $v !== '');
+
+            $dateUrl = '/reports/date/' . $dateValue . ($query ? '?' . http_build_query($query) : '');
+            $lastUpload = $dateCard['last_upload'] ?? null;
+            ?>
+            <article class="report-list-item">
+                <div class="report-list-header">
+                    <div class="report-list-title-box">
+                        <div class="month-icon" style="display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:#edf5fd;color:#2563eb;font-size:18px;">
+                            <i class="bi bi-calendar-date"></i>
+                        </div>
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <strong style="font-size: 16px; color: #0f172a;"><?= e($dateLabel) ?></strong>
+                                <span class="status-pill <?= $pending > 0 ? 'warning' : 'success' ?>">
+                                    <?= $pending > 0 ? $pending . ' pending' : 'Selesai' ?>
+                                </span>
+                            </div>
+                            <span style="font-size: 12px; color: #64748b;">
+                                <?= (int) $dateCard['file_count'] ?> berkas · <?= (int) $dateCard['team_count'] ?> tim
+                            </span>
+                        </div>
+                    </div>
+
+                    <a class="btn btn-primary btn-sm" href="<?= e(url($dateUrl)) ?>">
+                        Buka Tanggal
+                        <i class="bi bi-arrow-right ms-1"></i>
+                    </a>
+                </div>
+
+                <div class="report-list-body">
+                    <div class="report-list-stat-item">
+                        <span class="stat-label">Total Transaksi</span>
+                        <span class="stat-val"><?= number_format($total, 0, ',', '.') ?> baris</span>
+                    </div>
+
+                    <div class="report-list-stat-item">
+                        <span class="stat-label">Terkirim</span>
+                        <span class="stat-val" style="color: #059669;"><?= number_format($sent, 0, ',', '.') ?> baris</span>
+                    </div>
+
+                    <div class="report-list-stat-item">
+                        <span class="stat-label">Pending</span>
+                        <span class="stat-val" style="color: #d97706;"><?= number_format($pending, 0, ',', '.') ?> baris</span>
+                    </div>
+
+                    <div class="report-list-stat-item">
+                        <span class="stat-label">Dilewati</span>
+                        <span class="stat-val"><?= number_format($skipped, 0, ',', '.') ?> baris</span>
+                    </div>
+                </div>
+
+                <div class="report-list-footer">
+                    <div style="flex: 1; max-width: 320px;">
+                        <div class="table-progress-bar">
+                            <div class="table-progress-fill" style="width: <?= $progress ?>%;"></div>
+                        </div>
+                        <div class="table-progress-labels">
+                            <span class="sent-txt"><?= $progress ?>% Terkirim</span>
+                            <span><?= number_format($sent, 0, ',', '.') ?> dari <?= number_format($total, 0, ',', '.') ?></span>
+                        </div>
+                    </div>
+
+                    <div>
+                        Upload terakhir: <strong><?= e(format_datetime($lastUpload)) ?></strong>
+                    </div>
+                </div>
+            </article>
+        <?php endforeach; ?>
+
+        <?php if ($dates === []): ?>
+            <div class="empty-card" style="padding: 48px 24px; text-align: center; background: #ffffff; border: 1px solid #dce6f0; border-radius: 16px;">
+                <i class="bi bi-calendar-x" style="font-size: 32px; color: #94a3b8; display: block; margin-bottom: 12px;"></i>
+                <h3 style="font-size: 16px; color: #1e293b; margin-bottom: 6px;">Belum ada report pada bulan ini</h3>
+                <p style="color: #64748b; font-size: 13px; margin-bottom: 16px;">Upload berkas Excel untuk membentuk daftar tanggal transaksi otomatis.</p>
+                <?php if (can('report.manage')): ?>
+                    <a class="btn btn-primary" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
+                        <i class="bi bi-cloud-arrow-up me-1"></i>
+                        Upload Excel
+                    </a>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+    </div>
+
+</div>
+
+<!-- =========================================================
+     JAVASCRIPT: PERALIHAN MODE TABEL / LIST
+     ========================================================= -->
+<script>
+(() => {
+    const container = document.getElementById('reportViewContainerMonth');
+    const switcher = document.getElementById('reportViewSwitcherMonth');
+    if (!container || !switcher) return;
+
+    const savedMode = localStorage.getItem('fable_report_view_mode') || 'table';
+    setMode(savedMode);
+
+    switcher.addEventListener('click', (e) => {
+        const btn = e.target.closest('.view-mode-btn');
+        if (!btn) return;
+        const mode = btn.getAttribute('data-view');
+        if (mode) {
+            setMode(mode);
+            localStorage.setItem('fable_report_view_mode', mode);
+        }
+    });
+
+    function setMode(mode) {
+        if (mode === 'list') {
+            container.classList.remove('mode-table');
+            container.classList.add('mode-list');
+        } else {
+            container.classList.remove('mode-list');
+            container.classList.add('mode-table');
+        }
+
+        const buttons = switcher.querySelectorAll('.view-mode-btn');
+        buttons.forEach(b => {
+            if (b.getAttribute('data-view') === mode) {
+                b.classList.add('active');
+            } else {
+                b.classList.remove('active');
+            }
+        });
+    }
+})();
+</script>
