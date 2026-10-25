@@ -39,12 +39,6 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                 <i class="bi bi-arrow-left"></i>
                 Daftar Bulan
             </a>
-            <?php if (can('report.manage')): ?>
-                <a class="btn btn-primary py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg focus:outline-none" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
-                    <i class="bi bi-cloud-arrow-up text-sm"></i>
-                    Upload Excel
-                </a>
-            <?php endif; ?>
         </div>
     </div>
 
@@ -52,14 +46,14 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
          PENCARIAN GLOBAL
          ========================================================= -->
     <section class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-xs">
-        <form method="get" action="<?= e(url('/reports/search')) ?>" class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <form method="get" action="<?= e(url('/reports/search')) ?>" class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div class="flex-1">
                 <strong class="text-sm font-bold text-gray-900 block">Pencarian Transaksi Bulan Ini</strong>
                 <span class="text-xs text-gray-500 mt-0.5 block">Cari data transaksi di seluruh tanggal dan tim dalam bulan <?= e($monthLabel) ?>.</span>
             </div>
 
-            <div class="flex items-center gap-2 flex-1 max-w-md">
-                <div class="relative flex-1">
+            <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 flex-1 max-w-xl">
+                <div class="relative flex-1 min-w-[200px]">
                     <input class="py-2 px-3 ps-9 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" type="search" name="q" required placeholder="Cari data report..." value="<?= e((string) ($filters['q'] ?? '')) ?>">
                     <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3 text-gray-400">
                         <i class="bi bi-search text-xs"></i>
@@ -69,6 +63,12 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                     <i class="bi bi-search"></i>
                     Cari
                 </button>
+                <?php if (can('report.manage')): ?>
+                    <a class="btn btn-primary py-2 px-3.5 inline-flex items-center justify-center gap-x-2 text-xs font-semibold rounded-lg shrink-0 focus:outline-none" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
+                        <i class="bi bi-cloud-arrow-up text-sm"></i>
+                        Upload Excel
+                    </a>
+                <?php endif; ?>
             </div>
         </form>
     </section>

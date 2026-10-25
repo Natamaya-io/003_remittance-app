@@ -41,33 +41,24 @@ $activeAdvancedFilters = array_filter(
     <!-- =========================================================
          PAGE HEADING
          ========================================================= -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div class="flex items-center justify-between gap-4">
         <div>
             <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Report Harian</h2>
         </div>
-
-        <?php if (can('report.manage')): ?>
-            <div class="flex items-center gap-2">
-                <a class="btn btn-primary py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg focus:outline-none" href="<?= e(url('/reports/create')) ?>">
-                    <i class="bi bi-cloud-arrow-up text-sm"></i>
-                    Upload Excel
-                </a>
-            </div>
-        <?php endif; ?>
     </div>
 
     <!-- =========================================================
          PENCARIAN GLOBAL
          ========================================================= -->
     <section class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-xs">
-        <form method="get" action="<?= e(url('/reports/search')) ?>" class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <form method="get" action="<?= e(url('/reports/search')) ?>" class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
             <div class="flex-1">
                 <strong class="text-sm font-bold text-gray-900 block">Pencarian Transaksi</strong>
                 <span class="text-xs text-gray-500 mt-0.5 block">Cari data di seluruh bulan, tanggal, tim, berkas, payer, dan beneficiary.</span>
             </div>
 
-            <div class="flex items-center gap-2 flex-1 max-w-md">
-                <div class="relative flex-1">
+            <div class="flex flex-wrap sm:flex-nowrap items-center gap-2 flex-1 max-w-xl">
+                <div class="relative flex-1 min-w-[200px]">
                     <input
                         class="py-2 px-3 ps-9 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs"
                         type="search"
@@ -86,6 +77,13 @@ $activeAdvancedFilters = array_filter(
                     <i class="bi bi-search"></i>
                     Cari
                 </button>
+
+                <?php if (can('report.manage')): ?>
+                    <a class="btn btn-primary py-2 px-3.5 inline-flex items-center justify-center gap-x-2 text-xs font-semibold rounded-lg shrink-0 focus:outline-none" href="<?= e(url('/reports/create')) ?>">
+                        <i class="bi bi-cloud-arrow-up text-sm"></i>
+                        Upload Excel
+                    </a>
+                <?php endif; ?>
             </div>
         </form>
     </section>
