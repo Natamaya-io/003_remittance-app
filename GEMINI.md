@@ -267,9 +267,9 @@ Jika tag native `<select>` masih digunakan untuk kasus tertentu (seperti floatin
 Setiap halaman di dalam aplikasi remittance beroperasi di bawah prinsip **Naked Page Architecture** untuk menjamin visual berwibawa, efisiensi ruang vertikal, dan ketiadaan teks mubazir (*zero slop*).
 
 ### 5.1. Single Source of Truth untuk Judul Halaman
-- Seluruh judul halaman utama (seperti *Report Harian*, *Pencarian Report*, *Rekap Transaksi*, *Invoice*, *Complain*, *Master Rekening Payer*, dll.) **MUTLAK HANYA DITAMPILKAN SATU KALI** pada bilah navigasi atas (Sticky Topbar: `app/Views/partials/topbar.php` via tag `<h1><?= e($title ?? 'Dashboard') ?></h1>`).
+- Seluruh judul halaman utama (seperti *Laporan*, *Pencarian Report*, *Rekap Transaksi*, *Invoice*, *Complain*, *Master Rekening Payer*, dll.) **MUTLAK HANYA DITAMPILKAN SATU KALI** pada bilah navigasi atas (Sticky Topbar: `app/Views/partials/topbar.php` via tag `<h1><?= e($title ?? 'Dashboard') ?></h1>`).
 - **DILARANG KERAS** menambahkan banner judul halaman duplikat di dalam area konten body, seperti:
-  - `<h2>Report Harian</h2>` atau `<h2>Report {Bulan}</h2>` atau `<h2>{Tanggal}</h2>`
+  - `<h2>Laporan</h2>` atau `<h2>Report {Bulan}</h2>` atau `<h2>{Tanggal}</h2>`
   - `<div class="page-heading"><h2>...</h2></div>`
   - `<section class="bank-hub-heading"><h2>...</h2></section>`
   - `<div class="spk-hero"><h2>...</h2></div>`

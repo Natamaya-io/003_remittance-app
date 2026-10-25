@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /*
 |--------------------------------------------------------------------------
-| REPORT HARIAN - TINGKAT TANGGAL (PRELINE UI & ALPINE.JS NATIVE)
+| LAPORAN - TINGKAT TANGGAL (PRELINE UI & ALPINE.JS NATIVE)
 |--------------------------------------------------------------------------
 */
 

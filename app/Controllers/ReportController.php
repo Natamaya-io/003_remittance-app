@@ -53,7 +53,7 @@ final class ReportController extends BaseController
         $months = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         $this->view('reports/index', [
-            'title' => 'Report Harian',
+            'title' => 'Laporan',
             'months' => $months,
             'filters' => $filters,
             'teams' => $this->teamOptions(),
@@ -244,7 +244,7 @@ final class ReportController extends BaseController
         }
 
         $this->view('reports/create', [
-            'title' => 'Upload Report Harian',
+            'title' => 'Upload Laporan',
             'defaultMonth' => $defaultMonth,
             'defaultDate' => $defaultDate,
             'defaultTeam' => $defaultTeam,

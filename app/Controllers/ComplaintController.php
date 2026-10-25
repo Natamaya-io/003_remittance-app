@@ -68,7 +68,7 @@ final class ComplaintController extends BaseController
         $stmt->execute(array_values($data));
         $id = (int) App::db()->lastInsertId();
         AuditService::log('create', 'complaint', $id, null, $data);
-        $this->logHistory($id, 'created', 'Complain dibuat dari ' . ($data['report_row_id'] ? 'Report Harian' : 'input manual') . '.', null, (string) $data['status']);
+        $this->logHistory($id, 'created', 'Complain dibuat dari ' . ($data['report_row_id'] ? 'Laporan' : 'input manual') . '.', null, (string) $data['status']);
         flash('success', 'Complain berhasil dibuat dan sumber report tersimpan.');
         redirect('/complaints');
     }

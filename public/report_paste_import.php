@@ -611,7 +611,7 @@ body {
 <div>
 
 <h1>
-    Import Report Harian dari Excel
+    Import Laporan dari Excel
 </h1>
 
 <p>

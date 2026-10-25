@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /*
 |--------------------------------------------------------------------------
-| REPORT HARIAN - DETAIL BATCH (PRELINE UI & ALPINE.JS NATIVE)
+| LAPORAN - DETAIL BATCH (PRELINE UI & ALPINE.JS NATIVE)
 |--------------------------------------------------------------------------
 */
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /*
 |--------------------------------------------------------------------------
-| REPORT HARIAN - REKAP TRANSAKSI HARIAN (PRELINE & ALPINE NATIVE)
+| LAPORAN - REKAP TRANSAKSI HARIAN (PRELINE & ALPINE NATIVE)
 |--------------------------------------------------------------------------
 */
 

@@ -138,7 +138,7 @@ $iconClass = static function (bool $condition): string {
                     <?= $isReports ? 'aria-current="page"' : '' ?>
                 >
                     <i class="bi bi-file-earmark-bar-graph <?= $iconClass($isReports) ?>"></i>
-                    <span>Report Harian</span>
+                    <span>Laporan</span>
                 </a>
             <?php endif; ?>
 

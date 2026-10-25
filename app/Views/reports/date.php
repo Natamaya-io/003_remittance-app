@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /*
 |--------------------------------------------------------------------------
-| REPORT HARIAN - TINGKAT TIM DAN REPORT (PRELINE UI & ALPINE.JS NATIVE)
+| LAPORAN - TINGKAT TIM DAN REPORT (PRELINE UI & ALPINE.JS NATIVE)
 |--------------------------------------------------------------------------
 */
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /*
 |--------------------------------------------------------------------------
-| REPORT HARIAN - UPLOAD EXCEL (PRELINE & ALPINE NATIVE)
+| LAPORAN - UPLOAD EXCEL (PRELINE & ALPINE NATIVE)
 |--------------------------------------------------------------------------
 */
 
@@ -17,7 +17,7 @@ $selectedMonth = (string) ($defaultMonth ?? date('Y-m'));
 $selectedDate = (string) ($defaultDate ?? '');
 $selectedTeam = (string) ($defaultTeam ?? '');
 $monthNumber = (int) substr($selectedMonth, 5, 2);
-$defaultReportName = 'REPORT HARIAN - ' . ($monthNames[$monthNumber] ?? strtoupper(date('F'))) . ' ' . substr($selectedMonth, 0, 4);
+$defaultReportName = 'LAPORAN - ' . ($monthNames[$monthNumber] ?? strtoupper(date('F'))) . ' ' . substr($selectedMonth, 0, 4);
 ?>
 
 <div class="max-w-7xl mx-auto space-y-6">
@@ -41,7 +41,7 @@ $defaultReportName = 'REPORT HARIAN - ' . ($monthNames[$monthNumber] ?? strtoupp
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                     <div class="sm:col-span-2">
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama report *</label>
-                        <input class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" name="name" required placeholder="Contoh: REPORT HARIAN AGUSTUS 2026 PARK" value="<?= e(old('name', $defaultReportName)) ?>">
+                        <input class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" name="name" required placeholder="Contoh: LAPORAN AGUSTUS 2026 PARK" value="<?= e(old('name', $defaultReportName)) ?>">
                     </div>
 
                     <div>

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /*
 |--------------------------------------------------------------------------
-| REPORT HARIAN - EDIT METADATA (PRELINE & ALPINE NATIVE)
+| LAPORAN - EDIT METADATA (PRELINE & ALPINE NATIVE)
 |--------------------------------------------------------------------------
 */
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /*
 |--------------------------------------------------------------------------
-| REPORT HARIAN - INDEX (PRELINE UI & ALPINE.JS NATIVE)
+| LAPORAN - INDEX (PRELINE UI & ALPINE.JS NATIVE)
 |--------------------------------------------------------------------------
 */
 

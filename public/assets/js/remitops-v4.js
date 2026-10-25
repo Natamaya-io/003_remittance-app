@@ -234,7 +234,7 @@
   const initializeAnalysisSource = () => {
     qsa('input[name="data_source"]').forEach((input) => input.addEventListener('change', () => {
       const label = qs('[data-analysis-source-label]');
-      if (label) label.textContent = input.checked && input.value === 'reports' ? 'Report Harian' : 'Transaksi';
+      if (label) label.textContent = input.checked && input.value === 'reports' ? 'Laporan' : 'Transaksi';
     }));
   };
 

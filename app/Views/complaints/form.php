@@ -16,7 +16,7 @@ $histories = is_array($histories ?? null) ? $histories : [];
     <div class="section-title"><i class="bi bi-link-45deg"></i><div><h3>Sumber kasus</h3><p>Pilih baris report untuk mengisi perusahaan, subjek, dan detail secara otomatis.</p></div></div>
     <div class="row g-3 mb-4">
         <div class="col-12">
-            <label class="form-label">Baris Report Harian</label>
+            <label class="form-label">Baris Laporan</label>
             <select class="form-select" name="report_row_id" data-report-row-select>
                 <option value="">Complain manual / tidak terkait report</option>
                 <?php foreach ($reportRows as $row):
