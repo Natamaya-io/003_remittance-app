@@ -39,15 +39,6 @@ $activeAdvancedFilters = array_filter(
 <div class="max-w-7xl mx-auto space-y-6">
 
     <!-- =========================================================
-         PAGE HEADING
-         ========================================================= -->
-    <div class="flex items-center justify-between gap-4">
-        <div>
-            <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Report Harian</h2>
-        </div>
-    </div>
-
-    <!-- =========================================================
          PENCARIAN GLOBAL
          ========================================================= -->
     <section class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-xs">

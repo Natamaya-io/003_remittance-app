@@ -1,6 +1,5 @@
 <div class="spk-module">
 <?php require __DIR__ . '/_nav.php'; ?>
-<div class="spk-hero"><span class="eyebrow dark">HASIL AKHIR</span><h2>Data Hasil Akhir</h2><p>Ranking TOPSIS berdasarkan bobot objektif yang dihasilkan oleh metode Entropy.</p></div>
 <?php if(!$run): ?><div class="spk-section"><div class="empty-state">Belum ada hasil tersimpan. Buka Data Perhitungan lalu simpan hasilnya.</div></div><?php else: ?>
 <div class="spk-section"><div class="spk-section-head"><div><h3><?=e($run['name'])?></h3><div class="spk-muted"><?=e(format_datetime($run['created_at']))?> · <?=e($run['creator_name']??'-')?></div></div><button class="btn btn-light" onclick="window.print()"><i class="bi bi-printer me-1"></i>Cetak</button></div>
 <div class="spk-rank-grid"><?php foreach(array_slice($results,0,4) as $r):?><div class="spk-rank-card"><div class="rank">#<?=(int)$r['rank_position']?></div><strong><?=e($r['alternative_name'])?></strong><small>Nilai V = <?=number_format((float)$r['preference_value'],12,',','.')?></small></div><?php endforeach;?></div></div>

@@ -1,20 +1,12 @@
-<div class="page-heading invoice-page-heading">
-    <div>
-        <span class="eyebrow dark">BUAT INVOICE</span>
-        <h2>Pilih Template Invoice</h2>
-        <p>Pilih template Word yang akan digunakan sebagai bentuk invoice.</p>
-    </div>
-
-    <div class="d-flex gap-2 flex-wrap">
-        <a class="btn btn-light" href="<?= url('/invoices') ?>">
-            <i class="bi bi-arrow-left me-1"></i>
-            Kembali
-        </a>
-        <a class="btn btn-primary" href="<?= url('/document_template_manager.php?module=invoice') ?>">
-            <i class="bi bi-plus-lg me-1"></i>
-            Kelola Template
-        </a>
-    </div>
+<div class="page-actions d-flex justify-content-end gap-2 flex-wrap mb-4">
+    <a class="btn btn-light" href="<?= url('/invoices') ?>">
+        <i class="bi bi-arrow-left me-1"></i>
+        Kembali
+    </a>
+    <a class="btn btn-primary" href="<?= url('/document_template_manager.php?module=invoice') ?>">
+        <i class="bi bi-plus-lg me-1"></i>
+        Kelola Template
+    </a>
 </div>
 
 <link rel="stylesheet" href="<?= e(asset('css/invoice-template-flow.css?v=2.0.0')) ?>">

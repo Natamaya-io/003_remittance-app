@@ -7,14 +7,6 @@ $bniBatches = (int) ($bniBatches ?? 0);
 ?>
 
 <div class="transaction-bank-hub space-y-6">
-    <section class="bank-hub-heading flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2">
-        <div>
-            <span class="eyebrow dark text-xs font-bold tracking-wider text-blue-600 uppercase">TRANSAKSI</span>
-            <h2 class="text-2xl font-bold text-gray-900 mt-1">Pilih Bank Transaksi</h2>
-            <p class="text-sm text-gray-500 mt-0.5">Pilih alur pemrosesan data remitansi untuk Bank BRI atau Bank BNI.</p>
-        </div>
-    </section>
-
     <section class="bank-choice-grid grid grid-cols-1 md:grid-cols-2 gap-6">
         <article class="bank-choice-card bri bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
             <div>

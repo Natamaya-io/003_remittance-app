@@ -7,7 +7,6 @@ $topsis = $calculation['topsis'];
 ?>
 <div class="spk-module">
 <?php require __DIR__ . '/_nav.php'; ?>
-<div class="spk-hero"><span class="eyebrow dark">PERHITUNGAN</span><h2>Data Perhitungan</h2><p>Hasil perhitungan Entropy dan TOPSIS.</p></div>
 <div class="spk-section"><div class="spk-formula"><strong>P1:</strong> 1 September-31 Oktober 2024 &nbsp; | &nbsp; <strong>P2:</strong> 1 November-31 Desember 2024 &nbsp; | &nbsp; <strong>Semua kriteria:</strong> Benefit</div></div>
 
 <div class="spk-section">

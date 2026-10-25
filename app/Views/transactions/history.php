@@ -104,25 +104,7 @@ $filters = array_replace(
 
 <div class="trx-list-page">
 
-
-    <section class="trx-list-heading">
-
-        <div>
-
-            <span class="eyebrow dark">
-                BANK BRI
-            </span>
-
-            <h1>
-                Transaksi
-            </h1>
-
-            <p>
-                Riwayat transaksi dan batch hasil Import Template Bank BRI.
-            </p>
-
-        </div>
-
+    <section class="trx-list-heading d-flex justify-content-end mb-4">
 
         <?php if (
             can(

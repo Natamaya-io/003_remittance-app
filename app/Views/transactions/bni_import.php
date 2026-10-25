@@ -37,14 +37,9 @@ $columns = [
 ];
 ?>
 <div class="bni-import-page">
-    <section class="bank-page-heading">
-        <div>
-            <span class="eyebrow dark">BANK BNI</span>
-            <h2>Import Template Transaksi BNI</h2>
-            <p>Copy paste data Excel, bentuk tabel, lalu simpan untuk membuat formulir Kiriman Uang BNI.</p>
-        </div>
-        <a class="btn btn-light" href="<?= url('/transactions') ?>"><i class="bi bi-arrow-left"></i> Pilihan Bank</a>
-    </section>
+    <div class="page-actions d-flex justify-content-end mb-4">
+        <a class="btn btn-light" href="<?= url('/transactions') ?>"><i class="bi bi-arrow-left me-1"></i> Pilihan Bank</a>
+    </div>
 
     <section class="bank-workflow-card bni-flow">
         <div class="bank-workflow-step active"><b>1</b><span>Copy Paste Excel</span></div>

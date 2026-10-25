@@ -1,10 +1,5 @@
 <div class="spk-module">
 <?php require __DIR__ . '/_nav.php'; ?>
-<div class="spk-hero">
-    <span class="eyebrow dark">KRITERIA PENELITIAN</span>
-    <h2>Data Kriteria C1-C6</h2>
-    <p>Enam kriteria penelitian dikunci agar definisi pada aplikasi, perhitungan manual, dan naskah skripsi tetap konsisten. Seluruh kriteria bertipe <strong>Benefit</strong>.</p>
-</div>
 
 <div class="spk-section">
     <div class="spk-section-head">

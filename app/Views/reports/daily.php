@@ -18,13 +18,9 @@ $print = (bool) ($print ?? false);
 <div class="max-w-7xl mx-auto space-y-6">
 
     <!-- =========================================================
-         PAGE HEADING
+         PAGE ACTIONS
          ========================================================= -->
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-            <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Rekap Transaksi Harian</h2>
-        </div>
-        <div class="flex flex-wrap items-center gap-2">
+    <div class="flex flex-wrap items-center justify-end gap-2">
             <?php if (can('transaction.manage')): ?>
                 <a href="<?= url('/report_paste_import.php') ?>" class="btn btn-primary py-2 px-3.5 text-xs font-medium rounded-lg inline-flex items-center gap-1.5">
                     <i class="bi bi-clipboard-data"></i>

@@ -1,10 +1,5 @@
 <div class="spk-module">
 <?php require __DIR__ . '/_nav.php'; ?>
-<div class="spk-hero">
-    <span class="eyebrow dark">MATRIKS KEPUTUSAN</span>
-    <h2>Data Penilaian</h2>
-    <p>Nilai C1-C6 dihitung otomatis hanya dari dua sumber Excel olahan tahun 2024. Override manual dinonaktifkan agar hasil penelitian tetap konsisten.</p>
-</div>
 <div class="spk-section">
     <div class="spk-section-head">
         <div><h3>Matriks C1-C6</h3><div class="spk-muted">P1: 1 September-31 Oktober 2024 · P2: 1 November-31 Desember 2024.</div></div>

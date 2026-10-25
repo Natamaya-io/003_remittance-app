@@ -1,7 +1,8 @@
-<div class="page-heading">
-    <div><span class="eyebrow dark">CASE MANAGEMENT</span><h2>Complain</h2><p>Pantau complain manual maupun kasus yang ditarik dari Report Harian.</p></div>
-    <?php if (can('complaint.manage')): ?><a class="btn btn-primary" href="<?= url('/complaints/create') ?>"><i class="bi bi-plus-lg"></i>Complain Baru</a><?php endif; ?>
+<?php if (can('complaint.manage')): ?>
+<div class="page-actions d-flex justify-content-end mb-4">
+    <a class="btn btn-primary" href="<?= url('/complaints/create') ?>"><i class="bi bi-plus-lg me-1"></i>Complain Baru</a>
 </div>
+<?php endif; ?>
 <div class="panel-card mb-4"><form class="filter-grid"><label class="filter-grow"><span>Pencarian</span><input class="form-control" name="q" placeholder="Ticket, subjek, perusahaan, beneficiary..." value="<?= e($q) ?>"></label><label><span>Status</span><select class="form-select" name="status"><option value="">Semua status</option><?php foreach (['open','in_progress','resolved','closed'] as $item): ?><option value="<?= $item ?>" <?= selected($status, $item) ?>><?= strtoupper($item) ?></option><?php endforeach; ?></select></label><div class="filter-actions"><button class="btn btn-primary">Terapkan</button><a class="btn btn-light" href="<?= url('/complaints') ?>">Reset</a></div></form></div>
 <div class="panel-card"><div class="table-responsive"><table class="table modern-table align-middle"><thead><tr><th>Ticket</th><th>Perusahaan / Sumber</th><th>Subjek</th><th>Prioritas</th><th>Status</th><th>Assigned</th><th>Dibuat</th><th class="text-end">Aksi</th></tr></thead><tbody>
 <?php foreach ($complaints as $complaint): ?><tr>

@@ -90,36 +90,14 @@ $action =
 
 <div class="trx-form-page">
 
-    <div class="page-heading">
-
-        <div>
-
-            <span class="eyebrow dark">
-                OPERASIONAL TRANSAKSI
-            </span>
-
-            <h2>
-                <?= $isEdit
-                    ? 'Edit Transaksi'
-                    : 'Tambah Transaksi' ?>
-            </h2>
-
-            <p>
-                Isi data transaksi dan pilih Rekening Payer dari master
-                apabila tersedia.
-            </p>
-
-        </div>
-
-
+    <div class="page-actions d-flex justify-content-end mb-4">
         <a
             class="btn btn-light"
             href="<?= url('/transactions') ?>"
         >
-            <i class="bi bi-arrow-left"></i>
+            <i class="bi bi-arrow-left me-1"></i>
             Kembali
         </a>
-
     </div>
 
 

@@ -207,29 +207,10 @@ $outputCount =
 
 
     <!-- =====================================================
-         PAGE HEADER
-    ====================================================== -->
+          PAGE ACTIONS
+     ====================================================== -->
 
-    <section class="job-page-header">
-
-        <div class="job-page-title">
-
-            <span class="eyebrow dark">
-                HASIL OPERASI TRANSAKSI
-            </span>
-
-            <h2>
-                <?= e((string) $job['name']) ?>
-            </h2>
-
-            <p>
-                Review hasil Tahap 1, Tahap 2, dan Tahap 3 di bawah.
-                File final menggunakan isi Tahap 3, sedangkan nama kolom
-                tetap mengikuti struktur Tahap 2.
-            </p>
-
-        </div>
-
+    <section class="job-page-header d-flex justify-content-end mb-4">
 
         <div class="job-header-actions">
 

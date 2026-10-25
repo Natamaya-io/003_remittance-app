@@ -15,20 +15,6 @@ $showComplain = (bool) ($showComplain ?? false);
 $databaseWarning = trim((string) ($databaseWarning ?? ''));
 ?>
 
-<section class="bank-hero mb-4">
-    <div class="row align-items-center g-4">
-        <div class="col-lg-8">
-            <span class="eyebrow">DOCUMENT OPERATION CENTER</span>
-            <h2 class="mt-2 mb-2">Dokumen & Template</h2>
-            <p class="mb-0">Kelola Standing Instruction dan template Complain dalam satu pusat dokumen.</p>
-        </div>
-        <div class="col-lg-4 text-lg-end">
-            <div class="opacity-75 small">Hak akses aktif</div>
-            <strong class="fs-5"><?= e($user['role_name'] ?? $roleCode) ?></strong>
-        </div>
-    </div>
-</section>
-
 <?php if ($databaseWarning !== ''): ?>
     <div class="alert alert-warning shadow-sm">
         <i class="bi bi-exclamation-triangle-fill me-2"></i>

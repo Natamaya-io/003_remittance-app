@@ -1,6 +1,5 @@
 <div class="spk-module">
 <?php require __DIR__ . '/_nav.php'; ?>
-<div class="spk-hero"><span class="eyebrow dark">MASTER DATA</span><h2>Data Sub Kriteria</h2><p>Fitur ini mengikuti aplikasi referensi. Sub kriteria bersifat opsional untuk membuat skala kategori menjadi nilai numerik.</p></div>
 <div class="spk-section"><div class="spk-section-head"><div><h3>Tambah Sub Kriteria</h3><div class="spk-muted">Contoh: “Sangat Baik” = 5.</div></div></div>
 <form method="post" action="<?=url('/analysis/subcriteria/save')?>"><?=csrf_field()?>
 <div class="spk-form-row cols-3"><div><label class="form-label">Kriteria</label><select class="form-select" name="criterion_id" required><?php foreach($criteria as $c):?><option value="<?=(int)$c['id']?>"><?=e($c['code'].' - '.$c['name'])?></option><?php endforeach;?></select></div><div><label class="form-label">Nama Sub Kriteria</label><input class="form-control" name="name" required></div><div><label class="form-label">Nilai</label><input class="form-control" type="number" step="0.000001" min="0" name="value" required></div></div><input type="hidden" name="sort_order" value="99"><button class="btn btn-primary mt-3">Simpan</button></form></div>

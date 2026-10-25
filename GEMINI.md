@@ -185,7 +185,30 @@ Sistem dropdown mendukung **Preline UI (`hs-dropdown`)** dan **Alpine.js (`x-dat
 
 ---
 
-## 5. Protokol Keamanan, Git & Kompilasi Aset
+## 5. Aturan Terkunci: Peniadaan Judul Halaman Ganda (Global Zero-Redundant Page Title Directives / Naked Page Architecture)
+
+Setiap halaman di dalam aplikasi remittance beroperasi di bawah prinsip **Naked Page Architecture** untuk menjamin visual berwibawa, efisiensi ruang vertikal, dan ketiadaan teks mubazir (*zero slop*).
+
+### 5.1. Single Source of Truth untuk Judul Halaman
+- Seluruh judul halaman utama (seperti *Report Harian*, *Pencarian Report*, *Rekap Transaksi*, *Invoice*, *Complain*, *Master Rekening Payer*, dll.) **MUTLAK HANYA DITAMPILKAN SATU KALI** pada bilah navigasi atas (Sticky Topbar: `app/Views/partials/topbar.php` via tag `<h1><?= e($title ?? 'Dashboard') ?></h1>`).
+- **DILARANG KERAS** menambahkan banner judul halaman duplikat di dalam area konten body, seperti:
+  - `<h2>Report Harian</h2>` atau `<h2>Report {Bulan}</h2>` atau `<h2>{Tanggal}</h2>`
+  - `<div class="page-heading"><h2>...</h2></div>`
+  - `<section class="bank-hub-heading"><h2>...</h2></section>`
+  - `<div class="spk-hero"><h2>...</h2></div>`
+  - `<section class="bank-hero"><h2>...</h2></section>`
+  - `<div class="payer-page-heading"><h1>...</h1></div>`
+  - Kicker/eyebrow seremonial seperti `"OPERATION CONTROL CENTER"`, `"CASE MANAGEMENT"`, `"MASTER DATA"`, dll.
+
+### 5.2. Anatomi Body Halaman Murni (Naked Page Anatomy)
+1. **Langsung ke Inti Fungsi:** Body halaman harus langsung menyajikan bilah filter/pencarian, formulir kerja, kartu bank, atau tabel data tanpa didahului banner seremonial.
+2. **Penataan Tombol Aksi:**
+   - Tombol navigasi/aksi halaman (seperti *Kembali*, *Daftar Bulan*, *Export Semua*, *Complain Baru*, *Tambah PT*) diletakkan pada bilah aksi independen yang rata kanan (`flex items-center justify-end gap-2 mb-4` / `.page-actions`) atau dilebur langsung ke bilah pencarian/filter.
+   - Tombol utama tidak boleh membungkus diri dalam card heading besar berwarna yang membuang ruang layar.
+
+---
+
+## 6. Protokol Keamanan, Git & Kompilasi Aset
 
 1. **Kompilasi Aset Tailwind:**
    - Setelah mengedit kelas styling di `public/assets/css/tailwind-input.css`, WAJIB menjalankan:

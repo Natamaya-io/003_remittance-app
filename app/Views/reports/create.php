@@ -23,18 +23,13 @@ $defaultReportName = 'REPORT HARIAN - ' . ($monthNames[$monthNumber] ?? strtoupp
 <div class="max-w-7xl mx-auto space-y-6">
 
     <!-- =========================================================
-         PAGE HEADING
+         PAGE ACTIONS
          ========================================================= -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-            <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Upload Report Harian</h2>
-        </div>
-        <div>
-            <a class="py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-colors" href="<?= url('/reports') ?>">
-                <i class="bi bi-arrow-left"></i>
-                Kembali
-            </a>
-        </div>
+    <div class="flex items-center justify-end">
+        <a class="py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-colors" href="<?= url('/reports') ?>">
+            <i class="bi bi-arrow-left"></i>
+            Kembali
+        </a>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">

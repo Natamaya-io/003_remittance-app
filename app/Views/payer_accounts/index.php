@@ -99,35 +99,16 @@ $filters = array_replace(
 
 
     <!-- =====================================================
-         PAGE HEADER
+         PAGE ACTIONS
     ====================================================== -->
 
-    <section class="payer-page-heading">
+    <?php if (
+        can(
+            'transaction.manage'
+        )
+    ): ?>
 
-        <div class="payer-page-heading-copy">
-
-            <span class="eyebrow dark">
-                MASTER DATA
-            </span>
-
-            <h1>
-                Master Rekening Payer
-            </h1>
-
-            <p>
-                Kelola rekening bank perusahaan yang digunakan sebagai
-                sumber data payer pada transaksi remittance.
-            </p>
-
-        </div>
-
-
-        <?php if (
-            can(
-                'transaction.manage'
-            )
-        ): ?>
-
+        <div class="d-flex justify-content-end mb-4">
             <a
                 class="btn btn-primary payer-add-button"
                 href="<?= url(
@@ -138,10 +119,9 @@ $filters = array_replace(
 
                 Tambah Rekening
             </a>
+        </div>
 
-        <?php endif; ?>
-
-    </section>
+    <?php endif; ?>
 
 
     <!-- =====================================================
@@ -488,33 +468,6 @@ $filters = array_replace(
     ====================================================== -->
 
     <section class="payer-list-section">
-
-        <div class="payer-list-heading">
-
-            <div>
-
-                <span class="eyebrow dark">
-                    DAFTAR REKENING
-                </span>
-
-                <h2>
-                    Rekening Payer
-                </h2>
-
-                <p>
-                    <?= number_format(
-                        $total,
-                        0,
-                        ',',
-                        '.'
-                    ) ?>
-                    rekening ditemukan.
-                </p>
-
-            </div>
-
-        </div>
-
 
         <?php if (
             $accounts !== []

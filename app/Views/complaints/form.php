@@ -4,9 +4,8 @@ $value = static fn (string $key, mixed $default = ''): mixed => old($key, $compl
 $selectedReport = (string) $value('report_row_id');
 $histories = is_array($histories ?? null) ? $histories : [];
 ?>
-<div class="page-heading">
-    <div><span class="eyebrow dark">CASE MANAGEMENT</span><h2><?= e($title) ?></h2><p>Complain dapat dibuat manual atau ditarik langsung dari baris Report Harian.</p></div>
-    <a class="btn btn-light" href="<?= url('/complaints') ?>"><i class="bi bi-arrow-left"></i>Kembali</a>
+<div class="page-actions d-flex justify-content-end mb-4">
+    <a class="btn btn-light" href="<?= url('/complaints') ?>"><i class="bi bi-arrow-left me-1"></i>Kembali</a>
 </div>
 
 <div class="two-column-layout complaint-workspace">

@@ -52,30 +52,17 @@ $templateColorClass = static fn (string $type): string => match ($type) {
 };
 ?>
 
-<div class="page-heading invoice-page-heading">
-    <div class="invoice-page-heading-copy">
-        <span class="eyebrow dark">INVOICE CENTER</span>
-
-        <h2>Invoice</h2>
-
-        <p>
-            Kelola Invoice Asli, Invoice Order,
-            dan Invoice Terima Uang.
-        </p>
+<?php if (can('invoice.manage')): ?>
+    <div class="page-actions d-flex justify-content-end mb-4">
+        <a
+            class="btn btn-primary"
+            href="<?= url('/invoice_templates.php') ?>"
+        >
+            <i class="bi bi-layout-text-window me-1"></i>
+            Kelola Template
+        </a>
     </div>
-
-    <?php if (can('invoice.manage')): ?>
-        <div class="invoice-page-heading-action">
-            <a
-                class="btn btn-primary"
-                href="<?= url('/invoice_templates.php') ?>"
-            >
-                <i class="bi bi-layout-text-window me-1"></i>
-                Kelola Template
-            </a>
-        </div>
-    <?php endif; ?>
-</div>
+<?php endif; ?>
 
 <section class="panel-card invoice-template-hub mb-4">
 

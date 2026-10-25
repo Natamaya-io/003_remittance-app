@@ -7,13 +7,8 @@ $record = $isEdit ? $account : [];
 $value = static fn (string $key, mixed $default = ''): mixed => old($key, $record[$key] ?? $default);
 $action = $isEdit ? url('/payer-accounts/' . (int) $record['id']) : url('/payer-accounts');
 ?>
-<div class="page-heading">
-    <div>
-        <span class="eyebrow dark">MASTER REKENING</span>
-        <h2><?= $isEdit ? 'Ubah Rekening Payer' : 'Tambah Rekening Payer' ?></h2>
-        <p>Rekening aktif akan muncul sebagai pilihan pada input transaksi manual. Detail rekening disalin sebagai snapshot sehingga riwayat transaksi tetap konsisten.</p>
-    </div>
-    <a class="btn btn-light" href="<?= url('/payer-accounts') ?>"><i class="bi bi-arrow-left"></i>Kembali</a>
+<div class="page-actions d-flex justify-content-end mb-4">
+    <a class="btn btn-light" href="<?= url('/payer-accounts') ?>"><i class="bi bi-arrow-left me-1"></i>Kembali</a>
 </div>
 
 <form method="post" action="<?= $action ?>" class="stack-lg">

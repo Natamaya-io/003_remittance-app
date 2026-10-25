@@ -1,12 +1,6 @@
 <div class="spk-module">
 <?php require __DIR__ . '/_nav.php'; ?>
 
-<div class="spk-hero">
-    <span class="eyebrow dark">ANALISIS SPK</span>
-    <h2>Analisis Entropy - TOPSIS</h2>
-    <p>Analisis menggunakan <strong>Report Sukses 2024</strong> dan <strong>Actual LIST MT199</strong>.</p>
-</div>
-
 <div class="spk-section mb-4">
     <div class="spk-section-head">
         <div>

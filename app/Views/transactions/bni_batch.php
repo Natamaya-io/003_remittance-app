@@ -5,10 +5,10 @@ $batch = is_array($batch ?? null) ? $batch : [];
 $rows = is_array($rows ?? null) ? $rows : [];
 ?>
 <div class="bni-batch-page">
-    <section class="bank-page-heading">
-        <div><span class="eyebrow dark">BANK BNI</span><h2><?= e((string) ($batch['name'] ?? 'Batch BNI')) ?></h2><p><?= count($rows) ?> formulir siap preview dan cetak.</p></div>
-        <div class="d-flex gap-2 flex-wrap"><a class="btn btn-light" href="<?= url('/transactions/bni') ?>"><i class="bi bi-arrow-left"></i> Input BNI</a><a class="btn btn-light" href="<?= url('/transactions') ?>">Pilihan Bank</a></div>
-    </section>
+    <div class="page-actions d-flex justify-content-end gap-2 flex-wrap mb-4">
+        <a class="btn btn-light" href="<?= url('/transactions/bni') ?>"><i class="bi bi-arrow-left me-1"></i> Input BNI</a>
+        <a class="btn btn-light" href="<?= url('/transactions') ?>">Pilihan Bank</a>
+    </div>
     <section class="panel-card">
         <div class="table-responsive">
             <table class="table modern-table bni-batch-table">

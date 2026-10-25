@@ -274,37 +274,18 @@ $manualColumns = [
 
 
     <!-- =====================================================
-         TITLE
+         ACTIONS
     ====================================================== -->
 
-    <section class="trx-heading">
-
-        <div>
-
-            <span class="eyebrow dark">
-                BANK BRI
-            </span>
-
-            <h1>
-                Import Template Bank BRI
-            </h1>
-
-            <p>
-                Input data Excel atau copy paste, bentuk tabel BRI, bersihkan tanda baca pada isi data, lalu download Excel final.
-            </p>
-
-        </div>
-
-
+    <div class="page-actions d-flex justify-content-end mb-4">
         <a
             class="btn btn-light"
             href="<?= url('/transactions') ?>"
         >
-            <i class="bi bi-arrow-left"></i>
+            <i class="bi bi-arrow-left me-1"></i>
             Pilihan Bank
         </a>
-
-    </section>
+    </div>
 
 
     <!-- =====================================================

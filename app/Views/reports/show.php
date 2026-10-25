@@ -82,12 +82,10 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                 <span class="inline-flex items-center py-0.5 px-2.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-700">
                     <?= e(format_date($batchDate)) ?>
                 </span>
-            </div>
-            <h2 class="text-2xl font-bold text-gray-900 tracking-tight"><?= e((string) ($batch['name'] ?? 'Detail Report')) ?></h2>
-            <div class="text-xs text-gray-500 mt-1 flex items-center gap-2 flex-wrap">
-                <span class="font-semibold text-gray-700"><?= e($teamNameDisplay) ?></span>
-                <span>·</span>
-                <span>Berkas: <span class="font-mono"><?= e((string) ($batch['source_filename'] ?? '')) ?></span></span>
+                <span class="text-xs text-gray-400">·</span>
+                <span class="text-xs font-semibold text-gray-700"><?= e($teamNameDisplay) ?></span>
+                <span class="text-xs text-gray-400">·</span>
+                <span class="text-xs text-gray-500">Berkas: <span class="font-mono text-gray-700"><?= e((string) ($batch['source_filename'] ?? '')) ?></span></span>
             </div>
         </div>
 

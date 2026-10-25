@@ -27,19 +27,13 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
 <div class="max-w-7xl mx-auto space-y-6">
 
     <!-- =========================================================
-         PAGE HEADING
+         PAGE ACTIONS
          ========================================================= -->
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-            <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Report <?= e($monthLabel) ?></h2>
-        </div>
-
-        <div class="flex items-center gap-2">
-            <a class="py-2 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports')) ?>">
-                <i class="bi bi-arrow-left"></i>
-                Daftar Bulan
-            </a>
-        </div>
+    <div class="flex items-center justify-end gap-2">
+        <a class="py-2 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports')) ?>">
+            <i class="bi bi-arrow-left"></i>
+            Daftar Bulan
+        </a>
     </div>
 
     <!-- =========================================================
