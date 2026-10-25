@@ -30,19 +30,22 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
 <!-- =========================================================
      PAGE HEADING
      ========================================================= -->
-<div class="page-heading">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
     <div>
-        <span class="eyebrow dark">TINGKAT TANGGAL</span>
-        <h2>Report <?= e($monthLabel) ?></h2>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-blue-50 text-blue-700 tracking-wider uppercase mb-1">
+            TINGKAT TANGGAL
+        </span>
+        <h2 class="text-2xl font-bold text-gray-900">Report <?= e($monthLabel) ?></h2>
+        <p class="text-sm text-gray-500 mt-0.5">Daftar hari transaksi aktif dalam periode bulan terpilih.</p>
     </div>
 
-    <div class="page-heading-actions">
-        <a class="btn btn-light" href="<?= e(url('/reports')) ?>">
+    <div class="flex items-center gap-2">
+        <a class="py-2 px-3.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-sm inline-flex items-center gap-1.5" href="<?= e(url('/reports')) ?>">
             <i class="bi bi-arrow-left"></i>
             Daftar Bulan
         </a>
         <?php if (can('report.manage')): ?>
-            <a class="btn btn-primary" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
+            <a class="btn btn-primary py-2 px-4 text-xs font-medium rounded-lg inline-flex items-center gap-2" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
                 <i class="bi bi-cloud-arrow-up"></i>
                 Upload Excel
             </a>
@@ -53,72 +56,92 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
 <!-- =========================================================
      PENCARIAN GLOBAL
      ========================================================= -->
-<section class="panel-card report-global-search mb-4">
-    <form method="get" action="<?= e(url('/reports/search')) ?>">
-        <div class="global-search-copy">
-            <strong>Pencarian global</strong>
-            <span>Mencari data transaksi di seluruh bulan, tanggal, tim, file, payer, beneficiary, dan bank.</span>
+<section class="bg-white border border-gray-200 rounded-2xl p-5 mb-6 shadow-sm">
+    <form method="get" action="<?= e(url('/reports/search')) ?>" class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex-1">
+            <strong class="text-sm font-bold text-gray-900 block">Pencarian Transaksi Bulan Ini</strong>
+            <p class="text-xs text-gray-500 mt-0.5">Cari data transaksi di seluruh tanggal dan tim dalam bulan <?= e($monthLabel) ?>.</p>
         </div>
 
-        <div class="global-search-input">
-            <i class="bi bi-search"></i>
-            <input class="form-control" type="search" name="q" required placeholder="Cari seluruh data report..." value="<?= e((string) ($filters['q'] ?? '')) ?>">
+        <div class="flex items-center gap-2 flex-1 max-w-md">
+            <div class="relative flex-1">
+                <input class="py-2 px-3 ps-9 block w-full border border-gray-300 rounded-lg text-xs focus:border-blue-500 focus:ring-blue-500 shadow-sm" type="search" name="q" required placeholder="Cari data report..." value="<?= e((string) ($filters['q'] ?? '')) ?>">
+                <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3 text-gray-400">
+                    <i class="bi bi-search text-xs"></i>
+                </div>
+            </div>
+            <button class="btn btn-primary py-2 px-4 text-xs font-medium rounded-lg inline-flex items-center gap-1.5 shrink-0" type="submit">
+                <i class="bi bi-search"></i>
+                Cari
+            </button>
         </div>
-
-        <button class="btn btn-primary" type="submit">Cari</button>
     </form>
 </section>
 
 <!-- =========================================================
      FILTER TANGGAL & TIM
      ========================================================= -->
-<div class="panel-card mb-4">
-    <form class="report-inline-filter" method="get" action="<?= e(url('/reports/month/' . $month)) ?>">
-        <label>
-            <span>Tim</span>
-            <select class="form-select" name="team">
+<div class="bg-white border border-gray-200 rounded-2xl p-4 mb-6 shadow-sm">
+    <form class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end" method="get" action="<?= e(url('/reports/month/' . $month)) ?>">
+        <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Tim</label>
+            <select class="py-1.5 px-3 block w-full border border-gray-300 rounded-lg text-xs focus:border-blue-500 focus:ring-blue-500" name="team">
                 <option value="">Semua tim</option>
                 <?php foreach ($teams as $team): ?>
                     <option value="<?= e($team) ?>" <?= selected((string) ($filters['team'] ?? ''), $team) ?>><?= e($team) ?></option>
                 <?php endforeach; ?>
             </select>
-        </label>
+        </div>
 
-        <label>
-            <span>Tanggal mulai</span>
-            <input class="form-control" type="date" name="date_from" value="<?= e((string) ($filters['date_from'] ?? '')) ?>">
-        </label>
+        <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal mulai</label>
+            <input class="py-1.5 px-3 block w-full border border-gray-300 rounded-lg text-xs focus:border-blue-500 focus:ring-blue-500" type="date" name="date_from" value="<?= e((string) ($filters['date_from'] ?? '')) ?>">
+        </div>
 
-        <label>
-            <span>Tanggal akhir</span>
-            <input class="form-control" type="date" name="date_to" value="<?= e((string) ($filters['date_to'] ?? '')) ?>">
-        </label>
+        <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal akhir</label>
+            <input class="py-1.5 px-3 block w-full border border-gray-300 rounded-lg text-xs focus:border-blue-500 focus:ring-blue-500" type="date" name="date_to" value="<?= e((string) ($filters['date_to'] ?? '')) ?>">
+        </div>
 
-        <label>
-            <span>Status kirim</span>
-            <select class="form-select" name="delivery_status">
+        <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Status kirim</label>
+            <select class="py-1.5 px-3 block w-full border border-gray-300 rounded-lg text-xs focus:border-blue-500 focus:ring-blue-500" name="delivery_status">
                 <option value="">Semua</option>
                 <option value="PENDING" <?= selected((string) ($filters['delivery_status'] ?? ''), 'PENDING') ?>>Pending</option>
                 <option value="SENT" <?= selected((string) ($filters['delivery_status'] ?? ''), 'SENT') ?>>Terkirim</option>
             </select>
-        </label>
+        </div>
 
-        <div class="filter-actions">
-            <button class="btn btn-primary" type="submit">Terapkan</button>
-            <a class="btn btn-light" href="<?= e(url('/reports/month/' . $month)) ?>">Reset</a>
+        <div class="flex items-center gap-2">
+            <button class="btn btn-primary py-1.5 px-3.5 text-xs font-medium rounded-lg inline-flex items-center gap-1.5 flex-1 justify-center" type="submit">
+                <i class="bi bi-funnel"></i>
+                Terapkan
+            </button>
+            <a class="py-1.5 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-sm" href="<?= e(url('/reports/month/' . $month)) ?>">
+                Reset
+            </a>
         </div>
     </form>
 </div>
 
 <!-- =========================================================
-     HIERARKI TINGKAT 2
+     HIERARKI TINGKAT 2 (STEPPER PILLS)
      ========================================================= -->
-<div class="report-hierarchy-note mb-4">
-    <a href="<?= e(url('/reports')) ?>"><b>1</b>Bulan</a>
-    <i class="bi bi-chevron-right"></i>
-    <span class="active"><b>2</b>Tanggal</span>
-    <i class="bi bi-chevron-right"></i>
-    <span><b>3</b>Tim dan Report</span>
+<div class="flex items-center gap-2 mb-6 text-xs font-medium text-gray-500">
+    <a href="<?= e(url('/reports')) ?>" class="inline-flex items-center gap-1.5 py-1 px-3 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition">
+        <b class="w-4 h-4 rounded-full bg-gray-300 text-gray-800 text-[10px] inline-flex items-center justify-center">1</b>
+        Bulan
+    </a>
+    <i class="bi bi-chevron-right text-gray-400 text-[10px]"></i>
+    <span class="inline-flex items-center gap-1.5 py-1 px-3 rounded-lg bg-blue-600 text-white font-bold shadow-sm">
+        <b class="w-4 h-4 rounded-full bg-white text-blue-600 text-[10px] inline-flex items-center justify-center">2</b>
+        Tanggal
+    </span>
+    <i class="bi bi-chevron-right text-gray-400 text-[10px]"></i>
+    <span class="inline-flex items-center gap-1.5 py-1 px-3 rounded-lg bg-gray-100 text-gray-500">
+        <b class="w-4 h-4 rounded-full bg-gray-300 text-gray-700 text-[10px] inline-flex items-center justify-center">3</b>
+        Tim dan Report
+    </span>
 </div>
 
 <!-- =========================================================

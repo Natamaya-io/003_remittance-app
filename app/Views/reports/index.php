@@ -42,15 +42,18 @@ $activeAdvancedFilters = array_filter(
 <!-- =========================================================
      PAGE HEADING
      ========================================================= -->
-<div class="page-heading">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
     <div>
-        <span class="eyebrow dark">REPORT OPERASIONAL</span>
-        <h2>Report Harian</h2>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold bg-blue-50 text-blue-700 tracking-wider uppercase mb-1">
+            REPORT OPERASIONAL
+        </span>
+        <h2 class="text-2xl font-bold text-gray-900">Report Harian</h2>
+        <p class="text-sm text-gray-500 mt-0.5">Pantau dan kelola berkas rekonsiliasi transaksi perbankan bulanan.</p>
     </div>
 
     <?php if (can('report.manage')): ?>
-        <div class="page-heading-actions">
-            <a class="btn btn-primary" href="<?= e(url('/reports/create')) ?>">
+        <div class="flex items-center gap-2">
+            <a class="btn btn-primary py-2 px-4 text-xs font-medium rounded-lg inline-flex items-center gap-2" href="<?= e(url('/reports/create')) ?>">
                 <i class="bi bi-cloud-arrow-up"></i>
                 Upload Excel
             </a>
@@ -61,64 +64,73 @@ $activeAdvancedFilters = array_filter(
 <!-- =========================================================
      PENCARIAN GLOBAL
      ========================================================= -->
-<section class="panel-card report-global-search mb-4">
-    <form method="get" action="<?= e(url('/reports/search')) ?>">
-        <div class="global-search-copy">
-            <strong>Pencarian global</strong>
-            <span>Mencari data transaksi di seluruh bulan, tanggal, tim, berkas, payer, beneficiary, bank, dan nomor rekening.</span>
+<section class="bg-white border border-gray-200 rounded-2xl p-5 mb-6 shadow-sm">
+    <form method="get" action="<?= e(url('/reports/search')) ?>" class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex-1">
+            <strong class="text-sm font-bold text-gray-900 block">Pencarian Global Transaksi</strong>
+            <p class="text-xs text-gray-500 mt-0.5">Cari data di seluruh bulan, tanggal, tim, berkas, payer, beneficiary, bank, dan nomor rekening.</p>
         </div>
 
-        <div class="global-search-input">
-            <i class="bi bi-search"></i>
-            <input
-                class="form-control"
-                type="search"
-                name="q"
-                required
-                autocomplete="off"
-                placeholder="Cari seluruh data report..."
-                value="<?= e((string) ($filters['q'] ?? '')) ?>"
-            >
-        </div>
+        <div class="flex items-center gap-2 flex-1 max-w-md">
+            <div class="relative flex-1">
+                <input
+                    class="py-2 px-3 ps-9 block w-full border border-gray-300 rounded-lg text-xs focus:border-blue-500 focus:ring-blue-500 shadow-sm"
+                    type="search"
+                    name="q"
+                    required
+                    autocomplete="off"
+                    placeholder="Ketik kata kunci pencarian..."
+                    value="<?= e((string) ($filters['q'] ?? '')) ?>"
+                >
+                <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3 text-gray-400">
+                    <i class="bi bi-search text-xs"></i>
+                </div>
+            </div>
 
-        <button class="btn btn-primary" type="submit">
-            <i class="bi bi-search"></i>
-            Cari Keseluruhan
-        </button>
+            <button class="btn btn-primary py-2 px-4 text-xs font-medium rounded-lg inline-flex items-center gap-1.5 shrink-0" type="submit">
+                <i class="bi bi-search"></i>
+                Cari
+            </button>
+        </div>
     </form>
 </section>
 
 <!-- =========================================================
-     FILTER LANJUTAN
+     FILTER LANJUTAN (ALPINE.JS DISCLOSURE ACCORDION)
      ========================================================= -->
-<details class="panel-card report-filter-panel mb-4" <?= $activeAdvancedFilters !== [] ? 'open' : '' ?>>
-    <summary>
-        <span>
-            <i class="bi bi-sliders"></i>
-            Filter lanjutan
-        </span>
-        <small>Bulan, rentang tanggal, tim, status kirim, dan hasil</small>
-    </summary>
+<div x-data="{ openFilter: <?= $activeAdvancedFilters !== [] ? 'true' : 'false' ?> }" class="bg-white border border-gray-200 rounded-2xl p-5 mb-6 shadow-sm">
+    <button type="button" @click="openFilter = !openFilter" class="w-full flex items-center justify-between text-left focus:outline-none">
+        <div class="flex items-center gap-2.5">
+            <span class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm">
+                <i class="bi bi-sliders"></i>
+            </span>
+            <div>
+                <strong class="text-xs font-bold text-gray-900 block">Filter Lanjutan</strong>
+                <span class="text-[11px] text-gray-500 block">Saring berdasarkan bulan, rentang tanggal, tim, status kirim, dan hasil</span>
+            </div>
+        </div>
+        <i class="bi bi-chevron-down text-gray-400 text-xs transition-transform duration-200" :class="{ 'rotate-180': openFilter }"></i>
+    </button>
 
-    <form class="report-advanced-grid" method="get" action="<?= e(url('/reports')) ?>">
-        <label>
-            <span>Bulan report</span>
-            <input class="form-control" type="month" name="month" value="<?= e((string) ($filters['month'] ?? '')) ?>">
-        </label>
+    <form x-show="openFilter" x-transition class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4 mt-4 border-t border-gray-100" method="get" action="<?= e(url('/reports')) ?>">
+        <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Bulan report</label>
+            <input class="py-1.5 px-3 block w-full border border-gray-300 rounded-lg text-xs focus:border-blue-500 focus:ring-blue-500" type="month" name="month" value="<?= e((string) ($filters['month'] ?? '')) ?>">
+        </div>
 
-        <label>
-            <span>Tanggal mulai</span>
-            <input class="form-control" type="date" name="date_from" value="<?= e((string) ($filters['date_from'] ?? '')) ?>">
-        </label>
+        <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal mulai</label>
+            <input class="py-1.5 px-3 block w-full border border-gray-300 rounded-lg text-xs focus:border-blue-500 focus:ring-blue-500" type="date" name="date_from" value="<?= e((string) ($filters['date_from'] ?? '')) ?>">
+        </div>
 
-        <label>
-            <span>Tanggal akhir</span>
-            <input class="form-control" type="date" name="date_to" value="<?= e((string) ($filters['date_to'] ?? '')) ?>">
-        </label>
+        <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal akhir</label>
+            <input class="py-1.5 px-3 block w-full border border-gray-300 rounded-lg text-xs focus:border-blue-500 focus:ring-blue-500" type="date" name="date_to" value="<?= e((string) ($filters['date_to'] ?? '')) ?>">
+        </div>
 
-        <label>
-            <span>Tim</span>
-            <select class="form-select" name="team">
+        <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Tim</label>
+            <select class="py-1.5 px-3 block w-full border border-gray-300 rounded-lg text-xs focus:border-blue-500 focus:ring-blue-500" name="team">
                 <option value="">Semua tim</option>
                 <?php foreach ($teams as $team): ?>
                     <?php $teamValue = trim((string) $team); if ($teamValue === '') continue; ?>
@@ -127,56 +139,55 @@ $activeAdvancedFilters = array_filter(
                     </option>
                 <?php endforeach; ?>
             </select>
-        </label>
+        </div>
 
-        <label>
-            <span>Status kirim</span>
-            <select class="form-select" name="delivery_status">
+        <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Status kirim</label>
+            <select class="py-1.5 px-3 block w-full border border-gray-300 rounded-lg text-xs focus:border-blue-500 focus:ring-blue-500" name="delivery_status">
                 <option value="">Semua status</option>
                 <option value="PENDING" <?= selected((string) ($filters['delivery_status'] ?? ''), 'PENDING') ?>>Pending</option>
                 <option value="SENT" <?= selected((string) ($filters['delivery_status'] ?? ''), 'SENT') ?>>Terkirim</option>
             </select>
-        </label>
+        </div>
 
-        <label>
-            <span>Hasil</span>
-            <select class="form-select" name="result_status">
+        <div>
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Hasil</label>
+            <select class="py-1.5 px-3 block w-full border border-gray-300 rounded-lg text-xs focus:border-blue-500 focus:ring-blue-500" name="result_status">
                 <option value="">Semua hasil</option>
                 <option value="PENDING" <?= selected((string) ($filters['result_status'] ?? ''), 'PENDING') ?>>Pending</option>
                 <option value="SUCCESS" <?= selected((string) ($filters['result_status'] ?? ''), 'SUCCESS') ?>>Success</option>
                 <option value="FAILED" <?= selected((string) ($filters['result_status'] ?? ''), 'FAILED') ?>>Failed</option>
             </select>
-        </label>
+        </div>
 
-        <div class="filter-actions report-filter-actions">
-            <button class="btn btn-primary" type="submit">
-                <i class="bi bi-funnel"></i>
-                Terapkan
-            </button>
-            <a class="btn btn-light" href="<?= e(url('/reports')) ?>">
-                <i class="bi bi-arrow-counterclockwise"></i>
+        <div class="sm:col-span-2 lg:col-span-3 flex items-center justify-end gap-2 pt-2 border-t border-gray-100">
+            <a class="py-1.5 px-3.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-sm" href="<?= e(url('/reports')) ?>">
                 Reset
             </a>
+            <button class="btn btn-primary py-1.5 px-4 text-xs font-medium rounded-lg inline-flex items-center gap-1.5" type="submit">
+                <i class="bi bi-funnel"></i>
+                Terapkan Filter
+            </button>
         </div>
     </form>
-</details>
+</div>
 
 <!-- =========================================================
-     HIERARKI TINGKAT 1
+     HIERARKI TINGKAT 1 (STEPPER PILLS)
      ========================================================= -->
-<div class="report-hierarchy-note mb-4">
-    <span class="active">
-        <b>1</b>
+<div class="flex items-center gap-2 mb-6 text-xs font-medium text-gray-500">
+    <span class="inline-flex items-center gap-1.5 py-1 px-3 rounded-lg bg-blue-600 text-white font-bold shadow-sm">
+        <b class="w-4 h-4 rounded-full bg-white text-blue-600 text-[10px] inline-flex items-center justify-center">1</b>
         Bulan
     </span>
-    <i class="bi bi-chevron-right"></i>
-    <span>
-        <b>2</b>
+    <i class="bi bi-chevron-right text-gray-400 text-[10px]"></i>
+    <span class="inline-flex items-center gap-1.5 py-1 px-3 rounded-lg bg-gray-100 text-gray-500">
+        <b class="w-4 h-4 rounded-full bg-gray-300 text-gray-700 text-[10px] inline-flex items-center justify-center">2</b>
         Tanggal
     </span>
-    <i class="bi bi-chevron-right"></i>
-    <span>
-        <b>3</b>
+    <i class="bi bi-chevron-right text-gray-400 text-[10px]"></i>
+    <span class="inline-flex items-center gap-1.5 py-1 px-3 rounded-lg bg-gray-100 text-gray-500">
+        <b class="w-4 h-4 rounded-full bg-gray-300 text-gray-700 text-[10px] inline-flex items-center justify-center">3</b>
         Tim dan Report
     </span>
 </div>
