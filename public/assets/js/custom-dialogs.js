@@ -118,31 +118,42 @@ function initRemitDialogs() {
     }
   }));
 
-  window.Alpine.data('remitSearchModal', () => ({
+  window.Alpine.data('remitSearchModal', (initialConfig = {}) => ({
     isOpen: false,
+    defaultAction: (initialConfig && initialConfig.defaultAction) || '/reports/search',
     title: 'Pencarian Transaksi',
     subtitle: 'Ketik kata kunci lalu tekan Enter untuk mencari.',
     placeholder: 'Cari tim, payer, beneficiary, bank, invoice, SWIFT...',
-    action: '/reports/search',
+    action: (initialConfig && initialConfig.defaultAction) || '/reports/search',
     query: '',
     extraParams: {},
 
+    get extraParamsList() {
+      if (!this.extraParams || typeof this.extraParams !== 'object') return [];
+      if (Array.isArray(this.extraParams)) return this.extraParams;
+      return Object.entries(this.extraParams).map(([name, value]) => ({
+        name: String(name),
+        value: value === null || value === undefined ? '' : String(value)
+      }));
+    },
+
     openModal(config = {}) {
-      if (typeof config === 'object' && config !== null) {
-        if (config.title) this.title = config.title;
-        if (config.subtitle) this.subtitle = config.subtitle;
-        if (config.placeholder) this.placeholder = config.placeholder;
-        if (config.action) this.action = config.action;
-        if (config.query !== undefined) this.query = config.query;
-        if (config.extraParams) this.extraParams = config.extraParams;
-      }
+      const cfg = typeof config === 'object' && config !== null ? config : {};
+      this.title = cfg.title || 'Pencarian Transaksi';
+      this.subtitle = cfg.subtitle || 'Ketik kata kunci lalu tekan Enter untuk mencari.';
+      this.placeholder = cfg.placeholder || 'Cari tim, payer, beneficiary, bank, invoice, SWIFT...';
+      this.action = cfg.action || this.defaultAction;
+      this.query = cfg.query !== undefined ? String(cfg.query) : '';
+      this.extraParams = cfg.extraParams ? { ...cfg.extraParams } : {};
       this.isOpen = true;
       this.$nextTick(() => {
-        const input = this.$refs.modalSearchInput;
-        if (input) {
-          input.focus();
-          input.select?.();
-        }
+        setTimeout(() => {
+          const input = this.$refs.modalSearchInput;
+          if (input) {
+            input.focus();
+            input.select?.();
+          }
+        }, 30);
       });
     },
 

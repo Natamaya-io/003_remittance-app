@@ -361,6 +361,13 @@ Setiap view yang membutuhkan kontrol pencarian **MUTLAK WAJIB** menggunakan help
 ]) ?>
 ```
 
+### 6.5. Protokol Anti-Regresi & Keamanan Event Propagation Search Modal
+1. **Scope Isolation & Dual-Dispatch Safety:** Setiap elemen tombol pemicu modal wajib memiliki atribut `x-data`, penahan bubbling `@click.stop`, dan fallback JavaScript native `onclick="event.stopPropagation(); window.openSearchModal(JSON.parse(this.dataset.searchConfig || '{}')); return false;"` yang didukung `data-search-config`. Hal ini menjamin pemicu tetap berfungsi 100% meskipun tombol diletakkan di luar hierarki komponen Alpine induk.
+2. **Backdrop Event Handling (Anti-Race Condition):** Penutupan modal saat mengklik area luar wajib menggunakan `@click.self="closeModal()"` langsung pada fixed container backdrop (`.fixed.inset-0`), **DILARANG** menggunakan `@click.outside="closeModal()"` pada kartu dialog modal untuk mencegah penutupan seketika akibat bubbling klik pemicu.
+3. **Normalisasi Parameter Objek (`extraParamsList`):** Alpine.js v3 mengevaluasi iterasi objek pada `<template x-for="(val, key) in object">` sebagai `[key, value]` tuple dengan `key` berupa indeks numerik. Seluruh parameter tambahan wajib dinormalisasi melalui computed getter `extraParamsList` yang menghasilkan array `[{ name, value }]` murni.
+4. **Pembersihan State Terpadu (State Sanitization):** Setiap eksekusi `openModal(config)` wajib mereset seluruh atribut state (`title`, `subtitle`, `placeholder`, `action`, `query`, dan `extraParams`) kembali ke nilai konfigurasi default untuk mencegah pencemaran state (*state pollution*) saat berpindah halaman atau menggunakan shortcut global.
+5. **Zero-Transform Transition:** Transisi modal hanya boleh menggunakan manipulasi `opacity` murni (contoh: `x-transition:enter-start="opacity-0"` ke `x-transition:enter-end="opacity-100"`). Dilarang keras menyertakan `-translate-y-2` atau scale transform.
+
 ---
 
 ## 7. Protokol Keamanan, Git & Kompilasi Aset

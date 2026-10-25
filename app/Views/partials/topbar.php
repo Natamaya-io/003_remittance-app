@@ -105,7 +105,9 @@ $initial = strtoupper(
             <!-- Search Modal Trigger -->
             <button
                 type="button"
-                @click="$dispatch('open-search-modal')"
+                x-data
+                @click.stop="$dispatch('open-search-modal')"
+                onclick="event.stopPropagation(); window.openSearchModal ? window.openSearchModal() : null; return false;"
                 class="inline-flex items-center gap-x-1.5 py-1.5 px-2.5 text-xs font-semibold rounded-xl border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors"
                 aria-label="Buka pencarian"
                 title="Pencarian (Tekan / atau Ctrl+K)"

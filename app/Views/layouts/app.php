@@ -5353,13 +5353,14 @@ $flashes = Flash::all();
      GLOBAL SEARCH MODAL (SEARCH BAR SEBAGAI MODAL TERPISAH)
      ========================================================= -->
 <div
-    x-data="remitSearchModal"
+    x-data="remitSearchModal({ defaultAction: '<?= e(url('/reports/search')) ?>' })"
     x-cloak
     @open-search-modal.window="openModal($event.detail)"
 >
     <div
         x-show="isOpen"
         class="fixed inset-0 z-[9998] flex items-start justify-center p-4 pt-16 sm:pt-24 bg-gray-900/60 backdrop-blur-xs overflow-y-auto"
+        @click.self="closeModal()"
         x-transition:enter="transition ease-out duration-200"
         x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100"
@@ -5372,11 +5373,10 @@ $flashes = Flash::all();
     >
         <div
             class="bg-white rounded-2xl max-w-xl w-full p-5 shadow-2xl border border-gray-200 relative"
-            @click.outside="closeModal()"
             @keydown.escape.window="closeModal()"
             x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="opacity-0 -translate-y-2"
-            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
         >
             <!-- Header Modal -->
             <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-100">
@@ -5401,8 +5401,8 @@ $flashes = Flash::all();
 
             <!-- Form Pencarian Modal -->
             <form :action="action" method="get" @submit="submitSearch($event)">
-                <template x-for="(val, key) in extraParams" :key="key">
-                    <input type="hidden" :name="key" :value="val">
+                <template x-for="(param, idx) in extraParamsList" :key="idx">
+                    <input type="hidden" :name="param.name" :value="param.value">
                 </template>
 
                 <div class="custom-search-bar mb-4">

@@ -420,7 +420,7 @@ function render_search_input(string $name = 'q', string $value = '', array $opti
 
     ob_start();
     ?>
-    <div class="custom-search-bar <?= e($wrapperClass) ?>" x-data="{ query: '<?= addslashes(e($value)) ?>' }">
+    <div class="custom-search-bar <?= e($wrapperClass) ?>" x-data="{ query: <?= e(json_encode((string) $value)) ?> }">
         <span class="search-leading-icon" aria-hidden="true">
             <i class="bi bi-search"></i>
         </span>
@@ -496,7 +496,10 @@ function render_search_modal_trigger(array $options = []): string
     ?>
     <button
         type="button"
-        @click="$dispatch('open-search-modal', <?= e($jsonConfig) ?>)"
+        x-data
+        @click.stop="$dispatch('open-search-modal', <?= e($jsonConfig) ?>)"
+        onclick="event.stopPropagation(); window.openSearchModal ? window.openSearchModal(JSON.parse(this.dataset.searchConfig || '{}')) : null; return false;"
+        data-search-config="<?= e($jsonConfig) ?>"
         class="<?= e($class) ?>"
         aria-label="<?= e($label) ?>"
         title="<?= e($label) ?> (Tekan / atau Ctrl+K)"
