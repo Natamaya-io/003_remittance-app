@@ -6,35 +6,39 @@ $briJobs = (int) ($briJobs ?? 0);
 $bniBatches = (int) ($bniBatches ?? 0);
 ?>
 
-<div class="transaction-bank-hub">
-    <section class="bank-hub-heading">
+<div class="transaction-bank-hub space-y-6">
+    <section class="bank-hub-heading flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2">
         <div>
-            <span class="eyebrow dark">TRANSAKSI</span>
-            <h2>Pilih Bank Transaksi</h2>
-            <p>Pilih alur transaksi Bank BRI atau Bank BNI.</p>
+            <span class="eyebrow dark text-xs font-bold tracking-wider text-blue-600 uppercase">TRANSAKSI</span>
+            <h2 class="text-2xl font-bold text-gray-900 mt-1">Pilih Bank Transaksi</h2>
+            <p class="text-sm text-gray-500 mt-0.5">Pilih alur pemrosesan data remitansi untuk Bank BRI atau Bank BNI.</p>
         </div>
     </section>
 
-    <section class="bank-choice-grid">
-        <article class="bank-choice-card bri">
-            <div class="bank-choice-icon"><i class="bi bi-bank2"></i></div>
-            <div class="bank-choice-copy">
-                <span class="bank-choice-kicker">BANK BRI</span>
-                <h3>Transaksi BRI</h3>
-                <p>Input data, bentuk tabel, bersihkan tanda baca, lalu download Excel final.</p>
+    <section class="bank-choice-grid grid grid-cols-1 md:grid-cols-2 gap-6">
+        <article class="bank-choice-card bri bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+                <div class="bank-choice-icon w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-2xl mb-4">
+                    <i class="bi bi-bank2"></i>
+                </div>
+                <div class="bank-choice-copy">
+                    <span class="bank-choice-kicker text-xs font-semibold text-blue-600 tracking-wide uppercase">BANK BRI</span>
+                    <h3 class="text-lg font-bold text-gray-900 mt-1 mb-2">Transaksi BRI</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Input data transaksi, bentuk tabel batch, bersihkan tanda baca otomatis, lalu ekspor Excel final.</p>
+                </div>
+                <div class="bank-flow-mini flex flex-wrap gap-2 text-xs text-gray-500 mb-6">
+                    <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-lg bg-gray-100 font-medium"><b>1</b> Input</span>
+                    <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-lg bg-gray-100 font-medium"><b>2</b> Bentuk tabel</span>
+                    <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-lg bg-gray-100 font-medium"><b>3</b> Hapus tanda baca</span>
+                    <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-lg bg-gray-100 font-medium"><b>4</b> Download Excel</span>
+                </div>
             </div>
-            <div class="bank-flow-mini">
-                <span><b>1</b> Input</span>
-                <span><b>2</b> Bentuk tabel</span>
-                <span><b>3</b> Hapus tanda baca</span>
-                <span><b>4</b> Download Excel</span>
-            </div>
-            <div class="bank-choice-footer">
-                <span class="bank-choice-count"><strong><?= $briJobs ?></strong> batch tersimpan</span>
-                <div class="bank-choice-actions">
-                    <a class="btn btn-light" href="<?= url('/transactions/bri/history') ?>">Riwayat</a>
+            <div class="bank-choice-footer pt-4 border-t border-gray-100 flex items-center justify-between gap-3 mt-auto">
+                <span class="bank-choice-count text-xs text-gray-500"><strong class="font-bold text-gray-800"><?= $briJobs ?></strong> batch tersimpan</span>
+                <div class="bank-choice-actions flex items-center gap-2">
+                    <a class="btn btn-light py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-700" href="<?= url('/transactions/bri/history') ?>">Riwayat</a>
                     <?php if (can('transaction.manage')): ?>
-                        <a class="btn btn-primary" href="<?= url('/transactions/bri') ?>">
+                        <a class="btn btn-primary py-2 px-3.5 text-xs font-medium rounded-lg" href="<?= url('/transactions/bri') ?>">
                             <i class="bi bi-file-earmark-arrow-up me-1"></i> Import Template
                         </a>
                     <?php endif; ?>
@@ -42,25 +46,29 @@ $bniBatches = (int) ($bniBatches ?? 0);
             </div>
         </article>
 
-        <article class="bank-choice-card bni">
-            <div class="bank-choice-icon"><i class="bi bi-file-earmark-spreadsheet"></i></div>
-            <div class="bank-choice-copy">
-                <span class="bank-choice-kicker">BANK BNI</span>
-                <h3>Transaksi BNI</h3>
-                <p>Copy paste Excel, bentuk data formulir Kiriman Uang BNI, lalu preview dan cetak.</p>
+        <article class="bank-choice-card bni bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+            <div>
+                <div class="bank-choice-icon w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl mb-4">
+                    <i class="bi bi-file-earmark-spreadsheet"></i>
+                </div>
+                <div class="bank-choice-copy">
+                    <span class="bank-choice-kicker text-xs font-semibold text-emerald-600 tracking-wide uppercase">BANK BNI</span>
+                    <h3 class="text-lg font-bold text-gray-900 mt-1 mb-2">Transaksi BNI</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mb-4">Copy paste tabel Excel, bentuk data formulir Kiriman Uang BNI, lalu cetak PDF/preview.</p>
+                </div>
+                <div class="bank-flow-mini two flex flex-wrap gap-2 text-xs text-gray-500 mb-6">
+                    <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-lg bg-gray-100 font-medium"><b>1</b> Copy Paste Excel</span>
+                    <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-lg bg-gray-100 font-medium"><b>2</b> Form BNI & Cetak</span>
+                </div>
             </div>
-            <div class="bank-flow-mini two">
-                <span><b>1</b> Copy Paste Excel</span>
-                <span><b>2</b> Form BNI & Cetak</span>
-            </div>
-            <div class="bank-choice-footer">
-                <span class="bank-choice-count"><strong><?= $bniBatches ?></strong> batch tersimpan</span>
+            <div class="bank-choice-footer pt-4 border-t border-gray-100 flex items-center justify-between gap-3 mt-auto">
+                <span class="bank-choice-count text-xs text-gray-500"><strong class="font-bold text-gray-800"><?= $bniBatches ?></strong> batch tersimpan</span>
                 <?php if (can('transaction.manage')): ?>
-                    <a class="btn btn-primary" href="<?= url('/transactions/bni') ?>">
+                    <a class="btn btn-primary py-2 px-3.5 text-xs font-medium rounded-lg" href="<?= url('/transactions/bni') ?>">
                         <i class="bi bi-file-earmark-arrow-up me-1"></i> Import Template
                     </a>
                 <?php else: ?>
-                    <a class="btn btn-light" href="<?= url('/transactions/bni') ?>">Lihat BNI</a>
+                    <a class="btn btn-light py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-700" href="<?= url('/transactions/bni') ?>">Lihat BNI</a>
                 <?php endif; ?>
             </div>
         </article>

@@ -1,1 +1,11 @@
-<div class="error-page"><div class="error-icon"><i class="bi bi-shield-lock"></i></div><h2>Akses Ditolak</h2><p>Peran Anda tidak memiliki izin untuk membuka halaman ini.</p><a class="btn btn-primary" href="<?= url('/') ?>">Kembali ke Dashboard</a></div>
+<div class="error-page max-w-md mx-auto my-12 p-8 text-center bg-white border border-gray-200 rounded-2xl shadow-sm">
+    <div class="error-icon w-16 h-16 mx-auto mb-4 flex items-center justify-center rounded-full bg-rose-50 text-rose-600 text-3xl">
+        <i class="bi bi-shield-lock"></i>
+    </div>
+    <h2 class="text-xl font-bold text-gray-900 mb-2">Akses Ditolak</h2>
+    <p class="text-sm text-gray-600 mb-6">Peran Anda tidak memiliki izin untuk membuka halaman ini.</p>
+    <a class="btn btn-primary inline-flex items-center gap-2" href="<?= url('/') ?>">
+        <i class="bi bi-arrow-left"></i>
+        Kembali ke Dashboard
+    </a>
+</div>
