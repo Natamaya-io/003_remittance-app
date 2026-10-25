@@ -51,14 +51,14 @@ Aplikasi operasional remitansi perbankan berbasis PHP 8 dan MariaDB untuk pemros
 
 | Peran | Username | Password Default | Cakupan Akses |
 |---|---|---|---|
-| Super Admin | `superadmin` | `password123` | Akses penuh seluruh modul dan konfigurasi sistem |
-| Supervisor | `supervisor` | `password123` | Monitoring transaksi lintas tim, audit log, persetujuan |
-| Admin Transaksi Tim 1 | `admin1` | `password123` | Input dan eksekusi transaksi khusus Tim 1 |
-| Admin Transaksi Tim 2 | `admin2` | `password123` | Input dan eksekusi transaksi khusus Tim 2 |
-| Admin Transaksi Tim 3 | `admin3` | `password123` | Input dan eksekusi transaksi khusus Tim 3 |
-| Admin Transaksi Tim 4 | `admin4` | `password123` | Input dan eksekusi transaksi khusus Tim 4 |
-| Admin Complain | `admincomplain` | `password123` | Investigasi dan penyelesaian tiket komplain remitansi |
-| Admin Invoice | `admininvoice` | `password123` | Pembuatan, pengiriman, dan pencetakan faktur tagihan |
+| Super Admin | `superadmin` | `Password123!` | Akses penuh seluruh modul dan konfigurasi sistem |
+| Supervisor | `supervisor` | `Password123!` | Monitoring transaksi lintas tim, audit log, persetujuan |
+| Admin Transaksi Tim 1 | `transaksi1` | `Password123!` | Input dan eksekusi transaksi khusus Tim 1 |
+| Admin Transaksi Tim 2 | `transaksi2` | `Password123!` | Input dan eksekusi transaksi khusus Tim 2 |
+| Admin Transaksi Tim 3 | `transaksi3` | `Password123!` | Input dan eksekusi transaksi khusus Tim 3 |
+| Admin Transaksi Tim 4 | `transaksi4` | `Password123!` | Input dan eksekusi transaksi khusus Tim 4 |
+| Admin Complain | `complain` | `Password123!` | Investigasi dan penyelesaian tiket komplain remitansi |
+| Admin Invoice | `invoice` | `Password123!` | Pembuatan, pengiriman, dan pencetakan faktur tagihan |
 
 ---
 
