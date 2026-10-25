@@ -30,7 +30,7 @@ $failedRows = (int) ($summary['failed_rows'] ?? 0);
 $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
 ?>
 
-<div class="max-w-7xl mx-auto space-y-6"
+<div class="max-w-screen-2xl mx-auto space-y-6"
      x-data="{
         selectedCount: 0,
         allSelected: false,

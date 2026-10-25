@@ -231,14 +231,44 @@ $flashes = Flash::all();
 
 
         /* =================================================
-           02. GLOBAL TYPOGRAPHY
+           02. GLOBAL SCALING & TYPOGRAPHY
         ================================================= */
+
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        @media (min-width: 640px) {
+            html {
+                font-size: 16.5px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            html {
+                font-size: 17.5px;
+            }
+        }
+
+        @media (min-width: 1440px) {
+            html {
+                font-size: 18px;
+            }
+        }
 
         body.app-body {
 
             font-family:
                 var(--font-app)
                 !important;
+
+            font-size:
+                0.95rem;
+
+            line-height:
+                1.6;
 
             font-weight:
                 450;

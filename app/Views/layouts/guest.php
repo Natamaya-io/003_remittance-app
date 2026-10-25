@@ -84,8 +84,30 @@ $flashes = Flash::all();
             --font-heading: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
             --font-cta: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
         }
+        html {
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+        @media (min-width: 640px) {
+            html {
+                font-size: 16.5px;
+            }
+        }
+        @media (min-width: 1024px) {
+            html {
+                font-size: 17.5px;
+            }
+        }
+        @media (min-width: 1440px) {
+            html {
+                font-size: 18px;
+            }
+        }
         body, body.login-body {
             font-family: var(--font-app) !important;
+            font-size: 0.95rem;
+            line-height: 1.6;
         }
         h1, h2, h3, h4, h5, h6, .brand-title {
             font-family: var(--font-heading) !important;
