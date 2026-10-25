@@ -55,6 +55,12 @@ $flashes = Flash::all();
         <?= e($appName) ?>
     </title>
 
+    <!-- =====================================================
+         GOOGLE FONTS: DM SANS (HEADINGS/CTA) & ROBOTO (BODY)
+    ====================================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
     <!-- Preline UI native responsive sidebar -->
 
@@ -202,21 +208,24 @@ $flashes = Flash::all();
             /* TYPOGRAPHY */
 
             --font-app:
-                "Segoe UI Variable",
-                "Segoe UI",
-                Inter,
-                Roboto,
-                "Helvetica Neue",
-                Arial,
+                'Roboto',
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
                 sans-serif;
 
             --font-heading:
-                "Segoe UI Variable Display",
-                "Segoe UI Variable",
-                "Segoe UI",
-                Inter,
-                Roboto,
-                Arial,
+                'DM Sans',
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                sans-serif;
+
+            --font-cta:
+                'DM Sans',
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
                 sans-serif;
         }
 
@@ -325,17 +334,29 @@ $flashes = Flash::all();
                 !important;
 
             font-weight:
-                800;
+                600;
 
             letter-spacing:
-                -.025em;
+                -.015em;
         }
 
 
-        .app-body strong {
+        .app-body button,
+        .app-body .btn,
+        .app-body .btn-primary,
+        .app-body [role="button"] {
+
+            font-family:
+                var(--font-cta)
+                !important;
+        }
+
+
+        .app-body strong,
+        .app-body b {
 
             font-weight:
-                750;
+                600;
         }
 
 

@@ -99,10 +99,9 @@ body {
     color: var(--color-text);
 
     font-family:
-        Inter,
-        "Segoe UI",
-        Roboto,
-        Arial,
+        'Roboto',
+        system-ui,
+        -apple-system,
         sans-serif;
 
     font-size: 14px;

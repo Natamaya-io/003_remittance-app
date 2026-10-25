@@ -63,6 +63,13 @@ $flashes = Flash::all();
         href="<?= e(asset('css/login.css?v=36.0.0')) ?>"
     >
 
+    <!-- =====================================================
+         GOOGLE FONTS: DM SANS (HEADINGS/CTA) & ROBOTO (BODY)
+    ====================================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
@@ -70,6 +77,28 @@ $flashes = Flash::all();
 
     <link rel="stylesheet" href="<?= e(asset('css/theme-clean-global.css')) ?>">
     <link rel="stylesheet" href="<?= e(asset('css/tailwind.css?v=1.0.0')) ?>">
+
+    <style>
+        :root {
+            --font-app: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-heading: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-cta: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        body, body.login-body {
+            font-family: var(--font-app) !important;
+        }
+        h1, h2, h3, h4, h5, h6, .brand-title {
+            font-family: var(--font-heading) !important;
+            font-weight: 600 !important;
+            letter-spacing: -0.015em;
+        }
+        button, .btn, .btn-primary, [role="button"] {
+            font-family: var(--font-cta) !important;
+        }
+        b, strong, .font-bold {
+            font-weight: 600 !important;
+        }
+    </style>
 </head>
 
 <body class="login-body">
