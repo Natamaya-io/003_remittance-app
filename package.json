@@ -1,0 +1,28 @@
+{
+  "name": "remittance.raxbyte.com",
+  "version": "1.0.0",
+  "description": "Aplikasi operasional remitansi perbankan berbasis PHP 8 dan MariaDB untuk pemrosesan transaksi, rekonsiliasi laporan harian, penagihan, standing instruction 7 bank nasional, serta sistem pendukung keputusan metode Entropy–TOPSIS.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build:css": "tailwindcss -i ./public/assets/css/tailwind-input.css -o ./public/assets/css/tailwind.css --minify",
+    "watch:css": "tailwindcss -i ./public/assets/css/tailwind-input.css -o ./public/assets/css/tailwind.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Natamaya-io/003_remittance-app.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Natamaya-io/003_remittance-app/issues"
+  },
+  "homepage": "https://github.com/Natamaya-io/003_remittance-app#readme",
+  "devDependencies": {
+    "preline": "^2.7.0",
+    "tailwindcss": "^3.4.19"
+  }
+}

@@ -182,30 +182,64 @@ $activeAdvancedFilters = array_filter(
 </div>
 
 <!-- =========================================================
-     TOOLBAR MODE TAMPILAN: TABEL VS LIST
+     TOOLBAR MODE TAMPILAN: TABEL VS LIST (ALPINE + PRELINE UI)
      ========================================================= -->
-<div class="report-view-toolbar">
-    <div class="report-view-summary">
+<div x-data="{ viewMode: localStorage.getItem('fable_report_view_mode') || 'table' }"
+     x-init="$watch('viewMode', val => localStorage.setItem('fable_report_view_mode', val))">
+
+<div class="report-view-toolbar flex flex-wrap items-center justify-between gap-3">
+    <div class="report-view-summary flex items-center gap-2">
         <span>Periode Bulan Report</span>
         <span class="count-badge"><?= count($months) ?> Bulan Terdaftar</span>
     </div>
 
-    <div class="view-mode-switcher" id="reportViewSwitcher">
-        <button type="button" class="view-mode-btn active" data-view="table">
-            <i class="bi bi-table"></i>
-            Tabel
-        </button>
-        <button type="button" class="view-mode-btn" data-view="list">
-            <i class="bi bi-list-ul"></i>
-            List
-        </button>
+    <div class="flex items-center gap-2">
+        <!-- Preline UI Dropdown -->
+        <div class="hs-dropdown relative inline-flex">
+            <button id="hs-dropdown-report-options" type="button" class="hs-dropdown-toggle inline-flex items-center gap-x-2 py-2 px-3 text-xs font-semibold rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700" aria-haspopup="menu" aria-expanded="false" aria-label="Menu Opsi">
+                <i class="bi bi-gear"></i>
+                Opsi Cepat
+                <i class="bi bi-chevron-down text-[10px]"></i>
+            </button>
+
+            <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-48 bg-white shadow-lg rounded-xl p-1.5 mt-2 border border-gray-100 z-50 dark:bg-neutral-900 dark:border-neutral-700" role="menu" aria-orientation="vertical" aria-labelledby="hs-dropdown-report-options">
+                <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-800 focus:outline-none" href="<?= e(url('/reports/create')) ?>">
+                    <i class="bi bi-cloud-arrow-up text-blue-600"></i>
+                    Upload Report Baru
+                </a>
+                <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-800 focus:outline-none" href="<?= e(url('/reports/search')) ?>">
+                    <i class="bi bi-search text-emerald-600"></i>
+                    Pencarian Global
+                </a>
+                <hr class="my-1 border-gray-100 dark:border-neutral-700">
+                <button type="button" @click="viewMode = 'table'" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-800 focus:outline-none">
+                    <i class="bi bi-table text-indigo-600"></i>
+                    Tampilan Tabel
+                </button>
+                <button type="button" @click="viewMode = 'list'" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 dark:text-neutral-300 dark:hover:bg-neutral-800 focus:outline-none">
+                    <i class="bi bi-list-ul text-amber-600"></i>
+                    Tampilan List
+                </button>
+            </div>
+        </div>
+
+        <div class="view-mode-switcher" id="reportViewSwitcher">
+            <button type="button" class="view-mode-btn" :class="{ 'active': viewMode === 'table' }" @click="viewMode = 'table'" data-view="table">
+                <i class="bi bi-table"></i>
+                Tabel
+            </button>
+            <button type="button" class="view-mode-btn" :class="{ 'active': viewMode === 'list' }" @click="viewMode = 'list'" data-view="list">
+                <i class="bi bi-list-ul"></i>
+                List
+            </button>
+        </div>
     </div>
 </div>
 
 <!-- =========================================================
      WADAH TAMPILAN: TABEL & LIST MUTLAK
      ========================================================= -->
-<div class="report-view-container mode-table" id="reportViewContainer">
+<div class="report-view-container mode-table" :class="viewMode === 'table' ? 'mode-table' : 'mode-list'" id="reportViewContainer">
 
     <!-- 1. TAMPILAN TABEL ZEBRA (HIGH DENSITY) -->
     <div class="report-table-view">
@@ -450,7 +484,8 @@ $activeAdvancedFilters = array_filter(
         <?php endif; ?>
     </div>
 
-</div>
+</div> <!-- end reportViewContainer -->
+</div> <!-- end Alpine x-data -->
 
 <!-- =========================================================
      JAVASCRIPT: PERALIHAN MODE TABEL / LIST

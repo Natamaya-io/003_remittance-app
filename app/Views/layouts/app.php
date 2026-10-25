@@ -111,6 +111,15 @@ $flashes = Flash::all();
     <link rel="stylesheet" href="<?= e(asset('css/transaction-bank-flow.css?v=1.0.0')) ?>">
 
     <!-- =====================================================
+         TAILWIND CSS & PRELINE UI
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="<?= e(asset('css/tailwind.css?v=1.0.0')) ?>"
+    >
+
+    <!-- =====================================================
          VIBRANT PASTEL COLOR + TYPOGRAPHY OVERRIDE
 
          TIDAK MENGUBAH:
@@ -5902,6 +5911,11 @@ $flashes = Flash::all();
                     <div
                         class="alert alert-<?= e($flashType) ?>"
                         role="alert"
+                        x-data="{ show: true }"
+                        x-show="show"
+                        x-transition:leave="transition ease-in duration-200"
+                        x-transition:leave-start="opacity-100 scale-100"
+                        x-transition:leave-end="opacity-0 scale-95"
                     >
 
 
@@ -5913,6 +5927,7 @@ $flashes = Flash::all();
                         <button
                             class="alert-close"
                             type="button"
+                            @click="show = false"
                             data-alert-close
                             aria-label="Tutup notifikasi"
                         >
@@ -5957,6 +5972,21 @@ $flashes = Flash::all();
 
 <script
     src="<?= e(asset('js/fx-idr-board.js?v=23.1.0')) ?>"
+    defer
+></script>
+
+
+<!-- =========================================================
+     ALPINE.JS & PRELINE UI
+========================================================= -->
+
+<script
+    src="<?= e(asset('vendor/alpine/alpine.min.js')) ?>"
+    defer
+></script>
+
+<script
+    src="<?= e(asset('vendor/preline/preline.min.js')) ?>"
     defer
 ></script>
 

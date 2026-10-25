@@ -69,6 +69,7 @@ $flashes = Flash::all();
     >
 
     <link rel="stylesheet" href="<?= e(asset('css/theme-clean-global.css')) ?>">
+    <link rel="stylesheet" href="<?= e(asset('css/tailwind.css?v=1.0.0')) ?>">
 </head>
 
 <body class="login-body">
@@ -95,6 +96,11 @@ $flashes = Flash::all();
                     <div
                         class="login-flash"
                         role="alert"
+                        x-data="{ show: true }"
+                        x-show="show"
+                        x-transition:leave="transition ease-in duration-200"
+                        x-transition:leave-start="opacity-100 scale-100"
+                        x-transition:leave-end="opacity-0 scale-95"
                     >
 
                         <span class="login-flash-icon">
@@ -118,6 +124,7 @@ $flashes = Flash::all();
                         <button
                             type="button"
                             class="login-flash-close"
+                            @click="show = false"
                             data-login-flash-close
                             aria-label="Tutup notifikasi"
                         >
@@ -138,6 +145,16 @@ $flashes = Flash::all();
 
     <script
         src="<?= e(asset('js/app.js?v=22.0.1')) ?>"
+        defer
+    ></script>
+
+    <script
+        src="<?= e(asset('vendor/alpine/alpine.min.js')) ?>"
+        defer
+    ></script>
+
+    <script
+        src="<?= e(asset('vendor/preline/preline.min.js')) ?>"
         defer
     ></script>
 
