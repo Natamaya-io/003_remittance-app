@@ -184,6 +184,82 @@ Sistem dropdown mendukung **Preline UI (`hs-dropdown`)** dan **Alpine.js (`x-dat
 </div>
 ```
 
+### 4.3. Aturan Terkunci: Custom Select Dropdown (Alpine.js Filter & Selection)
+
+Untuk kontrol pemilihan nilai (filter form, combobox, pemilihan entitas) yang membutuhkan tampilan custom UI bebas dari keterbatasan styling browser native:
+
+1. **Struktur Anatomi `.custom-select-root`:**
+   - Komponen dibungkus dalam container dengan `x-data="{ open: false, selected: '...', label: '...' }"` dan `@click.outside="open = false"`.
+   - Menggunakan `<input type="hidden" name="..." :value="selected">` agar pengiriman form (GET/POST) tetap 100% kompatibel dan identik dengan `<select>` standar.
+   - Tombol pemicu `.dropdown-toggle` menampilkan teks label terpilih (`x-text="label"`), ikon kategori di sisi kiri, dan chevron down di sisi kanan (`:class="{ 'rotate-180': open }"`).
+   - Menu panel `.dropdown-menu` menampilkan daftar opsi (`role="listbox"`), item yang terpilih mendapatkan kelas `.active` dan centang `<i class="bi bi-check2 text-blue-600"></i>`.
+2. **Contoh Implementasi Standar Custom Select:**
+```html
+<div x-data="{
+    open: false,
+    selected: '<?= e($filters['team'] ?? '') ?>',
+    label: '<?= ($filters['team'] ?? '') !== '' ? addslashes(e($filters['team'])) : 'Semua tim' ?>'
+}">
+    <label class="block text-xs font-semibold text-gray-700 mb-1">Tim</label>
+    <div class="custom-select-root relative" @click.outside="open = false">
+        <input type="hidden" name="team" :value="selected">
+        <button
+            type="button"
+            class="dropdown-toggle"
+            @click="open = !open"
+            :aria-expanded="open"
+            aria-label="Filter Tim"
+        >
+            <i class="bi bi-people text-gray-400"></i>
+            <span class="truncate text-gray-900" x-text="label"></span>
+            <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+        </button>
+
+        <div
+            class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
+            x-show="open"
+            x-transition:enter="transition ease-out duration-100"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-75"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            style="display: none;"
+            role="listbox"
+        >
+            <button
+                type="button"
+                class="dropdown-item"
+                :class="{ 'active': selected === '' }"
+                @click="selected = ''; label = 'Semua tim'; open = false"
+            >
+                <span>Semua tim</span>
+                <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+            </button>
+            <?php foreach ($teams as $team): ?>
+                <button
+                    type="button"
+                    class="dropdown-item"
+                    :class="{ 'active': selected === '<?= addslashes(e($team)) ?>' }"
+                    @click="selected = '<?= addslashes(e($team)) ?>'; label = '<?= addslashes(e($team)) ?>'; open = false"
+                >
+                    <span><?= e($team) ?></span>
+                    <i x-show="selected === '<?= addslashes(e($team)) ?>'" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                </button>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
+```
+
+### 4.4. Normalisasi Global Elemen `<select>` Native
+
+Jika tag native `<select>` masih digunakan untuk kasus tertentu (seperti floating batch toolbar atau reactive modal with `x-model`), elemen wajib dinormalkan melalui CSS global:
+- `appearance: none; -webkit-appearance: none; -moz-appearance: none;`
+- Menginjeksi custom SVG chevron di sisi kanan via `background-image` (data URL SVG), `background-repeat: no-repeat`, `background-position: right 0.75rem center`.
+- Padding kanan wajib minimal `2.25rem` (`36px`) agar teks opsi tidak menabrak ikon chevron.
+- Border solid `#d1d5db`, radius `10px`, warna background solid `#ffffff`, dan focus ring `3px rgba(31, 107, 240, 0.15)`.
+
 ---
 
 ## 5. Aturan Terkunci: Peniadaan Judul Halaman Ganda (Global Zero-Redundant Page Title Directives / Naked Page Architecture)

@@ -79,33 +79,195 @@ $queryText = (string) ($filters['q'] ?? '');
                 </div>
             </div>
 
-            <div>
+            <div x-data="{
+                open: false,
+                selected: '<?= addslashes(e($filters['team'] ?? '')) ?>',
+                label: '<?= ($filters['team'] ?? '') !== '' ? addslashes(e($filters['team'])) : 'Semua tim' ?>'
+            }">
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Tim</label>
-                <select class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs bg-white" name="team">
-                    <option value="">Semua tim</option>
-                    <?php foreach ($teams as $team): ?>
-                        <option value="<?= e($team) ?>" <?= selected($filters['team'] ?? '', $team) ?>><?= e($team) ?></option>
-                    <?php endforeach; ?>
-                </select>
+                <div class="custom-select-root relative" @click.outside="open = false">
+                    <input type="hidden" name="team" :value="selected">
+                    <button
+                        type="button"
+                        class="dropdown-toggle"
+                        @click="open = !open"
+                        :aria-expanded="open"
+                        aria-label="Filter Tim"
+                    >
+                        <i class="bi bi-people text-gray-400"></i>
+                        <span class="truncate text-gray-900" x-text="label"></span>
+                        <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                    </button>
+
+                    <div
+                        class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
+                        x-show="open"
+                        x-transition:enter="transition ease-out duration-100"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition ease-in duration-75"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        style="display: none;"
+                        role="listbox"
+                    >
+                        <button
+                            type="button"
+                            class="dropdown-item"
+                            :class="{ 'active': selected === '' }"
+                            @click="selected = ''; label = 'Semua tim'; open = false"
+                        >
+                            <span>Semua tim</span>
+                            <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                        </button>
+                        <?php foreach ($teams as $team): ?>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                :class="{ 'active': selected === '<?= addslashes(e($team)) ?>' }"
+                                @click="selected = '<?= addslashes(e($team)) ?>'; label = '<?= addslashes(e($team)) ?>'; open = false"
+                            >
+                                <span><?= e($team) ?></span>
+                                <i x-show="selected === '<?= addslashes(e($team)) ?>'" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                            </button>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
             </div>
 
-            <div>
+            <div x-data="{
+                open: false,
+                selected: '<?= e($filters['delivery_status'] ?? '') ?>',
+                label: '<?= ($filters['delivery_status'] ?? '') === 'PENDING' ? 'Pending' : (($filters['delivery_status'] ?? '') === 'SENT' ? 'Terkirim' : 'Semua status') ?>'
+            }">
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Status kirim</label>
-                <select class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs bg-white" name="delivery_status">
-                    <option value="">Semua status</option>
-                    <option value="PENDING" <?= selected($filters['delivery_status'] ?? '', 'PENDING') ?>>Pending</option>
-                    <option value="SENT" <?= selected($filters['delivery_status'] ?? '', 'SENT') ?>>Terkirim</option>
-                </select>
+                <div class="custom-select-root relative" @click.outside="open = false">
+                    <input type="hidden" name="delivery_status" :value="selected">
+                    <button
+                        type="button"
+                        class="dropdown-toggle"
+                        @click="open = !open"
+                        :aria-expanded="open"
+                        aria-label="Filter Status Kirim"
+                    >
+                        <i class="bi bi-send text-gray-400"></i>
+                        <span class="truncate text-gray-900" x-text="label"></span>
+                        <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                    </button>
+
+                    <div
+                        class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
+                        x-show="open"
+                        x-transition:enter="transition ease-out duration-100"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition ease-in duration-75"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        style="display: none;"
+                        role="listbox"
+                    >
+                        <button
+                            type="button"
+                            class="dropdown-item"
+                            :class="{ 'active': selected === '' }"
+                            @click="selected = ''; label = 'Semua status'; open = false"
+                        >
+                            <span>Semua status</span>
+                            <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                        </button>
+                        <button
+                            type="button"
+                            class="dropdown-item"
+                            :class="{ 'active': selected === 'PENDING' }"
+                            @click="selected = 'PENDING'; label = 'Pending'; open = false"
+                        >
+                            <span>Pending</span>
+                            <i x-show="selected === 'PENDING'" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                        </button>
+                        <button
+                            type="button"
+                            class="dropdown-item"
+                            :class="{ 'active': selected === 'SENT' }"
+                            @click="selected = 'SENT'; label = 'Terkirim'; open = false"
+                        >
+                            <span>Terkirim</span>
+                            <i x-show="selected === 'SENT'" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
 
-            <div>
+            <div x-data="{
+                open: false,
+                selected: '<?= e($filters['result_status'] ?? '') ?>',
+                label: '<?= ($filters['result_status'] ?? '') === 'PENDING' ? 'Pending' : (($filters['result_status'] ?? '') === 'SUCCESS' ? 'Success' : (($filters['result_status'] ?? '') === 'FAILED' ? 'Failed' : 'Semua hasil')) ?>'
+            }">
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Hasil transaksi</label>
-                <select class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs bg-white" name="result_status">
-                    <option value="">Semua hasil</option>
-                    <option value="PENDING" <?= selected($filters['result_status'] ?? '', 'PENDING') ?>>Pending</option>
-                    <option value="SUCCESS" <?= selected($filters['result_status'] ?? '', 'SUCCESS') ?>>Success</option>
-                    <option value="FAILED" <?= selected($filters['result_status'] ?? '', 'FAILED') ?>>Failed</option>
-                </select>
+                <div class="custom-select-root relative" @click.outside="open = false">
+                    <input type="hidden" name="result_status" :value="selected">
+                    <button
+                        type="button"
+                        class="dropdown-toggle"
+                        @click="open = !open"
+                        :aria-expanded="open"
+                        aria-label="Filter Hasil Transaksi"
+                    >
+                        <i class="bi bi-check-circle text-gray-400"></i>
+                        <span class="truncate text-gray-900" x-text="label"></span>
+                        <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                    </button>
+
+                    <div
+                        class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
+                        x-show="open"
+                        x-transition:enter="transition ease-out duration-100"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition ease-in duration-75"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        style="display: none;"
+                        role="listbox"
+                    >
+                        <button
+                            type="button"
+                            class="dropdown-item"
+                            :class="{ 'active': selected === '' }"
+                            @click="selected = ''; label = 'Semua hasil'; open = false"
+                        >
+                            <span>Semua hasil</span>
+                            <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                        </button>
+                        <button
+                            type="button"
+                            class="dropdown-item"
+                            :class="{ 'active': selected === 'PENDING' }"
+                            @click="selected = 'PENDING'; label = 'Pending'; open = false"
+                        >
+                            <span>Pending</span>
+                            <i x-show="selected === 'PENDING'" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                        </button>
+                        <button
+                            type="button"
+                            class="dropdown-item"
+                            :class="{ 'active': selected === 'SUCCESS' }"
+                            @click="selected = 'SUCCESS'; label = 'Success'; open = false"
+                        >
+                            <span>Success</span>
+                            <i x-show="selected === 'SUCCESS'" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                        </button>
+                        <button
+                            type="button"
+                            class="dropdown-item"
+                            :class="{ 'active': selected === 'FAILED' }"
+                            @click="selected = 'FAILED'; label = 'Failed'; open = false"
+                        >
+                            <span>Failed</span>
+                            <i x-show="selected === 'FAILED'" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <div class="sm:col-span-2 flex items-end gap-2 pt-1">

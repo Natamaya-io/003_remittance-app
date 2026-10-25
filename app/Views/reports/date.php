@@ -79,31 +79,175 @@ $returnPath = '/reports/date/' . $date;
         <form class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 items-end" method="get" action="<?= e(url('/reports/date/' . $date)) ?>">
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Tim</label>
-                <select class="py-1.5 px-3 block w-full border border-gray-300 rounded-lg text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" name="team">
-                    <option value="">Semua tim</option>
-                    <?php foreach ($teams as $team): ?>
-                        <option value="<?= e($team) ?>" <?= selected((string) ($filters['team'] ?? ''), $team) ?>><?= e($team) ?></option>
-                    <?php endforeach; ?>
-                </select>
+                <?php
+                $currTeam = (string) ($filters['team'] ?? '');
+                $currTeamLabel = $currTeam !== '' ? $currTeam : 'Semua tim';
+                ?>
+                <div class="custom-select-root" x-data="{ open: false, selected: '<?= e(addslashes($currTeam)) ?>', label: '<?= e(addslashes($currTeamLabel)) ?>' }" @click.outside="open = false">
+                    <input type="hidden" name="team" :value="selected">
+                    <button
+                        type="button"
+                        @click="open = !open"
+                        class="dropdown-toggle"
+                        :aria-expanded="open.toString()"
+                    >
+                        <span class="truncate" x-text="label"></span>
+                        <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                    </button>
+                    <div
+                        x-show="open"
+                        x-transition:leave="transition ease-in duration-100"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        class="dropdown-menu"
+                        style="display: none;"
+                    >
+                        <button
+                            type="button"
+                            class="dropdown-item justify-between"
+                            :class="{ 'active': selected === '' }"
+                            @click="selected = ''; label = 'Semua tim'; open = false"
+                        >
+                            <span>Semua tim</span>
+                            <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
+                        </button>
+                        <?php foreach ($teams as $team): ?>
+                            <?php $teamValue = trim((string) $team); if ($teamValue === '') continue; ?>
+                            <button
+                                type="button"
+                                class="dropdown-item justify-between"
+                                :class="{ 'active': selected === '<?= e(addslashes($teamValue)) ?>' }"
+                                @click="selected = '<?= e(addslashes($teamValue)) ?>'; label = '<?= e(addslashes($teamValue)) ?>'; open = false"
+                            >
+                                <span class="truncate"><?= e($teamValue) ?></span>
+                                <i x-show="selected === '<?= e(addslashes($teamValue)) ?>'" class="bi bi-check2 text-blue-600 text-sm"></i>
+                            </button>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
             </div>
 
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Status kirim</label>
-                <select class="py-1.5 px-3 block w-full border border-gray-300 rounded-lg text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" name="delivery_status">
-                    <option value="">Semua status</option>
-                    <option value="PENDING" <?= selected((string) ($filters['delivery_status'] ?? ''), 'PENDING') ?>>Pending</option>
-                    <option value="SENT" <?= selected((string) ($filters['delivery_status'] ?? ''), 'SENT') ?>>Terkirim</option>
-                </select>
+                <?php
+                $currDelivery = (string) ($filters['delivery_status'] ?? '');
+                $deliveryLabels = ['PENDING' => 'Pending', 'SENT' => 'Terkirim'];
+                $currDeliveryLabel = $deliveryLabels[$currDelivery] ?? 'Semua status';
+                ?>
+                <div class="custom-select-root" x-data="{ open: false, selected: '<?= e(addslashes($currDelivery)) ?>', label: '<?= e(addslashes($currDeliveryLabel)) ?>' }" @click.outside="open = false">
+                    <input type="hidden" name="delivery_status" :value="selected">
+                    <button
+                        type="button"
+                        @click="open = !open"
+                        class="dropdown-toggle"
+                        :aria-expanded="open.toString()"
+                    >
+                        <span class="truncate" x-text="label"></span>
+                        <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                    </button>
+                    <div
+                        x-show="open"
+                        x-transition:leave="transition ease-in duration-100"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        class="dropdown-menu"
+                        style="display: none;"
+                    >
+                        <button
+                            type="button"
+                            class="dropdown-item justify-between"
+                            :class="{ 'active': selected === '' }"
+                            @click="selected = ''; label = 'Semua status'; open = false"
+                        >
+                            <span>Semua status</span>
+                            <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
+                        </button>
+                        <button
+                            type="button"
+                            class="dropdown-item justify-between"
+                            :class="{ 'active': selected === 'PENDING' }"
+                            @click="selected = 'PENDING'; label = 'Pending'; open = false"
+                        >
+                            <span>Pending</span>
+                            <i x-show="selected === 'PENDING'" class="bi bi-check2 text-blue-600 text-sm"></i>
+                        </button>
+                        <button
+                            type="button"
+                            class="dropdown-item justify-between"
+                            :class="{ 'active': selected === 'SENT' }"
+                            @click="selected = 'SENT'; label = 'Terkirim'; open = false"
+                        >
+                            <span>Terkirim</span>
+                            <i x-show="selected === 'SENT'" class="bi bi-check2 text-blue-600 text-sm"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Hasil</label>
-                <select class="py-1.5 px-3 block w-full border border-gray-300 rounded-lg text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" name="result_status">
-                    <option value="">Semua hasil</option>
-                    <option value="PENDING" <?= selected((string) ($filters['result_status'] ?? ''), 'PENDING') ?>>Pending</option>
-                    <option value="SUCCESS" <?= selected((string) ($filters['result_status'] ?? ''), 'SUCCESS') ?>>Success</option>
-                    <option value="FAILED" <?= selected((string) ($filters['result_status'] ?? ''), 'FAILED') ?>>Failed</option>
-                </select>
+                <?php
+                $currResult = (string) ($filters['result_status'] ?? '');
+                $resultLabels = ['PENDING' => 'Pending', 'SUCCESS' => 'Success', 'FAILED' => 'Failed'];
+                $currResultLabel = $resultLabels[$currResult] ?? 'Semua hasil';
+                ?>
+                <div class="custom-select-root" x-data="{ open: false, selected: '<?= e(addslashes($currResult)) ?>', label: '<?= e(addslashes($currResultLabel)) ?>' }" @click.outside="open = false">
+                    <input type="hidden" name="result_status" :value="selected">
+                    <button
+                        type="button"
+                        @click="open = !open"
+                        class="dropdown-toggle"
+                        :aria-expanded="open.toString()"
+                    >
+                        <span class="truncate" x-text="label"></span>
+                        <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                    </button>
+                    <div
+                        x-show="open"
+                        x-transition:leave="transition ease-in duration-100"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        class="dropdown-menu"
+                        style="display: none;"
+                    >
+                        <button
+                            type="button"
+                            class="dropdown-item justify-between"
+                            :class="{ 'active': selected === '' }"
+                            @click="selected = ''; label = 'Semua hasil'; open = false"
+                        >
+                            <span>Semua hasil</span>
+                            <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
+                        </button>
+                        <button
+                            type="button"
+                            class="dropdown-item justify-between"
+                            :class="{ 'active': selected === 'PENDING' }"
+                            @click="selected = 'PENDING'; label = 'Pending'; open = false"
+                        >
+                            <span>Pending</span>
+                            <i x-show="selected === 'PENDING'" class="bi bi-check2 text-blue-600 text-sm"></i>
+                        </button>
+                        <button
+                            type="button"
+                            class="dropdown-item justify-between"
+                            :class="{ 'active': selected === 'SUCCESS' }"
+                            @click="selected = 'SUCCESS'; label = 'Success'; open = false"
+                        >
+                            <span>Success</span>
+                            <i x-show="selected === 'SUCCESS'" class="bi bi-check2 text-blue-600 text-sm"></i>
+                        </button>
+                        <button
+                            type="button"
+                            class="dropdown-item justify-between"
+                            :class="{ 'active': selected === 'FAILED' }"
+                            @click="selected = 'FAILED'; label = 'Failed'; open = false"
+                        >
+                            <span>Failed</span>
+                            <i x-show="selected === 'FAILED'" class="bi bi-check2 text-blue-600 text-sm"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <div class="flex items-center gap-2">
@@ -175,7 +319,7 @@ $returnPath = '/reports/date/' . $date;
     <!-- =========================================================
          TOOLBAR MODE TAMPILAN: TABEL VS LIST (ALPINE + PRELINE UI)
          ========================================================= -->
-    <div x-data="{ viewMode: localStorage.getItem('remitgo_report_view_mode') || localStorage.getItem('fable_report_view_mode') || 'table' }"
+    <div x-data="{ viewMode: localStorage.getItem('remitgo_report_view_mode') || localStorage.getItem('fable_report_view_mode') || 'table', openOptions: false }"
          x-init="$watch('viewMode', val => { localStorage.setItem('remitgo_report_view_mode', val); localStorage.setItem('fable_report_view_mode', val); })"
          class="space-y-4">
 
@@ -188,28 +332,33 @@ $returnPath = '/reports/date/' . $date;
             </div>
 
             <div class="flex items-center gap-2">
-                <!-- Preline UI Dropdown -->
-                <div class="hs-dropdown relative inline-flex">
+                <!-- Alpine Dropdown -->
+                <div class="relative inline-flex" @click.outside="openOptions = false">
                     <button
-                        id="hs-dropdown-date-options"
                         type="button"
-                        class="hs-dropdown-toggle dropdown-toggle"
-                        aria-haspopup="menu"
-                        aria-expanded="false"
+                        class="dropdown-toggle"
+                        @click="openOptions = !openOptions"
+                        :aria-expanded="openOptions"
                         aria-label="Menu Opsi"
                     >
                         <i class="bi bi-gear"></i>
                         <span>Opsi</span>
                         <span class="text-gray-300 font-normal">·</span>
                         <span class="text-[11px] text-gray-500 font-medium capitalize" x-text="viewMode === 'table' ? 'Tabel' : 'List'"></span>
-                        <i class="bi bi-chevron-down text-xs text-gray-400"></i>
+                        <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': openOptions }"></i>
                     </button>
 
                     <div
-                        class="hs-dropdown-menu dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden"
+                        class="dropdown-menu absolute right-0 top-full mt-2 w-56 z-50 bg-white"
+                        x-show="openOptions"
+                        x-transition:enter="transition ease-out duration-100"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition ease-in duration-75"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        style="display: none;"
                         role="menu"
-                        aria-orientation="vertical"
-                        aria-labelledby="hs-dropdown-date-options"
                     >
                         <span class="dropdown-header">Aksi Cepat</span>
                         <a class="dropdown-item" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
@@ -222,14 +371,14 @@ $returnPath = '/reports/date/' . $date;
                         </a>
                         <div class="dropdown-divider"></div>
                         <span class="dropdown-header">Mode Tampilan</span>
-                        <button type="button" @click="viewMode = 'table'" class="dropdown-item justify-between" :class="viewMode === 'table' ? 'active font-semibold' : ''">
+                        <button type="button" @click="viewMode = 'table'; openOptions = false" class="dropdown-item justify-between" :class="viewMode === 'table' ? 'active font-semibold' : ''">
                             <span class="flex items-center gap-x-2.5">
                                 <i class="bi bi-table text-indigo-600"></i>
                                 Tampilan Tabel
                             </span>
                             <i x-show="viewMode === 'table'" class="bi bi-check2 text-blue-600 text-sm"></i>
                         </button>
-                        <button type="button" @click="viewMode = 'list'" class="dropdown-item justify-between" :class="viewMode === 'list' ? 'active font-semibold' : ''">
+                        <button type="button" @click="viewMode = 'list'; openOptions = false" class="dropdown-item justify-between" :class="viewMode === 'list' ? 'active font-semibold' : ''">
                             <span class="flex items-center gap-x-2.5">
                                 <i class="bi bi-list-ul text-amber-600"></i>
                                 Tampilan List

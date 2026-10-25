@@ -52,14 +52,70 @@ $print = (bool) ($print ?? false);
                     <input type="date" class="form-datepicker has-icon-left text-xs" name="date" value="<?= e($date) ?>">
                 </div>
             </div>
-            <div class="md:col-span-4">
+            <div class="md:col-span-4"
+                 <?php
+                     $selectedCompanyName = 'Semua perusahaan';
+                     foreach ($companies as $c) {
+                         if ((int)$companyId === (int)$c['id']) {
+                             $selectedCompanyName = $c['name'];
+                             break;
+                         }
+                     }
+                 ?>
+                 x-data="{
+                     open: false,
+                     selected: <?= json_encode((string)$companyId) ?>,
+                     label: <?= json_encode($selectedCompanyName) ?>
+                 }">
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Perusahaan (PT)</label>
-                <select class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" name="company_id">
-                    <option value="0">Semua perusahaan</option>
-                    <?php foreach ($companies as $company): ?>
-                        <option value="<?= (int) $company['id'] ?>" <?= selected($companyId, $company['id']) ?>><?= e($company['name']) ?></option>
-                    <?php endforeach; ?>
-                </select>
+                <div class="custom-select-root relative" @click.outside="open = false">
+                    <input type="hidden" name="company_id" :value="selected">
+                    <button
+                        type="button"
+                        class="dropdown-toggle"
+                        @click="open = !open"
+                        :aria-expanded="open"
+                        aria-label="Filter Perusahaan"
+                    >
+                        <i class="bi bi-building text-gray-400"></i>
+                        <span class="truncate text-gray-900" x-text="label"></span>
+                        <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                    </button>
+
+                    <div
+                        class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
+                        x-show="open"
+                        x-transition:enter="transition ease-out duration-100"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition ease-in duration-75"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        style="display: none;"
+                        role="listbox"
+                    >
+                        <button
+                            type="button"
+                            class="dropdown-item"
+                            :class="{ 'active': selected === '0' || selected === '' }"
+                            @click="selected = '0'; label = 'Semua perusahaan'; open = false"
+                        >
+                            <span>Semua perusahaan</span>
+                            <i x-show="selected === '0' || selected === ''" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                        </button>
+                        <?php foreach ($companies as $company): ?>
+                            <button
+                                type="button"
+                                class="dropdown-item"
+                                :class="{ 'active': selected === '<?= (int) $company['id'] ?>' }"
+                                @click="selected = '<?= (int) $company['id'] ?>'; label = '<?= addslashes(e($company['name'])) ?>'; open = false"
+                            >
+                                <span><?= e($company['name']) ?></span>
+                                <i x-show="selected === '<?= (int) $company['id'] ?>'" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                            </button>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
             </div>
             <div class="md:col-span-5 flex flex-wrap items-center gap-2">
                 <button class="btn btn-primary py-2 px-3.5 text-xs font-medium rounded-lg inline-flex items-center gap-1.5" type="submit">
