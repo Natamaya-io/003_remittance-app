@@ -214,7 +214,9 @@ $activeAdvancedFilters = array_filter(
                         aria-label="Menu Opsi"
                     >
                         <i class="bi bi-gear"></i>
-                        Opsi
+                        <span>Opsi</span>
+                        <span class="text-gray-300 font-normal">·</span>
+                        <span class="text-[11px] text-gray-500 font-medium capitalize" x-text="viewMode === 'table' ? 'Tabel' : 'List'"></span>
                         <i class="bi bi-chevron-down text-xs text-gray-400"></i>
                     </button>
 
@@ -233,37 +235,21 @@ $activeAdvancedFilters = array_filter(
                             Pencarian Global
                         </a>
                         <hr class="my-1 border-gray-100">
-                        <button type="button" @click="viewMode = 'table'" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors">
-                            <i class="bi bi-table text-indigo-600"></i>
-                            Tampilan Tabel
+                        <button type="button" @click="viewMode = 'table'" class="w-full flex items-center justify-between py-2 px-3 rounded-lg text-xs transition-colors focus:outline-none" :class="viewMode === 'table' ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700 hover:bg-gray-100'">
+                            <span class="flex items-center gap-x-3">
+                                <i class="bi bi-table text-indigo-600"></i>
+                                Tampilan Tabel
+                            </span>
+                            <i x-show="viewMode === 'table'" class="bi bi-check2 text-blue-600 text-sm"></i>
                         </button>
-                        <button type="button" @click="viewMode = 'list'" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors">
-                            <i class="bi bi-list-ul text-amber-600"></i>
-                            Tampilan List
+                        <button type="button" @click="viewMode = 'list'" class="w-full flex items-center justify-between py-2 px-3 rounded-lg text-xs transition-colors focus:outline-none" :class="viewMode === 'list' ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700 hover:bg-gray-100'">
+                            <span class="flex items-center gap-x-3">
+                                <i class="bi bi-list-ul text-amber-600"></i>
+                                Tampilan List
+                            </span>
+                            <i x-show="viewMode === 'list'" class="bi bi-check2 text-blue-600 text-sm"></i>
                         </button>
                     </div>
-                </div>
-
-                <!-- Mode Switcher Buttons (Preline UI Segmented Group) -->
-                <div class="inline-flex rounded-lg shadow-xs p-0.5 bg-gray-100 border border-gray-200">
-                    <button
-                        type="button"
-                        class="py-1 px-2.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-md transition-all focus:outline-none"
-                        :class="viewMode === 'table' ? 'bg-white text-gray-900 shadow-xs font-semibold' : 'text-gray-500 hover:text-gray-900'"
-                        @click="viewMode = 'table'"
-                    >
-                        <i class="bi bi-table"></i>
-                        Tabel
-                    </button>
-                    <button
-                        type="button"
-                        class="py-1 px-2.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-md transition-all focus:outline-none"
-                        :class="viewMode === 'list' ? 'bg-white text-gray-900 shadow-xs font-semibold' : 'text-gray-500 hover:text-gray-900'"
-                        @click="viewMode = 'list'"
-                    >
-                        <i class="bi bi-list-ul"></i>
-                        List
-                    </button>
                 </div>
             </div>
         </div>
