@@ -15,6 +15,11 @@
     font-family: var(--font-sans);
   }
 
+  /* Reset global: hilangkan garis bawah default browser pada seluruh tag link <a> */
+  a {
+    text-decoration: none;
+  }
+
   h1, h2, h3, h4, h5, h6, .font-heading {
     font-family: var(--font-heading);
     font-weight: 600;
