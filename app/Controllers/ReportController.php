@@ -415,6 +415,10 @@ final class ReportController extends BaseController
     public function show(string $id): void
     {
         $this->permission('report.view');
+        if (!ctype_digit($id) && !is_numeric($id)) {
+            flash('danger', 'Report tidak ditemukan atau telah dihapus.');
+            redirect('/reports');
+        }
         $batch = $this->findBatch((int) $id);
         $filters = [
             'date' => trim((string) ($_GET['date'] ?? '')),
@@ -478,6 +482,10 @@ final class ReportController extends BaseController
     public function edit(string $id): void
     {
         $this->permission('report.manage');
+        if (!ctype_digit($id) && !is_numeric($id)) {
+            flash('danger', 'Report tidak ditemukan atau telah dihapus.');
+            redirect('/reports');
+        }
         $batch = $this->findBatch((int) $id);
 
         $this->view('reports/edit', [
@@ -489,6 +497,10 @@ final class ReportController extends BaseController
     public function update(string $id): void
     {
         $this->permission('report.manage');
+        if (!ctype_digit($id) && !is_numeric($id)) {
+            flash('danger', 'Report tidak ditemukan atau telah dihapus.');
+            redirect('/reports');
+        }
         $batchId = (int) $id;
         $before = $this->findBatch($batchId);
 
@@ -595,6 +607,10 @@ final class ReportController extends BaseController
     public function export(string $id): void
     {
         $this->permission('report.view');
+        if (!ctype_digit($id) && !is_numeric($id)) {
+            flash('danger', 'Report tidak ditemukan atau telah dihapus.');
+            redirect('/reports');
+        }
         $batch = $this->findBatch((int) $id);
         $statement = App::db()->prepare('SELECT * FROM report_rows WHERE batch_id=? ORDER BY transaction_date,source_sheet,source_row,id');
         $statement->execute([(int) $id]);
@@ -642,6 +658,10 @@ final class ReportController extends BaseController
     public function destroy(string $id): void
     {
         $this->permission('report.manage');
+        if (!ctype_digit($id) && !is_numeric($id)) {
+            flash('danger', 'Report tidak ditemukan atau telah dihapus.');
+            redirect('/reports');
+        }
         $batch = $this->findBatch((int) $id);
         App::db()->prepare('DELETE FROM report_batches WHERE id=?')->execute([(int) $id]);
         if (!empty($batch['source_path']) && is_file(BASE_PATH . '/public/' . $batch['source_path'])) {
@@ -839,11 +859,24 @@ final class ReportController extends BaseController
 
     private function findBatch(int $id): array
     {
-        $statement = App::db()->prepare('SELECT b.*,u.name creator_name FROM report_batches b LEFT JOIN users u ON u.id=b.created_by WHERE b.id=? LIMIT 1');
+        if ($id <= 0) {
+            flash('danger', 'Report tidak ditemukan atau telah dihapus.');
+            redirect('/reports');
+        }
+
+        $effectiveDate = $this->effectiveDateSql('b');
+        $teamExpression = $this->teamSql('b');
+        $statement = App::db()->prepare(
+            "SELECT b.*, u.name creator_name, {$effectiveDate} AS effective_date, {$teamExpression} AS effective_team
+             FROM report_batches b
+             LEFT JOIN users u ON u.id=b.created_by
+             WHERE b.id=? LIMIT 1"
+        );
         $statement->execute([$id]);
         $batch = $statement->fetch(PDO::FETCH_ASSOC);
         if (!$batch) {
-            throw new \RuntimeException('Report tidak ditemukan.');
+            flash('danger', 'Report tidak ditemukan atau telah dihapus.');
+            redirect('/reports');
         }
         return $batch;
     }

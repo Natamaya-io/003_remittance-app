@@ -165,7 +165,8 @@ $queryText = (string) ($filters['q'] ?? '');
                         <a class="btn btn-primary py-1.5 px-3 text-xs font-medium rounded-lg flex-1 justify-center inline-flex items-center gap-1.5" href="<?= e(url('/reports/' . $batch['id'] . '?q=' . urlencode($queryText))) ?>">
                             Buka Report
                         </a>
-                        <a class="py-1.5 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors" href="<?= e(url('/reports/date/' . $batch['effective_date'])) ?>">
+                        <?php $batchDateLink = !empty($batch['effective_date']) ? url('/reports/date/' . $batch['effective_date']) : url('/reports'); ?>
+                        <a class="py-1.5 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors" href="<?= e($batchDateLink) ?>">
                             Lihat Tanggal
                         </a>
                     </div>

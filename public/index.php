@@ -204,10 +204,13 @@ try {
         );
     }
 
+    $requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'CLI';
+    $requestUri = $_SERVER['REQUEST_URI'] ?? '-';
     $logMessage =
         '['
         . date('Y-m-d H:i:s')
         . '] '
+        . $requestMethod . ' ' . $requestUri . PHP_EOL
         . get_class($exception)
         . ': '
         . $exception->getMessage()

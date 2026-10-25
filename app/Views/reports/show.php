@@ -18,6 +18,10 @@ $distinctCurrencies = is_array($distinctCurrencies ?? null) ? $distinctCurrencie
 $queryText = (string) ($filters['q'] ?? '');
 $returnQuery = http_build_query($filters);
 
+$batchDate = (string) ($batch['effective_date'] ?? $effectiveDate ?? $batch['report_date'] ?? '');
+$dateBackUrl = $batchDate !== '' ? url('/reports/date/' . $batchDate) : url('/reports');
+$teamNameDisplay = (string) ($batch['effective_team'] ?? $batch['team_name'] ?? $batch['client_name'] ?? 'Tanpa Tim');
+
 $totalRows = (int) ($summary['total_rows'] ?? count($rows));
 $sentRows = (int) ($summary['sent_rows'] ?? 0);
 $pendingRows = (int) ($summary['pending_rows'] ?? 0);
@@ -76,19 +80,19 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                     <?= e((string) ($batch['month_key'] ?? '')) ?>
                 </span>
                 <span class="inline-flex items-center py-0.5 px-2.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-700">
-                    <?= e(format_date((string) ($batch['effective_date'] ?? $batch['report_date'] ?? ''))) ?>
+                    <?= e(format_date($batchDate)) ?>
                 </span>
             </div>
             <h2 class="text-2xl font-bold text-gray-900 tracking-tight"><?= e((string) ($batch['name'] ?? 'Detail Report')) ?></h2>
             <div class="text-xs text-gray-500 mt-1 flex items-center gap-2 flex-wrap">
-                <span class="font-semibold text-gray-700"><?= e((string) ($batch['effective_team'] ?? 'Tanpa Tim')) ?></span>
+                <span class="font-semibold text-gray-700"><?= e($teamNameDisplay) ?></span>
                 <span>·</span>
                 <span>Berkas: <span class="font-mono"><?= e((string) ($batch['source_filename'] ?? '')) ?></span></span>
             </div>
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
-            <a class="py-2 px-3.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1.5 transition-colors" href="<?= e(url('/reports/date/' . ($batch['effective_date'] ?? ''))) ?>">
+            <a class="py-2 px-3.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1.5 transition-colors" href="<?= e($dateBackUrl) ?>">
                 <i class="bi bi-arrow-left"></i>
                 Report per Tim
             </a>
@@ -250,7 +254,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                     <?php
                     $rowId = (int) ($row['id'] ?? 0);
                     $itemNumber = (int) ($row['item_no'] ?: ($row['source_row'] ?? 1));
-                    $teamLabel = (string) ($row['team_label'] ?: $batch['effective_team'] ?: '-');
+                    $teamLabel = (string) ($row['team_label'] ?: $teamNameDisplay ?: '-');
                     $trxDate = (string) ($row['transaction_date'] ?? '');
                     $payerName = (string) ($row['bill_to'] ?? '');
                     $beneficiaryName = (string) ($row['beneficiary_name'] ?? '');

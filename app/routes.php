@@ -401,6 +401,14 @@ $router->get(
 );
 
 $router->get(
+    '/reports/month',
+    [
+        ReportController::class,
+        'index',
+    ]
+);
+
+$router->get(
     '/reports/month/{month}',
     [
         ReportController::class,
@@ -409,10 +417,26 @@ $router->get(
 );
 
 $router->get(
+    '/reports/date/export',
+    [
+        ReportController::class,
+        'index',
+    ]
+);
+
+$router->get(
     '/reports/date/{date}/export',
     [
         ReportController::class,
         'exportDate',
+    ]
+);
+
+$router->get(
+    '/reports/date',
+    [
+        ReportController::class,
+        'index',
     ]
 );
 
