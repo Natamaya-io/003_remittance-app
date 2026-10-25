@@ -96,9 +96,11 @@ $returnPath = '/reports/date/' . $date;
                     </button>
                     <div
                         x-show="open"
+                        x-cloak
                         x-transition:leave="transition ease-in duration-100"
                         x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
+                        :class="{ 'block': open, 'hidden': !open }"
                         class="dropdown-menu"
                         style="display: none;"
                     >
@@ -147,9 +149,11 @@ $returnPath = '/reports/date/' . $date;
                     </button>
                     <div
                         x-show="open"
+                        x-cloak
                         x-transition:leave="transition ease-in duration-100"
                         x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
+                        :class="{ 'block': open, 'hidden': !open }"
                         class="dropdown-menu"
                         style="display: none;"
                     >
@@ -204,9 +208,11 @@ $returnPath = '/reports/date/' . $date;
                     </button>
                     <div
                         x-show="open"
+                        x-cloak
                         x-transition:leave="transition ease-in duration-100"
                         x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
+                        :class="{ 'block': open, 'hidden': !open }"
                         class="dropdown-menu"
                         style="display: none;"
                     >

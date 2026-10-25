@@ -38,22 +38,12 @@ $batch = is_array($batch ?? null) ? $batch : [];
 
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Bulan report *</label>
-                        <div class="datepicker-wrapper">
-                            <span class="datepicker-icon-left">
-                                <i class="bi bi-calendar-month"></i>
-                            </span>
-                            <input class="form-datepicker has-icon-left" type="month" name="month_key" required value="<?= e($batch['month_key'] ?? '') ?>">
-                        </div>
+                        <?= render_datepicker('month_key', (string) ($batch['month_key'] ?? ''), ['mode' => 'month', 'required' => true, 'placeholder' => 'Pilih bulan']) ?>
                     </div>
 
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Tanggal report</label>
-                        <div class="datepicker-wrapper">
-                            <span class="datepicker-icon-left">
-                                <i class="bi bi-calendar3"></i>
-                            </span>
-                            <input class="form-datepicker has-icon-left" type="date" name="report_date" value="<?= e($batch['report_date'] ?? '') ?>">
-                        </div>
+                        <?= render_datepicker('report_date', (string) ($batch['report_date'] ?? ''), ['placeholder' => 'Pilih tanggal']) ?>
                         <span class="text-[11px] text-gray-400 mt-1 block">Tanggal harus berada pada bulan report yang dipilih.</span>
                     </div>
 

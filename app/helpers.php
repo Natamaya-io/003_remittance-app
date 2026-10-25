@@ -235,3 +235,149 @@ function status_badge(
         ) .
         '</span>';
 }
+
+/**
+ * Render Custom Asphalt/Tailwind Datepicker Component (Alpine.js driven)
+ * Completely eliminates browser-native OS calendar popups.
+ *
+ * @param string $name Form field name (hidden input)
+ * @param string $value Current value ('YYYY-MM-DD' or 'YYYY-MM')
+ * @param array{
+ *   mode?: 'date'|'month',
+ *   placeholder?: string,
+ *   required?: bool,
+ *   class?: string,
+ *   id?: string
+ * } $options
+ */
+function render_datepicker(string $name, string $value = '', array $options = []): string
+{
+    $mode = ($options['mode'] ?? 'date') === 'month' ? 'month' : 'date';
+    $placeholder = (string) ($options['placeholder'] ?? ($mode === 'month' ? 'Pilih bulan...' : 'Pilih tanggal...'));
+    $required = !empty($options['required']);
+    $extraClass = (string) ($options['class'] ?? '');
+    $id = (string) ($options['id'] ?? ('dp_' . preg_replace('/[^a-zA-Z0-9_]/', '_', $name) . '_' . bin2hex(random_bytes(2))));
+
+    $jsonConfig = json_encode([
+        'name' => $name,
+        'value' => $value,
+        'mode' => $mode,
+        'placeholder' => $placeholder,
+        'required' => $required,
+    ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
+
+    $iconClass = $mode === 'month' ? 'bi-calendar-month' : 'bi-calendar3';
+
+    ob_start();
+    ?>
+    <div class="custom-datepicker-root relative <?= e($extraClass) ?>" x-data="customDatePicker(<?= e($jsonConfig) ?>)" @click.outside="open = false">
+        <input type="hidden" :name="name" :value="value" <?= $required ? 'required' : '' ?>>
+        <button
+            type="button"
+            id="<?= e($id) ?>"
+            @click="open = !open"
+            class="form-datepicker flex items-center justify-between w-full text-xs text-start cursor-pointer select-none bg-white border border-gray-300 rounded-xl px-3 py-2 shadow-xs transition-colors focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            :class="{ 'text-gray-900 font-medium': Boolean(value), 'text-gray-400': !value, 'border-blue-500 ring-1 ring-blue-500': open }"
+            :aria-expanded="open.toString()"
+        >
+            <div class="flex items-center gap-2 truncate">
+                <i class="bi <?= $iconClass ?> text-gray-400"></i>
+                <span x-text="displayLabel || placeholder"></span>
+            </div>
+            <i class="bi bi-chevron-down text-[10px] text-gray-400 transition-transform duration-200 shrink-0 ms-1.5" :class="{ 'rotate-180': open }"></i>
+        </button>
+
+        <div
+            x-show="open"
+            x-cloak
+            x-transition:enter="transition ease-out duration-100"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-75"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            :class="{ 'block': open, 'hidden': !open }"
+            class="dropdown-menu absolute start-0 top-full mt-1.5 w-64 bg-white border border-gray-200 rounded-2xl p-3 shadow-xl z-50"
+            style="display: none;"
+        >
+            <template x-if="mode === 'date'">
+                <div>
+                    <div class="flex items-center justify-between mb-2 pb-1 border-b border-gray-100">
+                        <button type="button" @click.stop="prevMonth()" class="size-7 flex items-center justify-center rounded-lg hover:bg-gray-100 text-gray-600 transition-colors">
+                            <i class="bi bi-chevron-left text-xs"></i>
+                        </button>
+                        <span class="text-xs font-bold text-gray-900" x-text="currentMonthName + ' ' + viewYear"></span>
+                        <button type="button" @click.stop="nextMonth()" class="size-7 flex items-center justify-center rounded-lg hover:bg-gray-100 text-gray-600 transition-colors">
+                            <i class="bi bi-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-7 gap-1 text-center mb-1">
+                        <template x-for="dn in dayNames" :key="dn">
+                            <span class="text-[10px] font-semibold text-gray-400" x-text="dn"></span>
+                        </template>
+                    </div>
+
+                    <div class="grid grid-cols-7 gap-1 text-center">
+                        <template x-for="(d, idx) in daysInMonth" :key="idx">
+                            <button
+                                type="button"
+                                @click.stop="d.isCurrentMonth && selectDate(d.dateStr)"
+                                :disabled="!d.isCurrentMonth"
+                                class="size-7 mx-auto flex items-center justify-center rounded-lg text-xs font-medium transition-colors"
+                                :class="{
+                                    'text-gray-300 pointer-events-none': !d.isCurrentMonth,
+                                    'bg-blue-600 text-white font-semibold shadow-xs': d.isSelected,
+                                    'text-blue-600 font-bold hover:bg-blue-50': d.isToday && !d.isSelected,
+                                    'text-gray-700 hover:bg-gray-100': d.isCurrentMonth && !d.isSelected && !d.isToday
+                                }"
+                                x-text="d.day"
+                            ></button>
+                        </template>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-2.5 mt-2.5 border-t border-gray-100">
+                        <button type="button" @click.stop="setToday()" class="text-[11px] font-semibold text-blue-600 hover:text-blue-700">Hari ini</button>
+                        <button type="button" x-show="value" @click.stop="clear()" class="text-[11px] text-gray-400 hover:text-red-500">Hapus</button>
+                    </div>
+                </div>
+            </template>
+
+            <template x-if="mode === 'month'">
+                <div>
+                    <div class="flex items-center justify-between mb-3 pb-1 border-b border-gray-100">
+                        <button type="button" @click.stop="prevYear()" class="size-7 flex items-center justify-center rounded-lg hover:bg-gray-100 text-gray-600 transition-colors">
+                            <i class="bi bi-chevron-left text-xs"></i>
+                        </button>
+                        <span class="text-xs font-bold text-gray-900" x-text="viewYear"></span>
+                        <button type="button" @click.stop="nextYear()" class="size-7 flex items-center justify-center rounded-lg hover:bg-gray-100 text-gray-600 transition-colors">
+                            <i class="bi bi-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-1.5">
+                        <template x-for="(mName, mIdx) in monthNames" :key="mIdx">
+                            <button
+                                type="button"
+                                @click.stop="selectMonth(mIdx)"
+                                class="py-2 px-1 rounded-lg text-xs font-medium text-center transition-colors truncate"
+                                :class="{
+                                    'bg-blue-600 text-white font-semibold shadow-xs': value === (viewYear + '-' + String(mIdx + 1).padStart(2, '0')),
+                                    'text-gray-700 hover:bg-gray-100': value !== (viewYear + '-' + String(mIdx + 1).padStart(2, '0'))
+                                }"
+                                x-text="mName"
+                            ></button>
+                        </template>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-2.5 mt-2.5 border-t border-gray-100">
+                        <button type="button" @click.stop="setToday()" class="text-[11px] font-semibold text-blue-600 hover:text-blue-700">Bulan ini</button>
+                        <button type="button" x-show="value" @click.stop="clear()" class="text-[11px] text-gray-400 hover:text-red-500">Hapus</button>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+    <?php
+    return (string) ob_get_clean();
+}

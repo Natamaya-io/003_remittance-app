@@ -46,22 +46,12 @@ $defaultReportName = 'LAPORAN - ' . ($monthNames[$monthNumber] ?? strtoupper(dat
 
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Bulan report *</label>
-                        <div class="datepicker-wrapper">
-                            <span class="datepicker-icon-left">
-                                <i class="bi bi-calendar-month"></i>
-                            </span>
-                            <input class="form-datepicker has-icon-left" type="month" name="month_key" required value="<?= e(old('month_key', $selectedMonth)) ?>">
-                        </div>
+                        <?= render_datepicker('month_key', (string) old('month_key', $selectedMonth), ['mode' => 'month', 'required' => true, 'placeholder' => 'Pilih bulan']) ?>
                     </div>
 
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Tanggal report *</label>
-                        <div class="datepicker-wrapper">
-                            <span class="datepicker-icon-left">
-                                <i class="bi bi-calendar3"></i>
-                            </span>
-                            <input class="form-datepicker has-icon-left" type="date" name="report_date" required value="<?= e(old('report_date', $selectedDate)) ?>">
-                        </div>
+                        <?= render_datepicker('report_date', (string) old('report_date', $selectedDate), ['required' => true, 'placeholder' => 'Pilih tanggal']) ?>
                         <span class="text-[11px] text-gray-400 mt-1 block">Membentuk kartu tanggal pada bulan report.</span>
                     </div>
 

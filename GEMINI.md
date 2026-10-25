@@ -69,59 +69,53 @@ Setiap blok alert wajib mengikuti struktur hierarki berikut:
 </div>
 ```
 
-### 2.3. Aturan Teknis Alert
+### 2.3. Aturan Teknis Alert & Sistem Dialog Kustom (Anti-Native Alert & Confirm)
 1. **Transisi Bersih:** Transisi Alpine.js `x-transition:leave` HANYA memanipulasi `opacity`. Dilarang keras menyertakan `scale-95` atau translasi yang menyebabkan efek zoom/lompatan layout.
 2. **Ikon Dinamis:** Setiap jenis alert wajib memiliki ikon yang mewakili statusnya secara spesifik (jangan hardcode `bi-info-circle-fill` untuk semua status).
 3. **Elevasi Halus:** Border solid 1px dengan sudut membulat 14px (`rounded-xl` / `.alert`), bayangan mikro `box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04)`.
+4. **Pemusnahan Dialog Native Browser (Anti-window.confirm / Anti-window.alert):**
+   - Dilarang keras memicu `window.confirm()` atau `window.alert()` browser abu-abu.
+   - Semua form yang membutuhkan konfirmasi wajib menggunakan atribut `data-confirm="Pesan konfirmasi..."` yang dicegat otomatis oleh handler global `custom-dialogs.js`.
+   - Untuk aksi JavaScript terprogram, wajib menggunakan `await window.remitConfirm(pesan, opsi)` atau `window.remitAlert(pesan, opsi)`.
+   - Modal konfirmasi dan peringatan dirender terpusat di `app/Views/layouts/app.php` dengan komponen Alpine `remitGlobalDialogs` berdesain Asphalt Gamified (sudut membulat, tombol aksi solid, dan backdrop blur bersih).
 
 ---
 
-## 3. Aturan Terkunci: Sistem Datepicker & Input Tanggal (Global Datepicker Specification)
+## 3. Aturan Terkunci: Sistem Datepicker Kustom Global (Anti-Native Datepicker Law)
 
-Seluruh input pemilihan tanggal dan bulan wajib memiliki visual yang seragam, modern, dan nyaman di semua browser (Chrome, Edge, Firefox, Safari).
+Penggunaan `<input type="date">` dan `<input type="month">` native browser memicu kalender Shadow DOM sistem operasi yang kaku dan tidak konsisten lintas perangkat. Oleh karena itu, seluruh aplikasi RemitGo! **MUTLAK WAJIB** menggunakan custom datepicker kalender Alpine.js.
 
-### 3.1. Standar Styling Global
-- Selector otomatis: `input[type="date"]`, `input[type="month"]`, `.form-datepicker`, `.datepicker-input`.
-- **Geometri:** Tinggi 40px, padding `8px 12px`, radius 10px (`rounded-xl` / `rounded-lg`).
-- **Warna & Border:** Background solid `#ffffff`, border `1px solid #d1d5db`, teks `#111827`.
-- **Focus Ring:** `outline: none; border-color: #1f6bf0; box-shadow: 0 0 0 3px rgba(31, 107, 240, 0.15);`.
-- **Normalisasi WebKit Indicator:**
-  - `::-webkit-calendar-picker-indicator`: Cursor `pointer`, opacity `0.6`, radius `6px`, padding `3px`.
-  - Hover indicator: opacity `1`, background `#f3f4f6`.
-  - `::-webkit-datetime-edit`: Padding dinormalkan ke `0`.
+### 3.1. Arsitektur Komponen Datepicker Kustom
+- Nilai tersimpan secara murni di dalam `<input type="hidden" :name="name" :value="value">` sehingga pengiriman form (GET dan POST) 100% kompatibel dan identik dengan input native.
+- Trigger berupa tombol kustom `.form-datepicker` yang menampilkan label tanggal terformat (contoh: `26 Okt 2026` atau `Agustus 2026`) beserta ikon Bootstrap Icons (`bi-calendar3` atau `bi-calendar-month`).
+- Popover kalender kustom (`.dropdown-menu`) menyediakan navigasi bulan/tahun, kisi hari 7 kolom, highlight tanggal aktif, status hari ini, serta shortcut tombol "Hari ini" / "Bulan ini" dan "Hapus".
 
-### 3.2. Pola Wrapper dengan Ikon Kalender
+### 3.2. Penggunaan via Helper PHP Resmi
+Setiap view yang membutuhkan input tanggal atau bulan **WAJIB** menggunakan helper `render_datepicker()` di `app/helpers.php`:
+```php
+<!-- Mode Tanggal Tunggal -->
+<?= render_datepicker('date_from', (string) ($filters['date_from'] ?? ''), [
+    'placeholder' => 'Pilih tanggal mulai',
+    'required'    => false,
+]) ?>
 
-Untuk form dengan ikon kalender eksplisit di sisi kiri atau kanan:
-```html
-<div class="datepicker-wrapper">
-    <span class="datepicker-icon-left">
-        <i class="bi bi-calendar3"></i>
-    </span>
-    <input
-        type="date"
-        name="report_date"
-        class="form-datepicker has-icon-left"
-        value="<?= e($dateValue) ?>"
-        required
-    >
-</div>
-```
-
-### 3.3. Tombol Shortcut Preset Tanggal
-
-Untuk bilah filter yang membutuhkan preset cepat:
-```html
-<div class="flex items-center gap-1.5">
-    <button type="button" class="datepicker-preset-btn active">Hari Ini</button>
-    <button type="button" class="datepicker-preset-btn">7 Hari Terakhir</button>
-    <button type="button" class="datepicker-preset-btn">Bulan Ini</button>
-</div>
+<!-- Mode Bulan & Tahun -->
+<?= render_datepicker('month', (string) ($filters['month'] ?? ''), [
+    'mode'        => 'month',
+    'placeholder' => 'Pilih bulan report',
+    'required'    => true,
+]) ?>
 ```
 
 ---
 
 ## 4. Aturan Terkunci: Sistem Dropdown Global (Global Dropdown Specification)
+
+Sistem dropdown mendukung **Preline UI (`hs-dropdown`)** dan **Alpine.js (`x-data="{ open: false }"`)**. Keduanya berbagi standar geometri dan visual yang sama.
+
+### 4.1. Hukum Visibilitas Dropdown & Anti-Display Conflict
+- **Dilarang Keras:** Menetapkan `.dropdown-menu { display: none; }` secara global di stylesheet CSS tanpa selector kelas pembuka (seperti `.open`), karena akan menolak `x-show` milik Alpine.js saat inline style dihapus.
+- **Standar Bulletproof:** Seluruh menu dropdown Alpine.js wajib menyertakan kelas Tailwind `:class="{ 'block': open, 'hidden': !open }"` dan `x-cloak` selain `x-show="open"`, agar dropdown terjamin muncul seketika saat tombol ditekan.
 
 Sistem dropdown mendukung **Preline UI (`hs-dropdown`)** dan **Alpine.js (`x-data="{ open: false }"`)**. Keduanya berbagi standar geometri dan visual yang sama.
 

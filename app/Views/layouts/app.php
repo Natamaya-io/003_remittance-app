@@ -5248,6 +5248,108 @@ $flashes = Flash::all();
 
 
 <!-- =========================================================
+     GLOBAL CUSTOM DIALOG & MODAL SYSTEM (ANTI-NATIVE BROWSER)
+     ========================================================= -->
+<div x-data="remitGlobalDialogs" x-cloak>
+    <!-- CONFIRM MODAL -->
+    <div
+        x-show="confirm.open"
+        class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-xs"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        role="dialog"
+        aria-modal="true"
+        style="display: none;"
+    >
+        <div
+            class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl border border-gray-200"
+            @click.outside="onCancel()"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+        >
+            <div class="flex items-start gap-3.5 mb-4">
+                <span
+                    class="size-10 rounded-xl flex items-center justify-center text-lg shrink-0"
+                    :class="confirm.isDanger ? 'bg-red-50 text-red-600' : 'bg-blue-50 text-blue-600'"
+                >
+                    <i :class="confirm.isDanger ? 'bi bi-exclamation-triangle-fill' : 'bi bi-question-circle-fill'"></i>
+                </span>
+                <div class="min-w-0">
+                    <strong class="text-sm font-bold text-gray-900 block" x-text="confirm.title"></strong>
+                    <p class="text-xs text-gray-600 mt-1 leading-relaxed" x-text="confirm.message"></p>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-2 pt-3 border-t border-gray-100">
+                <button
+                    type="button"
+                    class="py-2 px-3.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors"
+                    @click="onCancel()"
+                    x-text="confirm.cancelText"
+                ></button>
+                <button
+                    type="button"
+                    class="btn-primary py-2 px-4 text-xs font-semibold rounded-lg text-white"
+                    :class="confirm.isDanger ? 'bg-red-600 border-red-700 hover:bg-red-700' : ''"
+                    @click="onConfirm()"
+                    x-text="confirm.confirmText"
+                ></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ALERT MODAL -->
+    <div
+        x-show="alert.open"
+        class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-xs"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        role="alertdialog"
+        aria-modal="true"
+        style="display: none;"
+    >
+        <div
+            class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl border border-gray-200"
+            @click.outside="closeAlert()"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+        >
+            <div class="flex items-start gap-3.5 mb-4">
+                <span
+                    class="size-10 rounded-xl flex items-center justify-center text-lg shrink-0"
+                    :class="alert.type === 'danger' || alert.type === 'error' ? 'bg-red-50 text-red-600' : (alert.type === 'warning' ? 'bg-amber-50 text-amber-600' : (alert.type === 'success' ? 'bg-emerald-50 text-emerald-600' : 'bg-blue-50 text-blue-600'))"
+                >
+                    <i :class="alert.type === 'danger' || alert.type === 'error' ? 'bi bi-x-circle-fill' : (alert.type === 'warning' ? 'bi bi-exclamation-triangle-fill' : (alert.type === 'success' ? 'bi bi-check-circle-fill' : 'bi bi-info-circle-fill'))"></i>
+                </span>
+                <div class="min-w-0">
+                    <strong class="text-sm font-bold text-gray-900 block" x-text="alert.title"></strong>
+                    <p class="text-xs text-gray-600 mt-1 leading-relaxed" x-text="alert.message"></p>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end pt-3 border-t border-gray-100">
+                <button
+                    type="button"
+                    class="btn-primary py-2 px-4 text-xs font-semibold rounded-lg text-white"
+                    @click="closeAlert()"
+                    x-text="alert.buttonText"
+                ></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =========================================================
      JAVASCRIPT UTAMA
 ========================================================= -->
 
@@ -5268,8 +5370,18 @@ $flashes = Flash::all();
 
 
 <!-- =========================================================
-     ALPINE.JS & PRELINE UI
+     ALPINE.JS & EXTENSIONS
 ========================================================= -->
+
+<script
+    src="<?= e(asset('js/custom-dialogs.js?v=1.0.0')) ?>"
+    defer
+></script>
+
+<script
+    src="<?= e(asset('js/custom-datepicker.js?v=1.0.0')) ?>"
+    defer
+></script>
 
 <script
     src="<?= e(asset('vendor/alpine/alpine.min.js')) ?>"

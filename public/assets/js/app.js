@@ -26,11 +26,7 @@
   qsa('[data-alert-close]').forEach((button) => button.addEventListener('click', () => button.closest('.alert')?.remove()));
   window.setTimeout(() => qsa('.alert').forEach((alert) => alert.remove()), 7000);
 
-  qsa('[data-confirm]').forEach((form) => {
-    form.addEventListener('submit', (event) => {
-      if (!window.confirm(form.dataset.confirm || 'Lanjutkan tindakan ini?')) event.preventDefault();
-    });
-  });
+  /* data-confirm handled globally by custom-dialogs.js */
 
   qsa('.password-toggle').forEach((button) => {
     button.addEventListener('click', () => {

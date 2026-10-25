@@ -91,9 +91,11 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                     </button>
                     <div
                         x-show="open"
+                        x-cloak
                         x-transition:leave="transition ease-in duration-100"
                         x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
+                        :class="{ 'block': open, 'hidden': !open }"
                         class="dropdown-menu"
                         style="display: none;"
                     >
@@ -124,22 +126,12 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
 
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal mulai</label>
-                <div class="datepicker-wrapper">
-                    <span class="datepicker-icon-left">
-                        <i class="bi bi-calendar3"></i>
-                    </span>
-                    <input class="form-datepicker has-icon-left text-xs" type="date" name="date_from" value="<?= e((string) ($filters['date_from'] ?? '')) ?>">
-                </div>
+                <?= render_datepicker('date_from', (string) ($filters['date_from'] ?? ''), ['placeholder' => 'Pilih tanggal mulai']) ?>
             </div>
 
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal akhir</label>
-                <div class="datepicker-wrapper">
-                    <span class="datepicker-icon-left">
-                        <i class="bi bi-calendar3"></i>
-                    </span>
-                    <input class="form-datepicker has-icon-left text-xs" type="date" name="date_to" value="<?= e((string) ($filters['date_to'] ?? '')) ?>">
-                </div>
+                <?= render_datepicker('date_to', (string) ($filters['date_to'] ?? ''), ['placeholder' => 'Pilih tanggal akhir']) ?>
             </div>
 
             <div>
@@ -162,9 +154,11 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                     </button>
                     <div
                         x-show="open"
+                        x-cloak
                         x-transition:leave="transition ease-in duration-100"
                         x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
+                        :class="{ 'block': open, 'hidden': !open }"
                         class="dropdown-menu"
                         style="display: none;"
                     >

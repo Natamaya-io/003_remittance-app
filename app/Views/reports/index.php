@@ -99,32 +99,17 @@ $activeAdvancedFilters = array_filter(
         <form x-show="openFilter" x-transition class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4 mt-4 border-t border-gray-100" method="get" action="<?= e(url('/reports')) ?>">
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Bulan report</label>
-                <div class="datepicker-wrapper">
-                    <span class="datepicker-icon-left">
-                        <i class="bi bi-calendar-month"></i>
-                    </span>
-                    <input class="form-datepicker has-icon-left text-xs" type="month" name="month" value="<?= e((string) ($filters['month'] ?? '')) ?>">
-                </div>
+                <?= render_datepicker('month', (string) ($filters['month'] ?? ''), ['mode' => 'month', 'placeholder' => 'Semua bulan']) ?>
             </div>
 
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal mulai</label>
-                <div class="datepicker-wrapper">
-                    <span class="datepicker-icon-left">
-                        <i class="bi bi-calendar3"></i>
-                    </span>
-                    <input class="form-datepicker has-icon-left text-xs" type="date" name="date_from" value="<?= e((string) ($filters['date_from'] ?? '')) ?>">
-                </div>
+                <?= render_datepicker('date_from', (string) ($filters['date_from'] ?? ''), ['placeholder' => 'Pilih tanggal mulai']) ?>
             </div>
 
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal akhir</label>
-                <div class="datepicker-wrapper">
-                    <span class="datepicker-icon-left">
-                        <i class="bi bi-calendar3"></i>
-                    </span>
-                    <input class="form-datepicker has-icon-left text-xs" type="date" name="date_to" value="<?= e((string) ($filters['date_to'] ?? '')) ?>">
-                </div>
+                <?= render_datepicker('date_to', (string) ($filters['date_to'] ?? ''), ['placeholder' => 'Pilih tanggal akhir']) ?>
             </div>
 
             <div>
@@ -146,9 +131,11 @@ $activeAdvancedFilters = array_filter(
                     </button>
                     <div
                         x-show="open"
+                        x-cloak
                         x-transition:leave="transition ease-in duration-100"
                         x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
+                        :class="{ 'block': open, 'hidden': !open }"
                         class="dropdown-menu"
                         style="display: none;"
                     >
@@ -197,9 +184,11 @@ $activeAdvancedFilters = array_filter(
                     </button>
                     <div
                         x-show="open"
+                        x-cloak
                         x-transition:leave="transition ease-in duration-100"
                         x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
+                        :class="{ 'block': open, 'hidden': !open }"
                         class="dropdown-menu"
                         style="display: none;"
                     >
@@ -254,9 +243,11 @@ $activeAdvancedFilters = array_filter(
                     </button>
                     <div
                         x-show="open"
+                        x-cloak
                         x-transition:leave="transition ease-in duration-100"
                         x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
+                        :class="{ 'block': open, 'hidden': !open }"
                         class="dropdown-menu"
                         style="display: none;"
                     >

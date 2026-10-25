@@ -45,12 +45,7 @@ $print = (bool) ($print ?? false);
         <form method="get" action="<?= url('/reports/daily') ?>" class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
             <div class="md:col-span-3">
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal report</label>
-                <div class="datepicker-wrapper">
-                    <span class="datepicker-icon-left">
-                        <i class="bi bi-calendar3"></i>
-                    </span>
-                    <input type="date" class="form-datepicker has-icon-left text-xs" name="date" value="<?= e($date) ?>">
-                </div>
+                <?= render_datepicker('date', (string) $date, ['placeholder' => 'Pilih tanggal']) ?>
             </div>
             <div class="md:col-span-4"
                  <?php
@@ -85,12 +80,14 @@ $print = (bool) ($print ?? false);
                     <div
                         class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
                         x-show="open"
+                        x-cloak
                         x-transition:enter="transition ease-out duration-100"
                         x-transition:enter-start="opacity-0"
                         x-transition:enter-end="opacity-100"
                         x-transition:leave="transition ease-in duration-75"
                         x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
+                        :class="{ 'block': open, 'hidden': !open }"
                         style="display: none;"
                         role="listbox"
                     >

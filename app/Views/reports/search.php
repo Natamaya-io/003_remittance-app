@@ -51,32 +51,17 @@ $queryText = (string) ($filters['q'] ?? '');
 
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Bulan</label>
-                <div class="datepicker-wrapper">
-                    <span class="datepicker-icon-left">
-                        <i class="bi bi-calendar-month"></i>
-                    </span>
-                    <input class="form-datepicker has-icon-left text-xs" type="month" name="month" value="<?= e($filters['month'] ?? '') ?>">
-                </div>
+                <?= render_datepicker('month', (string) ($filters['month'] ?? ''), ['mode' => 'month', 'placeholder' => 'Semua bulan']) ?>
             </div>
 
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal mulai</label>
-                <div class="datepicker-wrapper">
-                    <span class="datepicker-icon-left">
-                        <i class="bi bi-calendar3"></i>
-                    </span>
-                    <input class="form-datepicker has-icon-left text-xs" type="date" name="date_from" value="<?= e($filters['date_from'] ?? '') ?>">
-                </div>
+                <?= render_datepicker('date_from', (string) ($filters['date_from'] ?? ''), ['placeholder' => 'Pilih tanggal mulai']) ?>
             </div>
 
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal akhir</label>
-                <div class="datepicker-wrapper">
-                    <span class="datepicker-icon-left">
-                        <i class="bi bi-calendar3"></i>
-                    </span>
-                    <input class="form-datepicker has-icon-left text-xs" type="date" name="date_to" value="<?= e($filters['date_to'] ?? '') ?>">
-                </div>
+                <?= render_datepicker('date_to', (string) ($filters['date_to'] ?? ''), ['placeholder' => 'Pilih tanggal akhir']) ?>
             </div>
 
             <div x-data="{
@@ -102,12 +87,14 @@ $queryText = (string) ($filters['q'] ?? '');
                     <div
                         class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
                         x-show="open"
+                        x-cloak
                         x-transition:enter="transition ease-out duration-100"
                         x-transition:enter-start="opacity-0"
                         x-transition:enter-end="opacity-100"
                         x-transition:leave="transition ease-in duration-75"
                         x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
+                        :class="{ 'block': open, 'hidden': !open }"
                         style="display: none;"
                         role="listbox"
                     >
@@ -158,12 +145,14 @@ $queryText = (string) ($filters['q'] ?? '');
                     <div
                         class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
                         x-show="open"
+                        x-cloak
                         x-transition:enter="transition ease-out duration-100"
                         x-transition:enter-start="opacity-0"
                         x-transition:enter-end="opacity-100"
                         x-transition:leave="transition ease-in duration-75"
                         x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
+                        :class="{ 'block': open, 'hidden': !open }"
                         style="display: none;"
                         role="listbox"
                     >
@@ -221,12 +210,14 @@ $queryText = (string) ($filters['q'] ?? '');
                     <div
                         class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
                         x-show="open"
+                        x-cloak
                         x-transition:enter="transition ease-out duration-100"
                         x-transition:enter-start="opacity-0"
                         x-transition:enter-end="opacity-100"
                         x-transition:leave="transition ease-in duration-75"
                         x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
+                        :class="{ 'block': open, 'hidden': !open }"
                         style="display: none;"
                         role="listbox"
                     >
