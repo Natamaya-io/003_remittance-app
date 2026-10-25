@@ -793,7 +793,7 @@ final class FxService
                         2,
 
                     CURLOPT_USERAGENT =>
-                        'FableRemitOps/22.1',
+                        'RemitGo/22.1',
 
                     CURLOPT_HTTPHEADER => [
                         'Accept: application/xml, text/xml',

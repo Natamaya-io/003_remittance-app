@@ -414,8 +414,8 @@ $reportColumns = [
 <link
     rel="stylesheet"
     href="<?= pasteEscape(asset('css/modern-banking.css')) ?>"
-<link rel="stylesheet" href="<?= pasteEscape(asset('css/remitops-v5.css')) ?>">
 >
+<link rel="stylesheet" href="<?= pasteEscape(asset('css/remitops-v5.css')) ?>">
 
 <link
     rel="stylesheet"

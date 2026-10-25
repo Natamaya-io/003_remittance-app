@@ -20,7 +20,7 @@ $appName = trim(
 );
 
 if ($appName === '') {
-    $appName = 'Fable RemitOps';
+    $appName = 'RemitGo!';
 }
 
 $flashes = Flash::all();

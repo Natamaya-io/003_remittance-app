@@ -1,4 +1,4 @@
-# Fable RemitOps — Sistem Operasional Remitansi & Analisis Multi-Kriteria
+# RemitGo! — Sistem Operasional Remitansi & Analisis Multi-Kriteria
 
 Aplikasi operasional remitansi perbankan berbasis PHP 8 dan MariaDB untuk pemrosesan transaksi, rekonsiliasi laporan harian, penagihan, standing instruction 7 bank nasional, serta sistem pendukung keputusan metode Entropy–TOPSIS.
 
@@ -27,7 +27,7 @@ Aplikasi operasional remitansi perbankan berbasis PHP 8 dan MariaDB untuk pemros
    ```
    Sesuaikan parameter koneksi pada `.env`:
    ```ini
-   APP_NAME="Fable RemitOps"
+   APP_NAME="RemitGo!"
    APP_ENV=local
    APP_DEBUG=true
    APP_URL=http://127.0.0.1:8000

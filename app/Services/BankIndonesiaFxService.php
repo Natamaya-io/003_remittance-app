@@ -331,7 +331,7 @@ final class BankIndonesiaFxService
                     'Accept: application/xml',
                     'Content-Type: '
                     . 'application/x-www-form-urlencoded',
-                    'User-Agent: Fable-RemitOps/1.0',
+                    'User-Agent: RemitGo/1.0',
                 ],
 
                 CURLOPT_SSL_VERIFYPEER => true,

@@ -155,7 +155,7 @@ body.login-body{
             <div class="invoice-brand">
                 <div class="invoice-brand-mark"><i class="bi bi-bank2"></i></div>
                 <div>
-                    <h2>Fable RemitOps</h2>
+                    <h2>RemitGo!</h2>
                     <p>International Remittance Operations</p>
                 </div>
             </div>
@@ -204,7 +204,7 @@ body.login-body{
         </section>
 
         <footer class="invoice-footer">
-            <strong>Fable RemitOps</strong><br>
+            <strong>RemitGo!</strong><br>
             <small>Dokumen dibuat secara elektronik dan dapat dicetak pada kertas A4.</small>
         </footer>
     </article>

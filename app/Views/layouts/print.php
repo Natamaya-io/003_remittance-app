@@ -6,7 +6,7 @@ use App\Core\App;
 
 $pageTitle = isset($title) ? trim((string) $title) : 'Cetak';
 $content = isset($content) ? (string) $content : '';
-$appName = trim((string) App::config('app.name')) ?: 'Fable RemitOps';
+$appName = trim((string) App::config('app.name')) ?: 'RemitGo!';
 ?>
 <!doctype html>
 <html lang="id">

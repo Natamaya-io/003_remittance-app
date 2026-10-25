@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /*
 |--------------------------------------------------------------------------
-| Fable RemitOps Login
+| RemitGo! Login
 |--------------------------------------------------------------------------
 | Version 35
 |--------------------------------------------------------------------------
@@ -273,7 +273,7 @@ if ($updatedAt !== '') {
 
     <section
         class="remit-visual"
-        aria-label="Fable RemitOps"
+        aria-label="RemitGo!"
     >
 
         <!-- BACKGROUND -->
@@ -313,7 +313,7 @@ if ($updatedAt !== '') {
             <div class="brand-text">
 
                 <strong>
-                    Fable RemitOps
+                    RemitGo!
                 </strong>
 
                 <small>
@@ -1045,7 +1045,7 @@ if ($updatedAt !== '') {
                 </div>
 
                 <em>
-                    RemitOps
+                    RemitGo!
                 </em>
 
             </div>

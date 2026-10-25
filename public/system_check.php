@@ -282,10 +282,10 @@ $logFile = $base . '/storage/logs/app.log';
 $log = is_file($logFile) ? (string)file_get_contents($logFile) : '';
 if (strlen($log) > 20000) $log = substr($log, -20000);
 ?>
-<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>System Check Fable RemitOps</title>
+<!doctype html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>System Check RemitGo!</title>
 <style>body{font-family:Arial,sans-serif;background:#f3f6fb;color:#172b4d;padding:24px}.wrap{max-width:1100px;margin:auto}.card{background:#fff;border-radius:16px;padding:22px;margin-bottom:18px;box-shadow:0 8px 25px #12233b12}h1{margin-top:0}table{width:100%;border-collapse:collapse}th,td{padding:11px;border-bottom:1px solid #e5ebf3;text-align:left}.ok{color:#087a3d;font-weight:700}.bad{color:#c62828;font-weight:700}.btn{display:inline-block;border:0;border-radius:9px;padding:11px 16px;background:#2367e8;color:#fff;font-weight:700;cursor:pointer}.danger{background:#c62828}.msg{padding:11px;border-radius:8px;background:#e8f6ec;margin:8px 0}.err{padding:11px;border-radius:8px;background:#fdeaea;color:#9b1c1c;margin:8px 0}code,pre{background:#eef3f8;padding:8px;border-radius:8px;overflow:auto}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:800px){.grid{grid-template-columns:1fr}}</style><link rel="stylesheet" href="/AplikasiRemmitance/public/assets/css/theme-clean-global.css">
 </head><body><div class="wrap">
-<div class="card"><h1>System Check & Repair — Fable RemitOps</h1><p>Halaman ini hanya aktif pada localhost. Hapus file <code>public/system_check.php</code> setelah aplikasi berjalan.</p>
+<div class="card"><h1>System Check & Repair — RemitGo!</h1><p>Halaman ini hanya aktif pada localhost. Hapus file <code>public/system_check.php</code> setelah aplikasi berjalan.</p>
 <?php foreach($messages as $m): ?><div class="msg"><?=h($m)?></div><?php endforeach; ?>
 <?php foreach($errors as $m): ?><div class="err"><?=h($m)?></div><?php endforeach; ?></div>
 <div class="grid"><div class="card"><h2>Status Sistem</h2><table><tr><th>Pemeriksaan</th><th>Status</th><th>Detail</th></tr><?php foreach($checks as [$name,$ok,$detail]): ?><tr><td><?=h($name)?></td><td class="<?=$ok?'ok':'bad'?>"><?=$ok?'OK':'GAGAL'?></td><td><?=h($detail)?></td></tr><?php endforeach; ?></table></div>

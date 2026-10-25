@@ -1,4 +1,4 @@
-# PANDUAN LENGKAP ALUR SISTEM FABLE REMITOPS
+# PANDUAN LENGKAP ALUR SISTEM REMITGO!
 Spesifikasi alur kerja operasional dan analitik sistem terstruktur berurutan dengan diagram panah visual untuk mempermudah pemahaman.
 
 ---

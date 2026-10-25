@@ -30,7 +30,7 @@ for ($attempt = 0; $attempt < 14; $attempt++) {
         CURLOPT_CONNECTTIMEOUT => 12,
         CURLOPT_TIMEOUT => 35,
         CURLOPT_ENCODING => '',
-        CURLOPT_USERAGENT => 'FableRemitOps-Diagnostic/22.0',
+        CURLOPT_USERAGENT => 'RemitGo-Diagnostic/22.0',
         CURLOPT_HTTPHEADER => [
             'Accept: application/xml, text/xml',
             'Content-Type: application/x-www-form-urlencoded',

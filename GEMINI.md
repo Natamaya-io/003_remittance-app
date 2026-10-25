@@ -9,6 +9,7 @@
 
 1. **Lingkungan & Stack Proyek:**
    - Aplikasi: Perbankan & Remitansi Operasional (`003_remittance-app`).
+   - Branding Resmi: **RemitGo!**
    - Stack Dasar: **PHP 8.2+**, **MariaDB**, **TailwindCSS (v3.4+)**, **Preline UI (v2.7+)**, **Alpine.js**, dan **Bootstrap Icons**.
    - **Hukum Amnesti Proyek Lama:** Proyek ini beroperasi di atas stack warisan yang telah teruji stabil. DILARANG MEROMBAK struktur ini ke stack proyek baru (seperti Rust, Axum, SolidJS, atau PostgreSQL) kecuali ada instruksi eksplisit.
 2. **Hukum Mutlak Antislop (Gamified Asphalt UI):**

@@ -1,6 +1,6 @@
 @echo off
 
-title Fable RemitOps PHP Server
+title RemitGo! PHP Server
 
 cd /d C:\xampp\htdocs\AplikasiRemmitance
 
@@ -33,7 +33,7 @@ if not exist "public\router.php" (
 )
 
 echo ==========================================
-echo Fable RemitOps PHP Development Server
+echo RemitGo! PHP Development Server
 echo ==========================================
 echo.
 echo PHP       : C:\xampp\php\php.exe

@@ -180,8 +180,8 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
     <!-- =========================================================
          TOOLBAR MODE TAMPILAN: TABEL VS LIST (ALPINE + PRELINE UI)
          ========================================================= -->
-    <div x-data="{ viewMode: localStorage.getItem('fable_report_view_mode') || 'table' }"
-         x-init="$watch('viewMode', val => localStorage.setItem('fable_report_view_mode', val))"
+    <div x-data="{ viewMode: localStorage.getItem('remitgo_report_view_mode') || localStorage.getItem('fable_report_view_mode') || 'table' }"
+         x-init="$watch('viewMode', val => { localStorage.setItem('remitgo_report_view_mode', val); localStorage.setItem('fable_report_view_mode', val); })"
          class="space-y-4">
 
         <div class="flex flex-wrap items-center justify-between gap-3">

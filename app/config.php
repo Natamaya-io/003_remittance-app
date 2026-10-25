@@ -6,7 +6,7 @@ use App\Core\Env;
 
 return [
     'app' => [
-        'name' => Env::get('APP_NAME', 'Fable RemitOps'),
+        'name' => Env::get('APP_NAME', 'RemitGo!'),
         'env' => Env::get('APP_ENV', 'local'),
         'debug' => Env::get('APP_DEBUG', false),
         'url' => Env::get('APP_URL', 'http://localhost/AplikasiRemmitance/public'),
