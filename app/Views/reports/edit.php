@@ -38,12 +38,22 @@ $batch = is_array($batch ?? null) ? $batch : [];
 
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Bulan report *</label>
-                        <input class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" type="month" name="month_key" required value="<?= e($batch['month_key'] ?? '') ?>">
+                        <div class="datepicker-wrapper">
+                            <span class="datepicker-icon-left">
+                                <i class="bi bi-calendar-month"></i>
+                            </span>
+                            <input class="form-datepicker has-icon-left" type="month" name="month_key" required value="<?= e($batch['month_key'] ?? '') ?>">
+                        </div>
                     </div>
 
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Tanggal report</label>
-                        <input class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" type="date" name="report_date" value="<?= e($batch['report_date'] ?? '') ?>">
+                        <div class="datepicker-wrapper">
+                            <span class="datepicker-icon-left">
+                                <i class="bi bi-calendar3"></i>
+                            </span>
+                            <input class="form-datepicker has-icon-left" type="date" name="report_date" value="<?= e($batch['report_date'] ?? '') ?>">
+                        </div>
                         <span class="text-[11px] text-gray-400 mt-1 block">Tanggal harus berada pada bulan report yang dipilih.</span>
                     </div>
 
@@ -90,9 +100,16 @@ $batch = is_array($batch ?? null) ? $batch : [];
                     <div class="py-2.5 flex justify-between items-center"><dt class="text-gray-500 font-medium">Dibuat</dt><dd class="text-gray-700"><?= e(format_datetime($batch['created_at'] ?? null)) ?></dd></div>
                     <div class="py-2.5 flex justify-between items-center"><dt class="text-gray-500 font-medium">Diperbarui</dt><dd class="text-gray-700"><?= e(format_datetime($batch['updated_at'] ?? null)) ?></dd></div>
                 </dl>
-                <div class="p-3.5 bg-amber-50/70 border border-amber-100 rounded-xl flex items-start gap-2.5 text-xs text-amber-800">
-                    <i class="bi bi-exclamation-triangle text-amber-600 text-base shrink-0 mt-0.5"></i>
-                    <span>Untuk mengganti berkas Excel transaksi, hapus report lama dan upload file baru dengan tanggal yang sama.</span>
+                <div class="alert alert-warning" role="alert">
+                    <div class="alert-content">
+                        <span class="alert-icon">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                        </span>
+                        <div class="alert-body">
+                            <strong class="alert-title">Pergantian Berkas</strong>
+                            <div class="alert-message">Untuk mengganti berkas Excel transaksi, hapus report lama dan upload file baru dengan tanggal yang sama.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </aside>

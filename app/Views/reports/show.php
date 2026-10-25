@@ -94,18 +94,85 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                 <i class="bi bi-arrow-left"></i>
                 Report per Tim
             </a>
-            <?php if (can('report.manage')): ?>
-                <a class="py-2 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-colors" href="<?= e(url('/reports/' . $batch['id'] . '/edit')) ?>">
-                    <i class="bi bi-pencil"></i>
-                    Edit
-                </a>
-            <?php endif; ?>
+
+            <!-- Preline UI Dropdown Opsi Batch -->
+            <div class="hs-dropdown relative inline-flex">
+                <button
+                    id="hs-dropdown-batch-options"
+                    type="button"
+                    class="hs-dropdown-toggle dropdown-toggle"
+                    aria-haspopup="menu"
+                    aria-expanded="false"
+                    aria-label="Menu Opsi Batch"
+                >
+                    <i class="bi bi-sliders"></i>
+                    <span>Opsi Batch</span>
+                    <i class="bi bi-chevron-down text-xs text-gray-400"></i>
+                </button>
+
+                <div
+                    class="hs-dropdown-menu dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-52"
+                    role="menu"
+                    aria-orientation="vertical"
+                    aria-labelledby="hs-dropdown-batch-options"
+                >
+                    <span class="dropdown-header">Export &amp; Berkas</span>
+                    <a class="dropdown-item" href="<?= e(url('/reports/' . $batch['id'] . '/export')) ?>">
+                        <i class="bi bi-file-earmark-excel text-emerald-600"></i>
+                        Download File Excel
+                    </a>
+                    <?php if (can('report.manage')): ?>
+                        <div class="dropdown-divider"></div>
+                        <span class="dropdown-header">Manajemen</span>
+                        <a class="dropdown-item" href="<?= e(url('/reports/' . $batch['id'] . '/edit')) ?>">
+                            <i class="bi bi-pencil text-blue-600"></i>
+                            Edit Metadata Report
+                        </a>
+                        <a class="dropdown-item" href="<?= e(url('/reports/create?' . http_build_query(['month' => $batch['month_key'] ?? '', 'date' => $batchDate]))) ?>">
+                            <i class="bi bi-cloud-arrow-up text-indigo-600"></i>
+                            Tambah Berkas Excel
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </div>
+
             <a class="btn-primary py-2 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg shadow-xs focus:outline-hidden" href="<?= e(url('/reports/' . $batch['id'] . '/export')) ?>">
                 <i class="bi bi-download"></i>
                 Download Excel
             </a>
         </div>
     </div>
+
+    <?php if ($pendingRows > 0): ?>
+        <!-- ALERT STATUS: PENDING TRANSAKSI -->
+        <div
+            class="alert alert-warning"
+            role="alert"
+            x-data="{ show: true }"
+            x-show="show"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+        >
+            <div class="alert-content">
+                <span class="alert-icon">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                </span>
+                <div class="alert-body">
+                    <strong class="alert-title">Transaksi Pending</strong>
+                    <div class="alert-message">Terdapat <?= number_format($pendingRows, 0, ',', '.') ?> baris transaksi yang belum terkirim (pending) pada berkas report ini.</div>
+                </div>
+            </div>
+            <button
+                class="alert-close"
+                type="button"
+                @click="show = false"
+                aria-label="Tutup notifikasi"
+            >
+                <i class="bi bi-x text-lg leading-none"></i>
+            </button>
+        </div>
+    <?php endif; ?>
 
     <!-- =========================================================
          SUMMARY KPI GRID (6 METRIK OPERASIONAL)

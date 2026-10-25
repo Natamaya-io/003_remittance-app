@@ -51,17 +51,32 @@ $queryText = (string) ($filters['q'] ?? '');
 
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Bulan</label>
-                <input class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" type="month" name="month" value="<?= e($filters['month'] ?? '') ?>">
+                <div class="datepicker-wrapper">
+                    <span class="datepicker-icon-left">
+                        <i class="bi bi-calendar-month"></i>
+                    </span>
+                    <input class="form-datepicker has-icon-left text-xs" type="month" name="month" value="<?= e($filters['month'] ?? '') ?>">
+                </div>
             </div>
 
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal mulai</label>
-                <input class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" type="date" name="date_from" value="<?= e($filters['date_from'] ?? '') ?>">
+                <div class="datepicker-wrapper">
+                    <span class="datepicker-icon-left">
+                        <i class="bi bi-calendar3"></i>
+                    </span>
+                    <input class="form-datepicker has-icon-left text-xs" type="date" name="date_from" value="<?= e($filters['date_from'] ?? '') ?>">
+                </div>
             </div>
 
             <div>
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal akhir</label>
-                <input class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" type="date" name="date_to" value="<?= e($filters['date_to'] ?? '') ?>">
+                <div class="datepicker-wrapper">
+                    <span class="datepicker-icon-left">
+                        <i class="bi bi-calendar3"></i>
+                    </span>
+                    <input class="form-datepicker has-icon-left text-xs" type="date" name="date_to" value="<?= e($filters['date_to'] ?? '') ?>">
+                </div>
             </div>
 
             <div>
@@ -104,6 +119,37 @@ $queryText = (string) ($filters['q'] ?? '');
             </div>
         </form>
     </section>
+
+    <?php if ($queryText !== '' && $batches === [] && $rows === []): ?>
+        <!-- ALERT STATUS: HASIL PENCARIAN KOSONG -->
+        <div
+            class="alert alert-warning"
+            role="alert"
+            x-data="{ show: true }"
+            x-show="show"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+        >
+            <div class="alert-content">
+                <span class="alert-icon">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                </span>
+                <div class="alert-body">
+                    <strong class="alert-title">Tidak Ada Hasil</strong>
+                    <div class="alert-message">Tidak ditemukan berkas report atau transaksi yang cocok dengan kata kunci &quot;<?= e($queryText) ?>&quot;. Silakan periksa kembali kata kunci atau gunakan parameter filter yang lebih longgar.</div>
+                </div>
+            </div>
+            <button
+                class="alert-close"
+                type="button"
+                @click="show = false"
+                aria-label="Tutup notifikasi"
+            >
+                <i class="bi bi-x text-lg leading-none"></i>
+            </button>
+        </div>
+    <?php endif; ?>
 
     <!-- =========================================================
          SUMMARY METRIC CARDS

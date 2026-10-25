@@ -46,12 +46,22 @@ $defaultReportName = 'REPORT HARIAN - ' . ($monthNames[$monthNumber] ?? strtoupp
 
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Bulan report *</label>
-                        <input class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" type="month" name="month_key" required value="<?= e(old('month_key', $selectedMonth)) ?>">
+                        <div class="datepicker-wrapper">
+                            <span class="datepicker-icon-left">
+                                <i class="bi bi-calendar-month"></i>
+                            </span>
+                            <input class="form-datepicker has-icon-left" type="month" name="month_key" required value="<?= e(old('month_key', $selectedMonth)) ?>">
+                        </div>
                     </div>
 
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Tanggal report *</label>
-                        <input class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" type="date" name="report_date" required value="<?= e(old('report_date', $selectedDate)) ?>">
+                        <div class="datepicker-wrapper">
+                            <span class="datepicker-icon-left">
+                                <i class="bi bi-calendar3"></i>
+                            </span>
+                            <input class="form-datepicker has-icon-left" type="date" name="report_date" required value="<?= e(old('report_date', $selectedDate)) ?>">
+                        </div>
                         <span class="text-[11px] text-gray-400 mt-1 block">Membentuk kartu tanggal pada bulan report.</span>
                     </div>
 
@@ -162,9 +172,16 @@ $defaultReportName = 'REPORT HARIAN - ' . ($monthNames[$monthNumber] ?? strtoupp
                     </li>
                 </ol>
 
-                <div class="p-3.5 bg-blue-50/70 border border-blue-100 rounded-xl flex items-start gap-2.5 text-xs text-blue-800 mb-4">
-                    <i class="bi bi-info-circle text-blue-600 text-base shrink-0 mt-0.5"></i>
-                    <span>Header berkas wajib mencakup <b>Bill To</b>, <b>Beneficiary Name</b>, <b>Amounts</b>, dan <b>Currency</b>.</span>
+                <div class="alert alert-info mb-4" role="alert">
+                    <div class="alert-content">
+                        <span class="alert-icon">
+                            <i class="bi bi-info-circle-fill"></i>
+                        </span>
+                        <div class="alert-body">
+                            <strong class="alert-title">Format Kolom Berkas</strong>
+                            <div class="alert-message">Header berkas wajib mencakup <b>Bill To</b>, <b>Beneficiary Name</b>, <b>Amounts</b>, dan <b>Currency</b>.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

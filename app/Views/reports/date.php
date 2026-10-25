@@ -118,6 +118,40 @@ $returnPath = '/reports/date/' . $date;
         </form>
     </div>
 
+    <?php if (!empty($filters['team']) || !empty($filters['delivery_status']) || !empty($filters['result_status'])): ?>
+        <!-- ALERT STATUS: FILTER TANGGAL AKTIF -->
+        <div
+            class="alert alert-info"
+            role="alert"
+            x-data="{ show: true }"
+            x-show="show"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+        >
+            <div class="alert-content">
+                <span class="alert-icon">
+                    <i class="bi bi-info-circle-fill"></i>
+                </span>
+                <div class="alert-body">
+                    <strong class="alert-title">Filter Aktif</strong>
+                    <div class="alert-message">
+                        Menampilkan batch report pada tanggal <?= e($dateLabel) ?> dengan filter aktif.
+                        <a href="<?= e(url('/reports/date/' . $date)) ?>" class="underline font-semibold ml-1 hover:text-blue-900">Reset Semua</a>
+                    </div>
+                </div>
+            </div>
+            <button
+                class="alert-close"
+                type="button"
+                @click="show = false"
+                aria-label="Tutup notifikasi"
+            >
+                <i class="bi bi-x text-lg leading-none"></i>
+            </button>
+        </div>
+    <?php endif; ?>
+
     <!-- =========================================================
          HIERARKI TINGKAT 3 (STEPPER PILLS)
          ========================================================= -->
@@ -159,7 +193,7 @@ $returnPath = '/reports/date/' . $date;
                     <button
                         id="hs-dropdown-date-options"
                         type="button"
-                        class="hs-dropdown-toggle py-1.5 px-3 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors"
+                        class="hs-dropdown-toggle dropdown-toggle"
                         aria-haspopup="menu"
                         aria-expanded="false"
                         aria-label="Menu Opsi"
@@ -172,29 +206,31 @@ $returnPath = '/reports/date/' . $date;
                     </button>
 
                     <div
-                        class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-48 bg-white shadow-lg rounded-xl p-1.5 border border-gray-200 z-50"
+                        class="hs-dropdown-menu dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden"
                         role="menu"
                         aria-orientation="vertical"
                         aria-labelledby="hs-dropdown-date-options"
                     >
-                        <a class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
+                        <span class="dropdown-header">Aksi Cepat</span>
+                        <a class="dropdown-item" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
                             <i class="bi bi-cloud-arrow-up text-blue-600"></i>
                             Tambah Berkas Excel
                         </a>
-                        <a class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors" href="<?= e(url('/reports/date/' . $date . '/export')) ?>">
+                        <a class="dropdown-item" href="<?= e(url('/reports/date/' . $date . '/export')) ?>">
                             <i class="bi bi-file-earmark-excel text-emerald-600"></i>
                             Export Semua Berkas
                         </a>
-                        <hr class="my-1 border-gray-100">
-                        <button type="button" @click="viewMode = 'table'" class="w-full flex items-center justify-between py-2 px-3 rounded-lg text-xs transition-colors focus:outline-none" :class="viewMode === 'table' ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700 hover:bg-gray-100'">
-                            <span class="flex items-center gap-x-3">
+                        <div class="dropdown-divider"></div>
+                        <span class="dropdown-header">Mode Tampilan</span>
+                        <button type="button" @click="viewMode = 'table'" class="dropdown-item justify-between" :class="viewMode === 'table' ? 'active font-semibold' : ''">
+                            <span class="flex items-center gap-x-2.5">
                                 <i class="bi bi-table text-indigo-600"></i>
                                 Tampilan Tabel
                             </span>
                             <i x-show="viewMode === 'table'" class="bi bi-check2 text-blue-600 text-sm"></i>
                         </button>
-                        <button type="button" @click="viewMode = 'list'" class="w-full flex items-center justify-between py-2 px-3 rounded-lg text-xs transition-colors focus:outline-none" :class="viewMode === 'list' ? 'bg-blue-50 text-blue-700 font-semibold' : 'text-gray-700 hover:bg-gray-100'">
-                            <span class="flex items-center gap-x-3">
+                        <button type="button" @click="viewMode = 'list'" class="dropdown-item justify-between" :class="viewMode === 'list' ? 'active font-semibold' : ''">
+                            <span class="flex items-center gap-x-2.5">
                                 <i class="bi bi-list-ul text-amber-600"></i>
                                 Tampilan List
                             </span>

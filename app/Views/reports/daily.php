@@ -45,7 +45,12 @@ $print = (bool) ($print ?? false);
         <form method="get" action="<?= url('/reports/daily') ?>" class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
             <div class="md:col-span-3">
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal report</label>
-                <input type="date" class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" name="date" value="<?= e($date) ?>">
+                <div class="datepicker-wrapper">
+                    <span class="datepicker-icon-left">
+                        <i class="bi bi-calendar3"></i>
+                    </span>
+                    <input type="date" class="form-datepicker has-icon-left text-xs" name="date" value="<?= e($date) ?>">
+                </div>
             </div>
             <div class="md:col-span-4">
                 <label class="block text-xs font-semibold text-gray-700 mb-1">Perusahaan (PT)</label>
@@ -61,7 +66,7 @@ $print = (bool) ($print ?? false);
                     <i class="bi bi-funnel"></i>
                     Terapkan
                 </button>
-                <a class="py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors" href="<?= url('/reports/daily') ?>">
+                <a class="datepicker-preset-btn <?= $date === date('Y-m-d') ? 'active' : '' ?>" href="<?= url('/reports/daily') ?>">
                     Hari Ini
                 </a>
                 <a class="py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1.5 transition-colors" href="<?= url('/reports/daily/export?' . http_build_query(['date' => $date, 'company_id' => $companyId])) ?>">
@@ -75,6 +80,37 @@ $print = (bool) ($print ?? false);
             </div>
         </form>
     </div>
+
+    <?php if ($rows === []): ?>
+        <!-- ALERT STATUS: KOSONG -->
+        <div
+            class="alert alert-info"
+            role="alert"
+            x-data="{ show: true }"
+            x-show="show"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+        >
+            <div class="alert-content">
+                <span class="alert-icon">
+                    <i class="bi bi-info-circle-fill"></i>
+                </span>
+                <div class="alert-body">
+                    <strong class="alert-title">Tidak Ada Transaksi</strong>
+                    <div class="alert-message">Belum ada catatan transaksi pada tanggal <?= e(format_date($date)) ?> untuk kriteria perusahaan yang dipilih.</div>
+                </div>
+            </div>
+            <button
+                class="alert-close"
+                type="button"
+                @click="show = false"
+                aria-label="Tutup notifikasi"
+            >
+                <i class="bi bi-x text-lg leading-none"></i>
+            </button>
+        </div>
+    <?php endif; ?>
 
     <!-- =========================================================
          WIDE DAILY TABLE (PRELINE UI + THE NAKED ZEBRA)
