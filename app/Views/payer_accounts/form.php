@@ -14,7 +14,7 @@ $action = $isEdit ? url('/payer-accounts/' . (int) $record['id']) : url('/payer-
 <form method="post" action="<?= $action ?>" class="stack-lg">
     <?= csrf_field() ?><?php if ($isEdit): ?><?= method_field('PUT') ?><?php endif; ?>
     <section class="form-card">
-        <div class="section-title"><i class="bi bi-bank"></i><div><h3>Identitas Rekening</h3><p>Data bank dan rekening yang digunakan sebagai sumber dana.</p></div></div>
+        <div class="section-title"><i class="bi bi-bank"></i><div x-data="{ showInfo: false }"><div class="d-inline-flex align-items-center gap-2"><h3 class="m-0">Identitas Rekening</h3><button type="button" @click="showInfo = !showInfo" class="info-toggle-btn" :class="{ 'is-active': showInfo }" :aria-expanded="showInfo.toString()" aria-label="Tampilkan info identitas" title="Informasi bantuan"><i class="bi bi-info-circle text-xs leading-none"></i></button></div><p x-show="showInfo" x-cloak x-transition style="display: none;">Data bank dan rekening yang digunakan sebagai sumber dana.</p></div></div>
         <div class="form-grid three">
             <label class="span-2"><span class="form-label">Perusahaan *</span><select class="form-select" name="company_id" required><option value="">Pilih PT</option><?php foreach ($companies as $company): ?><option value="<?= (int) $company['id'] ?>" <?= selected((int) $value('company_id'), (int) $company['id']) ?>><?= e($company['name']) ?></option><?php endforeach; ?></select></label>
             <label><span class="form-label">Status</span><select class="form-select" name="status"><option value="active" <?= selected($value('status', 'active'), 'active') ?>>Aktif</option><option value="inactive" <?= selected($value('status', 'active'), 'inactive') ?>>Nonaktif</option></select></label>
@@ -28,7 +28,7 @@ $action = $isEdit ? url('/payer-accounts/' . (int) $record['id']) : url('/payer-
     </section>
 
     <section class="form-card">
-        <div class="section-title"><i class="bi bi-buildings"></i><div><h3>Alamat dan Output</h3><p>Dipakai untuk melengkapi format file bank dan komunikasi operasional.</p></div></div>
+        <div class="section-title"><i class="bi bi-buildings"></i><div x-data="{ showInfo: false }"><div class="d-inline-flex align-items-center gap-2"><h3 class="m-0">Alamat dan Output</h3><button type="button" @click="showInfo = !showInfo" class="info-toggle-btn" :class="{ 'is-active': showInfo }" :aria-expanded="showInfo.toString()" aria-label="Tampilkan info alamat" title="Informasi bantuan"><i class="bi bi-info-circle text-xs leading-none"></i></button></div><p x-show="showInfo" x-cloak x-transition style="display: none;">Dipakai untuk melengkapi format file bank dan komunikasi operasional.</p></div></div>
         <div class="form-grid three">
             <label><span class="form-label">Email Output</span><input type="email" class="form-control" name="email" value="<?= e($value('email')) ?>"></label>
             <label><span class="form-label">Kota</span><input class="form-control" name="city" value="<?= e($value('city')) ?>"></label>

@@ -66,15 +66,37 @@ $templateColorClass = static fn (string $type): string => match ($type) {
 
 <section class="panel-card invoice-template-hub mb-4">
 
-    <div class="invoice-template-head">
+    <div class="invoice-template-head" x-data="{ showInfo: false }">
         <div>
             <span class="eyebrow dark">TEMPLATE INVOICE</span>
 
-            <h3>Template Invoice</h3>
+            <div class="d-inline-flex align-items-center gap-2">
+                <h3 class="m-0">Template Invoice</h3>
+                <button
+                    type="button"
+                    @click="showInfo = !showInfo"
+                    class="info-toggle-btn"
+                    :class="{ 'is-active': showInfo }"
+                    :aria-expanded="showInfo.toString()"
+                    aria-label="Tampilkan info template"
+                    title="Informasi bantuan"
+                >
+                    <i class="bi bi-info-circle text-xs leading-none"></i>
+                </button>
+            </div>
 
-            <p>
-                Pilih jenis template invoice yang digunakan
-                dalam proses administrasi.
+            <p
+                x-show="showInfo"
+                x-cloak
+                x-transition:enter="transition ease-out duration-150"
+                x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100"
+                x-transition:leave="transition ease-in duration-100"
+                x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                style="display: none;"
+            >
+                Pilih jenis template invoice yang digunakan dalam proses administrasi.
             </p>
         </div>
 

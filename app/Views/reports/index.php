@@ -43,10 +43,7 @@ $activeAdvancedFilters = array_filter(
          ========================================================= -->
     <section class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-xs">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div class="flex-1">
-                <strong class="text-sm font-bold text-gray-900 block">Pencarian Transaksi</strong>
-                <span class="text-xs text-gray-500 mt-0.5 block">Cari data di seluruh bulan, tanggal, tim, berkas, payer, dan beneficiary.</span>
-            </div>
+            <?= render_heading_with_info('Pencarian Transaksi', 'Cari data di seluruh bulan, tanggal, tim, berkas, payer, dan beneficiary.') ?>
 
             <div class="flex items-center gap-2 shrink-0">
                 <?= render_search_modal_trigger([
@@ -76,9 +73,36 @@ $activeAdvancedFilters = array_filter(
                 <span class="size-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm">
                     <i class="bi bi-sliders"></i>
                 </span>
-                <div>
-                    <strong class="text-xs font-bold text-gray-900 block">Filter Lanjutan</strong>
-                    <span class="text-[11px] text-gray-500 block">Saring berdasarkan bulan, rentang tanggal, tim, status kirim, dan hasil</span>
+                <div x-data="{ showInfo: false }">
+                    <div class="inline-flex items-center gap-1.5">
+                        <strong class="text-xs font-bold text-gray-900 block">Filter Lanjutan</strong>
+                        <button
+                            type="button"
+                            @click.stop="showInfo = !showInfo"
+                            class="info-toggle-btn"
+                            :class="{ 'is-active': showInfo }"
+                            :aria-expanded="showInfo.toString()"
+                            aria-label="Tampilkan info filter"
+                            title="Informasi bantuan"
+                        >
+                            <i class="bi bi-info-circle text-[11px] leading-none"></i>
+                        </button>
+                    </div>
+                    <div
+                        x-show="showInfo"
+                        x-cloak
+                        x-transition:enter="transition ease-out duration-150"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition ease-in duration-100"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
+                        class="text-[11px] text-gray-500 mt-1 flex items-start gap-1.5"
+                        style="display: none;"
+                    >
+                        <i class="bi bi-info-circle text-[10px] text-blue-500 mt-0.5 shrink-0" aria-hidden="true"></i>
+                        <span>Saring berdasarkan bulan, rentang tanggal, tim, status kirim, dan hasil.</span>
+                    </div>
                 </div>
             </div>
             <i class="bi bi-chevron-down text-gray-400 text-xs transition-transform duration-200" :class="{ 'rotate-180': openFilter }"></i>

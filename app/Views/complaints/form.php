@@ -13,7 +13,7 @@ $histories = is_array($histories ?? null) ? $histories : [];
 <form method="post" enctype="multipart/form-data" action="<?= $editing ? url('/complaints/' . $complaint['id']) : url('/complaints') ?>">
     <?= csrf_field() ?><?php if ($editing) echo method_field('PUT'); ?>
 
-    <div class="section-title"><i class="bi bi-link-45deg"></i><div><h3>Sumber kasus</h3><p>Pilih baris report untuk mengisi perusahaan, subjek, dan detail secara otomatis.</p></div></div>
+    <div class="section-title"><i class="bi bi-link-45deg"></i><div x-data="{ showInfo: false }"><div class="d-inline-flex align-items-center gap-2"><h3 class="m-0">Sumber kasus</h3><button type="button" @click="showInfo = !showInfo" class="info-toggle-btn" :class="{ 'is-active': showInfo }" :aria-expanded="showInfo.toString()" aria-label="Tampilkan info sumber" title="Informasi bantuan"><i class="bi bi-info-circle text-xs leading-none"></i></button></div><p x-show="showInfo" x-cloak x-transition style="display: none;">Pilih baris report untuk mengisi perusahaan, subjek, dan detail secara otomatis.</p></div></div>
     <div class="row g-3 mb-4">
         <div class="col-12">
             <label class="form-label">Baris Laporan</label>
@@ -48,7 +48,7 @@ $histories = is_array($histories ?? null) ? $histories : [];
         </div>
     </div>
 
-    <div class="section-title"><i class="bi bi-headset"></i><div><h3>Informasi complain</h3><p>Tentukan penanggung jawab, prioritas, status, dan tindak lanjut.</p></div></div>
+    <div class="section-title"><i class="bi bi-headset"></i><div x-data="{ showInfo: false }"><div class="d-inline-flex align-items-center gap-2"><h3 class="m-0">Informasi complain</h3><button type="button" @click="showInfo = !showInfo" class="info-toggle-btn" :class="{ 'is-active': showInfo }" :aria-expanded="showInfo.toString()" aria-label="Tampilkan info complain" title="Informasi bantuan"><i class="bi bi-info-circle text-xs leading-none"></i></button></div><p x-show="showInfo" x-cloak x-transition style="display: none;">Tentukan penanggung jawab, prioritas, status, dan tindak lanjut.</p></div></div>
     <div class="row g-3">
         <div class="col-md-6"><label class="form-label">Perusahaan *</label><select class="form-select" name="company_id" required><option value="">Pilih perusahaan</option><?php foreach ($companies as $company): ?><option value="<?= $company['id'] ?>" <?= selected($value('company_id'), $company['id']) ?>><?= e($company['name']) ?></option><?php endforeach; ?></select></div>
         <div class="col-md-6"><label class="form-label">Transaksi Terkait</label><select class="form-select" name="transaction_id"><option value="">Tidak ada</option><?php foreach ($transactions as $transaction): ?><option value="<?= $transaction['id'] ?>" <?= selected($value('transaction_id'), $transaction['id']) ?>><?= e(($transaction['reference_no'] ?: 'TRX-' . $transaction['id']) . ' · ' . $transaction['company_name']) ?></option><?php endforeach; ?></select></div>

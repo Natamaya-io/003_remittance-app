@@ -3,7 +3,7 @@
 
 <div class="spk-section">
     <div class="spk-section-head">
-        <div><h3>Daftar Kriteria Tetap</h3><div class="spk-muted">C1-C5 berasal dari Report Sukses 2024. C6 menggunakan Report Sukses 2024 dan refund dari Actual LIST MT199.</div></div>
+        <div x-data="{ showInfo: false }"><div class="d-inline-flex align-items-center gap-2"><h3 class="m-0">Daftar Kriteria Tetap</h3><button type="button" @click="showInfo = !showInfo" class="info-toggle-btn" :class="{ 'is-active': showInfo }" :aria-expanded="showInfo.toString()" aria-label="Tampilkan info kriteria" title="Informasi bantuan"><i class="bi bi-info-circle text-xs leading-none"></i></button></div><div x-show="showInfo" x-cloak x-transition class="spk-muted mt-1" style="display: none;">C1-C5 berasal dari Report Sukses 2024. C6 menggunakan Report Sukses 2024 dan refund dari Actual LIST MT199.</div></div>
     </div>
     <div class="table-responsive">
         <table class="spk-table">

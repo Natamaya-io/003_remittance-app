@@ -396,3 +396,45 @@ Setiap view yang membutuhkan kontrol pencarian **MUTLAK WAJIB** menggunakan help
 3. **Anti-Leak & Anti-Slogan:**
    - DILARANG membocorkan IP internal Tailscale (`100.x.x.x`), kredensial server, atau nama node internal ke dalam file kode/markup/dokumentasi publik.
    - DILARANG menggunakan slogan internal "SOTA 2026" di mana pun dalam kode maupun teks antarmuka.
+
+---
+
+## 8. Aturan Terkunci: Sistem Informasi On-Demand & Toggleable Helper (Anti-Description Slop)
+
+Untuk menjaga estetika minimalis berwibawa (*Naked Page Architecture*) dan efisiensi ruang vertikal, seluruh teks penjelasan, catatan bantuan, atau subtitle deskriptif panjang (contoh: *"Cari data di seluruh bulan, tanggal, tim, berkas, payer, dan beneficiary."*) **DILARANG DITAMPILKAN SECARA PERMANEN** di bawah judul card atau heading section.
+
+### 8.1. Transformasi Menjadi Informasi On-Demand (Toggleable Info Law)
+1. **Keberadaan Default:** Secara default, area heading card hanya menyajikan judul utama yang bersih dan berwibawa tanpa teks penjelasan yang memakan tempat.
+2. **Tombol Pemicu Info (`.info-toggle-btn`):** Di samping kanan teks judul, disematkan tombol ikon info melingkar halus (`<i class="bi bi-info-circle"></i>`) berukuran 20px dengan state interaktif lembut (hover background `#eff6ff`, border `#dbeafe`, focus outline ring).
+3. **Panel Informasi (`.info-toggle-box`):** Saat tombol ditekan, teks penjelasan bertransisi mulus (*Zero-Transform*, opasitas murni) langsung di bawah judul dengan ikon penjelas dan padding ringkas.
+4. **Isolasi Event (`@click.stop`):** Tombol info wajib menggunakan penahan perambatan `@click.stop` agar jika disematkan di dalam accordion (seperti Filter Lanjutan) atau tombol aksi lain, klik tidak memicu pembukaan/penutupan elemen induk secara tidak sengaja.
+
+### 8.2. Penggunaan via Helper PHP Resmi
+Setiap view yang membutuhkan judul kartu dengan informasi on-demand wajib menggunakan helper `render_heading_with_info()` di `app/helpers.php`:
+```php
+<?= render_heading_with_info(
+    'Pencarian Transaksi',
+    'Cari data di seluruh bulan, tanggal, tim, berkas, payer, dan beneficiary.'
+) ?>
+```
+Atau menggunakan komponen Alpine langsung untuk kasus inline custom:
+```html
+<div class="inline-flex items-center gap-1.5" x-data="{ showInfo: false }">
+    <strong class="text-sm font-bold text-gray-900">Judul Card</strong>
+    <button
+        type="button"
+        @click.stop="showInfo = !showInfo"
+        class="info-toggle-btn"
+        :class="{ 'is-active': showInfo }"
+        :aria-expanded="showInfo.toString()"
+        aria-label="Tampilkan informasi bantuan"
+        title="Informasi bantuan"
+    >
+        <i class="bi bi-info-circle text-[11px] leading-none"></i>
+    </button>
+    <div x-show="showInfo" x-cloak x-transition class="info-toggle-box" style="display: none;">
+        <i class="bi bi-info-circle text-blue-500 mt-0.5 shrink-0"></i>
+        <span>Teks deskriptif yang hanya muncul ketika diminta.</span>
+    </div>
+</div>
+```

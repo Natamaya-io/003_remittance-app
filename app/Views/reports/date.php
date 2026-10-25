@@ -46,10 +46,7 @@ $returnPath = '/reports/date/' . $date;
          ========================================================= -->
     <section class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-xs">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div class="flex-1">
-                <strong class="text-sm font-bold text-gray-900 block">Pencarian Transaksi Tanggal Ini</strong>
-                <span class="text-xs text-gray-500 mt-0.5 block">Mencari batch tim, payer, beneficiary, bank, dan nomor transaksi pada tanggal <?= e($dateLabel) ?>.</span>
-            </div>
+            <?= render_heading_with_info('Pencarian Transaksi Tanggal Ini', 'Mencari batch tim, payer, beneficiary, bank, dan nomor transaksi pada tanggal ' . e($dateLabel) . '.') ?>
 
             <div class="flex items-center gap-2 shrink-0">
                 <?= render_search_modal_trigger([

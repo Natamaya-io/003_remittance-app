@@ -10,7 +10,7 @@ $topsis = $calculation['topsis'];
 <div class="spk-section"><div class="spk-formula"><strong>P1:</strong> 1 September-31 Oktober 2024 &nbsp; | &nbsp; <strong>P2:</strong> 1 November-31 Desember 2024 &nbsp; | &nbsp; <strong>Semua kriteria:</strong> Benefit</div></div>
 
 <div class="spk-section">
-<div class="spk-section-head"><div><h3>Metode ENTROPY</h3><div class="spk-muted">Kij -> aij -> Ej -> Dj -> Wj</div></div></div>
+<div class="spk-section-head"><div x-data="{ showInfo: false }"><div class="d-inline-flex align-items-center gap-2"><h3 class="m-0">Metode ENTROPY</h3><button type="button" @click="showInfo = !showInfo" class="info-toggle-btn" :class="{ 'is-active': showInfo }" :aria-expanded="showInfo.toString()" aria-label="Tampilkan info rumus Entropy" title="Informasi alur"><i class="bi bi-info-circle text-xs leading-none"></i></button></div><div x-show="showInfo" x-cloak x-transition class="spk-muted mt-1" style="display: none;">Kij -&gt; aij -&gt; Ej -&gt; Dj -&gt; Wj</div></div></div>
 <div class="spk-formula mb-3"><strong>Kij = Xij / max(Xj)</strong>, lalu aij = Kij / Sum(Kij).</div>
 <h3 class="mb-2">1. Matriks Keputusan (X)</h3>
 <div class="table-responsive"><table class="spk-table"><thead><tr><th>Alternatif</th><?php foreach($criteria as $c):?><th><?=e($c['code'])?><div class="spk-muted"><?=strtoupper(e($c['criterion_type']))?></div></th><?php endforeach;?></tr></thead><tbody>
@@ -32,7 +32,7 @@ $topsis = $calculation['topsis'];
 </div>
 
 <div class="spk-section">
-<div class="spk-section-head"><div><h3>Metode TOPSIS</h3><div class="spk-muted">Rij -> Yij -> A+ / A- -> D+ / D- -> Vi -> Ranking</div></div></div>
+<div class="spk-section-head"><div x-data="{ showInfo: false }"><div class="d-inline-flex align-items-center gap-2"><h3 class="m-0">Metode TOPSIS</h3><button type="button" @click="showInfo = !showInfo" class="info-toggle-btn" :class="{ 'is-active': showInfo }" :aria-expanded="showInfo.toString()" aria-label="Tampilkan info rumus TOPSIS" title="Informasi alur"><i class="bi bi-info-circle text-xs leading-none"></i></button></div><div x-show="showInfo" x-cloak x-transition class="spk-muted mt-1" style="display: none;">Rij -&gt; Yij -&gt; A+ / A- -&gt; D+ / D- -&gt; Vi -&gt; Ranking</div></div></div>
 <h3 class="mb-2">1. Matriks Ternormalisasi (R)</h3><div class="spk-formula mb-2">Rij = Xij / sqrt(Sum Xij^2)</div>
 <div class="table-responsive"><table class="spk-table"><thead><tr><th>Alternatif</th><?php foreach($criteria as $c):?><th><?=e($c['code'])?></th><?php endforeach;?></tr></thead><tbody><?php foreach($alternatives as $i=>$a):?><tr><td><?=e($a['name'])?></td><?php foreach($topsis['normalized'][$i] as $v):?><td class="num"><?=number_format((float)$v,12,',','.')?></td><?php endforeach;?></tr><?php endforeach;?></tbody></table></div>
 <h3 class="mt-4 mb-2">2. Matriks Ternormalisasi Terbobot (Y)</h3><div class="spk-formula mb-2">Yij = Wj x Rij</div>

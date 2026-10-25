@@ -514,4 +514,72 @@ function render_search_modal_trigger(array $options = []): string
     return (string) ob_get_clean();
 }
 
+/**
+ * Render Heading with On-Demand Toggleable Information (Anti-Slop)
+ *
+ * Menggantikan teks deskriptif/subtitle yang menumpuk di bawah judul dengan
+ * tombol info (i) yang dapat di-toggle secara elegan oleh pengguna.
+ *
+ * @param string $title Judul utama
+ * @param string $info Teks informasi bantuan
+ * @param array{
+ *   titleTag?: string,
+ *   titleClass?: string,
+ *   wrapperClass?: string,
+ *   infoClass?: string,
+ *   icon?: string,
+ *   initiallyOpen?: bool
+ * } $options
+ */
+function render_heading_with_info(string $title, string $info, array $options = []): string
+{
+    $titleTag = (string) ($options['titleTag'] ?? 'strong');
+    $titleClass = (string) ($options['titleClass'] ?? 'text-sm font-bold text-gray-900 block');
+    $wrapperClass = (string) ($options['wrapperClass'] ?? 'flex-1');
+    $infoClass = (string) ($options['infoClass'] ?? 'text-xs text-gray-500 mt-1 flex items-start gap-1.5');
+    $icon = (string) ($options['icon'] ?? 'bi-info-circle');
+    $initiallyOpen = (bool) ($options['initiallyOpen'] ?? false);
+    $openState = $initiallyOpen ? 'true' : 'false';
+
+    ob_start();
+    ?>
+    <div class="<?= e($wrapperClass) ?>" x-data="{ showInfo: <?= $openState ?> }">
+        <div class="inline-flex items-center gap-1.5">
+            <<?= $titleTag ?> class="<?= e($titleClass) ?>"><?= $title ?></<?= $titleTag ?>>
+            <?php if (trim($info) !== ''): ?>
+                <button
+                    type="button"
+                    @click.stop="showInfo = !showInfo"
+                    class="info-toggle-btn"
+                    :class="{ 'is-active': showInfo }"
+                    :aria-expanded="showInfo.toString()"
+                    aria-label="Tampilkan informasi bantuan"
+                    title="Informasi bantuan"
+                >
+                    <i class="bi <?= e($icon) ?> text-[11px] leading-none"></i>
+                </button>
+            <?php endif; ?>
+        </div>
+        <?php if (trim($info) !== ''): ?>
+            <div
+                x-show="showInfo"
+                x-cloak
+                x-transition:enter="transition ease-out duration-150"
+                x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100"
+                x-transition:leave="transition ease-in duration-100"
+                x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                class="<?= e($infoClass) ?>"
+                style="display: none;"
+            >
+                <i class="bi <?= e($icon) ?> text-[11px] text-blue-500 mt-0.5 shrink-0" aria-hidden="true"></i>
+                <span><?= $info ?></span>
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php
+    return (string) ob_get_clean();
+}
+
 

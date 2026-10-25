@@ -2,7 +2,7 @@
 <?php require __DIR__ . '/_nav.php'; ?>
 <div class="spk-section">
     <div class="spk-section-head">
-        <div><h3>Matriks C1-C6</h3><div class="spk-muted">P1: 1 September-31 Oktober 2024 · P2: 1 November-31 Desember 2024.</div></div>
+        <div x-data="{ showInfo: false }"><div class="d-inline-flex align-items-center gap-2"><h3 class="m-0">Matriks C1-C6</h3><button type="button" @click="showInfo = !showInfo" class="info-toggle-btn" :class="{ 'is-active': showInfo }" :aria-expanded="showInfo.toString()" aria-label="Tampilkan info periode" title="Informasi bantuan"><i class="bi bi-info-circle text-xs leading-none"></i></button></div><div x-show="showInfo" x-cloak x-transition class="spk-muted mt-1" style="display: none;">P1: 1 September-31 Oktober 2024 · P2: 1 November-31 Desember 2024.</div></div>
         <form method="post" action="<?=url('/analysis/assessment/reset')?>" onsubmit="return confirm('Kembalikan semua nilai ke otomatis dari Report 2024 + Actual?')"><?=csrf_field()?><button class="btn btn-light">Reset ke Otomatis</button></form>
     </div>
 
@@ -12,7 +12,7 @@
 </div>
 
 <div class="spk-section">
-    <div class="spk-section-head"><div><h3>Detail Pembentuk Nilai Auto</h3><div class="spk-muted">Klik alternatif untuk melihat indikator P1 dan P2 yang menjadi dasar C1-C6.</div></div></div>
+    <div class="spk-section-head"><div x-data="{ showInfo: false }"><div class="d-inline-flex align-items-center gap-2"><h3 class="m-0">Detail Pembentuk Nilai Auto</h3><button type="button" @click="showInfo = !showInfo" class="info-toggle-btn" :class="{ 'is-active': showInfo }" :aria-expanded="showInfo.toString()" aria-label="Tampilkan info nilai" title="Informasi bantuan"><i class="bi bi-info-circle text-xs leading-none"></i></button></div><div x-show="showInfo" x-cloak x-transition class="spk-muted mt-1" style="display: none;">Klik alternatif untuk melihat indikator P1 dan P2 yang menjadi dasar C1-C6.</div></div></div>
     <?php foreach($alternatives as $a):
         $firstCriterion = $criteria[0] ?? null;
         $row = $firstCriterion ? ($assessmentMatrix[(int)$a['id']][(int)$firstCriterion['id']] ?? null) : null;

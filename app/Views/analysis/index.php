@@ -26,7 +26,7 @@
     <div class="col-xl-7">
         <div class="spk-section h-100">
             <div class="spk-section-head">
-                <div><h3><i class="bi bi-database me-2"></i>Sumber Data Analisis</h3><div class="spk-muted">Hanya dua sumber berikut yang digunakan dalam perhitungan.</div></div>
+                <div x-data="{ showInfo: false }"><div class="d-inline-flex align-items-center gap-2"><h3 class="m-0"><i class="bi bi-database me-2"></i>Sumber Data Analisis</h3><button type="button" @click="showInfo = !showInfo" class="info-toggle-btn" :class="{ 'is-active': showInfo }" :aria-expanded="showInfo.toString()" aria-label="Tampilkan info sumber" title="Informasi bantuan"><i class="bi bi-info-circle text-xs leading-none"></i></button></div><div x-show="showInfo" x-cloak x-transition class="spk-muted mt-1" style="display: none;">Hanya dua sumber berikut yang digunakan dalam perhitungan.</div></div>
             </div>
             <div class="spk-source">
                 <div class="spk-source-icon"><i class="bi bi-file-earmark-spreadsheet"></i></div>
@@ -57,7 +57,7 @@
     </div>
     <div class="col-xl-5">
         <div class="spk-section h-100">
-            <div class="spk-section-head"><div><h3><i class="bi bi-cloud-arrow-up me-2"></i>Import / Ganti Sumber</h3><div class="spk-muted">Upload hanya memengaruhi modul Entropy-TOPSIS.</div></div></div>
+            <div class="spk-section-head"><div x-data="{ showInfo: false }"><div class="d-inline-flex align-items-center gap-2"><h3 class="m-0"><i class="bi bi-cloud-arrow-up me-2"></i>Import / Ganti Sumber</h3><button type="button" @click="showInfo = !showInfo" class="info-toggle-btn" :class="{ 'is-active': showInfo }" :aria-expanded="showInfo.toString()" aria-label="Tampilkan info upload" title="Informasi bantuan"><i class="bi bi-info-circle text-xs leading-none"></i></button></div><div x-show="showInfo" x-cloak x-transition class="spk-muted mt-1" style="display: none;">Upload hanya memengaruhi modul Entropy-TOPSIS.</div></div></div>
             <form method="post" action="<?= url('/analysis/sources/upload') ?>" enctype="multipart/form-data">
                 <?= csrf_field() ?>
                 <div class="mb-3">
@@ -77,7 +77,7 @@
 
 <div class="spk-section">
     <div class="spk-section-head">
-        <div><h3>Alur Metode</h3><div class="spk-muted">Entropy dan TOPSIS mengikuti prosedur pada modul PDF yang digunakan sebagai rujukan metode.</div></div>
+        <div x-data="{ showInfo: false }"><div class="d-inline-flex align-items-center gap-2"><h3 class="m-0">Alur Metode</h3><button type="button" @click="showInfo = !showInfo" class="info-toggle-btn" :class="{ 'is-active': showInfo }" :aria-expanded="showInfo.toString()" aria-label="Tampilkan info alur" title="Informasi bantuan"><i class="bi bi-info-circle text-xs leading-none"></i></button></div><div x-show="showInfo" x-cloak x-transition class="spk-muted mt-1" style="display: none;">Entropy dan TOPSIS mengikuti prosedur pada modul PDF yang digunakan sebagai rujukan metode.</div></div>
         <a class="btn btn-primary" href="<?= url('/analysis/calculation') ?>"><i class="bi bi-play-fill me-1"></i>Lihat Perhitungan</a>
     </div>
     <div class="spk-formula mb-3"><strong>Pembentukan matriks:</strong> Report 2024 + Actual -> P1/P2 -> C1-C6 -> Matriks X</div>
