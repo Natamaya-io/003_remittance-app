@@ -1043,6 +1043,66 @@ $fxBoardFile =
         </header>
 
 
+        <div x-data="{ search: '', status: 'all' }" class="dashboard-recent-filter-wrap">
+
+        <div class="flex flex-wrap items-center justify-between gap-2 p-3 bg-gray-50/80 border border-b-0 border-gray-200 rounded-t-xl">
+            <div class="relative flex-1 min-w-[200px] max-w-xs">
+                <input
+                    type="text"
+                    x-model="search"
+                    placeholder="Cari transaksi (referensi, PT, penerima)..."
+                    class="py-1.5 px-3 ps-8 block w-full border border-gray-200 rounded-lg text-xs focus:border-blue-500 focus:ring-blue-500"
+                >
+                <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-2.5 text-gray-400">
+                    <i class="bi bi-search text-xs"></i>
+                </div>
+                <button
+                    type="button"
+                    x-show="search.length > 0"
+                    @click="search = ''"
+                    class="absolute inset-y-0 end-0 flex items-center pe-2.5 text-gray-400 hover:text-gray-600"
+                    style="display: none;"
+                >
+                    <i class="bi bi-x-circle text-xs"></i>
+                </button>
+            </div>
+
+            <div class="inline-flex rounded-lg shadow-sm">
+                <button
+                    type="button"
+                    @click="status = 'all'"
+                    :class="status === 'all' ? 'bg-blue-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50'"
+                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border border-gray-200 first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
+                >
+                    Semua
+                </button>
+                <button
+                    type="button"
+                    @click="status = 'success'"
+                    :class="status === 'success' ? 'bg-emerald-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50'"
+                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-gray-200 first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
+                >
+                    Sukses
+                </button>
+                <button
+                    type="button"
+                    @click="status = 'pending'"
+                    :class="status === 'pending' ? 'bg-amber-500 text-white' : 'bg-white text-gray-700 hover:bg-gray-50'"
+                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-gray-200 first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
+                >
+                    Pending
+                </button>
+                <button
+                    type="button"
+                    @click="status = 'refund'"
+                    :class="status === 'refund' ? 'bg-rose-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50'"
+                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-gray-200 first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
+                >
+                    Refund
+                </button>
+            </div>
+        </div>
+
         <div
             class="
                 table-responsive
@@ -1179,7 +1239,7 @@ $fxBoardFile =
                         ?>
 
 
-                        <tr>
+                        <tr x-show="(!search || '<?= strtolower(addslashes($reference . ' ' . $companyName . ' ' . $beneficiary)) ?>'.includes(search.toLowerCase())) && (status === 'all' || '<?= strtolower(addslashes($transactionStatus)) ?>'.includes(status))">
 
 
                             <td class="text-nowrap">
@@ -1354,6 +1414,8 @@ $fxBoardFile =
 
 
         </div>
+
+        </div> <!-- end dashboard-recent-filter-wrap -->
 
 
     </section>

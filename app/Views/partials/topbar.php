@@ -114,12 +114,17 @@ $initial = strtoupper(
         <div
             class="dropdown"
             data-dropdown
+            x-data="{ open: false }"
+            @click.outside="open = false"
+            @keydown.escape.window="open = false"
         >
 
             <button
                 class="user-menu"
                 type="button"
                 data-dropdown-toggle
+                @click="open = !open"
+                :aria-expanded="open.toString()"
                 aria-expanded="false"
             >
 
@@ -139,6 +144,7 @@ $initial = strtoupper(
             <div
                 class="dropdown-menu"
                 data-dropdown-menu
+                :class="{ 'show': open }"
             >
 
                 <div
