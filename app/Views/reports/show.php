@@ -92,17 +92,17 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
-            <a class="py-2 px-3.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1.5 transition-colors" href="<?= e($dateBackUrl) ?>">
+            <a class="py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-colors" href="<?= e($dateBackUrl) ?>">
                 <i class="bi bi-arrow-left"></i>
                 Report per Tim
             </a>
             <?php if (can('report.manage')): ?>
-                <a class="py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1.5 transition-colors" href="<?= e(url('/reports/' . $batch['id'] . '/edit')) ?>">
+                <a class="py-2 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-colors" href="<?= e(url('/reports/' . $batch['id'] . '/edit')) ?>">
                     <i class="bi bi-pencil"></i>
                     Edit
                 </a>
             <?php endif; ?>
-            <a class="btn btn-primary py-2 px-4 text-xs font-medium rounded-lg inline-flex items-center gap-1.5 shadow-xs" href="<?= e(url('/reports/' . $batch['id'] . '/export')) ?>">
+            <a class="btn-primary py-2 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg shadow-xs focus:outline-hidden" href="<?= e(url('/reports/' . $batch['id'] . '/export')) ?>">
                 <i class="bi bi-download"></i>
                 Download Excel
             </a>
@@ -184,10 +184,10 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
             </div>
 
             <div class="flex items-center justify-end gap-2 pt-2 border-t border-gray-100">
-                <a class="py-1.5 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors" href="<?= e(url('/reports/' . $batch['id'])) ?>">
+                <a class="py-1.5 px-3 inline-flex items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors focus:outline-hidden focus:bg-gray-50" href="<?= e(url('/reports/' . $batch['id'])) ?>">
                     Reset
                 </a>
-                <button class="btn btn-primary py-1.5 px-4 text-xs font-medium rounded-lg inline-flex items-center gap-1.5 shadow-xs" type="submit">
+                <button class="btn-primary py-1.5 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg shadow-xs focus:outline-hidden" type="submit">
                     <i class="bi bi-funnel"></i>
                     Terapkan Filter
                 </button>
@@ -369,7 +369,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                                         data-row-result="<?= e($resultStatus) ?>"
                                         data-row-notes="<?= e($notesStr) ?>"
                                         @click="openEditFromButton($el)"
-                                        class="py-1 px-2.5 text-xs font-semibold rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1 transition-colors"
+                                        class="py-1 px-2.5 inline-flex items-center gap-x-1 text-xs font-semibold rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors focus:outline-hidden focus:bg-gray-50"
                                     >
                                         <i class="bi bi-pencil-square text-blue-600"></i>
                                         Ubah
@@ -431,11 +431,11 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                             <option value="FAILED">Failed</option>
                         </select>
 
-                        <button class="btn btn-primary py-1.5 px-3.5 text-xs font-semibold rounded-lg shadow-xs" type="submit">
+                        <button class="btn-primary py-1.5 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg shadow-xs focus:outline-hidden" type="submit">
                             Terapkan
                         </button>
 
-                        <button type="button" @click="toggleAll(false)" class="py-1.5 px-2.5 rounded-lg text-xs text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
+                        <button type="button" @click="toggleAll(false)" class="py-1.5 px-2.5 inline-flex items-center text-xs font-medium rounded-lg text-gray-300 hover:text-white hover:bg-gray-700/80 transition-colors focus:outline-hidden">
                             Batal
                         </button>
                     </div>
@@ -470,7 +470,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                         <h3 class="text-sm font-bold text-gray-900">Ubah Status Transaksi #<span x-text="activeRow.order"></span></h3>
                         <p class="text-xs text-gray-500 mt-0.5 truncate max-w-xs" x-text="activeRow.beneficiary"></p>
                     </div>
-                    <button type="button" @click="editModalOpen = false" class="text-gray-400 hover:text-gray-600 rounded-lg p-1.5 hover:bg-gray-100 transition-colors">
+                    <button type="button" @click="editModalOpen = false" class="size-8 inline-flex justify-center items-center text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors focus:outline-hidden focus:bg-gray-100">
                         <i class="bi bi-x-lg text-sm"></i>
                     </button>
                 </div>
@@ -515,10 +515,10 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                     </div>
 
                     <div class="flex items-center justify-end gap-2 pt-2 border-t border-gray-100">
-                        <button type="button" @click="editModalOpen = false" class="py-2 px-3.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors">
+                        <button type="button" @click="editModalOpen = false" class="py-2 px-3.5 inline-flex items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors focus:outline-hidden focus:bg-gray-50">
                             Batal
                         </button>
-                        <button type="submit" class="btn btn-primary py-2 px-4 text-xs font-semibold rounded-lg shadow-xs">
+                        <button type="submit" class="btn-primary py-2 px-4 inline-flex items-center justify-center text-xs font-semibold rounded-lg shadow-xs focus:outline-hidden">
                             Simpan Perubahan
                         </button>
                     </div>

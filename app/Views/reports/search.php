@@ -25,7 +25,7 @@ $queryText = (string) ($filters['q'] ?? '');
             <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Hasil Pencarian Report</h2>
         </div>
         <div class="flex items-center gap-2">
-            <a class="py-2 px-3.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1.5 transition-colors" href="<?= e(url('/reports')) ?>">
+            <a class="py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-colors" href="<?= e(url('/reports')) ?>">
                 <i class="bi bi-arrow-left"></i>
                 Kembali ke Report
             </a>
@@ -99,11 +99,11 @@ $queryText = (string) ($filters['q'] ?? '');
             </div>
 
             <div class="sm:col-span-2 flex items-end gap-2 pt-1">
-                <button class="btn btn-primary py-2 px-5 text-xs font-medium rounded-lg inline-flex items-center gap-1.5 shadow-xs" type="submit">
+                <button class="btn-primary py-2 px-5 inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg shadow-xs focus:outline-hidden" type="submit">
                     <i class="bi bi-search"></i>
                     Cari Data
                 </button>
-                <a class="py-2 px-3.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors" href="<?= e(url('/reports/search')) ?>">
+                <a class="py-2 px-3.5 inline-flex items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors focus:outline-hidden focus:bg-gray-50" href="<?= e(url('/reports/search')) ?>">
                     Reset
                 </a>
             </div>
@@ -162,11 +162,11 @@ $queryText = (string) ($filters['q'] ?? '');
                     </div>
 
                     <div class="flex items-center gap-2 pt-2 border-t border-gray-200">
-                        <a class="btn btn-primary py-1.5 px-3 text-xs font-medium rounded-lg flex-1 justify-center inline-flex items-center gap-1.5" href="<?= e(url('/reports/' . $batch['id'] . '?q=' . urlencode($queryText))) ?>">
+                        <a class="btn-primary py-1.5 px-3 flex-1 justify-center inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg shadow-xs focus:outline-hidden" href="<?= e(url('/reports/' . $batch['id'] . '?q=' . urlencode($queryText))) ?>">
                             Buka Report
                         </a>
                         <?php $batchDateLink = !empty($batch['effective_date']) ? url('/reports/date/' . $batch['effective_date']) : url('/reports'); ?>
-                        <a class="py-1.5 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors" href="<?= e($batchDateLink) ?>">
+                        <a class="py-1.5 px-3 inline-flex items-center justify-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors focus:outline-hidden focus:bg-gray-50" href="<?= e($batchDateLink) ?>">
                             Lihat Tanggal
                         </a>
                     </div>
@@ -225,7 +225,7 @@ $queryText = (string) ($filters['q'] ?? '');
                         <td class="py-2.5 px-3 text-right text-nowrap font-bold text-gray-900 font-mono"><?= e(number_format((float) ($row['amount'] ?? 0), 2, ',', '.')) ?></td>
                         <td class="py-2.5 px-3"><?= status_badge((string) ($row['delivery_status'] ?? '')) ?></td>
                         <td class="py-2.5 px-3 text-right">
-                            <a class="py-1 px-2.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1 transition-colors" href="<?= e(url('/reports/' . $row['batch_id'] . '?q=' . urlencode($queryText))) ?>">
+                            <a class="py-1 px-2.5 inline-flex items-center gap-x-1 text-xs font-semibold rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors focus:outline-hidden focus:bg-gray-50" href="<?= e(url('/reports/' . $row['batch_id'] . '?q=' . urlencode($queryText))) ?>">
                                 Buka
                             </a>
                         </td>

@@ -30,7 +30,7 @@ $defaultReportName = 'REPORT HARIAN - ' . ($monthNames[$monthNumber] ?? strtoupp
             <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Upload Report Harian</h2>
         </div>
         <div>
-            <a class="py-2 px-3.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-2 transition-colors" href="<?= url('/reports') ?>">
+            <a class="py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-colors" href="<?= url('/reports') ?>">
                 <i class="bi bi-arrow-left"></i>
                 Kembali
             </a>
@@ -112,7 +112,7 @@ $defaultReportName = 'REPORT HARIAN - ' . ($monthNames[$monthNumber] ?? strtoupp
                                         <button
                                             type="button"
                                             @click.stop="$refs.fileInput.value = ''; fileName = '';"
-                                            class="py-1 px-2.5 text-xs font-semibold rounded-lg text-red-600 hover:bg-red-50 border border-red-200 inline-flex items-center gap-1 transition-colors"
+                                            class="py-1.5 px-3 inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg border border-red-200 bg-red-50 text-red-700 hover:bg-red-100 focus:outline-hidden focus:bg-red-100 transition-colors"
                                         >
                                             <i class="bi bi-trash"></i>
                                             Hapus &amp; Pilih Berkas Lain
@@ -125,10 +125,10 @@ $defaultReportName = 'REPORT HARIAN - ' . ($monthNames[$monthNumber] ?? strtoupp
                 </div>
 
                 <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
-                    <a class="py-2 px-4 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors" href="<?= url('/reports') ?>">
+                    <a class="py-2 px-3.5 inline-flex items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors focus:outline-hidden focus:bg-gray-50" href="<?= url('/reports') ?>">
                         Batal
                     </a>
-                    <button class="btn btn-primary py-2 px-4 text-xs font-medium rounded-lg inline-flex items-center gap-2" type="submit">
+                    <button class="btn-primary py-2 px-4 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg shadow-xs focus:outline-hidden" type="submit">
                         <i class="bi bi-database-check"></i>
                         Import Report
                     </button>
@@ -173,7 +173,7 @@ $defaultReportName = 'REPORT HARIAN - ' . ($monthNames[$monthNumber] ?? strtoupp
                 </div>
             </div>
 
-            <a class="py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-gray-50 text-gray-700 hover:bg-gray-100 text-center flex items-center justify-center gap-2 mt-auto transition-colors" href="<?= asset('templates/report-import-template.csv') ?>" download>
+            <a class="py-2 px-3.5 inline-flex items-center justify-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-gray-50 text-gray-700 hover:bg-gray-100 text-center mt-auto transition-colors focus:outline-hidden focus:bg-gray-100" href="<?= asset('templates/report-import-template.csv') ?>" download>
                 <i class="bi bi-download"></i>
                 Download Contoh Header CSV
             </a>

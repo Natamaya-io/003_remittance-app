@@ -21,7 +21,7 @@ $batch = is_array($batch ?? null) ? $batch : [];
             <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Edit Metadata Report</h2>
         </div>
         <div>
-            <a class="py-2 px-3.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-2 transition-colors" href="<?= url('/reports/' . $batch['id']) ?>">
+            <a class="py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-colors" href="<?= url('/reports/' . $batch['id']) ?>">
                 <i class="bi bi-arrow-left"></i>
                 Kembali
             </a>
@@ -69,10 +69,10 @@ $batch = is_array($batch ?? null) ? $batch : [];
                 </div>
 
                 <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
-                    <a class="py-2 px-4 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors" href="<?= url('/reports/' . $batch['id']) ?>">
+                    <a class="py-2 px-3.5 inline-flex items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors focus:outline-hidden focus:bg-gray-50" href="<?= url('/reports/' . $batch['id']) ?>">
                         Batal
                     </a>
-                    <button class="btn btn-primary py-2 px-4 text-xs font-medium rounded-lg inline-flex items-center gap-2" type="submit">
+                    <button class="btn-primary py-2 px-4 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg shadow-xs focus:outline-hidden" type="submit">
                         <i class="bi bi-save"></i>
                         Simpan Perubahan
                     </button>

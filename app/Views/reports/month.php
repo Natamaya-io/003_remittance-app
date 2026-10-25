@@ -35,13 +35,13 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
         </div>
 
         <div class="flex items-center gap-2">
-            <a class="py-2 px-3.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1.5 transition-colors" href="<?= e(url('/reports')) ?>">
+            <a class="py-2 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports')) ?>">
                 <i class="bi bi-arrow-left"></i>
                 Daftar Bulan
             </a>
             <?php if (can('report.manage')): ?>
-                <a class="btn btn-primary py-2 px-4 text-xs font-medium rounded-lg inline-flex items-center gap-2" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
-                    <i class="bi bi-cloud-arrow-up"></i>
+                <a class="btn btn-primary py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg focus:outline-none" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
+                    <i class="bi bi-cloud-arrow-up text-sm"></i>
                     Upload Excel
                 </a>
             <?php endif; ?>
@@ -65,7 +65,7 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                         <i class="bi bi-search text-xs"></i>
                     </div>
                 </div>
-                <button class="btn btn-primary py-2 px-4 text-xs font-medium rounded-lg inline-flex items-center gap-1.5 shrink-0" type="submit">
+                <button class="btn btn-primary py-2 px-3.5 inline-flex items-center justify-center gap-x-1.5 text-xs font-semibold rounded-lg shrink-0 focus:outline-none" type="submit">
                     <i class="bi bi-search"></i>
                     Cari
                 </button>
@@ -108,10 +108,10 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
             </div>
 
             <div class="flex items-center gap-2">
-                <a class="py-1.5 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors flex-1 text-center" href="<?= e(url('/reports/month/' . $month)) ?>">
+                <a class="py-1.5 px-3 inline-flex justify-center items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors flex-1" href="<?= e(url('/reports/month/' . $month)) ?>">
                     Reset
                 </a>
-                <button class="btn btn-primary py-1.5 px-3.5 text-xs font-medium rounded-lg inline-flex items-center gap-1.5 flex-1 justify-center" type="submit">
+                <button class="btn btn-primary py-1.5 px-3.5 inline-flex justify-center items-center gap-x-1.5 text-xs font-semibold rounded-lg focus:outline-none flex-1" type="submit">
                     <i class="bi bi-funnel"></i>
                     Filter
                 </button>
@@ -160,7 +160,7 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                     <button
                         id="hs-dropdown-month-options"
                         type="button"
-                        class="hs-dropdown-toggle inline-flex items-center gap-x-2 py-1.5 px-3 text-xs font-semibold rounded-xl border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none transition-colors"
+                        class="hs-dropdown-toggle py-1.5 px-3 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors"
                         aria-haspopup="menu"
                         aria-expanded="false"
                         aria-label="Menu Opsi"
@@ -176,28 +176,28 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                         aria-orientation="vertical"
                         aria-labelledby="hs-dropdown-month-options"
                     >
-                        <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
+                        <a class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
                             <i class="bi bi-cloud-arrow-up text-blue-600"></i>
                             Upload Excel Baru
                         </a>
                         <hr class="my-1 border-gray-100">
-                        <button type="button" @click="viewMode = 'table'" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none">
+                        <button type="button" @click="viewMode = 'table'" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors">
                             <i class="bi bi-table text-indigo-600"></i>
                             Tampilan Tabel
                         </button>
-                        <button type="button" @click="viewMode = 'list'" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none">
+                        <button type="button" @click="viewMode = 'list'" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors">
                             <i class="bi bi-list-ul text-amber-600"></i>
                             Tampilan List
                         </button>
                     </div>
                 </div>
 
-                <!-- Mode Switcher Buttons -->
-                <div class="inline-flex rounded-xl bg-gray-100 p-1 border border-gray-200">
+                <!-- Mode Switcher Buttons (Preline UI Segmented Group) -->
+                <div class="inline-flex rounded-lg shadow-xs p-0.5 bg-gray-100 border border-gray-200">
                     <button
                         type="button"
-                        class="inline-flex items-center gap-1.5 py-1 px-3 text-xs font-semibold rounded-lg transition-colors"
-                        :class="viewMode === 'table' ? 'bg-white text-gray-900 shadow-xs' : 'text-gray-500 hover:text-gray-800'"
+                        class="py-1 px-2.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-md transition-all focus:outline-none"
+                        :class="viewMode === 'table' ? 'bg-white text-gray-900 shadow-xs font-semibold' : 'text-gray-500 hover:text-gray-900'"
                         @click="viewMode = 'table'"
                     >
                         <i class="bi bi-table"></i>
@@ -205,8 +205,8 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                     </button>
                     <button
                         type="button"
-                        class="inline-flex items-center gap-1.5 py-1 px-3 text-xs font-semibold rounded-lg transition-colors"
-                        :class="viewMode === 'list' ? 'bg-white text-gray-900 shadow-xs' : 'text-gray-500 hover:text-gray-800'"
+                        class="py-1 px-2.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-md transition-all focus:outline-none"
+                        :class="viewMode === 'list' ? 'bg-white text-gray-900 shadow-xs font-semibold' : 'text-gray-500 hover:text-gray-900'"
                         @click="viewMode = 'list'"
                     >
                         <i class="bi bi-list-ul"></i>
@@ -307,7 +307,7 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                                     <?= e(format_datetime($lastUpload)) ?>
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap text-end">
-                                    <a class="btn btn-primary py-1.5 px-3 text-xs font-medium rounded-lg inline-flex items-center gap-1.5" href="<?= e(url($dateUrl)) ?>">
+                                    <a class="btn btn-primary py-1 px-2.5 inline-flex items-center gap-x-1 text-xs font-semibold rounded-lg focus:outline-none transition-colors" href="<?= e(url($dateUrl)) ?>">
                                         Buka Tim
                                         <i class="bi bi-arrow-right"></i>
                                     </a>
@@ -422,7 +422,7 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                         <span class="text-[11px] text-gray-500 truncate">
                             Upload: <?= e(format_datetime($lastUpload)) ?>
                         </span>
-                        <a class="btn btn-primary py-1.5 px-3 text-xs font-medium rounded-lg inline-flex items-center gap-1.5 shrink-0" href="<?= e(url($dateUrl)) ?>">
+                        <a class="btn btn-primary py-1.5 px-3 inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg shrink-0 focus:outline-none transition-colors" href="<?= e(url($dateUrl)) ?>">
                             Buka Tim
                             <i class="bi bi-arrow-right"></i>
                         </a>
@@ -436,8 +436,8 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                     <h3 class="text-base font-bold text-gray-800 mb-1">Belum ada report pada bulan ini</h3>
                     <p class="text-xs text-gray-500 mb-4">Upload berkas Excel untuk membentuk daftar tanggal transaksi otomatis.</p>
                     <?php if (can('report.manage')): ?>
-                        <a class="btn btn-primary py-2 px-4 text-xs font-medium rounded-lg inline-flex items-center gap-2" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
-                            <i class="bi bi-cloud-arrow-up"></i>
+                        <a class="btn btn-primary py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg focus:outline-none" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
+                            <i class="bi bi-cloud-arrow-up text-sm"></i>
                             Upload Excel
                         </a>
                     <?php endif; ?>

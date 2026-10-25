@@ -36,17 +36,17 @@ $returnPath = '/reports/date/' . $date;
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
-            <a class="py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1.5 transition-colors" href="<?= e(url('/reports/month/' . $monthKey)) ?>">
+            <a class="py-2 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports/month/' . $monthKey)) ?>">
                 <i class="bi bi-arrow-left"></i>
                 Daftar Tanggal
             </a>
-            <a class="py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1.5 transition-colors" href="<?= e(url('/reports/date/' . $date . '/export')) ?>">
-                <i class="bi bi-file-earmark-excel"></i>
+            <a class="py-2 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports/date/' . $date . '/export')) ?>">
+                <i class="bi bi-file-earmark-excel text-emerald-600"></i>
                 Export Semua
             </a>
             <?php if (can('report.manage')): ?>
-                <a class="btn btn-primary py-2 px-3.5 text-xs font-medium rounded-lg inline-flex items-center gap-1.5" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
-                    <i class="bi bi-cloud-arrow-up"></i>
+                <a class="btn btn-primary py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg focus:outline-none" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
+                    <i class="bi bi-cloud-arrow-up text-sm"></i>
                     Tambah Excel
                 </a>
             <?php endif; ?>
@@ -70,7 +70,7 @@ $returnPath = '/reports/date/' . $date;
                         <i class="bi bi-search text-xs"></i>
                     </div>
                 </div>
-                <button class="btn btn-primary py-2 px-4 text-xs font-medium rounded-lg inline-flex items-center gap-1.5 shrink-0" type="submit">
+                <button class="btn btn-primary py-2 px-3.5 inline-flex items-center justify-center gap-x-1.5 text-xs font-semibold rounded-lg shrink-0 focus:outline-none" type="submit">
                     <i class="bi bi-search"></i>
                     Cari
                 </button>
@@ -113,10 +113,10 @@ $returnPath = '/reports/date/' . $date;
             </div>
 
             <div class="flex items-center gap-2">
-                <a class="py-1.5 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors flex-1 text-center" href="<?= e(url('/reports/date/' . $date)) ?>">
+                <a class="py-1.5 px-3 inline-flex justify-center items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors flex-1" href="<?= e(url('/reports/date/' . $date)) ?>">
                     Reset
                 </a>
-                <button class="btn btn-primary py-1.5 px-3.5 text-xs font-medium rounded-lg inline-flex items-center gap-1.5 flex-1 justify-center" type="submit">
+                <button class="btn btn-primary py-1.5 px-3.5 inline-flex justify-center items-center gap-x-1.5 text-xs font-semibold rounded-lg focus:outline-none flex-1" type="submit">
                     <i class="bi bi-funnel"></i>
                     Filter
                 </button>
@@ -165,7 +165,7 @@ $returnPath = '/reports/date/' . $date;
                     <button
                         id="hs-dropdown-date-options"
                         type="button"
-                        class="hs-dropdown-toggle inline-flex items-center gap-x-2 py-1.5 px-3 text-xs font-semibold rounded-xl border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none transition-colors"
+                        class="hs-dropdown-toggle py-1.5 px-3 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors"
                         aria-haspopup="menu"
                         aria-expanded="false"
                         aria-label="Menu Opsi"
@@ -181,32 +181,32 @@ $returnPath = '/reports/date/' . $date;
                         aria-orientation="vertical"
                         aria-labelledby="hs-dropdown-date-options"
                     >
-                        <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
+                        <a class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
                             <i class="bi bi-cloud-arrow-up text-blue-600"></i>
                             Tambah Berkas Excel
                         </a>
-                        <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none" href="<?= e(url('/reports/date/' . $date . '/export')) ?>">
+                        <a class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors" href="<?= e(url('/reports/date/' . $date . '/export')) ?>">
                             <i class="bi bi-file-earmark-excel text-emerald-600"></i>
                             Export Semua Berkas
                         </a>
                         <hr class="my-1 border-gray-100">
-                        <button type="button" @click="viewMode = 'table'" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none">
+                        <button type="button" @click="viewMode = 'table'" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors">
                             <i class="bi bi-table text-indigo-600"></i>
                             Tampilan Tabel
                         </button>
-                        <button type="button" @click="viewMode = 'list'" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none">
+                        <button type="button" @click="viewMode = 'list'" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors">
                             <i class="bi bi-list-ul text-amber-600"></i>
                             Tampilan List
                         </button>
                     </div>
                 </div>
 
-                <!-- Mode Switcher Buttons -->
-                <div class="inline-flex rounded-xl bg-gray-100 p-1 border border-gray-200">
+                <!-- Mode Switcher Buttons (Preline UI Segmented Group) -->
+                <div class="inline-flex rounded-lg shadow-xs p-0.5 bg-gray-100 border border-gray-200">
                     <button
                         type="button"
-                        class="inline-flex items-center gap-1.5 py-1 px-3 text-xs font-semibold rounded-lg transition-colors"
-                        :class="viewMode === 'table' ? 'bg-white text-gray-900 shadow-xs' : 'text-gray-500 hover:text-gray-800'"
+                        class="py-1 px-2.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-md transition-all focus:outline-none"
+                        :class="viewMode === 'table' ? 'bg-white text-gray-900 shadow-xs font-semibold' : 'text-gray-500 hover:text-gray-900'"
                         @click="viewMode = 'table'"
                     >
                         <i class="bi bi-table"></i>
@@ -214,8 +214,8 @@ $returnPath = '/reports/date/' . $date;
                     </button>
                     <button
                         type="button"
-                        class="inline-flex items-center gap-1.5 py-1 px-3 text-xs font-semibold rounded-lg transition-colors"
-                        :class="viewMode === 'list' ? 'bg-white text-gray-900 shadow-xs' : 'text-gray-500 hover:text-gray-800'"
+                        class="py-1 px-2.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-md transition-all focus:outline-none"
+                        :class="viewMode === 'list' ? 'bg-white text-gray-900 shadow-xs font-semibold' : 'text-gray-500 hover:text-gray-800'"
                         @click="viewMode = 'list'"
                     >
                         <i class="bi bi-list-ul"></i>
@@ -306,23 +306,23 @@ $returnPath = '/reports/date/' . $date;
                                     </div>
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap text-end">
-                                    <div class="inline-flex items-center gap-1">
-                                        <a class="btn btn-primary py-1.5 px-3 text-xs font-medium rounded-lg inline-flex items-center gap-1" href="<?= e(url('/reports/' . $batch['id'])) ?>">
+                                    <div class="inline-flex items-center gap-1.5 justify-end">
+                                        <a class="btn btn-primary py-1 px-2.5 inline-flex items-center gap-x-1 text-xs font-semibold rounded-lg focus:outline-none transition-colors" href="<?= e(url('/reports/' . $batch['id'])) ?>">
                                             <i class="bi bi-table"></i>
                                             Buka
                                         </a>
-                                        <a class="p-1.5 inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors" href="<?= e(url('/reports/' . $batch['id'] . '/export')) ?>" title="Export Excel">
-                                            <i class="bi bi-file-earmark-excel"></i>
+                                        <a class="size-7 inline-flex justify-center items-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports/' . $batch['id'] . '/export')) ?>" title="Export Excel">
+                                            <i class="bi bi-file-earmark-excel text-emerald-600"></i>
                                         </a>
                                         <?php if (can('report.manage')): ?>
-                                            <a class="p-1.5 inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors" href="<?= e(url('/reports/' . $batch['id'] . '/edit')) ?>" title="Edit">
+                                            <a class="size-7 inline-flex justify-center items-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports/' . $batch['id'] . '/edit')) ?>" title="Edit">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
                                             <form class="inline-block m-0" method="post" action="<?= e(url('/reports/' . $batch['id'])) ?>" data-confirm="Hapus report ini beserta seluruh barisnya?">
                                                 <?= csrf_field() ?>
                                                 <?= method_field('DELETE') ?>
                                                 <input type="hidden" name="return_to" value="<?= e($returnPath) ?>">
-                                                <button class="p-1.5 inline-flex items-center justify-center rounded-lg border border-red-200 bg-white text-red-600 hover:bg-red-50 shadow-xs transition-colors" type="submit" title="Hapus">
+                                                <button class="size-7 inline-flex justify-center items-center rounded-lg border border-red-200 bg-white text-red-600 shadow-xs hover:bg-red-50 hover:border-red-300 focus:outline-none focus:bg-red-50 transition-colors" type="submit" title="Hapus">
                                                     <i class="bi bi-trash"></i>
                                                 </button>
                                             </form>
@@ -417,26 +417,26 @@ $returnPath = '/reports/date/' . $date;
 
                     <!-- Card Footer Actions -->
                     <div class="pt-3 border-t border-gray-100 flex items-center justify-between gap-2">
-                        <div class="flex items-center gap-1">
-                            <a class="p-1.5 inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors" href="<?= e(url('/reports/' . $batch['id'] . '/export')) ?>" title="Export Excel">
-                                <i class="bi bi-file-earmark-excel"></i>
+                        <div class="flex items-center gap-1.5">
+                            <a class="size-8 inline-flex justify-center items-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports/' . $batch['id'] . '/export')) ?>" title="Export Excel">
+                                <i class="bi bi-file-earmark-excel text-emerald-600"></i>
                             </a>
                             <?php if (can('report.manage')): ?>
-                                <a class="p-1.5 inline-flex items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors" href="<?= e(url('/reports/' . $batch['id'] . '/edit')) ?>" title="Edit">
+                                <a class="size-8 inline-flex justify-center items-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports/' . $batch['id'] . '/edit')) ?>" title="Edit">
                                     <i class="bi bi-pencil"></i>
                                 </a>
                                 <form class="inline-block m-0" method="post" action="<?= e(url('/reports/' . $batch['id'])) ?>" data-confirm="Hapus report ini beserta seluruh barisnya?">
                                     <?= csrf_field() ?>
                                     <?= method_field('DELETE') ?>
                                     <input type="hidden" name="return_to" value="<?= e($returnPath) ?>">
-                                    <button class="p-1.5 inline-flex items-center justify-center rounded-lg border border-red-200 bg-white text-red-600 hover:bg-red-50 shadow-xs transition-colors" type="submit" title="Hapus">
+                                    <button class="size-8 inline-flex justify-center items-center rounded-lg border border-red-200 bg-white text-red-600 shadow-xs hover:bg-red-50 hover:border-red-300 focus:outline-none focus:bg-red-50 transition-colors" type="submit" title="Hapus">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 </form>
                             <?php endif; ?>
                         </div>
 
-                        <a class="btn btn-primary py-1.5 px-3.5 text-xs font-medium rounded-lg inline-flex items-center gap-1.5" href="<?= e(url('/reports/' . $batch['id'])) ?>">
+                        <a class="btn btn-primary py-1.5 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg focus:outline-none transition-colors" href="<?= e(url('/reports/' . $batch['id'])) ?>">
                             <i class="bi bi-table"></i>
                             Buka Report
                         </a>
@@ -450,8 +450,8 @@ $returnPath = '/reports/date/' . $date;
                     <h3 class="text-base font-bold text-gray-800 mb-1">Tidak ada report tim</h3>
                     <p class="text-xs text-gray-500 mb-4">Belum ada berkas pada tanggal ini atau data tidak cocok dengan filter yang dipilih.</p>
                     <?php if (can('report.manage')): ?>
-                        <a class="btn btn-primary py-2 px-4 text-xs font-medium rounded-lg inline-flex items-center gap-2" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
-                            <i class="bi bi-cloud-arrow-up"></i>
+                        <a class="btn btn-primary py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg focus:outline-none" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
+                            <i class="bi bi-cloud-arrow-up text-sm"></i>
                             Tambah Excel
                         </a>
                     <?php endif; ?>

@@ -48,8 +48,8 @@ $activeAdvancedFilters = array_filter(
 
         <?php if (can('report.manage')): ?>
             <div class="flex items-center gap-2">
-                <a class="btn btn-primary py-2 px-4 text-xs font-medium rounded-lg inline-flex items-center gap-2" href="<?= e(url('/reports/create')) ?>">
-                    <i class="bi bi-cloud-arrow-up"></i>
+                <a class="btn btn-primary py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg focus:outline-none" href="<?= e(url('/reports/create')) ?>">
+                    <i class="bi bi-cloud-arrow-up text-sm"></i>
                     Upload Excel
                 </a>
             </div>
@@ -82,7 +82,7 @@ $activeAdvancedFilters = array_filter(
                     </div>
                 </div>
 
-                <button class="btn btn-primary py-2 px-4 text-xs font-medium rounded-lg inline-flex items-center gap-1.5 shrink-0" type="submit">
+                <button class="btn btn-primary py-2 px-3.5 inline-flex items-center justify-center gap-x-1.5 text-xs font-semibold rounded-lg shrink-0 focus:outline-none" type="submit">
                     <i class="bi bi-search"></i>
                     Cari
                 </button>
@@ -94,7 +94,7 @@ $activeAdvancedFilters = array_filter(
          FILTER LANJUTAN (ALPINE.JS ACCORDION)
          ========================================================= -->
     <div x-data="{ openFilter: <?= $activeAdvancedFilters !== [] ? 'true' : 'false' ?> }" class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-xs">
-        <button type="button" @click="openFilter = !openFilter" class="w-full flex items-center justify-between text-left focus:outline-none">
+        <button type="button" @click="openFilter = !openFilter" class="w-full flex items-center justify-between text-start p-1.5 -m-1.5 rounded-xl hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors">
             <div class="flex items-center gap-2.5">
                 <span class="size-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm">
                     <i class="bi bi-sliders"></i>
@@ -156,10 +156,10 @@ $activeAdvancedFilters = array_filter(
             </div>
 
             <div class="sm:col-span-2 lg:col-span-3 flex items-center justify-end gap-2 pt-2 border-t border-gray-100">
-                <a class="py-1.5 px-3.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors" href="<?= e(url('/reports')) ?>">
+                <a class="py-1.5 px-3 inline-flex justify-center items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports')) ?>">
                     Reset
                 </a>
-                <button class="btn btn-primary py-1.5 px-4 text-xs font-medium rounded-lg inline-flex items-center gap-1.5" type="submit">
+                <button class="btn btn-primary py-1.5 px-3.5 inline-flex justify-center items-center gap-x-1.5 text-xs font-semibold rounded-lg focus:outline-none" type="submit">
                     <i class="bi bi-funnel"></i>
                     Terapkan Filter
                 </button>
@@ -208,7 +208,7 @@ $activeAdvancedFilters = array_filter(
                     <button
                         id="hs-dropdown-report-options"
                         type="button"
-                        class="hs-dropdown-toggle inline-flex items-center gap-x-2 py-1.5 px-3 text-xs font-semibold rounded-xl border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none transition-colors"
+                        class="hs-dropdown-toggle py-1.5 px-3 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors"
                         aria-haspopup="menu"
                         aria-expanded="false"
                         aria-label="Menu Opsi"
@@ -224,32 +224,32 @@ $activeAdvancedFilters = array_filter(
                         aria-orientation="vertical"
                         aria-labelledby="hs-dropdown-report-options"
                     >
-                        <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none" href="<?= e(url('/reports/create')) ?>">
+                        <a class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors" href="<?= e(url('/reports/create')) ?>">
                             <i class="bi bi-cloud-arrow-up text-blue-600"></i>
                             Upload Report Baru
                         </a>
-                        <a class="flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none" href="<?= e(url('/reports/search')) ?>">
+                        <a class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors" href="<?= e(url('/reports/search')) ?>">
                             <i class="bi bi-search text-emerald-600"></i>
                             Pencarian Global
                         </a>
                         <hr class="my-1 border-gray-100">
-                        <button type="button" @click="viewMode = 'table'" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none">
+                        <button type="button" @click="viewMode = 'table'" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors">
                             <i class="bi bi-table text-indigo-600"></i>
                             Tampilan Tabel
                         </button>
-                        <button type="button" @click="viewMode = 'list'" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none">
+                        <button type="button" @click="viewMode = 'list'" class="w-full flex items-center gap-x-3 py-2 px-3 rounded-lg text-xs text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition-colors">
                             <i class="bi bi-list-ul text-amber-600"></i>
                             Tampilan List
                         </button>
                     </div>
                 </div>
 
-                <!-- Mode Switcher Buttons -->
-                <div class="inline-flex rounded-xl bg-gray-100 p-1 border border-gray-200">
+                <!-- Mode Switcher Buttons (Preline UI Segmented Group) -->
+                <div class="inline-flex rounded-lg shadow-xs p-0.5 bg-gray-100 border border-gray-200">
                     <button
                         type="button"
-                        class="inline-flex items-center gap-1.5 py-1 px-3 text-xs font-semibold rounded-lg transition-colors"
-                        :class="viewMode === 'table' ? 'bg-white text-gray-900 shadow-xs' : 'text-gray-500 hover:text-gray-800'"
+                        class="py-1 px-2.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-md transition-all focus:outline-none"
+                        :class="viewMode === 'table' ? 'bg-white text-gray-900 shadow-xs font-semibold' : 'text-gray-500 hover:text-gray-900'"
                         @click="viewMode = 'table'"
                     >
                         <i class="bi bi-table"></i>
@@ -257,8 +257,8 @@ $activeAdvancedFilters = array_filter(
                     </button>
                     <button
                         type="button"
-                        class="inline-flex items-center gap-1.5 py-1 px-3 text-xs font-semibold rounded-lg transition-colors"
-                        :class="viewMode === 'list' ? 'bg-white text-gray-900 shadow-xs' : 'text-gray-500 hover:text-gray-800'"
+                        class="py-1 px-2.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-md transition-all focus:outline-none"
+                        :class="viewMode === 'list' ? 'bg-white text-gray-900 shadow-xs font-semibold' : 'text-gray-500 hover:text-gray-900'"
                         @click="viewMode = 'list'"
                     >
                         <i class="bi bi-list-ul"></i>
@@ -376,7 +376,7 @@ $activeAdvancedFilters = array_filter(
                                     <?= e(format_datetime($lastUpload)) ?>
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap text-end">
-                                    <a class="btn btn-primary py-1.5 px-3 text-xs font-medium rounded-lg inline-flex items-center gap-1.5" href="<?= e(url($monthUrl)) ?>">
+                                    <a class="btn btn-primary py-1 px-2.5 inline-flex items-center gap-x-1 text-xs font-semibold rounded-lg focus:outline-none transition-colors" href="<?= e(url($monthUrl)) ?>">
                                         Buka Bulan
                                         <i class="bi bi-arrow-right"></i>
                                     </a>
@@ -504,7 +504,7 @@ $activeAdvancedFilters = array_filter(
                         <span class="text-[11px] text-gray-500 truncate">
                             Upload: <?= e(format_datetime($lastUpload)) ?>
                         </span>
-                        <a class="btn btn-primary py-1.5 px-3 text-xs font-medium rounded-lg inline-flex items-center gap-1.5 shrink-0" href="<?= e(url($monthUrl)) ?>">
+                        <a class="btn btn-primary py-1.5 px-3 inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg shrink-0 focus:outline-none transition-colors" href="<?= e(url($monthUrl)) ?>">
                             Buka Tanggal
                             <i class="bi bi-arrow-right"></i>
                         </a>
@@ -518,8 +518,8 @@ $activeAdvancedFilters = array_filter(
                     <h3 class="text-base font-bold text-gray-800 mb-1">Tidak ada bulan yang cocok</h3>
                     <p class="text-xs text-gray-500 mb-4">Ubah filter atau upload report baru untuk mulai mengisi data.</p>
                     <?php if (can('report.manage')): ?>
-                        <a class="btn btn-primary py-2 px-4 text-xs font-medium rounded-lg inline-flex items-center gap-2" href="<?= e(url('/reports/create')) ?>">
-                            <i class="bi bi-cloud-arrow-up"></i>
+                        <a class="btn btn-primary py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg focus:outline-none" href="<?= e(url('/reports/create')) ?>">
+                            <i class="bi bi-cloud-arrow-up text-sm"></i>
                             Upload Report
                         </a>
                     <?php endif; ?>
