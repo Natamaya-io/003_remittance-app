@@ -172,9 +172,14 @@
 
     background: #fff;
 
-    color: var(--fx-blue);
+    color: #111827;
 
     font-size: 15px;
+}
+
+.fx-modern-refresh:hover {
+    color: #000000;
+    border-color: #cbd5e1;
 }
 
 
@@ -267,7 +272,7 @@
     transform:
         translateY(-50%);
 
-    color: #94a3b8;
+    color: #111827;
 
     font-size: 15px;
 }
@@ -735,7 +740,7 @@
 
     margin-top: 8px;
 
-    color: #7c8da2;
+    color: #111827;
 
     font-size: 8px;
     font-weight: 700;

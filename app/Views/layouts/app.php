@@ -1224,8 +1224,7 @@ $flashes = Flash::all();
         }
 
 
-        .icon-btn,
-        .dashboard-small-link {
+        .icon-btn {
 
             color:
                 #713bc8
@@ -1237,6 +1236,87 @@ $flashes = Flash::all();
 
             border-color:
                 #e5d6e6
+                !important;
+        }
+
+        .dashboard-small-link {
+            color:
+                #111827
+                !important;
+
+            background:
+                #ffffff
+                !important;
+
+            border:
+                1px solid #d1d5db
+                !important;
+
+            border-radius:
+                8px
+                !important;
+
+            display:
+                inline-flex
+                !important;
+
+            align-items:
+                center
+                !important;
+
+            gap:
+                6px
+                !important;
+
+            min-height:
+                32px
+                !important;
+
+            padding:
+                0 12px
+                !important;
+
+            font-size:
+                12.5px
+                !important;
+
+            font-weight:
+                600
+                !important;
+
+            text-decoration:
+                none
+                !important;
+
+            transition:
+                background-color 0.15s ease,
+                border-color 0.15s ease
+                !important;
+        }
+
+        .dashboard-small-link:hover {
+            color:
+                #000000
+                !important;
+
+            background:
+                #f3f4f6
+                !important;
+
+            border-color:
+                #9ca3af
+                !important;
+        }
+
+        .dashboard-small-link i {
+            color:
+                #111827
+                !important;
+        }
+
+        .dashboard-small-link:hover i {
+            color:
+                #000000
                 !important;
         }
 
@@ -2028,96 +2108,25 @@ $flashes = Flash::all();
         }
 
 
+        /* 14. NAKED MONOCHROME ICONS: QUICK ACTION */
+        .dashboard-quick-item > i:first-child {
+            color: #111827 !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            font-size: 1.125rem !important;
+            line-height: 1 !important;
+            flex-shrink: 0 !important;
+        }
+
         .dashboard-quick-arrow {
-
-            color:
-                #9ca3af
-                !important;
+            color: #9ca3af !important;
+            transition: color 0.15s ease !important;
         }
 
-
-        .dashboard-quick-item.blue
-        .dashboard-quick-icon {
-
-            color:
-                #2563eb
-                !important;
-
-            background:
-                #eff6ff
-                !important;
-
-            border:
-                1px solid #dbeafe
-                !important;
-        }
-
-
-        .dashboard-quick-item.green
-        .dashboard-quick-icon {
-
-            color:
-                #059669
-                !important;
-
-            background:
-                #ecfdf5
-                !important;
-
-            border:
-                1px solid #a7f3d0
-                !important;
-        }
-
-
-        .dashboard-quick-item.purple
-        .dashboard-quick-icon {
-
-            color:
-                #7c3aed
-                !important;
-
-            background:
-                #f5f3ff
-                !important;
-
-            border:
-                1px solid #ddd6fe
-                !important;
-        }
-
-
-        .dashboard-quick-item.orange
-        .dashboard-quick-icon {
-
-            color:
-                #d97706
-                !important;
-
-            background:
-                #fffbeb
-                !important;
-
-            border:
-                1px solid #fde68a
-                !important;
-        }
-
-
-        .dashboard-quick-item.cyan
-        .dashboard-quick-icon {
-
-            color:
-                #0d9488
-                !important;
-
-            background:
-                #f0fdfa
-                !important;
-
-            border:
-                1px solid #99f6e4
-                !important;
+        .dashboard-quick-item:hover .dashboard-quick-arrow {
+            color: #111827 !important;
         }
 
         /* =================================================
@@ -2238,104 +2247,38 @@ $flashes = Flash::all();
         }
 
 
-        /* KPI ICON SOLID ACCENTS */
-
-        .dashboard-kpi-card
-        .dashboard-kpi-icon {
-
-            text-shadow:
-                none
-                !important;
+        /* 14. NAKED MONOCHROME ICONS: KPI CARDS */
+        .dashboard-kpi-card > i:first-child {
+            color: #111827 !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            font-size: 1.25rem !important;
+            line-height: 1 !important;
+            flex-shrink: 0 !important;
+            text-shadow: none !important;
         }
 
-        .dashboard-kpi-icon.blue {
-
-            color:
-                #2563eb
-                !important;
-
-            background:
-                #eff6ff
-                !important;
-
-            border:
-                1px solid #dbeafe
-                !important;
+        /* 14. NAKED MONOCHROME ICONS: TOOLTIP INFO TOGGLE (i) */
+        .info-toggle-btn {
+            background-color: transparent !important;
+            border-color: transparent !important;
+            color: #9ca3af !important;
+            box-shadow: none !important;
+            outline: none !important;
+            transition: color 0.15s ease !important;
         }
 
-        .dashboard-kpi-icon.green {
-
-            color:
-                #059669
-                !important;
-
-            background:
-                #ecfdf5
-                !important;
-
-            border:
-                1px solid #a7f3d0
-                !important;
-        }
-
-        .dashboard-kpi-icon.red {
-
-            color:
-                #dc2626
-                !important;
-
-            background:
-                #fef2f2
-                !important;
-
-            border:
-                1px solid #fecaca
-                !important;
-        }
-
-        .dashboard-kpi-icon.orange {
-
-            color:
-                #d97706
-                !important;
-
-            background:
-                #fffbeb
-                !important;
-
-            border:
-                1px solid #fde68a
-                !important;
-        }
-
-        .dashboard-kpi-icon.purple {
-
-            color:
-                #7c3aed
-                !important;
-
-            background:
-                #f5f3ff
-                !important;
-
-            border:
-                1px solid #ddd6fe
-                !important;
-        }
-
-        .dashboard-kpi-icon.teal {
-
-            color:
-                #0d9488
-                !important;
-
-            background:
-                #f0fdfa
-                !important;
-
-            border:
-                1px solid #99f6e4
-                !important;
+        .info-toggle-btn:hover,
+        .info-toggle-btn:focus-visible,
+        .info-toggle-btn.is-active,
+        .info-toggle-btn[aria-expanded="true"] {
+            background-color: transparent !important;
+            border-color: transparent !important;
+            color: #111827 !important;
+            box-shadow: none !important;
+            outline: none !important;
         }
         /* =================================================
            28. DASHBOARD STATUS
@@ -4433,9 +4376,7 @@ $flashes = Flash::all();
             <!-- Header Modal -->
             <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-100">
                 <div class="flex items-center gap-2.5">
-                    <span class="size-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-base">
-                        <i class="bi bi-search"></i>
-                    </span>
+                    <i class="bi bi-search text-gray-900 text-lg leading-none shrink-0" aria-hidden="true"></i>
                     <div>
                         <strong class="text-sm font-bold text-gray-900 block" x-text="title"></strong>
                         <span class="text-xs text-gray-500 block" x-text="subtitle"></span>

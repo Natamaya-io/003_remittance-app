@@ -407,31 +407,25 @@ $fxBoardFile =
             <?php foreach ($quickActions as $action): ?>
 
                 <a
-                    class="
-                        dashboard-quick-item
-                        <?= e(
-                            (string) $action['tone']
-                        ) ?>
-                    "
+                    class="dashboard-quick-item"
                     href="<?= e(
                         (string) $action['url']
                     ) ?>"
                 >
 
-
-                    <span class="dashboard-quick-icon">
-
-                        <i
-                            class="
-                                bi
-                                <?= e(
-                                    (string) $action['icon']
-                                ) ?>
-                            "
-                        ></i>
-
-                    </span>
-
+                    <i
+                        class="
+                            bi
+                            <?= e(
+                                (string) $action['icon']
+                            ) ?>
+                            text-gray-900
+                            text-lg
+                            leading-none
+                            shrink-0
+                        "
+                        aria-hidden="true"
+                    ></i>
 
                     <span class="dashboard-quick-copy">
 
@@ -455,15 +449,14 @@ $fxBoardFile =
 
                     </span>
 
-
                     <i
                         class="
                             bi
                             bi-arrow-up-right
                             dashboard-quick-arrow
                         "
+                        aria-hidden="true"
                     ></i>
-
 
                 </a>
 
@@ -487,30 +480,21 @@ $fxBoardFile =
 
             <article class="dashboard-kpi-card">
 
-
-                <span
+                <i
                     class="
-                        dashboard-kpi-icon
+                        bi
                         <?= e(
-                            (string) $card['tone']
+                            (string) $card['icon']
                         ) ?>
+                        text-gray-900
+                        text-xl
+                        leading-none
+                        shrink-0
                     "
-                >
-
-                    <i
-                        class="
-                            bi
-                            <?= e(
-                                (string) $card['icon']
-                            ) ?>
-                        "
-                    ></i>
-
-                </span>
-
+                    aria-hidden="true"
+                ></i>
 
                 <div>
-
 
                     <span class="inline-flex items-center gap-1">
 
@@ -530,7 +514,6 @@ $fxBoardFile =
 
                     </span>
 
-
                     <strong>
 
                         <?= number_format(
@@ -542,9 +525,7 @@ $fxBoardFile =
 
                     </strong>
 
-
                 </div>
-
 
             </article>
 
@@ -908,14 +889,14 @@ $fxBoardFile =
                     placeholder="Cari transaksi (referensi, PT, penerima)..."
                     class="py-1.5 px-3 ps-8 block w-full border border-gray-200 rounded-lg text-xs focus:border-blue-500 focus:ring-blue-500"
                 >
-                <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-2.5 text-gray-400">
+                <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-2.5 text-gray-900">
                     <i class="bi bi-search text-xs"></i>
                 </div>
                 <button
                     type="button"
                     x-show="search.length > 0"
                     @click="search = ''"
-                    class="absolute inset-y-0 end-0 flex items-center pe-2.5 text-gray-400 hover:text-gray-600"
+                    class="absolute inset-y-0 end-0 flex items-center pe-2.5 text-gray-900 hover:text-black"
                     style="display: none;"
                 >
                     <i class="bi bi-x-circle text-xs"></i>
