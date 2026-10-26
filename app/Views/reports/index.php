@@ -44,7 +44,7 @@ $activeAdvancedFilters = array_filter(
     <div class="flex items-center justify-end gap-2">
         <?= render_search_modal_trigger([
             'action' => url('/reports/search'),
-            'placeholder' => 'Ketik kata kunci transaksi...',
+            'placeholder' => 'Search products, pages, and features...',
             'query' => (string) ($filters['q'] ?? ''),
         ]) ?>
 

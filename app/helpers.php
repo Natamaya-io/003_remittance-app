@@ -459,15 +459,20 @@ function render_search_input(string $name = 'q', string $value = '', array $opti
 }
 
 /**
- * Render Search Trigger Button (opens Search Modal)
+ * Render Search Trigger Button (opens Command Palette Search Modal)
+ *
+ * Mengikuti spesifikasi Cloudflare Command Palette:
+ * - Tampilan bar pencarian elegan dengan leading search icon
+ * - Placeholder teks yang bersih dan netral
+ * - Trailing keyboard shortcut badge (Ctrl K / /)
  *
  * @param array{
+ *   style?: 'bar'|'button',
  *   label?: string,
  *   icon?: string,
  *   showKbd?: bool,
+ *   kbdText?: string,
  *   action?: string,
- *   title?: string,
- *   subtitle?: string,
  *   placeholder?: string,
  *   query?: string,
  *   extraParams?: array<string, string>,
@@ -476,21 +481,48 @@ function render_search_input(string $name = 'q', string $value = '', array $opti
  */
 function render_search_modal_trigger(array $options = []): string
 {
-    $label = (string) ($options['label'] ?? 'Cari');
+    $style = (string) ($options['style'] ?? 'bar');
+    $label = (string) ($options['label'] ?? 'Search');
     $icon = (string) ($options['icon'] ?? 'bi-search');
+    $placeholder = (string) ($options['placeholder'] ?? 'Search products, pages, and features...');
     $showKbd = array_key_exists('showKbd', $options) ? (bool) $options['showKbd'] : true;
-    $class = (string) ($options['class'] ?? 'btn btn-primary py-2 px-3.5 inline-flex items-center justify-center gap-x-1.5 text-xs font-semibold rounded-lg shrink-0 focus:outline-none');
+    $kbdText = (string) ($options['kbdText'] ?? 'Ctrl K');
 
     $modalConfig = [
         'action' => (string) ($options['action'] ?? url('/reports/search')),
-        'title' => (string) ($options['title'] ?? 'Cari Transaksi'),
-        'subtitle' => (string) ($options['subtitle'] ?? ''),
-        'placeholder' => (string) ($options['placeholder'] ?? 'Ketik kata kunci transaksi...'),
+        'placeholder' => $placeholder,
         'query' => (string) ($options['query'] ?? ''),
         'extraParams' => (array) ($options['extraParams'] ?? []),
     ];
 
     $jsonConfig = json_encode($modalConfig, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
+
+    if ($style === 'button') {
+        $class = (string) ($options['class'] ?? 'btn btn-primary py-2 px-3.5 inline-flex items-center justify-center gap-x-1.5 text-xs font-semibold rounded-lg shrink-0 focus:outline-none');
+        ob_start();
+        ?>
+        <button
+            type="button"
+            x-data
+            @click.stop="$dispatch('open-search-modal', <?= e($jsonConfig) ?>)"
+            onclick="event.stopPropagation(); window.openSearchModal ? window.openSearchModal(JSON.parse(this.dataset.searchConfig || '{}')) : null; return false;"
+            data-search-config="<?= e($jsonConfig) ?>"
+            class="<?= e($class) ?>"
+            aria-label="<?= e($label) ?>"
+            title="<?= e($label) ?> (Tekan / atau Ctrl+K)"
+        >
+            <i class="bi <?= e($icon) ?>"></i>
+            <span><?= e($label) ?></span>
+            <?php if ($showKbd): ?>
+                <kbd class="ms-1 py-0.5 px-1.5 text-[10px] bg-white/20 border border-white/30 rounded text-white font-mono">/</kbd>
+            <?php endif; ?>
+        </button>
+        <?php
+        return (string) ob_get_clean();
+    }
+
+    // Default Cloudflare-style search bar trigger
+    $class = (string) ($options['class'] ?? 'inline-flex items-center justify-between gap-3 px-3.5 py-2 bg-white border border-gray-200 hover:border-gray-300 rounded-lg text-sm text-gray-400 shadow-xs cursor-pointer transition-colors w-full sm:w-72 md:w-80 select-none');
 
     ob_start();
     ?>
@@ -501,13 +533,15 @@ function render_search_modal_trigger(array $options = []): string
         onclick="event.stopPropagation(); window.openSearchModal ? window.openSearchModal(JSON.parse(this.dataset.searchConfig || '{}')) : null; return false;"
         data-search-config="<?= e($jsonConfig) ?>"
         class="<?= e($class) ?>"
-        aria-label="<?= e($label) ?>"
-        title="<?= e($label) ?> (Tekan / atau Ctrl+K)"
+        aria-label="<?= e($placeholder) ?>"
+        title="<?= e($placeholder) ?> (Tekan / atau Ctrl+K)"
     >
-        <i class="bi <?= e($icon) ?>"></i>
-        <span><?= e($label) ?></span>
+        <span class="inline-flex items-center gap-2.5 truncate">
+            <i class="bi <?= e($icon) ?> text-gray-400 text-sm shrink-0"></i>
+            <span class="text-gray-400 text-sm truncate"><?= e($placeholder) ?></span>
+        </span>
         <?php if ($showKbd): ?>
-            <kbd class="ms-1 py-0.5 px-1.5 text-[10px] bg-white/20 border border-white/30 rounded text-white font-mono">/</kbd>
+            <kbd class="ms-auto py-0.5 px-1.5 text-[10px] bg-gray-100 border border-gray-200 rounded text-gray-400 font-mono shrink-0"><?= e($kbdText) ?></kbd>
         <?php endif; ?>
     </button>
     <?php

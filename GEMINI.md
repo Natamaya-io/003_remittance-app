@@ -349,15 +349,19 @@ input[type="search"],
    - Hint tombol `<kbd>/</kbd>` yang halus muncul di sisi kanan saat input kosong.
    - Menekan tombol `/` pada keyboard (di luar input/textarea aktif) otomatis memindahkan fokus kursor ke search bar aktif.
 
-### 6.3. Arsitektur Search Bar Sebagai Modal Terpisah (Search Modal Architecture)
-Untuk menjaga kebersihan tata letak halaman (*Naked Page Architecture*) dan efisiensi ruang layar, bar pencarian utama pada area kartu dan header **DITAMPILKAN SEBAGAI MODAL TERPISAH**:
-1. **Pemicu Modal (Search Trigger Button):**
-   - Halaman merender tombol aksi ramping `.btn-primary` (atau tombol ikon topbar) berlabel "Cari" dengan ikon `<i class="bi bi-search"></i>` dan hint shortcut `<kbd>/</kbd>`.
+### 6.3. Arsitektur Search Bar Command Palette (Cloudflare Style Command Palette Law)
+Untuk menjaga kebersihan tata letak halaman (*Naked Page Architecture*), efisiensi ruang layar, serta pengalaman pencarian keyboard-first tingkat tinggi, bar pencarian utama beroperasi mengikuti arsitektur **Command Palette (Cloudflare Style)**:
+1. **Pemicu Modal (Search Trigger Bar):**
+   - Halaman merender pemicu bar pencarian elegan berlatar putih dengan border solid `#e5e7eb`, ikon `<i class="bi bi-search text-gray-400"></i>`, teks placeholder `'Search products, pages, and features...'`, serta keyboard shortcut badge `<kbd class="font-mono">Ctrl K</kbd>`.
    - Menggunakan helper resmi `render_search_modal_trigger()` yang otomatis memicu event `$dispatch('open-search-modal', { ... })`.
 2. **Modal Pencarian Global (`remitSearchModal`):**
-   - Dirender terpusat di `app/Views/layouts/app.php` dengan backdrop blur halus (`bg-gray-900/60 backdrop-blur-xs`).
-   - Dialog mengambang `max-w-xl` dengan animasi transisi opasitas murni.
-   - Input pencarian kustom langsung mendapatkan fokus otomatis (`$refs.modalSearchInput.focus()`).
+   - Dirender terpusat di `app/Views/layouts/app.php` dengan backdrop blur halus (`bg-gray-900/50 backdrop-blur-xs`).
+   - Dialog mengambang `max-w-2xl` tanpa padding luar, dengan border solid `#e5e7eb`, radius `rounded-xl`, dan bayangan `shadow-2xl`.
+   - **Top Search Bar:** Input pencarian borderless menyatu langsung di bagian teratas modal dengan leading icon `bi-search`, input unbordered focus-ring-0, dan badge `<kbd>Esc</kbd>` di sisi kanan.
+   - **Recents Section:** Menyajikan daftar modul operasional dan riwayat terbaru lengkap dengan ikon kategori, format `Judul — Subkategori`, status seleksi aktif dengan panah kanan `→`, serta navigasi keyboard panah atas/bawah.
+   - **Search Tips Section:** Menyajikan shortcut sintaks filter pencarian (seperti `payer:`, `benef:`, `bank:`, `tim:`) yang dapat dipilih untuk mengisi query seketika.
+   - **Footer Bar:** Menampilkan petunjuk pintasan keyboard murni (`↑ ↓ to navigate`, `↵ to select`) tanpa tombol submit/cancel redundant.
+   - Input pencarian langsung mendapatkan fokus otomatis (`$refs.modalSearchInput.focus()`).
    - Tombol shortcut global: Menekan tombol `/` atau kombinasi `Ctrl+K` / `Cmd+K` di mana saja (di luar input/textarea aktif) otomatis membuka Search Modal.
    - Menekan tombol `ESC` atau klik di luar area dialog otomatis menutup modal.
 
@@ -365,11 +369,10 @@ Untuk menjaga kebersihan tata letak halaman (*Naked Page Architecture*) dan efis
 Setiap view yang membutuhkan kontrol pencarian **MUTLAK WAJIB** menggunakan helper berikut di `app/helpers.php`:
 
 ```php
-<!-- Mode 1: Pemicu Modal Terpisah (Direkomendasikan untuk Header/Card) -->
+<!-- Mode 1: Pemicu Command Palette Bar (Direkomendasikan untuk Header/Card) -->
 <?= render_search_modal_trigger([
     'action'      => url('/reports/search'),
-    'title'       => 'Cari Transaksi',
-    'placeholder' => 'Ketik kata kunci transaksi...',
+    'placeholder' => 'Search products, pages, and features...',
     'query'       => (string) ($filters['q'] ?? ''),
 ]) ?>
 

@@ -4591,7 +4591,7 @@ $flashes = Flash::all();
 </div>
 
 <!-- =========================================================
-     GLOBAL SEARCH MODAL (SEARCH BAR SEBAGAI MODAL TERPISAH)
+     GLOBAL SEARCH MODAL (CLOUDFLARE STYLE COMMAND PALETTE)
      ========================================================= -->
 <div
     x-data="remitSearchModal({ defaultAction: '<?= e(url('/reports/search')) ?>' })"
@@ -4600,12 +4600,12 @@ $flashes = Flash::all();
 >
     <div
         x-show="isOpen"
-        class="fixed inset-0 z-[9998] flex items-start justify-center p-4 pt-16 sm:pt-24 bg-gray-900/60 backdrop-blur-xs overflow-y-auto"
+        class="fixed inset-0 z-[9998] flex items-start justify-center p-4 pt-16 sm:pt-20 bg-gray-900/50 backdrop-blur-xs overflow-y-auto"
         @click.self="closeModal()"
-        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter="transition ease-out duration-150"
         x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100"
-        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave="transition ease-in duration-100"
         x-transition:leave-start="opacity-100"
         x-transition:leave-end="opacity-0"
         role="dialog"
@@ -4613,91 +4613,143 @@ $flashes = Flash::all();
         style="display: none;"
     >
         <div
-            class="bg-white rounded-2xl max-w-xl w-full p-5 shadow-2xl border border-gray-200 relative"
+            class="bg-white rounded-xl max-w-2xl w-full shadow-2xl border border-gray-200 overflow-hidden text-left relative"
             @keydown.escape.window="closeModal()"
-            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter="transition ease-out duration-150"
             x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100"
         >
-            <!-- Header Modal -->
-            <div class="flex items-center justify-between pb-3 mb-4 border-b border-gray-100">
-                <div class="flex items-center gap-2.5">
-                    <i class="bi bi-search text-gray-900 text-lg leading-none shrink-0" aria-hidden="true"></i>
-                    <div>
-                        <strong class="text-sm font-bold text-gray-900 block" x-text="title"></strong>
-                        <span class="text-xs text-gray-500 block" x-show="subtitle && subtitle.trim().length > 0" x-text="subtitle"></span>
-                    </div>
-                </div>
-                <button
-                    type="button"
-                    @click="closeModal()"
-                    class="size-8 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 flex items-center justify-center transition-colors"
-                    aria-label="Tutup pencarian"
-                >
-                    <i class="bi bi-x-lg text-xs"></i>
-                </button>
-            </div>
-
-            <!-- Form Pencarian Modal -->
-            <form :action="action" method="get" @submit="submitSearch($event)">
+            <!-- Top Search Input Bar (Flush with top border) -->
+            <form x-ref="searchForm" :action="action" method="get" @submit.prevent="executeSearch(query)" class="m-0 p-0">
                 <template x-for="(param, idx) in extraParamsList" :key="idx">
                     <input type="hidden" :name="param.name" :value="param.value">
                 </template>
 
-                <div class="custom-search-bar mb-4">
-                    <span class="search-leading-icon" aria-hidden="true">
-                        <i class="bi bi-search text-base"></i>
-                    </span>
+                <div class="flex items-center px-4 py-3.5 border-b border-gray-200 bg-white">
+                    <i class="bi bi-search text-gray-400 text-base shrink-0" aria-hidden="true"></i>
                     <input
                         x-ref="modalSearchInput"
                         x-model="query"
-                        type="search"
+                        @keydown="handleKeydown($event)"
+                        type="text"
                         name="q"
-                        class="custom-search-input h-11 text-sm ps-10 pe-10 rounded-xl"
+                        class="w-full bg-transparent border-0 outline-none focus:outline-none focus:ring-0 text-gray-900 placeholder:text-gray-400 text-sm sm:text-[15px] px-3 font-normal"
                         :placeholder="placeholder"
                         autocomplete="off"
-                        required
+                        spellcheck="false"
                     >
                     <button
                         type="button"
-                        x-show="query && query.length > 0"
-                        x-cloak
-                        @click="query = ''; $refs.modalSearchInput.focus()"
-                        class="search-clear-btn"
-                        aria-label="Hapus kata kunci pencarian"
+                        @click="closeModal()"
+                        class="inline-flex items-center justify-center px-1.5 py-0.5 text-xs text-gray-400 hover:text-gray-600 bg-gray-100 hover:bg-gray-200 border border-gray-200 rounded font-sans transition-colors cursor-pointer select-none shrink-0"
+                        aria-label="Tutup pencarian"
                     >
-                        <i class="bi bi-x-circle-fill text-xs"></i>
+                        Esc
                     </button>
                 </div>
-
-                <!-- Footer Aksi -->
-                <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-3 border-t border-gray-100 text-xs">
-                    <div class="flex items-center gap-1.5 text-gray-400 text-[11px]">
-                        <span>Tekan</span>
-                        <kbd class="py-0.5 px-1.5 bg-gray-100 border border-gray-200 rounded font-mono text-gray-600">Enter ↵</kbd>
-                        <span>untuk mencari,</span>
-                        <kbd class="py-0.5 px-1.5 bg-gray-100 border border-gray-200 rounded font-mono text-gray-600">ESC</kbd>
-                        <span>untuk tutup</span>
-                    </div>
-
-                    <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
-                        <button
-                            type="button"
-                            @click="closeModal()"
-                            class="py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors"
-                        >
-                            Batal
-                        </button>
-                        <button
-                            type="submit"
-                            class="btn btn-primary py-2 px-4 text-xs font-semibold rounded-lg inline-flex items-center gap-1.5"
-                        >
-                            <i class="bi bi-search text-xs"></i>
-                            <span>Cari Sekarang</span>
-                        </button>
-                    </div>
-                </div>
             </form>
+
+            <!-- Results & Suggestions Area -->
+            <div x-ref="resultsList" class="max-h-[380px] overflow-y-auto p-2 select-none">
+                <!-- Search Action when query is present -->
+                <template x-if="query.trim().length > 0">
+                    <div
+                        class="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm cursor-pointer transition-colors"
+                        :class="selectedIndex === 0 ? 'bg-gray-100 text-gray-900' : 'text-gray-700 hover:bg-gray-50'"
+                        :data-selected="selectedIndex === 0 ? 'true' : 'false'"
+                        @mouseenter="selectedIndex = 0"
+                        @click="executeSearch(query)"
+                    >
+                        <div class="flex items-center gap-3 min-w-0">
+                            <i class="bi bi-search text-base text-gray-400 shrink-0"></i>
+                            <div class="truncate text-sm">
+                                <span class="font-medium text-gray-900">Cari transaksi</span>
+                                <span class="text-gray-400 mx-1.5">—</span>
+                                <span class="text-gray-500 font-normal" x-text="'&quot;' + query.trim() + '&quot; di seluruh sistem'"></span>
+                            </div>
+                        </div>
+                        <i x-show="selectedIndex === 0" class="bi bi-arrow-right text-gray-400 text-sm shrink-0 ms-2"></i>
+                    </div>
+                </template>
+
+                <!-- Section: Recents -->
+                <template x-if="filteredRecents.length > 0">
+                    <div class="mt-1 mb-2">
+                        <div class="px-3 pt-2 pb-1.5 text-xs font-medium text-gray-500 select-none">Recents</div>
+                        <div class="space-y-0.5">
+                            <template x-for="(item, idx) in filteredRecents" :key="item.id">
+                                <div
+                                    class="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm cursor-pointer transition-colors"
+                                    :class="selectedIndex === getItemIndex(item) ? 'bg-gray-100 text-gray-900' : 'text-gray-700 hover:bg-gray-50'"
+                                    :data-selected="selectedIndex === getItemIndex(item) ? 'true' : 'false'"
+                                    @mouseenter="selectedIndex = getItemIndex(item)"
+                                    @click="selectItem(item)"
+                                >
+                                    <div class="flex items-center gap-3 min-w-0">
+                                        <i class="bi text-base text-gray-400 shrink-0" :class="item.icon"></i>
+                                        <div class="truncate text-sm">
+                                            <span class="font-medium text-gray-900" x-text="item.title"></span>
+                                            <template x-if="item.subtitle">
+                                                <span>
+                                                    <span class="text-gray-400 mx-1.5">—</span>
+                                                    <span class="text-gray-500 font-normal" x-text="item.subtitle"></span>
+                                                </span>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <i x-show="selectedIndex === getItemIndex(item)" class="bi bi-arrow-right text-gray-400 text-sm shrink-0 ms-2"></i>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Section: Search tips -->
+                <template x-if="filteredTips.length > 0">
+                    <div class="mt-2 mb-1">
+                        <div class="px-3 pt-2 pb-1.5 text-xs font-medium text-gray-500 select-none">Search tips</div>
+                        <div class="space-y-0.5">
+                            <template x-for="(tip, idx) in filteredTips" :key="tip.id">
+                                <div
+                                    class="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm cursor-pointer transition-colors"
+                                    :class="selectedIndex === getItemIndex(tip) ? 'bg-gray-100 text-gray-900' : 'text-gray-700 hover:bg-gray-50'"
+                                    :data-selected="selectedIndex === getItemIndex(tip) ? 'true' : 'false'"
+                                    @mouseenter="selectedIndex = getItemIndex(tip)"
+                                    @click="selectItem(tip)"
+                                >
+                                    <div class="flex items-center gap-3 min-w-0">
+                                        <i class="bi text-base text-gray-400 shrink-0" :class="tip.icon"></i>
+                                        <div class="truncate text-sm">
+                                            <span class="font-medium text-gray-900 font-mono text-xs" x-text="tip.prefix"></span>
+                                            <span class="text-gray-400 mx-1.5">—</span>
+                                            <span class="text-gray-500 font-normal" x-text="tip.desc"></span>
+                                        </div>
+                                    </div>
+                                    <i x-show="selectedIndex === getItemIndex(tip)" class="bi bi-arrow-right text-gray-400 text-sm shrink-0 ms-2"></i>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+
+                <!-- Empty State -->
+                <div x-show="allNavigableItems.length === 0" class="py-8 text-center text-sm text-gray-400">
+                    Tidak ada hasil atau tips yang cocok. Tekan Enter untuk mencari data transaksi.
+                </div>
+            </div>
+
+            <!-- Footer Bar (↑ ↓ to navigate, ↵ to select) -->
+            <div class="px-4 py-2.5 border-t border-gray-100 bg-white flex items-center gap-4 text-xs text-gray-400 select-none">
+                <span class="inline-flex items-center gap-1.5">
+                    <span class="font-mono text-gray-500 text-xs">↑</span>
+                    <span class="font-mono text-gray-500 text-xs">↓</span>
+                    <span>to navigate</span>
+                </span>
+                <span class="inline-flex items-center gap-1.5">
+                    <span class="font-mono text-gray-500 text-xs">↵</span>
+                    <span>to select</span>
+                </span>
+            </div>
         </div>
     </div>
 </div>
