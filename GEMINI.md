@@ -18,7 +18,7 @@
 2. **Hukum Mutlak Antislop (Gamified Asphalt UI):**
    - **Tipografi:** Wajib menggunakan **DM Sans** (Headings, Tombol/CTA) dan **Roboto** (Body text, data tabel, metadata).
    - **Diet Bold:** Dilarang menggunakan font-weight ultra-tebal (800/900). Maksimum penekanan adalah `font-weight: 600` (`font-semibold` / `.font-bold`).
-   - **Bebas Gradien & Skema Warna Solid Murni (Solid Color Discipline):** Seluruh elemen UI utama (body canvas, hero, card, panel, alert, dropdown, datepicker, tombol, badge, hingga grafik canvas) **MUTLAK WAJIB** menggunakan warna solid murni. Dilarang keras menggunakan `linear-gradient`, `radial-gradient`, `conic-gradient`, atau efek kaca `backdrop-filter: blur(...)` / opasitas tembus pandang semu (lihat Bagian 11 untuk aturan terkunci lengkap).
+   - **Bebas Gradien & Skema Warna Solid Murni (Solid Color Discipline):** Seluruh elemen UI utama (body canvas, hero, card, panel, alert, dropdown, datepicker, tombol, badge, hingga grafik canvas) **MUTLAK WAJIB** menggunakan warna solid murni berlandaskan **3 Warna Kunci Proyek: 1. #F5EBDD (Warm Cream Base), 2. #F2765E (Vibrant Coral Accent), 3. #315B8C (Deep Brand Blue)**. Dilarang keras menggunakan `linear-gradient`, `radial-gradient`, `conic-gradient`, atau efek kaca `backdrop-filter: blur(...)` / opasitas tembus pandang semu (lihat Bagian 11 untuk aturan terkunci lengkap).
    - **Bebas Transform (Zero-Transform State):** State `:hover`, `:active`, dan `:focus` DILARANG menggunakan efek `transform: translateY(...)`, `scale(...)`, atau pergeseran posisi liar, KECUALI tactile micro-press `translateY(1px)` khusus pada tombol utama (`.btn-primary`) dan tombol aksi resmi sesuai spesifikasi fisika AI global (lihat Bagian 13 untuk aturan terkunci lengkap). Animasi transisi hanya boleh memanipulasi `opacity`, `background-color`, `border-color`, dan `box-shadow`.
    - **Peniadaan Deskripsi Statis & Tooltip Mutlak (Universal Description-to-Tooltip Discipline):** Seluruh deskripsi, keterangan panduan, catatan bantuan, dan subjudul fungsional pada panel, header, card, tabel, maupun formulir **DILARANG KERAS** dirender sebagai teks atau paragraf statis (`<p>`, `<small>`, `.description`). Seluruh deskripsi **MUTLAK WAJIB** dikonversi menjadi tooltip on-demand berbasis hover pada ikon info `(i)` (lihat Bagian 12 untuk aturan terkunci lengkap).
    - **Peniadaan Wrapper Ikon & Monokrom Mutlak (Universal Naked Monochrome Icon Discipline):** Seluruh ikon antarmuka di seluruh aplikasi **MUTLAK DILARANG** menggunakan wrapper/wadah pembungkus dekoratif berlatar warna dan **MUTLAK HANYA DIPERBOLEHKAN BERWARNA HITAM ATAU PUTIH**. Ikon wajib berdiri telanjang berdampingan langsung dengan konten tanpa pembungkus buatan (lihat Bagian 14 untuk aturan terkunci lengkap).
@@ -603,33 +603,42 @@ Atau menggunakan `render_tooltip()` langsung untuk kasus kustom:
    - Dilarang menggunakan background semi-transparan `rgba(..., alpha)` atau utility kelas opasitas slash Tailwind (seperti `bg-gray-50/50`, `bg-gray-50/80`, `bg-white/10`) pada kontainer kartu, panel data, atau body halaman.
    - Semua warna latar belakang wajib berupa warna solid murni yang pekat dan terdefinisi dengan jelas.
 
-### 11.3. Standar 4 Pilar Warna Solid Gamified Asphalt (Official Solid Hex Palette)
-Seluruh desain wajib berakar murni pada standar warna solid berikut:
-- **`#2B2A2A` (Charcoal / Solid Dark):**
-  - Digunakan untuk: Header utama, Hero section, dark panel, border solid kontainer gelap, dan teks judul kontras tinggi.
-- **`#F8FAFC` / `#F5F2F2` (Off-White / Solid Light Base):**
-  - Digunakan untuk: Latar belakang kanvas halaman utama (`body`), kontainer kerja dasar, dan teks inverse.
-- **`#2563EB` / `#5A7ACD` (Indigo / Core Brand Blue):**
-  - Digunakan untuk: Tombol aksi primer (`.btn-primary`, `.dashboard-action-primary`), tautan aktif, border fokus, dan status transaksi utama.
-- **`#FEB05D` (Vibrant Orange / Accent):**
-  - Digunakan untuk: Eyebrow/kicker, aksen perhatian visual, badge sorotan, dan indikator aktif sekunder.
+### 11.3. Standar Trinitas Warna Kunci Proyek (Official Locked Tri-Color Scheme: #F5EBDD, #F2765E, #315B8C)
+Seluruh desain antarmuka, tata letak, komponen interaktif, panel, kartu data, dan kanvas kerja di repositori **`remittance.raxbyte.com`** **MUTLAK DIKUNCI BERDASARKAN 3 WARNA RESMI INI**:
 
-### 11.4. Spesifikasi Warna Solid Komponen Utama
-1. **Hero & Header:**
-   - Background: Solid `#2B2A2A` dengan border `1px solid #2B2A2A`.
-   - Teks: Solid `#FFFFFF` / `#F5F2F2` untuk judul, solid `#D1D5DB` untuk deskripsi, dan solid `#FEB05D` untuk kicker.
-   - Tombol Aksi Utama: Solid `#2563EB` dengan border solid `#1D4ED8`.
-   - Tombol Aksi Sekunder: Solid `#383535` dengan border solid `#4F4B4B` (hover: `#4F4B4B`).
-2. **Kartu Data & Panel Kontainer:**
-   - Latar belakang: Solid `#FFFFFF` dengan border solid `1px solid #E5E7EB` dan bayangan mikro `0 1px 3px rgba(0,0,0,0.04)`.
-   - Pada kontainer gelap (Hero Activity Card): Solid `#1F1E1E` dengan border solid `1px solid #383535`.
-3. **Badge & Status Fungsional:**
-   - Success: Solid Emerald `#059669` (teks `#FFFFFF` atau teks `#065F46` di atas solid `#ECFDF5`).
-   - Danger / Refund: Solid Red `#DC2626` (teks `#FFFFFF` atau teks `#991B1B` di atas solid `#FEF2F2`).
-   - Warning / Pending: Solid Amber `#D97706` (teks `#FFFFFF` atau teks `#92400E` di atas solid `#FFFBEB`).
-   - Info / Process: Solid Blue `#2563EB` (teks `#FFFFFF` atau teks `#1E40AF` di atas solid `#EFF6FF`).
-4. **Latar Belakang Kanvas Global (`body`):**
-   - Dikunci secara mutlak dengan warna solid `background: #f8fafc !important;` (atau Tailwind `bg-slate-50`).
+| No | Kode Hex | Nama Resmi | Peran & Hirarki Desain | Implementasi UI & Fungsional |
+| :--- | :--- | :--- | :--- | :--- |
+| **1** | **`#F5EBDD`** | **Warm Alabaster / Cream Base** | **Latar Belakang Kanvas & Dasar Terang** | Kanvas utama halaman (`body`), latar kartu kerja lembut, striping baris genap tabel zebra (`even:bg-[#F5EBDD]`), dan kartu preview sekunder. Menggantikan warna putih klinis dan abu-abu dingin. |
+| **2** | **`#F2765E`** | **Vibrant Coral / Warm Energy Accent** | **Aksen Kinetik & Penanda Fokus** | Eyebrow/kicker, highlight aktif, badge sorotan, border interaktif fokus, micro-interaction hover, dan aksen energi visual ala Gamified Asphalt (Gojek Style). |
+| **3** | **`#315B8C`** | **Deep Classic Blue / Primary Brand** | **Identitas Brand & Jangkar Struktural** | Warna dasar tombol aksi utama (`--btn-primary-base: #315B8C`), header/hero solid, judul hierarki tinggi, border struktural, status aktif tab dock bawah, dan status transaksi prioritas. |
+
+### 11.4. Spesifikasi Pemetaan Warna Solid Komponen Utama
+1. **Latar Belakang Kanvas Global (`body`):**
+   - Kanvas utama dikunci menggunakan warna solid warm cream: `background: #F5EBDD !important;` (atau alternatif terang bersih `#FFFFFF` berpadu kanvas `#F5EBDD`).
+   - Memberikan kenyamanan visual tinggi bagi staf operasional perbankan yang menganalisis tabel data transaksi dalam durasi kerja panjang.
+2. **Tombol Aksi Utama (.btn-primary & CTA):**
+   - Nilai token dasar brand utama MUTLAK menggunakan `#315B8C`:
+     ```css
+     :root {
+       --btn-primary-base: #315B8C;
+     }
+     ```
+   - Tombol utama menghasilkan translasi fisika solid dari `#315B8C` ke tint alaminya dengan border solid gelap, ring fokus `#315B8C`, dan teks `#FFFFFF`.
+3. **Eyebrow, Kicker & Aksen Sorotan:**
+   - Seluruh teks kicker/eyebrow (penanda section kecil di atas heading) menggunakan warna solid `#F2765E`.
+   - Indikator peringatan penting, counter notifikasi aktif, dan dot penanda status kinetik menggunakan `#F2765E`.
+4. **The Zebra Tables:**
+   - Tabel murni tanpa garis horizontal/vertikal (zero-border).
+   - Seluruh baris genap wajib menggunakan warna solid hangat: `even:bg-[#F5EBDD]`.
+5. **Panel Kontainer & Kartu Data:**
+   - Background: Solid `#FFFFFF` atau kontainer gelap `#2B2A2A` / `#1F1E1E` beraksen `#315B8C`.
+   - Border: Solid 1px `#E5E7EB` (pada kartu terang) atau solid 1px `#315B8C` (pada kartu aktif/terpilih).
+   - Header Section / Hero: Solid `#315B8C` atau solid `#2B2A2A` dengan kicker `#F2765E` dan tombol aksi `#315B8C`.
+6. **Harmoni dengan Hukum Ikon Monokrom (Bagian 14):**
+   - Keberadaan palet tri-warna (`#F5EBDD`, `#F2765E`, `#315B8C`) **TIDAK MENGUBAH HUKUM IKON MONOKROM**.
+   - Ikon antarmuka tetap **MUTLAK HANYA BERWARNA HITAM (`#111827`) ATAU PUTIH (`#FFFFFF`)**.
+   - Di atas kanvas `#F5EBDD` atau kartu putih: Ikon wajib hitam (`text-gray-900` / `#111827`).
+   - Di atas tombol `#315B8C` atau kontainer gelap: Ikon wajib putih (`text-white` / `#FFFFFF`).
 
 ---
 
@@ -732,10 +741,11 @@ Seluruh desain wajib berakar murni pada standar warna solid berikut:
 ```css
 .btn-primary,
 .dashboard-action-primary {
-  --_from: var(--btn-primary-from, color-mix(in srgb, var(--btn-primary-base, #1f6bf0) 75%, #ffffff));
-  --_to: var(--btn-primary-to, var(--btn-primary-base, #1f6bf0));
-  --_border: var(--btn-primary-border, color-mix(in srgb, var(--btn-primary-base, #1f6bf0) 80%, #000000));
-  --_ring: var(--btn-primary-ring, color-mix(in srgb, var(--btn-primary-base, #1f6bf0) 40%, #ffffff));
+  /* Skema Warna Kunci Proyek: #315B8C (Deep Classic Blue) */
+  --_from: var(--btn-primary-from, color-mix(in srgb, var(--btn-primary-base, #315B8C) 75%, #ffffff));
+  --_to: var(--btn-primary-to, var(--btn-primary-base, #315B8C));
+  --_border: var(--btn-primary-border, color-mix(in srgb, var(--btn-primary-base, #315B8C) 80%, #000000));
+  --_ring: var(--btn-primary-ring, color-mix(in srgb, var(--btn-primary-base, #315B8C) 40%, #ffffff));
   --_text: var(--btn-primary-text, #ffffff);
   --_text-shadow: var(--btn-primary-text-shadow, 0 1px 1px rgba(0, 0, 0, 0.2));
 
