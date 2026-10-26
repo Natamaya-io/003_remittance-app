@@ -478,3 +478,99 @@ Atau menggunakan komponen Alpine langsung untuk kasus inline custom:
 ### 9.4. Kunci Hukum Mutlak (Strict Enforcement Protocol)
 - Aturan ini adalah **HUKUM TERTINGGI REPOSITORI** yang setara dengan konstitusi utama.
 - Segala bentuk penyimpangan, asumsi berlebih, atau modifikasi liar yang tidak diminta oleh pengguna dianggap sebagai **PELANGGARAN SISTEMATIS TINGKAT TINGGI** dan pekerjaan tersebut dinyatakan cacat (*rejected*).
+
+---
+
+## 10. Aturan Terkunci: Sistem Tooltip Global (Hover-Only Tooltip Law)
+
+> **STATUS ATURAN: TERKUNCI MUTLAK (LOCKED & NON-NEGOTIABLE)**  
+> Seluruh elemen petunjuk mikro (*tooltip*) di dalam repositori **`remittance.raxbyte.com`** tunduk di bawah hukum pemicu tunggal *hover*. Aturan ini dikunci secara mutlak untuk mencegah konflik interaksi dengan event klik, tombol aksi, atau form kontrol.
+
+### 10.1. Hukum Pemicu Tunggal Hover (Strict Hover-Only Trigger Law)
+1. **Pemicu Tunggal Hover (Hover-Only Behavior):**
+   - Tooltip **MUTLAK HANYA BOLEH MUNCUL KETIKA DI-HOVER** (saat kursor mouse berada di atas elemen pemicu: state `:hover`, event `mouseenter`, atau `mouseenter`/`mouseover`).
+   - Saat kursor mouse meninggalkan elemen pemicu (event `mouseleave` / `mouseout`), tooltip **MUTLAK WAJIB LANGSUNG HILANG / TERTUTUP SEKETIKA**.
+2. **Pemusnahan Pemicu Klik (Anti-Click Tooltip Law):**
+   - **DILARANG KERAS** memicu tooltip menggunakan event klik (`click`), tap, atau menahan status terbuka (*sticky/persistent state*) setelah elemen diklik.
+   - Mengklik elemen atau ikon target hanya boleh mengeksekusi aksi fungsional murni (navigasi, submit form, membuka modal dialog, dsb), **BUKAN** untuk menampilkan atau menyembunyikan teks tooltip.
+   - Tooltip dilarang bertindak sebagai popover atau dialog.
+
+### 10.2. Batas Demarkasi Antara Tooltip vs Toggleable Info Box
+1. **Tooltip (Mikro & Sekilas):**
+   - Ditujukan murni untuk petunjuk singkat (1-3 kata / mikro-hint, contoh: *"Buka di tab baru"*, *"Download CSV"*, *"Salin referensi"*).
+   - Selalu beroperasi dengan `pointer-events: none` sehingga pengguna tidak dapat mengklik atau memilih teks di dalam tooltip.
+   - Pemicu: **HANYA HOVER**.
+2. **Informasi On-Demand / Toggleable Info Box (Aturan Bagian 8):**
+   - Ditujukan untuk teks penjelasan panjang, panduan alur data, atau deskripsi kartu.
+   - Menggunakan tombol interaktif `.info-toggle-btn` dengan Alpine.js `@click.stop="showInfo = !showInfo"`.
+   - Pemicu: **KLIK PADA TOMBOL INFO**.
+   - **DILARANG** mencampuradukkan kedua sistem ini: jangan pernah mengubah tooltip menjadi toggle klik, dan jangan pernah mengganti toggle info box menjadi tooltip hover yang rapuh.
+
+### 10.3. Geometri & Fisika UI Tooltip (Gamified Asphalt Compliance)
+1. **Bebas Transform (Zero-Transform State):**
+   - State transisi kemunculan tooltip DILARANG menggunakan efek gerak `transform: translateY(...)`, `scale(...)`, atau translasi pop.
+   - Transisi hanya boleh memanipulasi opasitas murni (`opacity-0` ke `opacity-100`, durasi cepat 100ms–150ms).
+2. **Warna & Tipografi:**
+   - Background: Solid `#111827` (`gray-900`) atau `#1f2937` (`gray-800`). Dilarang gradien.
+   - Teks: Solid `#ffffff`, font-size `11px` (`text-[11px]`) atau `12px` (`text-xs`), font-family **Roboto** / **DM Sans**, font-weight `500` / `600`.
+   - Sudut membulat: 6px–8px (`rounded-md` / `rounded-lg`).
+   - Padding: Ringkas `py-1 px-2.5` (`4px 10px`).
+   - Elevasi: Bayangan mikro halus `box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);`.
+   - Z-Index: Wajib berada di lapisan atas aman (`z-50` / `z-[70]`).
+3. **Non-Blokir / Non-Interferensi:**
+   - Tooltip wajib memiliki kelas `pointer-events-none` agar tidak menghalangi kursor mouse mengklik tombol atau elemen di balik atau di sekitar tooltip.
+
+### 10.4. Standar Implementasi Preline UI & TailwindCSS
+1. **Standar Preline UI (`hs-tooltip`):**
+   Wajib menggunakan konfigurasi default `hover`. Dilarang mengonfigurasi `data-hs-tooltip-options='{"eventMode": "click"}'`.
+   ```html
+   <div class="hs-tooltip inline-block">
+       <button type="button" class="hs-tooltip-toggle ...">
+           <i class="bi bi-question-circle"></i>
+           <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-50 py-1 px-2.5 bg-gray-900 text-white text-[11px] font-medium rounded-lg shadow-md pointer-events-none" role="tooltip">
+               Petunjuk singkat hanya muncul saat di-hover
+           </span>
+       </button>
+   </div>
+   ```
+2. **Standar TailwindCSS Group Hover (CSS Murni):**
+   ```html
+   <div class="relative inline-flex items-center group">
+       <button type="button" class="...">
+           <i class="bi bi-download"></i>
+       </button>
+       <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover:block pointer-events-none z-50 whitespace-nowrap bg-gray-900 text-white text-[11px] font-medium py-1 px-2.5 rounded-lg shadow-md transition-opacity duration-150">
+           Download data CSV
+       </div>
+   </div>
+   ```
+3. **Standar Alpine.js (Jika Komponen Reaktif Menggunakan State):**
+   Wajib menggunakan event mouseenter dan mouseleave saja:
+   ```html
+   <div class="relative inline-flex" x-data="{ tooltip: false }">
+       <button
+           type="button"
+           @mouseenter="tooltip = true"
+           @mouseleave="tooltip = false"
+           @focus="tooltip = true"
+           @blur="tooltip = false"
+           class="..."
+       >
+           <i class="bi bi-printer"></i>
+       </button>
+       <div
+           x-show="tooltip"
+           x-cloak
+           x-transition:enter="transition ease-out duration-100"
+           x-transition:enter-start="opacity-0"
+           x-transition:enter-end="opacity-100"
+           x-transition:leave="transition ease-in duration-75"
+           x-transition:leave-start="opacity-100"
+           x-transition:leave-end="opacity-0"
+           class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 pointer-events-none z-50 whitespace-nowrap bg-gray-900 text-white text-[11px] font-medium py-1 px-2.5 rounded-lg shadow-md"
+           style="display: none;"
+       >
+           Cetak dokumen
+       </div>
+   </div>
+   ```
