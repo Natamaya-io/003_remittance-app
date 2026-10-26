@@ -18,7 +18,7 @@
 2. **Hukum Mutlak Antislop (Gamified Asphalt UI):**
    - **Tipografi:** Wajib menggunakan **DM Sans** (Headings, Tombol/CTA) dan **Roboto** (Body text, data tabel, metadata).
    - **Diet Bold:** Dilarang menggunakan font-weight ultra-tebal (800/900). Maksimum penekanan adalah `font-weight: 600` (`font-semibold` / `.font-bold`).
-   - **Bebas Gradien (Solid Color Discipline):** Seluruh elemen UI utama (tombol, card, alert, dropdown, datepicker) wajib menggunakan warna solid. Dilarang menggunakan `linear-gradient` atau `radial-gradient` pelangi/slop.
+   - **Bebas Gradien & Skema Warna Solid Murni (Solid Color Discipline):** Seluruh elemen UI utama (body canvas, hero, card, panel, alert, dropdown, datepicker, tombol, badge, hingga grafik canvas) **MUTLAK WAJIB** menggunakan warna solid murni. Dilarang keras menggunakan `linear-gradient`, `radial-gradient`, `conic-gradient`, atau efek kaca `backdrop-filter: blur(...)` / opasitas tembus pandang semu (lihat Bagian 11 untuk aturan terkunci lengkap).
    - **Bebas Transform (Zero-Transform State):** State `:hover`, `:active`, dan `:focus` DILARANG menggunakan efek `transform: translateY(...)`, `scale(...)`, atau pergeseran posisi. Animasi transisi hanya boleh memanipulasi `opacity`, `background-color`, `border-color`, dan `box-shadow`.
 
 ---
@@ -575,3 +575,56 @@ Atau menggunakan `render_tooltip()` langsung untuk kasus kustom:
        </div>
    </div>
    ```
+
+---
+
+## 11. Aturan Terkunci: Hukum Mutlak Skema Warna Solid Global (Global Solid Color Scheme Law)
+
+> **STATUS ATURAN: TERKUNCI MUTLAK (LOCKED & NON-NEGOTIABLE)**  
+> Seluruh elemen antarmuka, kanvas tata letak, latar belakang halaman (`body`), header, hero, panel, kartu data, tombol aksi, badge, tabel, dan grafik di dalam repositori **`remittance.raxbyte.com`** **MUTLAK WAJIB MENGGUNAKAN SKEMA WARNA SOLID (100% OPAQUE & SOLID COLOR DISCIPLINE)**. Aturan ini dikunci untuk memastikan kewibawaan visual Gamified Asphalt, kejelasan kontras data finansial, dan ketiadaan efek lembek/slop.
+
+### 11.1. Pemusnahan Gradien Total (Absolute Zero-Gradient Law)
+1. **Larangan Gradien CSS & Tailwind:**
+   - **MUTLAK DILARANG** menggunakan `linear-gradient`, `radial-gradient`, `conic-gradient`, atau multi-stop gradient pada berkas stylesheet CSS (`.css`), file komponen view (`.php`), maupun inline style.
+   - Dilarang menggunakan utilitas kelas gradien Tailwind CSS (seperti `bg-gradient-to-...`, `from-...`, `to-...`, `via-...`).
+2. **Larangan Gradien pada Canvas 2D:**
+   - Dilarang memanggil `context.createLinearGradient(...)` atau `context.createRadialGradient(...)` pada grafik canvas (seperti tren transaksi, sparkline FX, donat status, atau mini chart).
+   - Seluruh kurva dan garis grafik wajib dirender dalam garis solid stroke presisi (`lineWidth: 2px`) dan titik koordinat solid tanpa isian gradien linear pudar di bawah kurva.
+3. **Pemusnahan Garis Pelangi & Efek Glow:**
+   - Dilarang menambahkan garis dekorasi gradien multi-warna (seperti garis pelangi `linear-gradient(90deg, #3b82f6, #ec4899, #8b5cf6)`) pada batas atas kartu atau panel.
+   - Dilarang menempatkan pseudo-element atau div glow berbasis `radial-gradient` di belakang kartu data.
+
+### 11.2. Pemusnahan Efek Kaca & Opasitas Semu (Anti-Glassmorphism & Anti-Opacity Slop Law)
+1. **Pemusnahan Frosted Glass (Zero Blur):**
+   - Dilarang keras menggunakan properti `backdrop-filter: blur(...)` pada elemen kartu, panel, atau header.
+2. **Pemusnahan Latar Belakang Transparan:**
+   - Dilarang menggunakan background semi-transparan `rgba(..., alpha)` atau utility kelas opasitas slash Tailwind (seperti `bg-gray-50/50`, `bg-gray-50/80`, `bg-white/10`) pada kontainer kartu, panel data, atau body halaman.
+   - Semua warna latar belakang wajib berupa warna solid murni yang pekat dan terdefinisi dengan jelas.
+
+### 11.3. Standar 4 Pilar Warna Solid Gamified Asphalt (Official Solid Hex Palette)
+Seluruh desain wajib berakar murni pada standar warna solid berikut:
+- **`#2B2A2A` (Charcoal / Solid Dark):**
+  - Digunakan untuk: Header utama, Hero section, dark panel, border solid kontainer gelap, dan teks judul kontras tinggi.
+- **`#F8FAFC` / `#F5F2F2` (Off-White / Solid Light Base):**
+  - Digunakan untuk: Latar belakang kanvas halaman utama (`body`), kontainer kerja dasar, dan teks inverse.
+- **`#2563EB` / `#5A7ACD` (Indigo / Core Brand Blue):**
+  - Digunakan untuk: Tombol aksi primer (`.btn-primary`, `.dashboard-action-primary`), tautan aktif, border fokus, dan status transaksi utama.
+- **`#FEB05D` (Vibrant Orange / Accent):**
+  - Digunakan untuk: Eyebrow/kicker, aksen perhatian visual, badge sorotan, dan indikator aktif sekunder.
+
+### 11.4. Spesifikasi Warna Solid Komponen Utama
+1. **Hero & Header:**
+   - Background: Solid `#2B2A2A` dengan border `1px solid #2B2A2A`.
+   - Teks: Solid `#FFFFFF` / `#F5F2F2` untuk judul, solid `#D1D5DB` untuk deskripsi, dan solid `#FEB05D` untuk kicker.
+   - Tombol Aksi Utama: Solid `#2563EB` dengan border solid `#1D4ED8`.
+   - Tombol Aksi Sekunder: Solid `#383535` dengan border solid `#4F4B4B` (hover: `#4F4B4B`).
+2. **Kartu Data & Panel Kontainer:**
+   - Latar belakang: Solid `#FFFFFF` dengan border solid `1px solid #E5E7EB` dan bayangan mikro `0 1px 3px rgba(0,0,0,0.04)`.
+   - Pada kontainer gelap (Hero Activity Card): Solid `#1F1E1E` dengan border solid `1px solid #383535`.
+3. **Badge & Status Fungsional:**
+   - Success: Solid Emerald `#059669` (teks `#FFFFFF` atau teks `#065F46` di atas solid `#ECFDF5`).
+   - Danger / Refund: Solid Red `#DC2626` (teks `#FFFFFF` atau teks `#991B1B` di atas solid `#FEF2F2`).
+   - Warning / Pending: Solid Amber `#D97706` (teks `#FFFFFF` atau teks `#92400E` di atas solid `#FFFBEB`).
+   - Info / Process: Solid Blue `#2563EB` (teks `#FFFFFF` atau teks `#1E40AF` di atas solid `#EFF6FF`).
+4. **Latar Belakang Kanvas Global (`body`):**
+   - Dikunci secara mutlak dengan warna solid `background: #f8fafc !important;` (atau Tailwind `bg-slate-50`).
