@@ -122,29 +122,10 @@ function initRemitDialogs() {
     isOpen: false,
     defaultAction: (initialConfig && initialConfig.defaultAction) || '/reports/search',
     action: (initialConfig && initialConfig.defaultAction) || '/reports/search',
-    placeholder: 'Search products, pages, and features...',
+    placeholder: 'Cari transaksi...',
     query: '',
     extraParams: {},
     selectedIndex: 0,
-
-    recents: [
-      { id: 'reports', icon: 'bi-file-earmark-spreadsheet', title: 'Transaksi Harian', subtitle: 'Laporan Batch & Detail', url: '/reports' },
-      { id: 'history', icon: 'bi-clock-history', title: 'Rekap Transaksi', subtitle: 'Riwayat Keseluruhan', url: '/transactions/history' },
-      { id: 'payer', icon: 'bi-wallet2', title: 'Rekening Payer', subtitle: 'Master Rekening & Saldo', url: '/payer-accounts' },
-      { id: 'fx', icon: 'bi-currency-exchange', title: 'Papan Kurs FX', subtitle: 'Konversi Valuta Asing USD / IDR', url: '/dashboard' },
-      { id: 'companies', icon: 'bi-building', title: 'Data PT', subtitle: 'Master Data Perusahaan', url: '/companies' },
-      { id: 'complaints', icon: 'bi-ticket-detailed', title: 'Keluhan & Tiket', subtitle: 'Manajemen Kasus Operasional', url: '/complaints' },
-      { id: 'spk', icon: 'bi-diagram-3', title: 'Entropy–TOPSIS', subtitle: 'Analitik SPK Evaluasi Payer', url: '/spk' },
-      { id: 'audit', icon: 'bi-shield-check', title: 'Audit Log', subtitle: 'Log Aktivitas Sistem', url: '/audit' }
-    ],
-
-    searchTips: [
-      { id: 'tip-payer', icon: 'bi-terminal', prefix: 'payer:', desc: 'Filter berdasarkan nama payer / pengirim', sample: 'payer: ' },
-      { id: 'tip-benef', icon: 'bi-terminal', prefix: 'benef:', desc: 'Filter berdasarkan nama penerima (beneficiary)', sample: 'benef: ' },
-      { id: 'tip-bank', icon: 'bi-terminal', prefix: 'bank:', desc: 'Filter bank tujuan atau nomor rekening', sample: 'bank: ' },
-      { id: 'tip-tim', icon: 'bi-terminal', prefix: 'tim:', desc: 'Filter transaksi berdasarkan tim operasional', sample: 'tim: ' },
-      { id: 'tip-date', icon: 'bi-terminal', prefix: 'date:', desc: 'Filter tanggal transaksi (YYYY-MM-DD)', sample: 'date: ' }
-    ],
 
     get extraParamsList() {
       if (!this.extraParams || typeof this.extraParams !== 'object') return [];
@@ -153,24 +134,6 @@ function initRemitDialogs() {
         name: String(name),
         value: value === null || value === undefined ? '' : String(value)
       }));
-    },
-
-    get filteredRecents() {
-      const q = this.query.trim().toLowerCase();
-      if (!q) return this.recents;
-      return this.recents.filter(item => 
-        item.title.toLowerCase().includes(q) || 
-        (item.subtitle && item.subtitle.toLowerCase().includes(q))
-      );
-    },
-
-    get filteredTips() {
-      const q = this.query.trim().toLowerCase();
-      if (!q) return this.searchTips;
-      return this.searchTips.filter(tip => 
-        tip.prefix.toLowerCase().includes(q) || 
-        tip.desc.toLowerCase().includes(q)
-      );
     },
 
     get allNavigableItems() {
@@ -185,69 +148,23 @@ function initRemitDialogs() {
           subtitle: `"${q}" di seluruh sistem`
         });
       }
-      this.filteredRecents.forEach(item => list.push(item));
-      this.filteredTips.forEach(tip => list.push(tip));
       return list;
     },
 
-    getItemIndex(targetItem) {
-      return this.allNavigableItems.findIndex(i => i.id === targetItem.id);
-    },
-
     handleKeydown(e) {
-      const items = this.allNavigableItems;
-      if (e.key === 'ArrowDown') {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
         e.preventDefault();
-        if (items.length > 0) {
-          this.selectedIndex = (this.selectedIndex + 1) % items.length;
-          this.scrollActiveIntoView();
-        }
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        if (items.length > 0) {
-          this.selectedIndex = (this.selectedIndex - 1 + items.length) % items.length;
-          this.scrollActiveIntoView();
-        }
       } else if (e.key === 'Enter') {
         e.preventDefault();
-        if (items.length > 0 && items[this.selectedIndex]) {
-          this.selectItem(items[this.selectedIndex]);
-        } else if (this.query.trim()) {
-          this.executeSearch(this.query);
-        }
+        this.executeSearch(this.query);
       } else if (e.key === 'Escape') {
         e.preventDefault();
         this.closeModal();
       }
     },
 
-    scrollActiveIntoView() {
-      this.$nextTick(() => {
-        const container = this.$refs.resultsList;
-        const activeEl = container?.querySelector('[data-selected="true"]');
-        if (activeEl && container) {
-          const containerRect = container.getBoundingClientRect();
-          const elRect = activeEl.getBoundingClientRect();
-          if (elRect.bottom > containerRect.bottom) {
-            activeEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-          } else if (elRect.top < containerRect.top) {
-            activeEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-          }
-        }
-      });
-    },
-
     selectItem(item) {
-      if (!item) return;
-      if (item.isSearchAction) {
-        this.executeSearch(this.query);
-      } else if (item.url) {
-        window.location.href = item.url;
-      } else if (item.sample) {
-        this.query = item.sample;
-        this.selectedIndex = 0;
-        this.$refs.modalSearchInput?.focus();
-      }
+      this.executeSearch(this.query);
     },
 
     executeSearch(q) {
@@ -271,7 +188,7 @@ function initRemitDialogs() {
 
     openModal(config = {}) {
       const cfg = typeof config === 'object' && config !== null ? config : {};
-      this.placeholder = cfg.placeholder || 'Search products, pages, and features...';
+      this.placeholder = cfg.placeholder || 'Cari transaksi...';
       this.action = cfg.action || this.defaultAction;
       this.query = cfg.query !== undefined ? String(cfg.query) : '';
       this.extraParams = cfg.extraParams ? { ...cfg.extraParams } : {};

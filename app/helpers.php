@@ -484,7 +484,7 @@ function render_search_modal_trigger(array $options = []): string
     $style = (string) ($options['style'] ?? 'bar');
     $label = (string) ($options['label'] ?? 'Search');
     $icon = (string) ($options['icon'] ?? 'bi-search');
-    $placeholder = (string) ($options['placeholder'] ?? 'Search products, pages, and features...');
+    $placeholder = (string) ($options['placeholder'] ?? 'Cari transaksi...');
     $showKbd = array_key_exists('showKbd', $options) ? (bool) $options['showKbd'] : true;
     $kbdText = (string) ($options['kbdText'] ?? 'Ctrl K');
 

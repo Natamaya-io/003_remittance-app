@@ -44,7 +44,7 @@ $returnPath = '/reports/date/' . $date;
 
             <?= render_search_modal_trigger([
                 'action' => url('/reports/search'),
-                'placeholder' => 'Search products, pages, and features...',
+                'placeholder' => 'Cari transaksi...',
                 'query' => (string) ($filters['q'] ?? ''),
                 'extraParams' => ['month' => $monthKey, 'date_from' => $date, 'date_to' => $date],
             ]) ?>
