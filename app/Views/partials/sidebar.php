@@ -79,18 +79,6 @@ $userRoleName = trim(
     x-data="{ openMore: false, openProfile: false }"
     aria-label="Navigasi Utama SPA"
 >
-    <!-- Brand Badge -->
-    <a
-        href="<?= url('/') ?>"
-        class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-gray-50 border border-gray-200/80 text-gray-900 hover:bg-gray-100 transition-colors shrink-0"
-        title="Beranda RemitGo!"
-    >
-        <i class="bi bi-bank2 text-base text-blue-600"></i>
-        <span class="font-bold text-xs tracking-tight text-gray-900">RemitGo!</span>
-    </a>
-
-    <div class="h-5 w-px bg-gray-200 shrink-0"></div>
-
     <!-- Core Nav Links -->
     <a
         href="<?= url('/') ?>"
@@ -386,7 +374,7 @@ $userRoleName = trim(
                 <div class="w-10 h-1 bg-gray-300 rounded-full mb-2"></div>
                 <div class="w-full flex items-center justify-between">
                     <div class="flex items-center gap-2">
-                        <i class="bi bi-bank2 text-xl text-blue-600"></i>
+                        <i class="bi bi-grid-3x3-gap-fill text-lg text-gray-900"></i>
                         <span id="mobile-sheet-title" class="font-bold text-sm text-gray-900">Menu Aplikasi</span>
                     </div>
                     <button

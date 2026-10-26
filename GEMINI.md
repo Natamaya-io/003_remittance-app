@@ -269,7 +269,7 @@ Setiap halaman di dalam aplikasi remittance beroperasi di bawah prinsip **Pure N
    - Area kanvas kerja desktop kini 100% penuh tanpa offset horizontal `lg:ps-64`, memaksimalkan densitas data dan kenyamanan analisis pada tabel transaksi dan laporan harian.
 2. **Arsitektur SPA Bottom Navigation:**
    - **Tablet & Desktop (`sm:` dan ke atas):** Navigasi dipusatkan pada **Floating Bottom Dock** mengambang di tengah bawah (`fixed bottom-5 left-1/2 -translate-x-1/2 z-40 bg-white/95 backdrop-blur-md border border-gray-200/90 rounded-2xl shadow-[0_12px_36px_-6px_rgba(0,0,0,0.12),0_4px_12px_rgba(0,0,0,0.06)] p-1.5 flex items-center gap-1.5`):
-     - **Brand Badge:** Identitas brand `RemitGo!` di sisi kiri.
+     - **Peniadaan Branding Dock / Sidebar:** Bebas dari badge identitas brand atau logo seremonial di dalam bilah navigasi, langsung fokus menyajikan tab fungsional inti.
      - **Tab Utama (`.spa-dock-tab`):** Dashboard, Transaksi, Laporan. State aktif menggunakan background solid `#eff6ff`, border `#bfdbfe`, dan teks `#1d4ed8` dengan zero-transform.
      - **Menu "Lainnya" (Upward Popover):** Popover mengambang ke atas (`bottom-full mb-3`) menampilkan modul sekunder terkelompok: Operasional (Rekening Payer, Data PT, Complain, Invoice), Dokumen & Analitik (Dokumen & Template, Entropy–TOPSIS), dan Administrasi (User & Role, Audit Log). Tombol pemicu otomatis menampilkan status aktif jika pengguna berada di salah satu rute tersebut.
      - **Pill Profil & Sesi:** Menampilkan avatar dan nama pengguna, dengan upward popover untuk tautan Akun (`/profile`) dan tombol Keluar (`POST /logout` dengan CSRF token valid).
