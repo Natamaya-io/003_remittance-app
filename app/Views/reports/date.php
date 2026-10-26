@@ -42,7 +42,7 @@ $returnPath = '/reports/date/' . $date;
                 Export Semua
             </a>
 
-            <?= render_search_modal_trigger([
+            <?= render_reports_search_bar([
                 'action' => url('/reports/search'),
                 'placeholder' => 'Cari transaksi...',
                 'query' => (string) ($filters['q'] ?? ''),

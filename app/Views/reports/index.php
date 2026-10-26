@@ -42,7 +42,7 @@ $activeAdvancedFilters = array_filter(
          PAGE ACTIONS (PURE NAKED ARCHITECTURE)
          ========================================================= -->
     <div class="flex items-center justify-end gap-2">
-        <?= render_search_modal_trigger([
+        <?= render_reports_search_bar([
             'action' => url('/reports/search'),
             'placeholder' => 'Cari transaksi...',
             'query' => (string) ($filters['q'] ?? ''),

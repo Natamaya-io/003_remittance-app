@@ -84,9 +84,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }, true);
 });
 
-// Global Search Modal helper
-window.openSearchModal = function (config) {
-  window.dispatchEvent(new CustomEvent('open-search-modal', { detail: config || {} }));
+// Global Search Focus helper
+window.openSearchModal = function () {
+  const searchInput = document.querySelector('.custom-search-input') || document.querySelector('input[name="q"]');
+  if (searchInput) {
+    searchInput.focus();
+    searchInput.select?.();
+  }
 };
 
 // Alpine data bindings
@@ -118,16 +122,14 @@ function initRemitDialogs() {
     }
   }));
 
-  window.Alpine.data('remitSearchModal', (initialConfig = {}) => ({
+  // Inline Search Component untuk Halaman Reports (Real Input, No Modal, No Esc Button)
+  window.Alpine.data('remitInlineSearch', (config = {}) => ({
     isOpen: false,
-    defaultAction: (initialConfig && initialConfig.defaultAction) || '/reports/search',
-    action: (initialConfig && initialConfig.defaultAction) || '/reports/search',
-    placeholder: 'Cari transaksi...',
-    query: '',
-    extraParams: {},
+    action: config.action || '/reports/search',
+    query: config.query || '',
+    extraParams: config.extraParams || {},
     selectedIndex: 0,
 
-    // Panduan & Cara Operasikan Pencarian (Search Tips / Syntax Filters)
     searchTips: [
       { id: 'tip-payer', icon: 'bi-wallet2', prefix: 'payer:', desc: 'Filter berdasarkan nama payer / pengirim', sample: 'payer: ' },
       { id: 'tip-benef', icon: 'bi-person-check', prefix: 'benef:', desc: 'Filter berdasarkan nama penerima (beneficiary)', sample: 'benef: ' },
@@ -136,15 +138,6 @@ function initRemitDialogs() {
       { id: 'tip-date', icon: 'bi-calendar-date', prefix: 'date:', desc: 'Filter tanggal transaksi (YYYY-MM-DD)', sample: 'date: ' },
       { id: 'tip-inv', icon: 'bi-receipt', prefix: 'inv:', desc: 'Filter nomor invoice atau kontrak', sample: 'inv: ' }
     ],
-
-    get extraParamsList() {
-      if (!this.extraParams || typeof this.extraParams !== 'object') return [];
-      if (Array.isArray(this.extraParams)) return this.extraParams;
-      return Object.entries(this.extraParams).map(([name, value]) => ({
-        name: String(name),
-        value: value === null || value === undefined ? '' : String(value)
-      }));
-    },
 
     get filteredTips() {
       const q = this.query.trim().toLowerCase();
@@ -164,7 +157,7 @@ function initRemitDialogs() {
           isSearchAction: true,
           icon: 'bi-search',
           title: 'Cari transaksi',
-          subtitle: `"${q}" di seluruh sistem`
+          subtitle: `"${q}"`
         });
       }
       this.filteredTips.forEach(tip => list.push(tip));
@@ -179,32 +172,35 @@ function initRemitDialogs() {
       const items = this.allNavigableItems;
       if (e.key === 'ArrowDown') {
         e.preventDefault();
+        this.isOpen = true;
         if (items.length > 0) {
           this.selectedIndex = (this.selectedIndex + 1) % items.length;
           this.scrollActiveIntoView();
         }
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
+        this.isOpen = true;
         if (items.length > 0) {
           this.selectedIndex = (this.selectedIndex - 1 + items.length) % items.length;
           this.scrollActiveIntoView();
         }
       } else if (e.key === 'Enter') {
-        e.preventDefault();
-        if (items.length > 0 && items[this.selectedIndex]) {
-          this.selectItem(items[this.selectedIndex]);
-        } else if (this.query.trim()) {
-          this.executeSearch(this.query);
+        if (this.isOpen && items.length > 0 && items[this.selectedIndex]) {
+          const selected = items[this.selectedIndex];
+          if (!selected.isSearchAction) {
+            e.preventDefault();
+            this.selectTip(selected);
+            return;
+          }
         }
       } else if (e.key === 'Escape') {
-        e.preventDefault();
-        this.closeModal();
+        this.isOpen = false;
       }
     },
 
     scrollActiveIntoView() {
       this.$nextTick(() => {
-        const container = this.$refs.resultsList;
+        const container = this.$refs.suggestionsList;
         const activeEl = container?.querySelector('[data-selected="true"]');
         if (activeEl && container) {
           const containerRect = container.getBoundingClientRect();
@@ -218,57 +214,26 @@ function initRemitDialogs() {
       });
     },
 
-    selectItem(item) {
-      if (!item) return;
-      if (item.isSearchAction) {
-        this.executeSearch(this.query);
-      } else if (item.sample) {
-        this.query = item.sample;
-        this.selectedIndex = 0;
-        this.$refs.modalSearchInput?.focus();
+    selectTip(tip) {
+      if (!tip) return;
+      this.query = tip.sample;
+      this.selectedIndex = 0;
+      this.$refs.searchInput?.focus();
+    },
+
+    handleSubmit(e) {
+      if (!this.query.trim()) {
+        e.preventDefault();
+        this.$refs.searchInput?.focus();
+        return;
       }
+      this.isOpen = false;
     },
 
     executeSearch(q) {
-      const query = (q || this.query || '').trim();
-      if (!query) {
-        this.$refs.modalSearchInput?.focus();
-        return;
-      }
-      const form = this.$refs.searchForm;
-      if (form) {
-        form.submit();
-      } else {
-        const urlObj = new URL(this.action, window.location.origin);
-        urlObj.searchParams.set('q', query);
-        this.extraParamsList.forEach(p => {
-          if (p.name && p.value) urlObj.searchParams.set(p.name, p.value);
-        });
-        window.location.href = urlObj.toString();
-      }
-    },
-
-    openModal(config = {}) {
-      const cfg = typeof config === 'object' && config !== null ? config : {};
-      this.placeholder = cfg.placeholder || 'Cari transaksi...';
-      this.action = cfg.action || this.defaultAction;
-      this.query = cfg.query !== undefined ? String(cfg.query) : '';
-      this.extraParams = cfg.extraParams ? { ...cfg.extraParams } : {};
-      this.selectedIndex = 0;
-      this.isOpen = true;
-      this.$nextTick(() => {
-        setTimeout(() => {
-          const input = this.$refs.modalSearchInput;
-          if (input) {
-            input.focus();
-            input.select?.();
-          }
-        }, 30);
-      });
-    },
-
-    closeModal() {
+      this.query = q;
       this.isOpen = false;
+      this.$refs.searchInput?.form?.submit();
     }
   }));
 }

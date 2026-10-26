@@ -36,7 +36,7 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
         </a>
 
         <div class="flex items-center gap-2">
-            <?= render_search_modal_trigger([
+            <?= render_reports_search_bar([
                 'action' => url('/reports/search'),
                 'placeholder' => 'Cari transaksi...',
                 'query' => (string) ($filters['q'] ?? ''),

@@ -350,44 +350,38 @@ input[type="search"],
    - Hint tombol `<kbd>/</kbd>` yang halus muncul di sisi kanan saat input kosong.
    - Menekan tombol `/` pada keyboard (di luar input/textarea aktif) otomatis memindahkan fokus kursor ke search bar aktif.
 
-### 6.3. Arsitektur Search Bar Command Palette (Zero-Recents & Preserved Operations Law)
-Untuk menjaga kebersihan tata letak halaman (*Naked Page Architecture*), efisiensi ruang layar, serta pengalaman pencarian keyboard-first tingkat tinggi tanpa distraksi, bar pencarian beroperasi mengikuti arsitektur **Zero-Recents & Preserved Operations Law**:
-1. **Pemicu Modal (Search Trigger Bar):**
-   - Halaman merender pemicu bar pencarian elegan berlatar putih dengan border solid `#e5e7eb`, ikon `<i class="bi bi-search text-gray-400"></i>`, teks placeholder `'Cari transaksi...'`, serta keyboard shortcut badge `<kbd class="font-mono">Ctrl K</kbd>`.
-   - Menggunakan helper resmi `render_search_modal_trigger()` yang otomatis memicu event `$dispatch('open-search-modal', { ... })`.
-2. **Modal Pencarian Global (`remitSearchModal`):**
-   - Dirender terpusat di `app/Views/layouts/app.php` dengan backdrop blur halus (`bg-gray-900/50 backdrop-blur-xs`).
-   - Dialog mengambang `max-w-2xl` tanpa padding luar, dengan border solid `#e5e7eb`, radius `rounded-xl`, dan bayangan `shadow-2xl`.
-   - **Pemusnahan Daftar Riwayat Halaman ("Zero-Recents"):** Sesuai instruksi khusus, daftar "Recents" (riwayat modul/halaman situs luar) **DITIADAKAN SECARA MUTLAK** dari search bar laporan agar terfokus murni pada data transaksi.
-   - **Pemeliharaan Panduan Operasional ("Search tips"):** Bagian "Search tips" **MUTLAK DIPELIHARA** untuk memandu pengguna cara mengoperasikan pencarian dengan filter presisi (`payer:`, `benef:`, `bank:`, `tim:`, `date:`, `inv:`).
-   - **Bilah Panduan Keyboard Footer:** Bagian bawah modal menyajikan instruksi pengoperasian keyboard secara permanen (`↑ ↓ to navigate`, `↵ to select`, `esc to close`).
-   - **Navigasi Keyboard Interaktif:** Pengguna dapat menavigasi tips maupun live search action dengan tombol panah atas/bawah, menekan `Enter` untuk memilih/mengeksekusi, dan `Esc` untuk menutup dialog.
-   - **Live Search Action:** Begitu pengguna mengetik kata kunci pencarian, panel dropdown menampilkan aksi `Cari transaksi — "{query}" di seluruh sistem →`.
-   - Menekan tombol `Enter` mengeksekusi pencarian langsung ke rute action (`/reports/search?q=...`).
-   - Menekan tombol `ESC` atau klik di luar area dialog otomatis menutup modal.
+### 6.3. Arsitektur Search Bar Asli & Dropdown Panduan Operasional (Real Input & Inline Tips Law)
+Untuk menjaga kealamian antarmuka web, kecepatan interaksi, dan ergonomi keyboard tanpa distraksi modal gelap, bar pencarian utama beroperasi mengikuti prinsip **Real Input, Anti-Dummy-Button & Anti-Esc-Button**:
+1. **Search Bar Asli Langsung di Halaman (`<input type="search">`):**
+   - Bar pencarian adalah elemen `<input>` nyata yang langsung bisa diklik dan diketik oleh pengguna seketika tanpa perantara tombol (`<button>`) palsu maupun popup modal terpisah.
+   - Menggunakan helper resmi `render_reports_search_bar()` yang membungkus input dengan form GET standar, parameter tersembunyi (`extraParams`), dan Alpine component `remitInlineSearch`.
+   - **Pemusnahan Tombol "Esc" & Modal Gelap:** Tidak ada tombol "Esc" maupun backdrop modal gelap yang mengaburkan halaman.
+2. **Dropdown Panduan Operasional Tersemat (Inline Tips Popover):**
+   - Muncul secara on-demand langsung di bawah search bar saat input difokuskan atau diketik (`@focus="isOpen = true"`).
+   - **Peniadaan Total "Recents":** Daftar riwayat modul/halaman situs tetap ditiadakan dari laporan agar terfokus murni pada data transaksi.
+   - **Pemeliharaan Panduan Operasional ("Search tips"):** Menyajikan panduan sintaks filter operasional (`payer:`, `benef:`, `bank:`, `tim:`, `date:`, `inv:`). Memilih salah satu tip otomatis mengisi prefix ke dalam input dan memfokuskan kursor.
+   - **Bilah Panduan Keyboard Footer:** Bagian bawah dropdown popover menyajikan instruksi keyboard secara permanen (`↑ ↓ navigasi`, `↵ pilih / cari`, `esc tutup`).
+   - **Navigasi Keyboard Interaktif:** Pengguna dapat menavigasi tips maupun live action menggunakan tombol panah atas/bawah, menekan `Enter` untuk memilih tip atau langsung mengeksekusi pencarian, dan menekan tombol `Esc` pada keyboard untuk menutup dropdown popover.
+   - Menekan shortcut keyboard `/` atau `Ctrl+K` di mana saja otomatis mengarahkan fokus kursor ke input pencarian aktif.
 
 ### 6.4. Penggunaan via Helper PHP Resmi
 Setiap view yang membutuhkan kontrol pencarian **MUTLAK WAJIB** menggunakan helper berikut di `app/helpers.php`:
 
 ```php
-<!-- Mode 1: Pemicu Command Palette Bar (Direkomendasikan untuk Header/Card) -->
-<?= render_search_modal_trigger([
+<!-- Mode 1: Search Bar Asli Laporan dengan Dropdown Panduan Operasional (Direkomendasikan) -->
+<?= render_reports_search_bar([
     'action'      => url('/reports/search'),
     'placeholder' => 'Cari transaksi...',
     'query'       => (string) ($filters['q'] ?? ''),
 ]) ?>
 
-<!-- Mode 2: Input Form Tersemat (Khusus Halaman Hasil / Filter Parameter) -->
+<!-- Mode 2: Input Form Tersemat Sederhana (Khusus Filter Parameter Ringkas) -->
 <?= render_search_input('q', (string) ($filters['q'] ?? ''), [
     'placeholder'  => 'Ketik kata kunci pencarian...',
     'required'     => true,
     'wrapperClass' => 'flex-1 min-w-[200px]',
 ]) ?>
 ```
-
-### 6.5. Protokol Anti-Regresi & Keamanan Event Propagation Search Modal
-1. **Scope Isolation & Dual-Dispatch Safety:** Setiap elemen tombol pemicu modal wajib memiliki atribut `x-data`, penahan bubbling `@click.stop`, dan fallback JavaScript native `onclick="event.stopPropagation(); window.openSearchModal(JSON.parse(this.dataset.searchConfig || '{}')); return false;"` yang didukung `data-search-config`. Hal ini menjamin pemicu tetap berfungsi 100% meskipun tombol diletakkan di luar hierarki komponen Alpine induk.
-2. **Backdrop Event Handling (Anti-Race Condition):** Penutupan modal saat mengklik area luar wajib menggunakan `@click.self="closeModal()"` langsung pada fixed container backdrop (`.fixed.inset-0`), **DILARANG** menggunakan `@click.outside="closeModal()"` pada kartu dialog modal untuk mencegah penutupan seketika akibat bubbling klik pemicu.
 3. **Normalisasi Parameter Objek (`extraParamsList`):** Alpine.js v3 mengevaluasi iterasi objek pada `<template x-for="(val, key) in object">` sebagai `[key, value]` tuple dengan `key` berupa indeks numerik. Seluruh parameter tambahan wajib dinormalisasi melalui computed getter `extraParamsList` yang menghasilkan array `[{ name, value }]` murni.
 4. **Pembersihan State Terpadu (State Sanitization):** Setiap eksekusi `openModal(config)` wajib mereset seluruh atribut state (`title`, `subtitle`, `placeholder`, `action`, `query`, dan `extraParams`) kembali ke nilai konfigurasi default untuk mencegah pencemaran state (*state pollution*) saat berpindah halaman atau menggunakan shortcut global.
 5. **Zero-Transform Transition:** Transisi modal hanya boleh menggunakan manipulasi `opacity` murni (contoh: `x-transition:enter-start="opacity-0"` ke `x-transition:enter-end="opacity-100"`). Dilarang keras menyertakan `-translate-y-2` atau scale transform.

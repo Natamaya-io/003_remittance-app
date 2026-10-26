@@ -39,14 +39,12 @@
       if (isSlash && activeEl?.isContentEditable) return;
 
       event.preventDefault();
-      if (typeof window.openSearchModal === 'function') {
+      const searchInput = qs('.custom-search-input') || qs('input[name="q"]');
+      if (searchInput) {
+        searchInput.focus();
+        searchInput.select?.();
+      } else if (typeof window.openSearchModal === 'function') {
         window.openSearchModal();
-      } else {
-        const searchInput = qs('.custom-search-input');
-        if (searchInput) {
-          searchInput.focus();
-          searchInput.select?.();
-        }
       }
     }
   });

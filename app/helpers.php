@@ -479,73 +479,192 @@ function render_search_input(string $name = 'q', string $value = '', array $opti
  *   class?: string
  * } $options
  */
-function render_search_modal_trigger(array $options = []): string
+/**
+ * Render Real Inline Search Bar with Operation Tips Dropdown
+ *
+ * Mengikuti prinsip Search Bar Asli (Real Input, No Dummy Button, No Esc Button):
+ * - Input pencarian interaktif langsung di halaman (<input type="search">)
+ * - Bebas dari tombol pemicu modal palsu (<button>)
+ * - Dropdown tips operasional (payer:, benef:, bank:, tim:, date:, inv:) muncul langsung di bawah input saat fokus
+ * - Keyboard navigation (panah atas/bawah, Enter, Esc untuk tutup dropdown)
+ * - Indikator pintasan keyboard (/) dan tombol clear (x)
+ *
+ * @param array{
+ *   action?: string,
+ *   placeholder?: string,
+ *   query?: string,
+ *   extraParams?: array<string, string>,
+ *   class?: string,
+ *   widthClass?: string,
+ *   showKbd?: bool,
+ *   kbdText?: string
+ * } $options
+ */
+function render_reports_search_bar(array $options = []): string
 {
-    $style = (string) ($options['style'] ?? 'bar');
-    $label = (string) ($options['label'] ?? 'Search');
-    $icon = (string) ($options['icon'] ?? 'bi-search');
+    $action = (string) ($options['action'] ?? url('/reports/search'));
     $placeholder = (string) ($options['placeholder'] ?? 'Cari transaksi...');
-    $showKbd = array_key_exists('showKbd', $options) ? (bool) $options['showKbd'] : true;
-    $kbdText = (string) ($options['kbdText'] ?? 'Ctrl K');
+    $query = (string) ($options['query'] ?? '');
+    $extraParams = (array) ($options['extraParams'] ?? []);
+    $widthClass = (string) ($options['widthClass'] ?? 'w-full sm:w-72 md:w-80');
+    $id = 'reports_search_' . bin2hex(random_bytes(2));
 
-    $modalConfig = [
-        'action' => (string) ($options['action'] ?? url('/reports/search')),
-        'placeholder' => $placeholder,
-        'query' => (string) ($options['query'] ?? ''),
-        'extraParams' => (array) ($options['extraParams'] ?? []),
+    $config = [
+        'action' => $action,
+        'query' => $query,
+        'extraParams' => $extraParams,
     ];
-
-    $jsonConfig = json_encode($modalConfig, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
-
-    if ($style === 'button') {
-        $class = (string) ($options['class'] ?? 'btn btn-primary py-2 px-3.5 inline-flex items-center justify-center gap-x-1.5 text-xs font-semibold rounded-lg shrink-0 focus:outline-none');
-        ob_start();
-        ?>
-        <button
-            type="button"
-            x-data
-            @click.stop="$dispatch('open-search-modal', <?= e($jsonConfig) ?>)"
-            onclick="event.stopPropagation(); window.openSearchModal ? window.openSearchModal(JSON.parse(this.dataset.searchConfig || '{}')) : null; return false;"
-            data-search-config="<?= e($jsonConfig) ?>"
-            class="<?= e($class) ?>"
-            aria-label="<?= e($label) ?>"
-            title="<?= e($label) ?> (Tekan / atau Ctrl+K)"
-        >
-            <i class="bi <?= e($icon) ?>"></i>
-            <span><?= e($label) ?></span>
-            <?php if ($showKbd): ?>
-                <kbd class="ms-1 py-0.5 px-1.5 text-[10px] bg-white/20 border border-white/30 rounded text-white font-mono">/</kbd>
-            <?php endif; ?>
-        </button>
-        <?php
-        return (string) ob_get_clean();
-    }
-
-    // Default Cloudflare-style search bar trigger
-    $class = (string) ($options['class'] ?? 'inline-flex items-center justify-between gap-3 px-3.5 py-2 bg-white border border-gray-200 hover:border-gray-300 rounded-lg text-sm text-gray-400 shadow-xs cursor-pointer transition-colors w-full sm:w-72 md:w-80 select-none');
+    $jsonConfig = json_encode($config, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
 
     ob_start();
     ?>
-    <button
-        type="button"
-        x-data
-        @click.stop="$dispatch('open-search-modal', <?= e($jsonConfig) ?>)"
-        onclick="event.stopPropagation(); window.openSearchModal ? window.openSearchModal(JSON.parse(this.dataset.searchConfig || '{}')) : null; return false;"
-        data-search-config="<?= e($jsonConfig) ?>"
-        class="<?= e($class) ?>"
-        aria-label="<?= e($placeholder) ?>"
-        title="<?= e($placeholder) ?> (Tekan / atau Ctrl+K)"
+    <div
+        class="relative <?= e($widthClass) ?>"
+        x-data="remitInlineSearch(<?= e($jsonConfig) ?>)"
+        @click.outside="isOpen = false"
+        @keydown.escape="isOpen = false"
     >
-        <span class="inline-flex items-center gap-2.5 truncate">
-            <i class="bi <?= e($icon) ?> text-gray-400 text-sm shrink-0"></i>
-            <span class="text-gray-400 text-sm truncate"><?= e($placeholder) ?></span>
-        </span>
-        <?php if ($showKbd): ?>
-            <kbd class="ms-auto py-0.5 px-1.5 text-[10px] bg-gray-100 border border-gray-200 rounded text-gray-400 font-mono shrink-0"><?= e($kbdText) ?></kbd>
-        <?php endif; ?>
-    </button>
+        <form :action="action" method="get" @submit="handleSubmit($event)" class="m-0 p-0">
+            <?php foreach ($extraParams as $epKey => $epVal): ?>
+                <input type="hidden" name="<?= e($epKey) ?>" value="<?= e($epVal) ?>">
+            <?php endforeach; ?>
+
+            <div class="custom-search-bar relative flex items-center w-full">
+                <span class="search-leading-icon pointer-events-none" aria-hidden="true">
+                    <i class="bi bi-search text-gray-400"></i>
+                </span>
+
+                <input
+                    x-ref="searchInput"
+                    x-model="query"
+                    @focus="isOpen = true"
+                    @input="isOpen = true"
+                    @keydown="handleKeydown($event)"
+                    type="search"
+                    name="q"
+                    id="<?= e($id) ?>"
+                    class="custom-search-input h-10 w-full text-xs sm:text-sm ps-9 pe-9 rounded-xl bg-white border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-gray-900 placeholder:text-gray-400 font-normal outline-none transition-colors"
+                    placeholder="<?= e($placeholder) ?>"
+                    value="<?= e($query) ?>"
+                    autocomplete="off"
+                    spellcheck="false"
+                >
+
+                <!-- Clear button (hanya muncul saat query terisi) -->
+                <button
+                    type="button"
+                    x-show="query && query.length > 0"
+                    x-cloak
+                    @click="query = ''; $refs.searchInput.focus()"
+                    class="search-clear-btn"
+                    aria-label="Hapus pencarian"
+                >
+                    <i class="bi bi-x-circle-fill text-xs text-gray-400 hover:text-gray-600"></i>
+                </button>
+
+                <!-- Keyboard shortcut hint (/) saat kosong -->
+                <kbd
+                    x-show="!query || query.length === 0"
+                    class="search-kbd-hint pointer-events-none"
+                    aria-hidden="true"
+                >/</kbd>
+            </div>
+        </form>
+
+        <!-- Dropdown Cara Operasikan & Live Suggestion Popover (Melekat langsung di bawah search bar) -->
+        <div
+            x-show="isOpen"
+            x-cloak
+            x-transition:enter="transition ease-out duration-100"
+            x-transition:enter-start="opacity-0 translate-y-1"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-75"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 translate-y-1"
+            class="absolute left-0 right-0 sm:right-auto sm:w-[420px] top-full mt-1.5 z-50 bg-white border border-gray-200 rounded-xl shadow-xl overflow-hidden text-left"
+            style="display: none;"
+        >
+            <div x-ref="suggestionsList" class="max-h-72 overflow-y-auto p-1.5 select-none">
+                <!-- Live Search Action (ketika query diisi) -->
+                <template x-if="query.trim().length > 0">
+                    <div
+                        class="flex items-center justify-between px-3 py-2 rounded-lg text-xs sm:text-sm cursor-pointer transition-colors"
+                        :class="selectedIndex === 0 ? 'bg-gray-100 text-gray-900' : 'text-gray-700 hover:bg-gray-50'"
+                        :data-selected="selectedIndex === 0 ? 'true' : 'false'"
+                        @mouseenter="selectedIndex = 0"
+                        @click="executeSearch(query)"
+                    >
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <i class="bi bi-search text-sm text-gray-400 shrink-0"></i>
+                            <div class="truncate">
+                                <span class="font-medium text-gray-900">Cari transaksi</span>
+                                <span class="text-gray-400 mx-1">—</span>
+                                <span class="text-gray-500 font-normal" x-text="'&quot;' + query.trim() + '&quot;'"></span>
+                            </div>
+                        </div>
+                        <i x-show="selectedIndex === 0" class="bi bi-arrow-right text-gray-400 text-xs shrink-0 ms-2"></i>
+                    </div>
+                </template>
+
+                <!-- Search tips (Cara Operasikan Search Bar) -->
+                <template x-if="filteredTips.length > 0">
+                    <div class="mt-1 mb-0.5">
+                        <div class="px-2.5 pt-1.5 pb-1 text-[11px] font-medium text-gray-400 uppercase tracking-wider select-none">Search tips</div>
+                        <div class="space-y-0.5">
+                            <template x-for="(tip, idx) in filteredTips" :key="tip.id">
+                                <div
+                                    class="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs cursor-pointer transition-colors"
+                                    :class="selectedIndex === getItemIndex(tip) ? 'bg-gray-100 text-gray-900' : 'text-gray-700 hover:bg-gray-50'"
+                                    :data-selected="selectedIndex === getItemIndex(tip) ? 'true' : 'false'"
+                                    @mouseenter="selectedIndex = getItemIndex(tip)"
+                                    @click="selectTip(tip)"
+                                >
+                                    <div class="flex items-center gap-2 min-w-0">
+                                        <i class="bi text-xs text-gray-400 shrink-0" :class="tip.icon"></i>
+                                        <div class="truncate">
+                                            <span class="font-medium text-gray-900 font-mono text-[11px]" x-text="tip.prefix"></span>
+                                            <span class="text-gray-400 mx-1">—</span>
+                                            <span class="text-gray-500 font-normal text-xs" x-text="tip.desc"></span>
+                                        </div>
+                                    </div>
+                                    <i x-show="selectedIndex === getItemIndex(tip)" class="bi bi-arrow-right text-gray-400 text-xs shrink-0 ms-1.5"></i>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Footer Bar (Cara Operasikan via Keyboard) -->
+            <div class="px-3 py-1.5 border-t border-gray-100 bg-gray-50/70 flex items-center justify-between text-[11px] text-gray-400 select-none">
+                <div class="flex items-center gap-3">
+                    <span class="inline-flex items-center gap-1">
+                        <span class="font-mono text-gray-500 text-[10px]">↑</span>
+                        <span class="font-mono text-gray-500 text-[10px]">↓</span>
+                        <span>navigasi</span>
+                    </span>
+                    <span class="inline-flex items-center gap-1">
+                        <span class="font-mono text-gray-500 text-[10px]">↵</span>
+                        <span>pilih / cari</span>
+                    </span>
+                </div>
+                <span class="inline-flex items-center gap-1">
+                    <span class="font-mono text-gray-500 text-[10px]">esc</span>
+                    <span>tutup</span>
+                </span>
+            </div>
+        </div>
+    </div>
     <?php
     return (string) ob_get_clean();
+}
+
+/**
+ * Backward compatibility alias for render_reports_search_bar
+ */
+function render_search_modal_trigger(array $options = []): string
+{
+    return render_reports_search_bar($options);
 }
 
 /**
