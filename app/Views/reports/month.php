@@ -340,16 +340,10 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                                     </div>
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap">
-                                    <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-700">
-                                        <i class="bi bi-files text-gray-400"></i>
-                                        <?= (int) $dateCard['file_count'] ?> Berkas
-                                    </span>
+                                    <?= render_tooltip('Jumlah berkas Excel pada tanggal ini', '<span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-700 cursor-default"><i class="bi bi-files text-gray-400"></i>' . (int) $dateCard['file_count'] . ' Berkas</span>') ?>
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap">
-                                    <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-700">
-                                        <i class="bi bi-people text-gray-400"></i>
-                                        <?= (int) $dateCard['team_count'] ?> Tim
-                                    </span>
+                                    <?= render_tooltip('Jumlah tim aktif pada tanggal ini', '<span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-700 cursor-default"><i class="bi bi-people text-gray-400"></i>' . (int) $dateCard['team_count'] . ' Tim</span>') ?>
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap text-end font-mono font-bold text-gray-900">
                                     <?= number_format($total, 0, ',', '.') ?>
@@ -367,9 +361,7 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap text-center">
                                     <?php if ($skipped > 0): ?>
-                                        <span class="inline-flex items-center py-0.5 px-2 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
-                                            <?= number_format($skipped, 0, ',', '.') ?>
-                                        </span>
+                                        <?= render_tooltip('Baris dilewati saat import', '<span class="inline-flex items-center py-0.5 px-2 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200 cursor-default">' . number_format($skipped, 0, ',', '.') . '</span>') ?>
                                     <?php else: ?>
                                         <span class="text-xs text-gray-400">0</span>
                                     <?php endif; ?>

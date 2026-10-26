@@ -417,18 +417,12 @@ $returnPath = '/reports/date/' . $date;
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap">
                                     <div class="flex items-center gap-1.5 flex-wrap">
-                                        <span class="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200" title="Berhasil">
-                                            <i class="bi bi-check-lg"></i><?= $success ?>
-                                        </span>
+                                        <?= render_tooltip('Berhasil Diproses', '<span class="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200"><i class="bi bi-check-lg"></i>' . $success . '</span>') ?>
                                         <?php if ($failed > 0): ?>
-                                            <span class="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200" title="Gagal / Retur">
-                                                <i class="bi bi-x-lg"></i><?= $failed ?>
-                                            </span>
+                                            <?= render_tooltip('Gagal / Retur', '<span class="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-xs font-semibold bg-red-50 text-red-700 border border-red-200"><i class="bi bi-x-lg"></i>' . $failed . '</span>') ?>
                                         <?php endif; ?>
                                         <?php if ($skipped > 0): ?>
-                                            <span class="inline-flex items-center py-0.5 px-2 rounded-full text-xs font-semibold bg-gray-100 text-gray-600" title="Dilewati">
-                                                <?= $skipped ?> skip
-                                            </span>
+                                            <?= render_tooltip('Baris Dilewati', '<span class="inline-flex items-center py-0.5 px-2 rounded-full text-xs font-semibold bg-gray-100 text-gray-600">' . $skipped . ' skip</span>') ?>
                                         <?php endif; ?>
                                     </div>
                                 </td>
@@ -438,20 +432,14 @@ $returnPath = '/reports/date/' . $date;
                                             <i class="bi bi-table"></i>
                                             Buka
                                         </a>
-                                        <a class="size-7 inline-flex justify-center items-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports/' . $batch['id'] . '/export')) ?>" title="Export Excel">
-                                            <i class="bi bi-file-earmark-excel text-emerald-600"></i>
-                                        </a>
+                                        <?= render_tooltip('Export Excel', '<a class="size-7 inline-flex justify-center items-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="' . e(url('/reports/' . $batch['id'] . '/export')) . '"><i class="bi bi-file-earmark-excel text-emerald-600"></i></a>') ?>
                                         <?php if (can('report.manage')): ?>
-                                            <a class="size-7 inline-flex justify-center items-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports/' . $batch['id'] . '/edit')) ?>" title="Edit">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
+                                            <?= render_tooltip('Edit Metadata', '<a class="size-7 inline-flex justify-center items-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="' . e(url('/reports/' . $batch['id'] . '/edit')) . '"><i class="bi bi-pencil"></i></a>') ?>
                                             <form class="inline-block m-0" method="post" action="<?= e(url('/reports/' . $batch['id'])) ?>" data-confirm="Hapus report ini beserta seluruh barisnya?">
                                                 <?= csrf_field() ?>
                                                 <?= method_field('DELETE') ?>
                                                 <input type="hidden" name="return_to" value="<?= e($returnPath) ?>">
-                                                <button class="size-7 inline-flex justify-center items-center rounded-lg border border-red-200 bg-white text-red-600 shadow-xs hover:bg-red-50 hover:border-red-300 focus:outline-none focus:bg-red-50 transition-colors" type="submit" title="Hapus">
-                                                    <i class="bi bi-trash"></i>
-                                                </button>
+                                                <?= render_tooltip('Hapus Batch', '<button class="size-7 inline-flex justify-center items-center rounded-lg border border-red-200 bg-white text-red-600 shadow-xs hover:bg-red-50 hover:border-red-300 focus:outline-none focus:bg-red-50 transition-colors" type="submit"><i class="bi bi-trash"></i></button>') ?>
                                             </form>
                                         <?php endif; ?>
                                     </div>
@@ -545,20 +533,14 @@ $returnPath = '/reports/date/' . $date;
                     <!-- Card Footer Actions -->
                     <div class="pt-3 border-t border-gray-100 flex items-center justify-between gap-2">
                         <div class="flex items-center gap-1.5">
-                            <a class="size-8 inline-flex justify-center items-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports/' . $batch['id'] . '/export')) ?>" title="Export Excel">
-                                <i class="bi bi-file-earmark-excel text-emerald-600"></i>
-                            </a>
+                            <?= render_tooltip('Export Excel', '<a class="size-8 inline-flex justify-center items-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="' . e(url('/reports/' . $batch['id'] . '/export')) . '"><i class="bi bi-file-earmark-excel text-emerald-600"></i></a>') ?>
                             <?php if (can('report.manage')): ?>
-                                <a class="size-8 inline-flex justify-center items-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports/' . $batch['id'] . '/edit')) ?>" title="Edit">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
+                                <?= render_tooltip('Edit Metadata', '<a class="size-8 inline-flex justify-center items-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="' . e(url('/reports/' . $batch['id'] . '/edit')) . '"><i class="bi bi-pencil"></i></a>') ?>
                                 <form class="inline-block m-0" method="post" action="<?= e(url('/reports/' . $batch['id'])) ?>" data-confirm="Hapus report ini beserta seluruh barisnya?">
                                     <?= csrf_field() ?>
                                     <?= method_field('DELETE') ?>
                                     <input type="hidden" name="return_to" value="<?= e($returnPath) ?>">
-                                    <button class="size-8 inline-flex justify-center items-center rounded-lg border border-red-200 bg-white text-red-600 shadow-xs hover:bg-red-50 hover:border-red-300 focus:outline-none focus:bg-red-50 transition-colors" type="submit" title="Hapus">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
+                                    <?= render_tooltip('Hapus Batch', '<button class="size-8 inline-flex justify-center items-center rounded-lg border border-red-200 bg-white text-red-600 shadow-xs hover:bg-red-50 hover:border-red-300 focus:outline-none focus:bg-red-50 transition-colors" type="submit"><i class="bi bi-trash"></i></button>') ?>
                                 </form>
                             <?php endif; ?>
                         </div>

@@ -134,6 +134,25 @@
     gap: 6px !important;
   }
 
+  /* =========================================================
+     GLOBAL CUSTOM UI: TOOLTIP SYSTEM (HOVER-ONLY LAW)
+     ========================================================= */
+  .hs-tooltip {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .hs-tooltip-content {
+    transition: opacity 0.15s ease-out, visibility 0.15s ease-out;
+  }
+
+  .hs-tooltip:hover > .hs-tooltip-content,
+  .hs-tooltip.show > .hs-tooltip-content {
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
   /* Zebra Table Zero-Hover Enforcement */
   [data-no-hover],
   [data-no-hover]:hover,

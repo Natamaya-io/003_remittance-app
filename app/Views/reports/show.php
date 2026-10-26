@@ -533,28 +533,26 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                         <td class="py-3 px-4 text-right sticky right-0 bg-white z-10 shadow-[-4px_0_10px_rgba(0,0,0,0.04)] whitespace-nowrap">
                             <div class="inline-flex items-center gap-1.5 justify-end">
                                 <?php if (!empty($row['transaction_id'])): ?>
-                                    <a class="p-1 rounded-md text-gray-500 hover:text-blue-600 hover:bg-gray-100" href="<?= e(url('/transactions/' . $row['transaction_id'])) ?>" title="Buka transaksi sistem">
-                                        <i class="bi bi-link-45deg text-base"></i>
-                                    </a>
+                                    <?= render_tooltip('Buka Transaksi Sistem', '<a class="p-1 rounded-md text-gray-500 hover:text-blue-600 hover:bg-gray-100" href="' . e(url('/transactions/' . $row['transaction_id'])) . '"><i class="bi bi-link-45deg text-base"></i></a>', ['placement' => 'left']) ?>
                                 <?php endif; ?>
 
                                 <?php if (can('report.manage')): ?>
-                                    <button
+                                    <?= render_tooltip('Ubah Status & Catatan', '<button
                                         type="button"
-                                        data-row-id="<?= $rowId ?>"
-                                        data-row-order="<?= $itemNumber ?>"
-                                        data-row-payer="<?= e($payerName) ?>"
-                                        data-row-beneficiary="<?= e($beneficiaryName) ?>"
-                                        data-row-amount="<?= e($amountFormatted) ?>"
-                                        data-row-delivery="<?= e($deliveryStatus) ?>"
-                                        data-row-result="<?= e($resultStatus) ?>"
-                                        data-row-notes="<?= e($notesStr) ?>"
+                                        data-row-id="' . $rowId . '"
+                                        data-row-order="' . $itemNumber . '"
+                                        data-row-payer="' . e($payerName) . '"
+                                        data-row-beneficiary="' . e($beneficiaryName) . '"
+                                        data-row-amount="' . e($amountFormatted) . '"
+                                        data-row-delivery="' . e($deliveryStatus) . '"
+                                        data-row-result="' . e($resultStatus) . '"
+                                        data-row-notes="' . e($notesStr) . '"
                                         @click="openEditFromButton($el)"
                                         class="py-1 px-2.5 inline-flex items-center gap-x-1 text-xs font-semibold rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors focus:outline-hidden focus:bg-gray-50"
                                     >
                                         <i class="bi bi-pencil-square text-blue-600"></i>
                                         Ubah
-                                    </button>
+                                    </button>', ['placement' => 'left']) ?>
                                 <?php endif; ?>
                             </div>
                         </td>

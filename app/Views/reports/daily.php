@@ -121,14 +121,8 @@ $print = (bool) ($print ?? false);
                 <a class="datepicker-preset-btn <?= $date === date('Y-m-d') ? 'active' : '' ?>" href="<?= url('/reports/daily') ?>">
                     Hari Ini
                 </a>
-                <a class="py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1.5 transition-colors" href="<?= url('/reports/daily/export?' . http_build_query(['date' => $date, 'company_id' => $companyId])) ?>">
-                    <i class="bi bi-download"></i>
-                    CSV
-                </a>
-                <button type="button" class="py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1.5 transition-colors" onclick="window.print()">
-                    <i class="bi bi-printer"></i>
-                    Cetak
-                </button>
+                <?= render_tooltip('Export File CSV', '<a class="py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1.5 transition-colors" href="' . e(url('/reports/daily/export?' . http_build_query(['date' => $date, 'company_id' => $companyId]))) . '"><i class="bi bi-download"></i> CSV</a>') ?>
+                <?= render_tooltip('Cetak Dokumen Laporan', '<button type="button" class="py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1.5 transition-colors" onclick="window.print()"><i class="bi bi-printer"></i> Cetak</button>') ?>
             </div>
         </form>
     </div>
@@ -230,9 +224,7 @@ $print = (bool) ($print ?? false);
                         <td class="py-3 px-3 font-mono text-[11px]"><?= e($row['reference_no'] ?? '') ?></td>
                         <td class="py-3 px-3 whitespace-nowrap">
                             <?php if (!empty($row['invoice_link'])): ?>
-                                <a class="text-blue-600 hover:underline inline-flex items-center gap-1" href="<?= e($row['invoice_link']) ?>" target="_blank" rel="noopener">
-                                    <i class="bi bi-box-arrow-up-right"></i> Buka
-                                </a>
+                                <?= render_tooltip('Buka Invoice di Tab Baru', '<a class="text-blue-600 hover:underline inline-flex items-center gap-1" href="' . e($row['invoice_link']) . '" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Buka</a>') ?>
                             <?php else: ?>
                                 <span class="text-gray-300">-</span>
                             <?php endif; ?>

@@ -582,4 +582,48 @@ function render_heading_with_info(string $title, string $info, array $options = 
     return (string) ob_get_clean();
 }
 
+/**
+ * Render Tooltip Kustom (Hover-Only Law - GEMINI.md Bagian 10)
+ *
+ * Menghasilkan komponen tooltip yang 100% patuh aturan hover-only:
+ * - Muncul hanya saat hover, langsung tertutup saat kursor keluar
+ * - Bebas pemicu klik (anti-click), pointer-events: none
+ * - Zero-transform (hanya memanipulasi opasitas/visibilitas)
+ * - Tampilan Asphalt solid (#111827 / gray-900, teks putih, 11px font)
+ *
+ * @param string $text Teks petunjuk singkat (1-3 kata)
+ * @param string $slot Konten HTML elemen pemicu (tombol, tautan, badge, atau ikon)
+ * @param array{
+ *   placement?: 'top'|'bottom'|'left'|'right',
+ *   wrapperClass?: string,
+ *   contentClass?: string
+ * } $options
+ */
+function render_tooltip(string $text, string $slot, array $options = []): string
+{
+    $placement = (string) ($options['placement'] ?? 'top');
+    $wrapperClass = (string) ($options['wrapperClass'] ?? 'hs-tooltip inline-flex');
+    $contentClass = (string) ($options['contentClass'] ?? '');
+
+    $tooltipOptions = json_encode([
+        'placement' => $placement,
+        'strategy'  => 'fixed',
+    ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
+
+    ob_start();
+    ?>
+    <div class="<?= e($wrapperClass) ?>" data-hs-tooltip-options='<?= e($tooltipOptions) ?>'>
+        <?= $slot ?>
+        <span
+            class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-[70] py-1 px-2.5 bg-gray-900 text-white text-[11px] font-medium rounded-lg shadow-md pointer-events-none whitespace-nowrap <?= e($contentClass) ?>"
+            role="tooltip"
+        >
+            <?= e($text) ?>
+        </span>
+    </div>
+    <?php
+    return (string) ob_get_clean();
+}
+
+
 
