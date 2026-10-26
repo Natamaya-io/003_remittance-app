@@ -1614,6 +1614,10 @@ $flashes = Flash::all();
 
         .dashboard-hero-modern {
 
+            grid-template-columns:
+                1fr
+                !important;
+
             color:
                 #f5f2f2
                 !important;

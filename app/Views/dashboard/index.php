@@ -95,13 +95,6 @@ $companyCount = isset($companies)
     ? (int) $companies
     : 0;
 
-$successPercentage = $todayTotal > 0
-    ? min(
-        100,
-        ($todaySuccess / $todayTotal) * 100
-    )
-    : 0;
-
 
 
 /*
@@ -377,85 +370,6 @@ $fxBoardFile =
 
 
         </div>
-
-
-        <!-- AKTIVITAS -->
-
-        <aside class="dashboard-activity-card">
-
-
-            <div class="dashboard-activity-head">
-
-
-                <div>
-
-                    <span>
-                        Aktivitas hari ini
-                    </span>
-
-                    <strong>
-
-                        <?= number_format(
-                            $todayTotal,
-                            0,
-                            ',',
-                            '.'
-                        ) ?>
-
-                    </strong>
-
-                    <small>
-                        transaksi masuk
-                    </small>
-
-                </div>
-
-
-                <b>
-
-                    <?= number_format(
-                        $successPercentage,
-                        1,
-                        ',',
-                        '.'
-                    ) ?>% sukses
-
-                </b>
-
-
-            </div>
-
-
-            <canvas
-                id="dashboardMiniChart"
-                aria-label="Tren aktivitas 14 hari"
-            ></canvas>
-
-
-            <div class="dashboard-activity-meta">
-
-                <span>
-                    14 hari terakhir
-                </span>
-
-                <span>
-
-                    <?= number_format(
-                        $todaySuccess,
-                        0,
-                        ',',
-                        '.'
-                    ) ?>
-
-                    sukses
-
-                </span>
-
-            </div>
-
-
-        </aside>
-
 
     </section>
 
