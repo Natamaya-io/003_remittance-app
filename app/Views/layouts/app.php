@@ -862,6 +862,7 @@ $flashes = Flash::all();
             .panel-card > h3,
             .dashboard-section-head h3,
             .dashboard-hero-modern h2,
+            .fx-modern-header h2,
             .fx-detail-header h3,
             .fx-panel-head h3,
             .detail-hero h1,
@@ -874,11 +875,11 @@ $flashes = Flash::all();
                 !important;
 
             color:
-                #413333
+                #4b3056
                 !important;
 
             font-weight:
-                600
+                820
                 !important;
 
             letter-spacing:
@@ -891,16 +892,17 @@ $flashes = Flash::all();
             .panel-head p,
             .dashboard-section-head p,
             .dashboard-hero-modern p,
+            .fx-modern-header p,
             .fx-detail-header p,
             .fx-panel-head p
         ) {
 
             color:
-                #6b7280
+                #847488
                 !important;
 
             font-weight:
-                500
+                520
                 !important;
         }
 
@@ -909,15 +911,16 @@ $flashes = Flash::all();
             .eyebrow.dark,
             .dashboard-section-label,
             .dashboard-kicker,
+            .fx-modern-kicker,
             .fx-detail-kicker
         ) {
 
             color:
-                #315B8C
+                #7940dc
                 !important;
 
             font-weight:
-                600
+                800
                 !important;
 
             letter-spacing:
@@ -1335,7 +1338,8 @@ $flashes = Flash::all();
             textarea,
             .report-global-search input,
             .report-inline-filter input,
-            .report-inline-filter select
+            .report-inline-filter select,
+            .fx-modern-search input
         ) {
 
             font-family:
@@ -1343,7 +1347,7 @@ $flashes = Flash::all();
                 !important;
 
             color:
-                #413333
+                #59465f
                 !important;
 
             background:
@@ -1351,7 +1355,7 @@ $flashes = Flash::all();
                 !important;
 
             border-color:
-                #d1d5db
+                #e6d7e6
                 !important;
 
             font-weight:
@@ -1362,11 +1366,12 @@ $flashes = Flash::all();
 
         :is(
             .form-control,
-            textarea
+            textarea,
+            .fx-modern-search input
         )::placeholder {
 
             color:
-                #9ca3af
+                #a08fa1
                 !important;
 
             font-weight:
@@ -1378,11 +1383,12 @@ $flashes = Flash::all();
         :is(
             .form-control,
             .form-select,
-            textarea
+            textarea,
+            .fx-modern-search input
         ):focus {
 
             color:
-                #413333
+                #513d58
                 !important;
 
             background:
@@ -1390,7 +1396,7 @@ $flashes = Flash::all();
                 !important;
 
             border-color:
-                #315B8C
+                #b677db
                 !important;
 
             box-shadow:
@@ -1527,7 +1533,7 @@ $flashes = Flash::all();
         .table thead th {
 
             color:
-                #ffffff
+                #315B8C
                 !important;
 
             font-weight:
@@ -1535,11 +1541,11 @@ $flashes = Flash::all();
                 !important;
 
             background:
-                #315B8C
+                #F5EBDD
                 !important;
 
             border-bottom:
-                2px solid #284b73
+                2px solid #e0d3c1
                 !important;
 
             text-shadow:
@@ -1550,7 +1556,7 @@ $flashes = Flash::all();
         .table tbody tr:nth-child(odd) {
 
             background:
-                #ECE1D1
+                #ffffff
                 !important;
         }
 
@@ -2087,16 +2093,16 @@ $flashes = Flash::all();
                 !important;
 
             background:
-                #EFE3D3
+                #ffffff
                 !important;
 
             border:
-                1px solid #D8CAA7
+                1px solid #e0d3c1
                 !important;
 
             box-shadow:
-                0 2px 8px
-                rgba(65, 51, 51, 0.04)
+                0 1px 3px
+                rgba(65, 51, 51, 0.05)
                 !important;
         }
 
@@ -2153,16 +2159,15 @@ $flashes = Flash::all();
                 !important;
 
             background:
-                #ECE1D1
+                #F5EBDD
                 !important;
 
             border:
-                1px solid #D8CAA7
+                1px solid #e0d3c1
                 !important;
 
             box-shadow:
-                0 2px 8px
-                rgba(65, 51, 51, 0.06)
+                none
                 !important;
         }
 
@@ -2214,15 +2219,12 @@ $flashes = Flash::all();
         .dashboard-fx-summary small {
 
             color:
-                #413333
+                #6b7280
                 !important;
 
             font-weight:
                 500
                 !important;
-
-            opacity:
-                0.75;
 
             text-shadow:
                 none
@@ -2239,16 +2241,16 @@ $flashes = Flash::all();
                 !important;
 
             background:
-                #ECE1D1
+                #ffffff
                 !important;
 
             border:
-                1px solid #D8CAA7
+                1px solid #e0d3c1
                 !important;
 
             box-shadow:
-                0 2px 8px
-                rgba(65, 51, 51, 0.05)
+                0 1px 2px
+                rgba(65, 51, 51, 0.04)
                 !important;
         }
 
@@ -2260,16 +2262,16 @@ $flashes = Flash::all();
                 !important;
 
             background:
-                #E5D7C3
+                #F5EBDD
                 !important;
 
             border-color:
-                #F2765E
+                #315B8C
                 !important;
 
             box-shadow:
-                0 4px 16px
-                rgba(242, 118, 94, 0.18)
+                0 4px 12px
+                rgba(49, 91, 140, 0.08)
                 !important;
         }
 
@@ -2293,15 +2295,12 @@ $flashes = Flash::all();
         .dashboard-quick-copy small {
 
             color:
-                #413333
+                #6b7280
                 !important;
 
             font-weight:
                 400
                 !important;
-
-            opacity:
-                0.75;
         }
 
 
@@ -2318,15 +2317,17 @@ $flashes = Flash::all();
         }
 
         .dashboard-quick-arrow {
-            color: #413333 !important;
-            opacity: 0.7;
-            transition: color 0.15s ease, opacity 0.15s ease !important;
+            color: #9ca3af !important;
+            transition: color 0.15s ease !important;
         }
 
         .dashboard-quick-item:hover .dashboard-quick-arrow {
             color: #F2765E !important;
-            opacity: 1;
         }
+
+        /* =================================================
+           27. KPI CARDS FULL COLOR
+        ================================================= */
 
         /* =================================================
            27. KPI CARDS FULL COLOR
@@ -2361,15 +2362,15 @@ $flashes = Flash::all();
                 !important;
 
             background:
-                #EFE3D3
+                #ffffff
                 !important;
 
             border:
-                1px solid #D8CAA7
+                1px solid #e0d3c1
                 !important;
 
             box-shadow:
-                0 2px 8px
+                0 1px 3px
                 rgba(65, 51, 51, 0.05)
                 !important;
         }
@@ -2429,15 +2430,12 @@ $flashes = Flash::all();
         div > small {
 
             color:
-                #413333
+                #6b7280
                 !important;
 
             font-weight:
                 500
                 !important;
-
-            opacity:
-                0.75;
 
             text-shadow:
                 none
@@ -2485,11 +2483,11 @@ $flashes = Flash::all();
         .dashboard-status-item {
 
             background:
-                #ECE1D1
+                #ffffff
                 !important;
 
             border:
-                1px solid #D8CAA7
+                1px solid #e0d3c1
                 !important;
         }
 
@@ -3216,65 +3214,51 @@ $flashes = Flash::all();
         .fx-modern-board {
 
             --fx-bg:
-                #EFE3D3
+                #ffffff
                 !important;
 
             --fx-surface:
-                #ECE1D1
+                #f9fafb
                 !important;
 
             --fx-border:
-                #D8CAA7
+                #e5e7eb
                 !important;
 
             color:
-                #413333
+                #111827
                 !important;
 
             background:
-                #EFE3D3
+                #ffffff
                 !important;
 
             border:
-                1px solid #D8CAA7
+                1px solid #e5e7eb
                 !important;
 
             box-shadow:
-                0 4px 16px
-                rgba(65, 51, 51, 0.05)
+                0 1px 3px
+                rgba(0, 0, 0, 0.05)
                 !important;
-        }
-
-        .fx-modern-board .fx-modern-kicker {
-            color: #315B8C !important;
-            font-weight: 600 !important;
-        }
-
-        .fx-modern-board .fx-modern-header h2 {
-            color: #413333 !important;
-            font-weight: 600 !important;
-        }
-
-        .fx-modern-board .fx-modern-header p {
-            color: #6b7280 !important;
         }
 
         .fx-modern-pill {
 
             color:
-                #413333
+                #59465f
                 !important;
 
             background:
-                #ECE1D1
+                #ffffff
                 !important;
 
             border-color:
-                #D8CAA7
+                #e5d6e7
                 !important;
 
             font-weight:
-                600
+                650
                 !important;
         }
 
@@ -3300,29 +3284,24 @@ $flashes = Flash::all();
         .fx-modern-refresh {
 
             color:
-                #413333
+                #7038cf
                 !important;
 
             background:
-                #ECE1D1
+                #ffffff
                 !important;
 
             border-color:
-                #D8CAA7
+                #dfcae2
                 !important;
 
             font-weight:
-                600
+                700
                 !important;
         }
 
-        .fx-modern-refresh:hover {
-            color: #F2765E !important;
-            border-color: #F2765E !important;
-            background: #E5D7C3 !important;
-        }
 
-
+        .fx-modern-sync {
         .fx-modern-sync {
 
             color:
@@ -3334,16 +3313,11 @@ $flashes = Flash::all();
                 !important;
 
             background:
-                #315B8C
+                #2563eb
                 !important;
 
             border:
-                1px solid #284b73
-                !important;
-
-            box-shadow:
-                0 4px 12px
-                rgba(49, 91, 140, .20)
+                1px solid #1d4ed8
                 !important;
 
             text-shadow:
@@ -3351,29 +3325,10 @@ $flashes = Flash::all();
                 !important;
         }
 
-        .fx-modern-sync:hover {
-            filter: brightness(1.1) !important;
-        }
-
-        .fx-modern-board .fx-modern-search input {
-            color: #413333 !important;
-            background: #ECE1D1 !important;
-            border-color: #D8CAA7 !important;
-        }
-
-        .fx-modern-board .fx-modern-search input::placeholder {
-            color: rgba(65, 51, 51, 0.5) !important;
-        }
-
-        .fx-modern-board .fx-modern-search input:focus {
-            border-color: #315B8C !important;
-            box-shadow: 0 0 0 3px rgba(49, 91, 140, 0.15) !important;
-        }
-
         .fx-modern-search > i {
 
             color:
-                #413333
+                #97839a
                 !important;
         }
 
@@ -3384,7 +3339,7 @@ $flashes = Flash::all();
         .fx-modern-footer {
 
             color:
-                #6b7280
+                #817185
                 !important;
 
             font-weight:
@@ -3398,7 +3353,7 @@ $flashes = Flash::all();
         .fx-modern-value strong {
 
             color:
-                #413333
+                #4d3258
                 !important;
         }
 
@@ -3410,20 +3365,25 @@ $flashes = Flash::all();
         .fx-modern-card {
 
             color:
-                #413333
+                #58465f
                 !important;
 
             background:
-                #ECE1D1
+                #ffffff
                 !important;
 
             border-color:
-                #D8CAA7
+                #e9dcea
                 !important;
 
             box-shadow:
-                0 2px 8px
-                rgba(65, 51, 51, 0.05)
+                0 8px 22px
+                rgba(
+                    95,
+                    56,
+                    108,
+                    .05
+                )
                 !important;
         }
 
@@ -3433,16 +3393,11 @@ $flashes = Flash::all();
         .fx-modern-card.is-selected {
 
             border-color:
-                #F2765E
+                #c888d8
                 !important;
 
             background:
-                #E5D7C3
-                !important;
-
-            box-shadow:
-                0 4px 16px
-                rgba(242, 118, 94, .18)
+                #fff5fb
                 !important;
         }
 
@@ -3450,11 +3405,11 @@ $flashes = Flash::all();
         .fx-modern-flag {
 
             background:
-                #E5D7C3
+                #f5eef6
                 !important;
 
             border-color:
-                #D8CAA7
+                #e9ddea
                 !important;
         }
 
@@ -3466,11 +3421,11 @@ $flashes = Flash::all();
                 !important;
 
             color:
-                #413333
+                #4e3658
                 !important;
 
             font-weight:
-                600
+                800
                 !important;
         }
 
@@ -3478,7 +3433,7 @@ $flashes = Flash::all();
         .fx-modern-currency small {
 
             color:
-                #6b7280
+                #806f84
                 !important;
 
             font-weight:
@@ -3492,11 +3447,11 @@ $flashes = Flash::all();
         .fx-modern-range-values {
 
             color:
-                #6b7280
+                #806f84
                 !important;
 
             font-weight:
-                500
+                520
                 !important;
         }
 
@@ -3508,11 +3463,11 @@ $flashes = Flash::all();
                 !important;
 
             color:
-                #413333
+                #4d3258
                 !important;
 
             font-weight:
-                600
+                850
                 !important;
 
             letter-spacing:
@@ -3526,7 +3481,7 @@ $flashes = Flash::all();
         .fx-modern-change {
 
             font-weight:
-                600
+                750
                 !important;
         }
 
@@ -3534,11 +3489,11 @@ $flashes = Flash::all();
         .fx-modern-change.up {
 
             color:
-                #059669
+                #167d5b
                 !important;
 
             background:
-                #d1fae5
+                #dcf8eb
                 !important;
         }
 
@@ -3546,11 +3501,11 @@ $flashes = Flash::all();
         .fx-modern-change.down {
 
             color:
-                #dc2626
+                #c9365e
                 !important;
 
             background:
-                #fee2e2
+                #ffe2ec
                 !important;
         }
 
@@ -3558,11 +3513,11 @@ $flashes = Flash::all();
         .fx-modern-change.flat {
 
             color:
-                #413333
+                #705f74
                 !important;
 
             background:
-                #E5D7C3
+                #f1e6f0
                 !important;
         }
 
@@ -3570,7 +3525,7 @@ $flashes = Flash::all();
         .fx-modern-range-track {
 
             background:
-                #E5D7C3
+                #eedfef
                 !important;
         }
 
@@ -3578,7 +3533,7 @@ $flashes = Flash::all();
         .fx-modern-range-track i {
 
             background:
-                #315B8C
+                #2563eb
                 !important;
         }
 
@@ -3589,7 +3544,7 @@ $flashes = Flash::all();
                 !important;
 
             border-color:
-                #315B8C
+                #7140dc
                 !important;
         }
 
@@ -3597,11 +3552,11 @@ $flashes = Flash::all();
         .fx-modern-buy-sell > div {
 
             background:
-                #E5D7C3
+                #fcf8fc
                 !important;
 
             border-color:
-                #D8CAA7
+                #eaddeb
                 !important;
         }
 
@@ -3612,12 +3567,8 @@ $flashes = Flash::all();
                 var(--font-heading)
                 !important;
 
-            color:
-                #413333
-                !important;
-
             font-weight:
-                600
+                760
                 !important;
         }
 
@@ -3625,15 +3576,15 @@ $flashes = Flash::all();
         .fx-modern-empty {
 
             color:
-                #6b7280
+                #817185
                 !important;
 
             background:
-                #ECE1D1
+                #ffffff
                 !important;
 
             border-color:
-                #D8CAA7
+                #d8c6df
                 !important;
         }
 
@@ -3641,11 +3592,11 @@ $flashes = Flash::all();
         .fx-modern-empty strong {
 
             color:
-                #413333
+                #4d3258
                 !important;
 
             font-weight:
-                600
+                780
                 !important;
         }
 
@@ -3653,11 +3604,7 @@ $flashes = Flash::all();
         .fx-modern-footer {
 
             border-top-color:
-                #D8CAA7
-                !important;
-
-            color:
-                #6b7280
+                #ece0ec
                 !important;
         }
 
