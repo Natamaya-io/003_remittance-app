@@ -314,17 +314,15 @@ $fxBoardFile =
         <div class="dashboard-hero-copy">
 
 
-            <h2>
-                Selamat datang,
-                <?= e($userName) ?>
-            </h2>
-
-
-            <p>
-                Pantau transaksi, report, kurs referensi,
-                complain, invoice, dan analisis keputusan
-                melalui satu dashboard operasional.
-            </p>
+            <?= render_heading_with_info(
+                'Selamat datang, ' . e($userName),
+                'Pantau transaksi, report, kurs referensi, complain, invoice, dan analisis keputusan melalui satu dashboard operasional.',
+                [
+                    'titleTag'     => 'h2',
+                    'titleClass'   => 'm-0',
+                    'wrapperClass' => 'inline-flex items-center gap-1.5',
+                ]
+            ) ?>
 
 
             <div class="dashboard-hero-actions">
@@ -437,21 +435,23 @@ $fxBoardFile =
 
                     <span class="dashboard-quick-copy">
 
-                        <strong>
+                        <strong class="inline-flex items-center gap-1">
 
                             <?= e(
                                 (string) $action['title']
                             ) ?>
 
+                            <?php if (!empty($action['description'])): ?>
+
+                                <?= render_tooltip(
+                                    (string) $action['description'],
+                                    '<span class="hs-tooltip-toggle info-toggle-btn cursor-help" onclick="event.stopPropagation(); event.preventDefault();" aria-label="Informasi ' . e((string) $action['title']) . '"><i class="bi bi-info-circle text-[11px] leading-none"></i></span>',
+                                    ['placement' => 'top']
+                                ) ?>
+
+                            <?php endif; ?>
+
                         </strong>
-
-                        <small>
-
-                            <?= e(
-                                (string) $action['description']
-                            ) ?>
-
-                        </small>
 
                     </span>
 
@@ -512,11 +512,21 @@ $fxBoardFile =
                 <div>
 
 
-                    <span>
+                    <span class="inline-flex items-center gap-1">
 
                         <?= e(
                             (string) $card['label']
                         ) ?>
+
+                        <?php if (!empty($card['description'])): ?>
+
+                            <?= render_tooltip(
+                                (string) $card['description'],
+                                '<span class="hs-tooltip-toggle info-toggle-btn cursor-help" aria-label="Informasi ' . e((string) $card['label']) . '"><i class="bi bi-info-circle text-[11px] leading-none"></i></span>',
+                                ['placement' => 'top']
+                            ) ?>
+
+                        <?php endif; ?>
 
                     </span>
 
@@ -531,15 +541,6 @@ $fxBoardFile =
                         ) ?>
 
                     </strong>
-
-
-                    <small>
-
-                        <?= e(
-                            (string) $card['description']
-                        ) ?>
-
-                    </small>
 
 
                 </div>
