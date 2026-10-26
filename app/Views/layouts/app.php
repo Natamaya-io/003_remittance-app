@@ -4429,8 +4429,13 @@ $flashes = Flash::all();
     <!-- ========== END NAVIGATION ========== -->
 
     <!-- ========== MAIN CONTENT ========== -->
+    <?php
+    $currentUriPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH);
+    $isDashboardPage = ($pageTitle === 'Dashboard')
+        || ($currentUriPath === '/' || $currentUriPath === parse_url(url('/'), PHP_URL_PATH) || $currentUriPath === parse_url(url('/dashboard'), PHP_URL_PATH));
+    ?>
     <main id="content" class="w-full min-h-screen pb-24 sm:pb-28">
-        <div class="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
+        <div class="<?= $isDashboardPage ? 'px-2 sm:px-3 lg:px-4 py-3 sm:py-4 space-y-3 sm:space-y-4 w-full max-w-none' : 'p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6' ?>">
 
             <?php foreach ($flashes as $flash): ?>
                 <?php

@@ -294,7 +294,7 @@ $fxBoardFile =
      ========================================================= -->
 
 <div
-    class="dashboard-modern"
+    class="dashboard-modern w-full max-w-none"
     id="dashboardModernV14"
 >
 
@@ -912,7 +912,7 @@ $fxBoardFile =
         <div x-data="{ search: '', status: 'all' }" class="dashboard-recent-filter-wrap">
 
         <div class="flex flex-wrap items-center justify-between gap-2 p-3 bg-[#f8fafc] border border-b-0 border-[#e2e8f0] rounded-t-xl">
-            <div class="relative flex-1 min-w-[200px] max-w-xs">
+            <div class="relative flex-1 min-w-[220px] max-w-md">
                 <input
                     type="text"
                     x-model="search"

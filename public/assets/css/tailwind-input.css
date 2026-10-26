@@ -1222,10 +1222,36 @@
     }
   }
 
+  /* =========================================================
+     DASHBOARD FULLSCREEN & EDGE-TO-EDGE EXPANSION
+     ========================================================= */
+  .dashboard-modern {
+    display: grid;
+    gap: 14px;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding-bottom: 24px;
+    box-sizing: border-box !important;
+  }
+
+  .dashboard-modern > *,
+  .dashboard-hero-modern,
+  .dashboard-panel,
+  .dashboard-quick-panel,
+  .dashboard-kpi-row,
+  .dashboard-analytics-grid,
+  .fx-modern-board,
+  .dashboard-recent-filter-wrap {
+    width: 100% !important;
+    max-width: none !important;
+    box-sizing: border-box !important;
+  }
+
   .dashboard-hero-copy {
     position: relative;
     z-index: 2;
-    max-width: 640px;
+    max-width: none;
     flex: 1 1 auto;
   }
 
@@ -1285,7 +1311,7 @@
   }
 
   .dashboard-hero-modern p {
-    max-width: 760px;
+    max-width: none;
     margin: 8px 0 0;
     color: #F5F2F2;
     font-family: var(--font-sans);

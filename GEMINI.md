@@ -278,7 +278,7 @@ Setiap halaman di dalam aplikasi remittance beroperasi di bawah prinsip **Pure N
      - Tombol "Menu" membuka **Mobile Bottom Sheet / Drawer** yang meluncur halus dari bawah (`translate-y` transition dengan backdrop blur) memuat kartu profil, tombol logout, serta daftar modul lengkap yang terorganisir rapi.
 3. **Pemusnahan Tombol Hamburger Mobile:**
    - Tombol toggle drawer kiri atas (`fixed top-3 start-3`) **DITIADAKAN SECARA TOTAL**.
-   - Container utama konten menggunakan bantalan atas bersih (`p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6`) dan ruang aman bawah (`pb-24 sm:pb-28`) agar konten tidak pernah tertutup oleh dock mengambang maupun tab bar mobile.
+   - Container utama konten menggunakan bantalan atas bersih (`p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6`), khusus halaman Dashboard beroperasi secara Fullscreen Edge-to-Edge (`px-2 sm:px-3 lg:px-4 py-3 sm:py-4` dengan `.dashboard-modern` melebar 100% penuh mentok kiri dan kanan tanpa batasan max-width). Ruang aman bawah terkunci pada `pb-24 sm:pb-28` agar konten tidak pernah tertutup oleh dock mengambang maupun tab bar mobile.
 
 ### 5.2. Single Source of Truth untuk Konteks Halaman
 - Konteks halaman ditampilkan secara elegan melalui judul tab browser (`<title><?= e($pageTitle) ?> · <?= e($appName) ?></title>`) serta penanda aktif pada bottom navigation dock.
