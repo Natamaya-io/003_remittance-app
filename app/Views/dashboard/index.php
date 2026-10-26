@@ -494,10 +494,6 @@ $fxBoardFile =
 
             <div>
 
-                <span class="dashboard-section-label">
-                    AKSES CEPAT
-                </span>
-
                 <h3>
                     Pekerjaan operasional
                 </h3>
@@ -703,10 +699,6 @@ $fxBoardFile =
 
 
                 <div>
-
-                    <span class="dashboard-section-label">
-                        TRANSACTION TREND
-                    </span>
 
                     <h3>
                         Tren Transaksi 14 Hari
@@ -951,7 +943,7 @@ $fxBoardFile =
             true;
 
         $fxPanelKicker =
-            'LIVE FX MONITOR';
+            '';
 
         $fxPanelTitle =
             'Kurs Referensi IDR';
@@ -1005,10 +997,6 @@ $fxBoardFile =
 
 
             <div>
-
-                <span class="dashboard-section-label">
-                    RECENT ACTIVITY
-                </span>
 
                 <h3>
                     Transaksi Terbaru

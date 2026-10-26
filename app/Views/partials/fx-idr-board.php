@@ -86,7 +86,7 @@ $fxShowBuySell =
 $fxPanelKicker = trim(
     (string) (
         $fxPanelKicker
-        ?? 'LIVE FX MONITOR'
+        ?? ''
     )
 );
 
@@ -982,13 +982,17 @@ $quotesCsv =
         <div class="fx-modern-heading">
 
 
-            <span class="fx-modern-kicker">
+            <?php if ($fxPanelKicker !== ''): ?>
 
-                <?= e(
-                    $fxPanelKicker
-                ) ?>
+                <span class="fx-modern-kicker">
 
-            </span>
+                    <?= e(
+                        $fxPanelKicker
+                    ) ?>
+
+                </span>
+
+            <?php endif; ?>
 
 
             <h2>
