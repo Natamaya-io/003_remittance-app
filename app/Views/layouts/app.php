@@ -267,7 +267,7 @@ $flashes = Flash::all();
                 450;
 
             color:
-                #51385c
+                #111827
                 !important;
 
             -webkit-font-smoothing:
@@ -280,58 +280,9 @@ $flashes = Flash::all();
                 optimizeLegibility;
 
             background:
-
-                radial-gradient(
-                    circle at 7% 4%,
-
-                    rgba(
-                        255,
-                        183,
-                        218,
-                        .42
-                    ),
-
-                    transparent 30%
-                ),
-
-                radial-gradient(
-                    circle at 92% 4%,
-
-                    rgba(
-                        179,
-                        142,
-                        255,
-                        .36
-                    ),
-
-                    transparent 31%
-                ),
-
-                radial-gradient(
-                    circle at 86% 94%,
-
-                    rgba(
-                        89,
-                        198,
-                        239,
-                        .26
-                    ),
-
-                    transparent 30%
-                ),
-
-                linear-gradient(
-                    135deg,
-
-                    #fffafd 0%,
-
-                    #fbf4fb 48%,
-
-                    #f4f9fc 100%
-                )
+                #f8fafc
                 !important;
         }
-
 
         .app-body button,
         .app-body input,
@@ -400,45 +351,9 @@ $flashes = Flash::all();
         .app-main {
 
             background:
-
-                radial-gradient(
-                    circle at 92% 3%,
-
-                    rgba(
-                        190,
-                        148,
-                        247,
-                        .24
-                    ),
-
-                    transparent 32%
-                ),
-
-                radial-gradient(
-                    circle at 7% 95%,
-
-                    rgba(
-                        93,
-                        198,
-                        235,
-                        .20
-                    ),
-
-                    transparent 31%
-                ),
-
-                linear-gradient(
-                    145deg,
-
-                    #fffafd 0%,
-
-                    #faf6fc 48%,
-
-                    #f4f9fc 100%
-                )
+                #f8fafc
                 !important;
         }
-
 
         .content-wrap {
 
@@ -455,61 +370,18 @@ $flashes = Flash::all();
         .sidebar {
 
             color:
-                #604c67
+                #111827
                 !important;
 
             background:
-
-                radial-gradient(
-                    circle at 8% 3%,
-
-                    rgba(
-                        255,
-                        255,
-                        255,
-                        .97
-                    ),
-
-                    transparent 28%
-                ),
-
-                radial-gradient(
-                    circle at 99% 80%,
-
-                    rgba(
-                        94,
-                        193,
-                        239,
-                        .28
-                    ),
-
-                    transparent 41%
-                ),
-
-                linear-gradient(
-                    180deg,
-
-                    #fff7fb 0%,
-
-                    #f9eaf7 35%,
-
-                    #f0eaff 61%,
-
-                    #e6f5ff 100%
-                )
+                #ffffff
                 !important;
 
             box-shadow:
-                14px 0 44px
-                rgba(
-                    101,
-                    61,
-                    116,
-                    .09
-                )
+                1px 0 3px
+                rgba(0, 0, 0, 0.05)
                 !important;
         }
-
 
         /* =================================================
            05. BRAND
@@ -535,29 +407,14 @@ $flashes = Flash::all();
                 !important;
 
             background:
-
-                linear-gradient(
-                    135deg,
-
-                    #7548df 0%,
-
-                    #a148e2 48%,
-
-                    #ee3f91 100%
-                )
+                #2563eb
                 !important;
 
             box-shadow:
-                0 10px 24px
-                rgba(
-                    159,
-                    66,
-                    203,
-                    .27
-                )
+                0 2px 8px
+                rgba(37, 99, 235, 0.25)
                 !important;
         }
-
 
         .brand strong {
 
@@ -659,42 +516,21 @@ $flashes = Flash::all();
         .nav-item.active {
 
             color:
-                #6430bf
+                #1d4ed8
                 !important;
 
             font-weight:
-                760
+                600
                 !important;
 
             background:
-
-                linear-gradient(
-                    90deg,
-
-                    #ffffff 0%,
-
-                    #fff5fb 49%,
-
-                    #f6eaff 100%
-                )
+                #eff6ff
                 !important;
 
             box-shadow:
-
-                inset
-                4px 0
-                #ef408e,
-
-                0 8px 24px
-                rgba(
-                    117,
-                    61,
-                    135,
-                    .10
-                )
+                none
                 !important;
         }
-
 
         .nav-item.active i {
 
@@ -902,23 +738,13 @@ $flashes = Flash::all();
                 !important;
 
             font-weight:
-                800
+                600
                 !important;
 
             background:
-
-                linear-gradient(
-                    135deg,
-
-                    #7245df 0%,
-
-                    #a046df 49%,
-
-                    #ed408e 100%
-                )
+                #2563eb
                 !important;
         }
-
 
         .user-menu {
 
@@ -1268,42 +1094,22 @@ $flashes = Flash::all();
                 !important;
 
             background:
-
-                linear-gradient(
-                    105deg,
-
-                    #7141dc 0%,
-
-                    #9d43df 46%,
-
-                    #ee3e8e 100%
-                )
+                #2563eb
                 !important;
 
-            border-color:
-                transparent
+            border:
+                1px solid #1d4ed8
                 !important;
 
             text-shadow:
-                0 1px 2px
-                rgba(
-                    72,
-                    25,
-                    83,
-                    .22
-                );
+                none
+                !important;
 
             box-shadow:
-                0 10px 23px
-                rgba(
-                    151,
-                    63,
-                    199,
-                    .25
-                )
+                0 2px 8px
+                rgba(37, 99, 235, 0.25)
                 !important;
         }
-
 
         /* =================================================
            16. BUTTON SECONDARY
@@ -1316,26 +1122,17 @@ $flashes = Flash::all();
                 !important;
 
             background:
+                #4b5563
+                !important;
 
-                linear-gradient(
-                    135deg,
-
-                    #8150dd,
-
-                    #d149b6
-                )
+            border:
+                1px solid #374151
                 !important;
 
             text-shadow:
-                0 1px 2px
-                rgba(
-                    66,
-                    22,
-                    76,
-                    .18
-                );
+                none
+                !important;
         }
-
 
         .btn-light,
         .dashboard-action-secondary {
@@ -1629,36 +1426,25 @@ $flashes = Flash::all();
         .table thead th {
 
             color:
-                #ffffff
+                #374151
                 !important;
 
             font-weight:
-                750
+                600
                 !important;
 
             background:
+                #f9fafb
+                !important;
 
-                linear-gradient(
-                    90deg,
-
-                    #7045ca 0%,
-
-                    #984ac6 52%,
-
-                    #db449d 100%
-                )
+            border-bottom:
+                1px solid #e5e7eb
                 !important;
 
             text-shadow:
-                0 1px 2px
-                rgba(
-                    54,
-                    20,
-                    64,
-                    .22
-                );
+                none
+                !important;
         }
-
 
         .table tbody tr {
 
@@ -1732,30 +1518,21 @@ $flashes = Flash::all();
                 !important;
 
             font-weight:
-                750
+                600
                 !important;
 
             background:
+                #2563eb
+                !important;
 
-                linear-gradient(
-                    135deg,
-
-                    #7544da,
-
-                    #a348dc
-                )
+            border:
+                1px solid #1d4ed8
                 !important;
 
             text-shadow:
-                0 1px 2px
-                rgba(
-                    50,
-                    18,
-                    61,
-                    .18
-                );
+                none
+                !important;
         }
-
 
         /* =================================================
            21. BADGES
@@ -1838,84 +1615,28 @@ $flashes = Flash::all();
         .dashboard-hero-modern {
 
             color:
-                #51355d
+                #f5f2f2
                 !important;
 
             background:
+                #2b2a2a
+                !important;
 
-                radial-gradient(
-                    circle at 94% 3%,
-
-                    rgba(
-                        135,
-                        83,
-                        226,
-                        .34
-                    ),
-
-                    transparent 34%
-                ),
-
-                radial-gradient(
-                    circle at 3% 95%,
-
-                    rgba(
-                        255,
-                        100,
-                        177,
-                        .38
-                    ),
-
-                    transparent 38%
-                ),
-
-                radial-gradient(
-                    circle at 72% 100%,
-
-                    rgba(
-                        39,
-                        177,
-                        231,
-                        .24
-                    ),
-
-                    transparent 36%
-                ),
-
-                linear-gradient(
-                    118deg,
-
-                    #ffdeed 0%,
-
-                    #f7d9f9 32%,
-
-                    #dcdfff 67%,
-
-                    #c8ecff 100%
-                )
+            border:
+                1px solid #2b2a2a
                 !important;
 
             box-shadow:
-                0 16px 38px
-                rgba(
-                    110,
-                    55,
-                    128,
-                    .12
-                )
+                0 4px 16px -2px
+                rgba(0, 0, 0, 0.08)
                 !important;
         }
 
 
         .dashboard-hero-modern::before {
 
-            border-color:
-                rgba(
-                    116,
-                    68,
-                    218,
-                    .09
-                )
+            display:
+                none
                 !important;
         }
 
@@ -1927,26 +1648,26 @@ $flashes = Flash::all();
                 !important;
 
             color:
-                #4b2858
+                #ffffff
                 !important;
 
             font-weight:
-                850
+                600
                 !important;
 
             letter-spacing:
-                -.035em;
+                -.025em;
         }
 
 
         .dashboard-hero-modern p {
 
             color:
-                #755879
+                #d1d5db
                 !important;
 
             font-weight:
-                520
+                400
                 !important;
         }
 
@@ -1954,18 +1675,16 @@ $flashes = Flash::all();
         .dashboard-kicker {
 
             color:
-                #7135d4
+                #feb05d
                 !important;
 
             font-weight:
-                820
+                600
                 !important;
 
             letter-spacing:
                 .13em;
         }
-
-
         /* =================================================
            23. DASHBOARD ACTIVITY CARD
         ================================================= */
@@ -1973,25 +1692,27 @@ $flashes = Flash::all();
         .dashboard-activity-card {
 
             color:
-                #513c59
+                #f5f2f2
                 !important;
 
             background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    .70
-                )
+                #1f1e1e
                 !important;
 
-            border-color:
-                rgba(
-                    180,
-                    139,
-                    204,
-                    .66
-                )
+            border:
+                1px solid #383535
+                !important;
+
+            backdrop-filter:
+                none
+                !important;
+
+            -webkit-backdrop-filter:
+                none
+                !important;
+
+            box-shadow:
+                none
                 !important;
         }
 
@@ -1999,11 +1720,11 @@ $flashes = Flash::all();
         .dashboard-activity-head span {
 
             color:
-                #7f6d84
+                #9ca3af
                 !important;
 
             font-weight:
-                550
+                500
                 !important;
         }
 
@@ -2015,11 +1736,11 @@ $flashes = Flash::all();
                 !important;
 
             color:
-                #4d3455
+                #ffffff
                 !important;
 
             font-weight:
-                850
+                600
                 !important;
 
             font-variant-numeric:
@@ -2030,7 +1751,7 @@ $flashes = Flash::all();
         .dashboard-activity-head small {
 
             color:
-                #87778b
+                #9ca3af
                 !important;
 
             font-weight:
@@ -2042,15 +1763,19 @@ $flashes = Flash::all();
         .dashboard-activity-head b {
 
             color:
-                #187b59
+                #ffffff
                 !important;
 
             background:
-                #dcf7eb
+                #059669
+                !important;
+
+            border:
+                1px solid #047857
                 !important;
 
             font-weight:
-                720
+                600
                 !important;
         }
 
@@ -2058,15 +1783,13 @@ $flashes = Flash::all();
         .dashboard-activity-meta {
 
             color:
-                #837287
+                #9ca3af
                 !important;
 
             font-weight:
                 500
                 !important;
         }
-
-
         /* =================================================
            24. DASHBOARD PANEL
         ================================================= */
@@ -2074,38 +1797,32 @@ $flashes = Flash::all();
         .dashboard-panel {
 
             color:
-                #58465f
+                #111827
                 !important;
 
             background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    .98
-                )
+                #ffffff
                 !important;
 
-            border-color:
-                #eaddeb
+            border:
+                1px solid #e5e7eb
                 !important;
 
             box-shadow:
-                0 7px 20px
-                rgba(
-                    96,
-                    57,
-                    109,
-                    .05
-                )
+                0 1px 3px
+                rgba(0, 0, 0, 0.05)
                 !important;
         }
 
 
         .dashboard-section-label {
 
+            color:
+                #2563eb
+                !important;
+
             font-weight:
-                820
+                600
                 !important;
 
             letter-spacing:
@@ -2119,8 +1836,12 @@ $flashes = Flash::all();
                 var(--font-heading)
                 !important;
 
+            color:
+                #111827
+                !important;
+
             font-weight:
-                820
+                600
                 !important;
         }
 
@@ -2128,15 +1849,13 @@ $flashes = Flash::all();
         .dashboard-section-head p {
 
             color:
-                #827386
+                #6b7280
                 !important;
 
             font-weight:
-                500
+                400
                 !important;
         }
-
-
         /* =================================================
            25. FX SUMMARY
         ================================================= */
@@ -2144,30 +1863,19 @@ $flashes = Flash::all();
         .dashboard-fx-summary {
 
             color:
-                #ffffff
+                #374151
                 !important;
 
             background:
+                #f8fafc
+                !important;
 
-                linear-gradient(
-                    105deg,
-
-                    #7040dc 0%,
-
-                    #a044de 45%,
-
-                    #ee408f 100%
-                )
+            border:
+                1px solid #e2e8f0
                 !important;
 
             box-shadow:
-                0 8px 20px
-                rgba(
-                    145,
-                    58,
-                    187,
-                    .22
-                )
+                none
                 !important;
         }
 
@@ -2175,16 +1883,15 @@ $flashes = Flash::all();
         .dashboard-fx-summary > i {
 
             color:
-                #ffffff
+                #2563eb
                 !important;
 
             background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    .20
-                )
+                #eff6ff
+                !important;
+
+            border:
+                1px solid #dbeafe
                 !important;
         }
 
@@ -2196,50 +1903,33 @@ $flashes = Flash::all();
                 !important;
 
             color:
-                #ffffff
+                #111827
                 !important;
 
             font-weight:
-                820
+                600
                 !important;
 
             text-shadow:
-                0 1px 3px
-                rgba(
-                    48,
-                    16,
-                    61,
-                    .22
-                );
+                none
+                !important;
         }
 
 
         .dashboard-fx-summary small {
 
             color:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    .94
-                )
+                #6b7280
                 !important;
 
             font-weight:
-                560
+                500
                 !important;
 
             text-shadow:
-                0 1px 2px
-                rgba(
-                    48,
-                    16,
-                    61,
-                    .18
-                );
+                none
+                !important;
         }
-
-
         /* =================================================
            26. QUICK ACCESS CARDS
         ================================================= */
@@ -2247,15 +1937,20 @@ $flashes = Flash::all();
         .dashboard-quick-item {
 
             color:
-                #513d58
+                #111827
                 !important;
 
             background:
                 #ffffff
                 !important;
 
-            border-color:
-                #e9dcea
+            border:
+                1px solid #e5e7eb
+                !important;
+
+            box-shadow:
+                0 1px 2px
+                rgba(0, 0, 0, 0.04)
                 !important;
         }
 
@@ -2263,21 +1958,20 @@ $flashes = Flash::all();
         .dashboard-quick-item:hover {
 
             color:
-                #513d58
+                #111827
+                !important;
+
+            background:
+                #f9fafb
                 !important;
 
             border-color:
-                #c88fd7
+                #d1d5db
                 !important;
 
             box-shadow:
-                0 8px 18px
-                rgba(
-                    109,
-                    57,
-                    124,
-                    .10
-                )
+                0 4px 6px -1px
+                rgba(0, 0, 0, 0.06)
                 !important;
         }
 
@@ -2285,15 +1979,15 @@ $flashes = Flash::all();
         .dashboard-quick-copy strong {
 
             font-family:
-                var(--font-app)
+                var(--font-heading)
                 !important;
 
             color:
-                #46314f
+                #111827
                 !important;
 
             font-weight:
-                760
+                600
                 !important;
         }
 
@@ -2301,11 +1995,11 @@ $flashes = Flash::all();
         .dashboard-quick-copy small {
 
             color:
-                #7d6d82
+                #6b7280
                 !important;
 
             font-weight:
-                520
+                400
                 !important;
         }
 
@@ -2313,7 +2007,7 @@ $flashes = Flash::all();
         .dashboard-quick-arrow {
 
             color:
-                #967f99
+                #9ca3af
                 !important;
         }
 
@@ -2322,18 +2016,15 @@ $flashes = Flash::all();
         .dashboard-quick-icon {
 
             color:
-                #6d3cdb
+                #2563eb
                 !important;
 
             background:
+                #eff6ff
+                !important;
 
-                linear-gradient(
-                    135deg,
-
-                    #eee1ff,
-
-                    #d9c9ff
-                )
+            border:
+                1px solid #dbeafe
                 !important;
         }
 
@@ -2342,18 +2033,15 @@ $flashes = Flash::all();
         .dashboard-quick-icon {
 
             color:
-                #10996e
+                #059669
                 !important;
 
             background:
+                #ecfdf5
+                !important;
 
-                linear-gradient(
-                    135deg,
-
-                    #d9f8eb,
-
-                    #bfeeda
-                )
+            border:
+                1px solid #a7f3d0
                 !important;
         }
 
@@ -2362,18 +2050,15 @@ $flashes = Flash::all();
         .dashboard-quick-icon {
 
             color:
-                #8a38d4
+                #7c3aed
                 !important;
 
             background:
+                #f5f3ff
+                !important;
 
-                linear-gradient(
-                    135deg,
-
-                    #efdaff,
-
-                    #ddc1ff
-                )
+            border:
+                1px solid #ddd6fe
                 !important;
         }
 
@@ -2382,18 +2067,15 @@ $flashes = Flash::all();
         .dashboard-quick-icon {
 
             color:
-                #e27810
+                #d97706
                 !important;
 
             background:
+                #fffbeb
+                !important;
 
-                linear-gradient(
-                    135deg,
-
-                    #ffeccd,
-
-                    #ffd9a8
-                )
+            border:
+                1px solid #fde68a
                 !important;
         }
 
@@ -2402,170 +2084,65 @@ $flashes = Flash::all();
         .dashboard-quick-icon {
 
             color:
-                #1196b0
+                #0d9488
                 !important;
 
             background:
+                #f0fdfa
+                !important;
 
-                linear-gradient(
-                    135deg,
-
-                    #d6f7fb,
-
-                    #beeaf4
-                )
+            border:
+                1px solid #99f6e4
                 !important;
         }
-
 
         /* =================================================
            27. KPI CARDS FULL COLOR
         ================================================= */
 
-        .dashboard-kpi-card {
+        /* =================================================
+           27. KPI CARDS FULL COLOR
+        ================================================= */
+
+        .dashboard-kpi-card,
+        .dashboard-kpi-grid
+        .dashboard-kpi-card:nth-child(1),
+        .dashboard-kpi-card:nth-child(1),
+        .dashboard-kpi-grid
+        .dashboard-kpi-card:nth-child(2),
+        .dashboard-kpi-card:nth-child(2),
+        .dashboard-kpi-grid
+        .dashboard-kpi-card:nth-child(3),
+        .dashboard-kpi-card:nth-child(3),
+        .dashboard-kpi-grid
+        .dashboard-kpi-card:nth-child(4),
+        .dashboard-kpi-card:nth-child(4),
+        .dashboard-kpi-grid
+        .dashboard-kpi-card:nth-child(5),
+        .dashboard-kpi-card:nth-child(5),
+        .dashboard-kpi-grid
+        .dashboard-kpi-card:nth-child(6),
+        .dashboard-kpi-card:nth-child(6) {
 
             font-family:
                 var(--font-app)
                 !important;
 
-            border-color:
-                transparent
+            color:
+                #111827
+                !important;
+
+            background:
+                #ffffff
+                !important;
+
+            border:
+                1px solid #e5e7eb
                 !important;
 
             box-shadow:
-                0 10px 24px
-                rgba(
-                    101,
-                    52,
-                    116,
-                    .11
-                )
-                !important;
-        }
-
-
-        .dashboard-kpi-grid
-        .dashboard-kpi-card:nth-child(1),
-        .dashboard-kpi-card:nth-child(1) {
-
-            color:
-                #ffffff
-                !important;
-
-            background:
-
-                linear-gradient(
-                    135deg,
-
-                    #8150dc 0%,
-
-                    #9650d2 100%
-                )
-                !important;
-        }
-
-
-        .dashboard-kpi-grid
-        .dashboard-kpi-card:nth-child(2),
-        .dashboard-kpi-card:nth-child(2) {
-
-            color:
-                #ffffff
-                !important;
-
-            background:
-
-                linear-gradient(
-                    135deg,
-
-                    #ec3f8d 0%,
-
-                    #d247aa 100%
-                )
-                !important;
-        }
-
-
-        .dashboard-kpi-grid
-        .dashboard-kpi-card:nth-child(3),
-        .dashboard-kpi-card:nth-child(3) {
-
-            color:
-                #ffffff
-                !important;
-
-            background:
-
-                linear-gradient(
-                    135deg,
-
-                    #38b5e6 0%,
-
-                    #478edb 100%
-                )
-                !important;
-        }
-
-
-        .dashboard-kpi-grid
-        .dashboard-kpi-card:nth-child(4),
-        .dashboard-kpi-card:nth-child(4) {
-
-            color:
-                #ffffff
-                !important;
-
-            background:
-
-                linear-gradient(
-                    135deg,
-
-                    #ffb13d 0%,
-
-                    #ff8641 100%
-                )
-                !important;
-        }
-
-
-        .dashboard-kpi-grid
-        .dashboard-kpi-card:nth-child(5),
-        .dashboard-kpi-card:nth-child(5) {
-
-            color:
-                #ffffff
-                !important;
-
-            background:
-
-                linear-gradient(
-                    135deg,
-
-                    #ad46db 0%,
-
-                    #744bd5 100%
-                )
-                !important;
-        }
-
-
-        .dashboard-kpi-grid
-        .dashboard-kpi-card:nth-child(6),
-        .dashboard-kpi-card:nth-child(6) {
-
-            color:
-                #ffffff
-                !important;
-
-            background:
-
-                linear-gradient(
-                    135deg,
-
-                    #30c7b9 0%,
-
-                    #22a5ca 100%
-                )
+                0 1px 3px
+                rgba(0, 0, 0, 0.05)
                 !important;
         }
 
@@ -2576,26 +2153,16 @@ $flashes = Flash::all();
         div > span {
 
             color:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    .96
-                )
+                #4b5563
                 !important;
 
             font-weight:
-                650
+                600
                 !important;
 
             text-shadow:
-                0 1px 2px
-                rgba(
-                    44,
-                    18,
-                    52,
-                    .18
-                );
+                none
+                !important;
         }
 
 
@@ -2609,11 +2176,11 @@ $flashes = Flash::all();
                 !important;
 
             color:
-                #ffffff
+                #111827
                 !important;
 
             font-weight:
-                850
+                600
                 !important;
 
             letter-spacing:
@@ -2623,13 +2190,8 @@ $flashes = Flash::all();
                 tabular-nums;
 
             text-shadow:
-                0 1px 3px
-                rgba(
-                    44,
-                    18,
-                    52,
-                    .24
-                );
+                none
+                !important;
         }
 
 
@@ -2639,109 +2201,118 @@ $flashes = Flash::all();
         div > small {
 
             color:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    .90
-                )
+                #6b7280
                 !important;
 
             font-weight:
-                550
+                500
                 !important;
 
             text-shadow:
-                0 1px 2px
-                rgba(
-                    44,
-                    18,
-                    52,
-                    .18
-                );
+                none
+                !important;
         }
 
 
-        /* ORANGE CARD EXTRA CONTRAST */
-
-        .dashboard-kpi-card:nth-child(4)
-        div > span,
-
-        .dashboard-kpi-card:nth-child(4)
-        div > strong,
-
-        .dashboard-kpi-card:nth-child(4)
-        div > small {
-
-            text-shadow:
-                0 1px 3px
-                rgba(
-                    102,
-                    48,
-                    0,
-                    .28
-                );
-        }
-
-
-        /* CYAN CARD EXTRA CONTRAST */
-
-        .dashboard-kpi-card:nth-child(6)
-        div > span,
-
-        .dashboard-kpi-card:nth-child(6)
-        div > strong,
-
-        .dashboard-kpi-card:nth-child(6)
-        div > small {
-
-            text-shadow:
-                0 1px 3px
-                rgba(
-                    0,
-                    69,
-                    80,
-                    .25
-                );
-        }
-
-
-        /* KPI ICON WHITE GLASS */
+        /* KPI ICON SOLID ACCENTS */
 
         .dashboard-kpi-card
-        .dashboard-kpi-icon,
+        .dashboard-kpi-icon {
 
-        .dashboard-kpi-icon.blue,
-        .dashboard-kpi-icon.green,
-        .dashboard-kpi-icon.red,
-        .dashboard-kpi-icon.orange,
-        .dashboard-kpi-icon.purple,
-        .dashboard-kpi-icon.teal {
+            text-shadow:
+                none
+                !important;
+        }
+
+        .dashboard-kpi-icon.blue {
 
             color:
-                #ffffff
+                #2563eb
                 !important;
 
             background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    .21
-                )
+                #eff6ff
                 !important;
 
-            text-shadow:
-                0 1px 2px
-                rgba(
-                    44,
-                    18,
-                    52,
-                    .18
-                );
+            border:
+                1px solid #dbeafe
+                !important;
         }
 
+        .dashboard-kpi-icon.green {
 
+            color:
+                #059669
+                !important;
+
+            background:
+                #ecfdf5
+                !important;
+
+            border:
+                1px solid #a7f3d0
+                !important;
+        }
+
+        .dashboard-kpi-icon.red {
+
+            color:
+                #dc2626
+                !important;
+
+            background:
+                #fef2f2
+                !important;
+
+            border:
+                1px solid #fecaca
+                !important;
+        }
+
+        .dashboard-kpi-icon.orange {
+
+            color:
+                #d97706
+                !important;
+
+            background:
+                #fffbeb
+                !important;
+
+            border:
+                1px solid #fde68a
+                !important;
+        }
+
+        .dashboard-kpi-icon.purple {
+
+            color:
+                #7c3aed
+                !important;
+
+            background:
+                #f5f3ff
+                !important;
+
+            border:
+                1px solid #ddd6fe
+                !important;
+        }
+
+        .dashboard-kpi-icon.teal {
+
+            color:
+                #0d9488
+                !important;
+
+            background:
+                #f0fdfa
+                !important;
+
+            border:
+                1px solid #99f6e4
+                !important;
+        }
         /* =================================================
            28. DASHBOARD STATUS
         ================================================= */
@@ -2749,11 +2320,11 @@ $flashes = Flash::all();
         .dashboard-status-item {
 
             background:
-                #fffafd
+                #f9fafb
                 !important;
 
-            border-color:
-                #ecdfee
+            border:
+                1px solid #e5e7eb
                 !important;
         }
 
@@ -2761,11 +2332,11 @@ $flashes = Flash::all();
         .dashboard-status-item span {
 
             color:
-                #806e84
+                #4b5563
                 !important;
 
             font-weight:
-                520
+                500
                 !important;
         }
 
@@ -2777,15 +2348,13 @@ $flashes = Flash::all();
                 !important;
 
             color:
-                #4d3458
+                #111827
                 !important;
 
             font-weight:
-                780
+                600
                 !important;
         }
-
-
         .dashboard-status-item:nth-child(6n + 1)
         span i {
 
@@ -2857,19 +2426,15 @@ $flashes = Flash::all();
         ================================================= */
 
         .summary-card {
+        .summary-card {
 
-            border-color:
-                transparent
+            border:
+                1px solid #e5e7eb
                 !important;
 
             box-shadow:
-                0 9px 22px
-                rgba(
-                    102,
-                    52,
-                    116,
-                    .08
-                )
+                0 1px 3px
+                rgba(0, 0, 0, 0.05)
                 !important;
         }
 
@@ -2877,18 +2442,15 @@ $flashes = Flash::all();
         .summary-card.blue {
 
             color:
-                #ffffff
+                #1e40af
                 !important;
 
             background:
+                #eff6ff
+                !important;
 
-                linear-gradient(
-                    135deg,
-
-                    #7950d8,
-
-                    #9c53d7
-                )
+            border:
+                1px solid #bfdbfe
                 !important;
         }
 
@@ -2896,18 +2458,15 @@ $flashes = Flash::all();
         .summary-card.green {
 
             color:
-                #ffffff
+                #065f46
                 !important;
 
             background:
+                #ecfdf5
+                !important;
 
-                linear-gradient(
-                    135deg,
-
-                    #28c796,
-
-                    #30b8a1
-                )
+            border:
+                1px solid #a7f3d0
                 !important;
         }
 
@@ -2915,18 +2474,15 @@ $flashes = Flash::all();
         .summary-card.amber {
 
             color:
-                #ffffff
+                #92400e
                 !important;
 
             background:
+                #fffbeb
+                !important;
 
-                linear-gradient(
-                    135deg,
-
-                    #ffaf3d,
-
-                    #f58b42
-                )
+            border:
+                1px solid #fde68a
                 !important;
         }
 
@@ -2934,18 +2490,15 @@ $flashes = Flash::all();
         .summary-card.red {
 
             color:
-                #ffffff
+                #991b1b
                 !important;
 
             background:
+                #fef2f2
+                !important;
 
-                linear-gradient(
-                    135deg,
-
-                    #eb4c78,
-
-                    #d4489d
-                )
+            border:
+                1px solid #fecaca
                 !important;
         }
 
@@ -2956,11 +2509,9 @@ $flashes = Flash::all();
         .summary-card.red * {
 
             color:
-                #ffffff
+                inherit
                 !important;
         }
-
-
         .summary-card.blue strong,
         .summary-card.green strong,
         .summary-card.amber strong,
@@ -3039,30 +2590,21 @@ $flashes = Flash::all();
                 !important;
 
             font-weight:
-                750
+                600
                 !important;
 
             background:
+                #2563eb
+                !important;
 
-                linear-gradient(
-                    135deg,
-
-                    #7540db,
-
-                    #a148d8
-                )
+            border:
+                1px solid #1d4ed8
                 !important;
 
             text-shadow:
-                0 1px 2px
-                rgba(
-                    46,
-                    17,
-                    57,
-                    .18
-                );
+                none
+                !important;
         }
-
 
         :is(
             .report-batch-card,
@@ -3109,22 +2651,17 @@ $flashes = Flash::all();
 
 
         .report-progress span,
+        .report-progress span,
         .report-progress > span {
 
+            background-image:
+                none
+                !important;
+
             background:
-
-                linear-gradient(
-                    90deg,
-
-                    #7140dc 0%,
-
-                    #ac42d4 50%,
-
-                    #ee408c 100%
-                )
+                #2563eb
                 !important;
         }
-
 
         .report-stats div,
         .report-card-stats > div {
@@ -3475,30 +3012,21 @@ $flashes = Flash::all();
                 !important;
 
             font-weight:
-                750
+                600
                 !important;
 
             background:
+                #2563eb
+                !important;
 
-                linear-gradient(
-                    135deg,
-
-                    #7340da,
-
-                    #aa44d7
-                )
+            border:
+                1px solid #1d4ed8
                 !important;
 
             text-shadow:
-                0 1px 2px
-                rgba(
-                    46,
-                    16,
-                    57,
-                    .18
-                );
+                none
+                !important;
         }
-
 
         .method-steps .done {
 
@@ -3522,87 +3050,35 @@ $flashes = Flash::all();
 
         .fx-modern-board {
 
-            --fx-blue:
-                #7140dc
+            --fx-bg:
+                #ffffff
                 !important;
 
-            --fx-blue-2:
-                #bf3fbd
-                !important;
-
-            --fx-cyan:
-                #3cb9e2
-                !important;
-
-            --fx-green:
-                #2fc98c
-                !important;
-
-            --fx-red:
-                #eb4c79
-                !important;
-
-            --fx-amber:
-                #ff9b3e
-                !important;
-
-            --fx-ink:
-                #51385c
-                !important;
-
-            --fx-muted:
-                #847488
+            --fx-surface:
+                #f9fafb
                 !important;
 
             --fx-border:
-                #eaddeb
+                #e5e7eb
                 !important;
 
             color:
-                #51385c
+                #111827
                 !important;
 
             background:
-
-                radial-gradient(
-                    circle at 100% 0,
-
-                    rgba(
-                        181,
-                        103,
-                        238,
-                        .18
-                    ),
-
-                    transparent 29%
-                ),
-
-                linear-gradient(
-                    145deg,
-
-                    #ffffff 0%,
-
-                    #fff8fc 70%,
-
-                    #f3e5ff 100%
-                )
+                #ffffff
                 !important;
 
-            border-color:
-                #eaddeb
+            border:
+                1px solid #e5e7eb
                 !important;
 
             box-shadow:
-                0 14px 40px
-                rgba(
-                    96,
-                    55,
-                    109,
-                    .06
-                )
+                0 1px 3px
+                rgba(0, 0, 0, 0.05)
                 !important;
         }
-
 
         .fx-modern-pill {
 
@@ -3663,38 +3139,28 @@ $flashes = Flash::all();
 
 
         .fx-modern-sync {
+        .fx-modern-sync {
 
             color:
                 #ffffff
                 !important;
 
             font-weight:
-                750
+                600
                 !important;
 
             background:
+                #2563eb
+                !important;
 
-                linear-gradient(
-                    105deg,
-
-                    #7040dc,
-
-                    #a143dc,
-
-                    #ee408e
-                )
+            border:
+                1px solid #1d4ed8
                 !important;
 
             text-shadow:
-                0 1px 2px
-                rgba(
-                    47,
-                    16,
-                    57,
-                    .18
-                );
+                none
+                !important;
         }
-
 
         .fx-modern-search > i {
 
@@ -3904,19 +3370,9 @@ $flashes = Flash::all();
         .fx-modern-range-track i {
 
             background:
-
-                linear-gradient(
-                    90deg,
-
-                    #7140dc,
-
-                    #c13fbd,
-
-                    #3cb9e2
-                )
+                #2563eb
                 !important;
         }
-
 
         .fx-modern-range-track b {
 
@@ -4010,42 +3466,24 @@ $flashes = Flash::all();
         .fx-detail-dialog {
 
             color:
-                #57435e
+                #111827
                 !important;
 
             background:
-
-                linear-gradient(
-                    145deg,
-
-                    #ffffff,
-
-                    #fff6fb 70%,
-
-                    #f1e2ff
-                )
+                #ffffff
                 !important;
 
-            border-color:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    .90
-                )
+            border:
+                1px solid #e5e7eb
                 !important;
 
             box-shadow:
-                0 34px 90px
-                rgba(
-                    73,
-                    42,
-                    83,
-                    .31
-                )
+                0 20px 25px -5px
+                rgba(0, 0, 0, 0.1),
+                0 10px 10px -5px
+                rgba(0, 0, 0, 0.04)
                 !important;
         }
-
 
         .fx-detail-close {
 
@@ -4307,30 +3745,21 @@ $flashes = Flash::all();
                 !important;
 
             font-weight:
-                750
+                600
                 !important;
 
             background:
+                #2563eb
+                !important;
 
-                linear-gradient(
-                    135deg,
-
-                    #7140dc,
-
-                    #a044dc
-                )
+            border:
+                1px solid #1d4ed8
                 !important;
 
             text-shadow:
-                0 1px 2px
-                rgba(
-                    46,
-                    16,
-                    57,
-                    .18
-                );
+                none
+                !important;
         }
-
 
         .fx-rate-card header strong,
         .fx-rate-pair strong {
@@ -4586,14 +4015,7 @@ $flashes = Flash::all();
         ::-webkit-scrollbar-thumb {
 
             background:
-
-                linear-gradient(
-                    180deg,
-
-                    #cb94d6,
-
-                    #89c9e2
-                )
+                #cbd5e1
                 !important;
         }
 
@@ -4602,18 +4024,9 @@ $flashes = Flash::all();
         ::-webkit-scrollbar-thumb:hover {
 
             background:
-
-                linear-gradient(
-                    180deg,
-
-                    #b878ca,
-
-                    #6eb8d7
-                )
+                #94a3b8
                 !important;
         }
-
-
 
         /* =================================================
            42. COLLAPSIBLE SIDEBAR - SMOOTH / MINIMAL
@@ -4783,374 +4196,10 @@ $flashes = Flash::all();
 
 
     <!-- =====================================================
-         CANVAS COLOR MAPPER
-
-         Grafik lama yang masih menggunakan navy / blue
-         otomatis mengikuti warna baru.
+         CANVAS CHART DISCIPLINE (GEMINI.md Bagian 11)
+         Grafik canvas menggunakan warna solid asli (#2563EB,
+         #059669, #DC2626) tanpa manipulasi gradien pastel.
     ====================================================== -->
-
-    <script>
-
-    (() => {
-
-        'use strict';
-
-
-        const palette =
-            new Map([
-
-                [
-                    '#8b5cf6',
-                    '#7140dc'
-                ],
-
-                [
-                    '#2463eb',
-                    '#7140dc'
-                ],
-
-                [
-                    '#039',
-                    '#7140dc'
-                ],
-
-                [
-                    '#10b981',
-                    '#2fc98c'
-                ],
-
-                [
-                    '#ef4444',
-                    '#eb4c79'
-                ],
-
-                [
-                    '#f59e0b',
-                    '#ff9b3e'
-                ],
-
-                [
-                    '#8b5cf6',
-                    '#9b4cdd'
-                ],
-
-                [
-                    '#06b6d4',
-                    '#32bdd5'
-                ],
-
-                [
-                    '#51365f',
-                    '#51355d'
-                ],
-
-                [
-                    '#624276',
-                    '#604a67'
-                ],
-
-                [
-                    '#847488',
-                    '#847488'
-                ],
-
-                [
-                    '#8492a4',
-                    '#918294'
-                ],
-
-                [
-                    '#94a3b8',
-                    '#9c8e9f'
-                ],
-
-                [
-                    '#e2e8f0',
-                    '#eee1ee'
-                ],
-
-                [
-                    '#e7edf4',
-                    '#eee1ee'
-                ],
-
-                [
-                    'rgba(37,99,235,.22)',
-                    'rgba(113,64,220,.20)'
-                ],
-
-                [
-                    'rgba(37,99,235,.18)',
-                    'rgba(113,64,220,.17)'
-                ],
-
-                [
-                    'rgba(37,99,235,.17)',
-                    'rgba(113,64,220,.16)'
-                ],
-
-                [
-                    'rgba(37,99,235,.01)',
-                    'rgba(113,64,220,.03)'
-                ],
-
-                [
-                    'rgba(16,185,129,.20)',
-                    'rgba(47,201,140,.19)'
-                ],
-
-                [
-                    'rgba(16,185,129,.18)',
-                    'rgba(47,201,140,.17)'
-                ],
-
-                [
-                    'rgba(239,68,68,.18)',
-                    'rgba(235,76,121,.18)'
-                ],
-
-                [
-                    'rgba(239,68,68,.16)',
-                    'rgba(235,76,121,.16)'
-                ],
-
-                [
-                    'rgba(21,48,78,.17)',
-                    'rgba(101,55,115,.13)'
-                ]
-
-            ]);
-
-
-        const normalize =
-            (value) => {
-
-                return String(value)
-                    .toLowerCase()
-                    .replace(
-                        /\s+/g,
-                        ''
-                    );
-
-            };
-
-
-        const normalizedPalette =
-            new Map();
-
-
-        palette.forEach(
-            (
-                value,
-                key
-            ) => {
-
-                normalizedPalette.set(
-                    normalize(key),
-                    value
-                );
-
-            }
-        );
-
-
-        const mapColor =
-            (value) => {
-
-                if (
-                    typeof value
-                    !== 'string'
-                ) {
-
-                    return value;
-                }
-
-
-                return (
-                    normalizedPalette.get(
-                        normalize(value)
-                    )
-                    || value
-                );
-
-            };
-
-
-        if (
-            typeof CanvasRenderingContext2D
-            === 'undefined'
-        ) {
-
-            return;
-        }
-
-
-        const proto =
-            CanvasRenderingContext2D
-                .prototype;
-
-
-        [
-            'strokeStyle',
-            'fillStyle',
-            'shadowColor'
-        ].forEach(
-            (property) => {
-
-                const descriptor =
-                    Object.getOwnPropertyDescriptor(
-                        proto,
-                        property
-                    );
-
-
-                if (
-                    !descriptor
-                    ||
-                    !descriptor.get
-                    ||
-                    !descriptor.set
-                    ||
-                    descriptor.configurable
-                    === false
-                ) {
-
-                    return;
-                }
-
-
-                Object.defineProperty(
-                    proto,
-                    property,
-                    {
-
-                        configurable:
-                            descriptor.configurable,
-
-                        enumerable:
-                            descriptor.enumerable,
-
-                        get:
-                            descriptor.get,
-
-                        set(value) {
-
-                            descriptor.set.call(
-                                this,
-                                mapColor(value)
-                            );
-
-                        }
-
-                    }
-                );
-
-            }
-        );
-
-
-        const originalLinearGradient =
-            proto.createLinearGradient;
-
-
-        if (
-            typeof originalLinearGradient
-            === 'function'
-        ) {
-
-            proto.createLinearGradient =
-                function (...args) {
-
-                    const gradient =
-                        originalLinearGradient
-                            .apply(
-                                this,
-                                args
-                            );
-
-
-                    const originalAddColorStop =
-                        gradient
-                            .addColorStop
-                            .bind(
-                                gradient
-                            );
-
-
-                    gradient.addColorStop =
-                        (
-                            offset,
-                            color
-                        ) => {
-
-                            originalAddColorStop(
-                                offset,
-                                mapColor(color)
-                            );
-
-                        };
-
-
-                    return gradient;
-
-                };
-
-        }
-
-
-        const originalRadialGradient =
-            proto.createRadialGradient;
-
-
-        if (
-            typeof originalRadialGradient
-            === 'function'
-        ) {
-
-            proto.createRadialGradient =
-                function (...args) {
-
-                    const gradient =
-                        originalRadialGradient
-                            .apply(
-                                this,
-                                args
-                            );
-
-
-                    const originalAddColorStop =
-                        gradient
-                            .addColorStop
-                            .bind(
-                                gradient
-                            );
-
-
-                    gradient.addColorStop =
-                        (
-                            offset,
-                            color
-                        ) => {
-
-                            originalAddColorStop(
-                                offset,
-                                mapColor(color)
-                            );
-
-                        };
-
-
-                    return gradient;
-
-                };
-
-        }
-
-    })();
-
-    </script>
-
-
     <!-- =====================================================
          BOOTSTRAP ICONS
     ====================================================== -->
