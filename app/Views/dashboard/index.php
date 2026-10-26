@@ -275,10 +275,10 @@ $kpiCards = [
 $statusColors = [
     '#315B8C',
     '#F2765E',
+    '#413333',
     '#10b981',
     '#f59e0b',
     '#dc2626',
-    '#7c3aed',
 ];
 
 
@@ -917,16 +917,16 @@ $fxBoardFile =
                     type="text"
                     x-model="search"
                     placeholder="Cari transaksi (referensi, PT, penerima)..."
-                    class="py-1.5 px-3 ps-8 block w-full border border-gray-200 rounded-lg text-xs focus:border-[#315B8C] focus:ring-[#315B8C]"
+                    class="py-1.5 px-3 ps-8 block w-full border border-[#e0d3c1] bg-white rounded-lg text-xs text-[#413333] placeholder:text-gray-400 focus:border-[#315B8C] focus:ring-[#315B8C]"
                 >
-                <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-2.5 text-gray-900">
+                <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-2.5 text-[#413333]">
                     <i class="bi bi-search text-xs"></i>
                 </div>
                 <button
                     type="button"
                     x-show="search.length > 0"
                     @click="search = ''"
-                    class="absolute inset-y-0 end-0 flex items-center pe-2.5 text-gray-900 hover:text-black"
+                    class="absolute inset-y-0 end-0 flex items-center pe-2.5 text-[#413333] hover:text-black"
                     style="display: none;"
                 >
                     <i class="bi bi-x-circle text-xs"></i>
@@ -937,32 +937,32 @@ $fxBoardFile =
                 <button
                     type="button"
                     @click="status = 'all'"
-                    :class="status === 'all' ? 'bg-[#315B8C] text-white border-[#315B8C]' : 'bg-white text-gray-700 hover:bg-[#F5EBDD]'"
-                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border border-gray-200 first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
+                    :class="status === 'all' ? 'bg-[#315B8C] text-white border-[#315B8C]' : 'bg-white text-[#413333] border-[#e0d3c1] hover:bg-[#F5EBDD]'"
+                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border border-[#e0d3c1] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
                 >
                     Semua
                 </button>
                 <button
                     type="button"
                     @click="status = 'success'"
-                    :class="status === 'success' ? 'bg-emerald-600 text-white' : 'bg-white text-gray-700 hover:bg-[#F5EBDD]'"
-                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-gray-200 first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
+                    :class="status === 'success' ? 'bg-emerald-600 text-white' : 'bg-white text-[#413333] hover:bg-[#F5EBDD]'"
+                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-[#e0d3c1] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
                 >
                     Sukses
                 </button>
                 <button
                     type="button"
                     @click="status = 'pending'"
-                    :class="status === 'pending' ? 'bg-amber-500 text-white' : 'bg-white text-gray-700 hover:bg-[#F5EBDD]'"
-                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-gray-200 first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
+                    :class="status === 'pending' ? 'bg-amber-500 text-white' : 'bg-white text-[#413333] hover:bg-[#F5EBDD]'"
+                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-[#e0d3c1] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
                 >
                     Pending
                 </button>
                 <button
                     type="button"
                     @click="status = 'refund'"
-                    :class="status === 'refund' ? 'bg-rose-600 text-white' : 'bg-white text-gray-700 hover:bg-[#F5EBDD]'"
-                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-gray-200 first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
+                    :class="status === 'refund' ? 'bg-rose-600 text-white' : 'bg-white text-[#413333] hover:bg-[#F5EBDD]'"
+                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-[#e0d3c1] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
                 >
                     Refund
                 </button>

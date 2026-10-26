@@ -308,7 +308,7 @@
       const data = prepareCanvas(canvas, 120, 120);
       if (!data) return;
       const { context, width, height } = data;
-      const colors = ['#315B8C', '#F2765E', '#10b981', '#f59e0b', '#dc2626', '#7c3aed'];
+      const colors = ['#315B8C', '#F2765E', '#413333', '#10b981', '#f59e0b', '#dc2626'];
       const total = rows.reduce((sum, row) => sum + row.value, 0);
       const radius = Math.min(width, height) * 0.36;
       const innerRadius = radius * 0.68;
@@ -325,7 +325,7 @@
         context.fill();
         start += angle;
       });
-      context.fillStyle = '#0f172a';
+      context.fillStyle = '#413333';
       context.font = '800 17px Segoe UI, Arial, sans-serif';
       context.textAlign = 'center';
       context.textBaseline = 'middle';

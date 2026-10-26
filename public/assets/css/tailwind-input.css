@@ -1064,9 +1064,9 @@
   .dashboard-panel.dashboard-quick-panel {
     padding: 20px 22px;
     background: #ffffff;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #e0d3c1;
     border-radius: 18px;
-    box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 4px 16px -2px rgba(65, 51, 51, 0.04);
   }
 
   .dashboard-fx-summary {
@@ -1074,9 +1074,9 @@
     align-items: center;
     gap: 10px;
     padding: 7px 12px;
-    color: #374151;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    color: #413333;
+    background: #F5EBDD;
+    border: 1px solid #e0d3c1;
     border-radius: 12px;
   }
 
@@ -1085,7 +1085,7 @@
     align-items: center;
     justify-content: center;
     background: transparent;
-    color: #111827;
+    color: #413333;
     font-size: 14px;
   }
 
@@ -1094,7 +1094,7 @@
     font-family: var(--font-heading);
     font-size: 12px;
     font-weight: 600;
-    color: #111827;
+    color: #413333;
   }
 
   .dashboard-fx-summary small {
@@ -1120,26 +1120,26 @@
     min-height: 68px;
     padding: 12px 16px;
     background: #ffffff;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #e0d3c1;
     border-radius: 14px;
     text-decoration: none;
-    color: #111827;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    color: #413333;
+    box-shadow: 0 1px 3px rgba(65, 51, 51, 0.04);
     transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
     cursor: pointer;
     transform: none !important;
   }
 
   .dashboard-quick-item:hover {
-    background-color: #ffffff;
+    background-color: #F5EBDD;
     border-color: #315B8C;
     box-shadow: 0 4px 12px rgba(49, 91, 140, 0.08);
-    color: #111827;
+    color: #413333;
     transform: none !important;
   }
 
   .dashboard-quick-item > i:first-child {
-    color: #111827;
+    color: #413333;
     background: transparent;
     border: none;
     font-size: 1.125rem;
@@ -1158,7 +1158,7 @@
     font-family: var(--font-heading);
     font-size: 13.5px;
     font-weight: 600;
-    color: #111827;
+    color: #413333;
     line-height: 1.25;
     white-space: nowrap;
     overflow: hidden;
@@ -1207,9 +1207,9 @@
     padding: 20px 24px;
     color: #ffffff;
     border-radius: 18px;
-    background: #315B8C;
-    border: 1px solid #284b73;
-    box-shadow: 0 4px 16px -2px rgba(49, 91, 140, 0.16);
+    background: #413333;
+    border: 1px solid #332626;
+    box-shadow: 0 4px 16px -2px rgba(65, 51, 51, 0.20);
   }
 
   @media (min-width: 640px) {
@@ -1305,13 +1305,13 @@
   }
 
   .dashboard-hero-modern .dashboard-action-secondary {
-    background: #254970;
-    border: 1px solid #3c6596;
+    background: #544242;
+    border: 1px solid #665050;
     color: #F5EBDD;
   }
 
   .dashboard-hero-modern .dashboard-action-secondary:hover {
-    background: #1e3c5e;
+    background: #614d4d;
     border-color: #F2765E;
     color: #ffffff;
   }
@@ -1350,12 +1350,18 @@
     background-color: inherit !important;
   }
 
+  .modern-table tbody td,
+  .dashboard-table-wrap .table tbody td {
+    color: #413333 !important;
+  }
+
   .dashboard-activity-card {
     padding: 16px 18px;
-    background: #1f1e1e;
-    border: 1px solid #383535;
+    background: #413333;
+    border: 1px solid #544242;
     border-radius: 14px;
     backdrop-filter: none;
+    box-shadow: 0 4px 16px -2px rgba(65, 51, 51, 0.16);
   }
 
   .dashboard-activity-head {
@@ -1367,7 +1373,7 @@
 
   .dashboard-activity-head span {
     display: block;
-    color: #9ca3af;
+    color: #F5EBDD;
     font-family: var(--font-sans);
     font-size: 12px;
     font-weight: 500;
@@ -1386,7 +1392,7 @@
   .dashboard-activity-head small {
     display: block;
     margin-top: 2px;
-    color: #9ca3af;
+    color: #F5EBDD;
     font-family: var(--font-sans);
     font-size: 11.5px;
   }
@@ -1406,7 +1412,7 @@
   .dashboard-activity-meta {
     display: flex;
     justify-content: space-between;
-    color: #9ca3af;
+    color: #F5EBDD;
     font-family: var(--font-sans);
     font-size: 11.5px;
     margin-top: 6px;
@@ -1430,13 +1436,13 @@
     min-height: 72px;
     padding: 12px 14px;
     background: #ffffff;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #e0d3c1;
     border-radius: 14px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 3px rgba(65, 51, 51, 0.04);
   }
 
   .dashboard-kpi-card > i:first-child {
-    color: #111827;
+    color: #413333;
     background: transparent;
     border: none;
     font-size: 1.25rem;
@@ -1451,10 +1457,10 @@
 
   .dashboard-kpi-card div > span {
     display: block;
-    color: #6b7280;
+    color: #413333;
     font-family: var(--font-sans);
     font-size: 12px;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.25;
     white-space: nowrap;
     overflow: hidden;
@@ -1464,10 +1470,10 @@
   .dashboard-kpi-card div > strong {
     display: block;
     margin: 2px 0;
-    color: #111827;
+    color: #413333;
     font-family: var(--font-heading);
     font-size: 20px;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 1;
   }
 
@@ -1498,9 +1504,9 @@
     height: 32px;
     min-height: 32px;
     padding: 0 12px;
-    color: #111827;
+    color: #315B8C;
     background: #ffffff;
-    border: 1px solid #d1d5db;
+    border: 1px solid #e0d3c1;
     border-radius: 8px;
     font-family: var(--font-heading);
     font-size: 12.5px;
@@ -1510,17 +1516,17 @@
   }
 
   .dashboard-small-link:hover {
-    background-color: #f3f4f6;
-    border-color: #9ca3af;
-    color: #000000;
+    background-color: #F5EBDD;
+    border-color: #315B8C;
+    color: #315B8C;
   }
 
   .dashboard-small-link i {
-    color: #111827;
+    color: #315B8C;
   }
 
   .dashboard-small-link:hover i {
-    color: #000000;
+    color: #315B8C;
   }
 
   .dashboard-trend-chart {
@@ -1561,8 +1567,8 @@
     justify-content: space-between;
     gap: 8px;
     padding: 7px 10px;
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    border: 1px solid #e0d3c1;
     border-radius: 8px;
   }
 
@@ -1570,7 +1576,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    color: #374151;
+    color: #413333;
     font-family: var(--font-sans);
     font-size: 12px;
     font-weight: 500;
@@ -1584,7 +1590,7 @@
   }
 
   .dashboard-status-item strong {
-    color: #111827;
+    color: #413333;
     font-family: var(--font-heading);
     font-size: 12.5px;
     font-weight: 600;
@@ -1596,18 +1602,18 @@
   .fx-modern-board {
     width: 100%;
     padding: 20px 22px;
-    color: #111827;
+    color: #413333;
     background: #ffffff;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #e0d3c1;
     border-radius: 18px;
-    box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 4px 16px -2px rgba(65, 51, 51, 0.04);
   }
 
   .fx-modern-kicker,
   .fx-modern-board .fx-modern-kicker {
     display: block;
     margin-bottom: 4px;
-    color: #2563eb;
+    color: #315B8C;
     font-family: var(--font-heading);
     font-size: 11px;
     font-weight: 600;
@@ -1618,7 +1624,7 @@
   .fx-modern-header h2,
   .fx-modern-board .fx-modern-header h2 {
     margin: 0;
-    color: #111827;
+    color: #413333;
     font-family: var(--font-heading);
     font-size: 18px;
     font-weight: 600;
@@ -1650,14 +1656,14 @@
     height: 34px;
     min-height: 34px;
     padding: 0 12px;
-    color: #374151;
+    color: #413333;
     background: #ffffff;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #e0d3c1;
     border-radius: 10px;
     font-family: var(--font-heading);
     font-size: 12px;
     font-weight: 500;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 1px 3px rgba(65, 51, 51, 0.03);
   }
 
   .fx-modern-refresh,
@@ -1675,17 +1681,17 @@
 
   .fx-modern-refresh {
     width: 34px;
-    color: #2563eb;
+    color: #315B8C;
     background: #ffffff;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #e0d3c1;
     font-size: 14px;
   }
 
   .fx-modern-sync {
     padding: 0 14px;
     color: #ffffff;
-    background: #2563eb;
-    border: 1px solid #1d4ed8;
+    background: #315B8C;
+    border: 1px solid #284b73;
     font-family: var(--font-heading);
     font-size: 12px;
     font-weight: 600;
@@ -1716,9 +1722,9 @@
     width: 100%;
     height: 36px;
     padding: 6px 12px 6px 34px;
-    color: #111827;
+    color: #413333;
     background: #ffffff;
-    border: 1px solid #d1d5db;
+    border: 1px solid #e0d3c1;
     border-radius: 10px;
     outline: none;
     font-family: var(--font-sans);
@@ -1726,8 +1732,8 @@
   }
 
   .fx-modern-search input:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    border-color: #315B8C;
+    box-shadow: 0 0 0 3px rgba(49, 91, 140, 0.15);
   }
 
   .fx-modern-meta {
@@ -1752,26 +1758,26 @@
   .fx-modern-card {
     min-width: 0;
     padding: 12px 14px;
-    color: #111827;
+    color: #413333;
     background: #ffffff;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #e0d3c1;
     border-radius: 14px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 3px rgba(65, 51, 51, 0.04);
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
     transform: none !important;
   }
 
   .fx-modern-card:hover {
     transform: none !important;
-    border-color: #93c5fd;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    border-color: #315B8C;
+    box-shadow: 0 4px 12px rgba(49, 91, 140, 0.08);
   }
 
   .fx-modern-currency strong {
-    color: #111827;
+    color: #413333;
     font-family: var(--font-heading);
     font-size: 13.5px;
-    font-weight: 700;
+    font-weight: 600;
   }
 
   .fx-modern-currency small {
@@ -1797,10 +1803,10 @@
   .fx-modern-value strong {
     display: block;
     margin-top: 2px;
-    color: #111827;
+    color: #413333;
     font-family: var(--font-heading);
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: -0.015em;
   }
 
@@ -1821,8 +1827,8 @@
     flex: 1;
     min-width: 0;
     padding: 6px 8px;
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    border: 1px solid #e0d3c1;
     border-radius: 8px;
   }
 
@@ -1835,7 +1841,7 @@
 
   .fx-modern-buy-sell strong {
     margin-top: 1px;
-    color: #111827;
+    color: #413333;
     font-family: var(--font-heading);
     font-size: 11.5px;
     font-weight: 600;

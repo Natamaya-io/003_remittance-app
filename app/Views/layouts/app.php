@@ -1427,7 +1427,7 @@ $flashes = Flash::all();
         .form-check-input {
 
             accent-color:
-                #7440da
+                #315B8C
                 !important;
         }
 
@@ -1512,7 +1512,7 @@ $flashes = Flash::all();
                 !important;
 
             color:
-                #5f4e65
+                #413333
                 !important;
 
             background:
@@ -1525,7 +1525,7 @@ $flashes = Flash::all();
         .table td {
 
             border-color:
-                #eee3ee
+                #e0d3c1
                 !important;
         }
 
@@ -1579,7 +1579,7 @@ $flashes = Flash::all();
         .table tbody td {
 
             color:
-                #58495f
+                #413333
                 !important;
 
             font-weight:
@@ -1772,16 +1772,16 @@ $flashes = Flash::all();
                 !important;
 
             background:
-                #315B8C
+                #413333
                 !important;
 
             border:
-                1px solid #284b73
+                1px solid #332626
                 !important;
 
             box-shadow:
                 0 4px 16px -2px
-                rgba(49, 91, 140, 0.16)
+                rgba(65, 51, 51, 0.20)
                 !important;
         }
 
@@ -1966,13 +1966,13 @@ $flashes = Flash::all();
         }
 
         .dashboard-hero-modern .dashboard-action-secondary {
-            background: #254970 !important;
-            border: 1px solid #3c6596 !important;
+            background: #544242 !important;
+            border: 1px solid #665050 !important;
             color: #F5EBDD !important;
         }
 
         .dashboard-hero-modern .dashboard-action-secondary:hover {
-            background: #1e3c5e !important;
+            background: #614d4d !important;
             border-color: #F2765E !important;
             color: #ffffff !important;
         }
@@ -1983,15 +1983,15 @@ $flashes = Flash::all();
         .dashboard-activity-card {
 
             color:
-                #f5f2f2
+                #F5EBDD
                 !important;
 
             background:
-                #1f1e1e
+                #413333
                 !important;
 
             border:
-                1px solid #383535
+                1px solid #544242
                 !important;
 
             backdrop-filter:
@@ -2003,7 +2003,8 @@ $flashes = Flash::all();
                 !important;
 
             box-shadow:
-                none
+                0 4px 16px -2px
+                rgba(65, 51, 51, 0.16)
                 !important;
         }
 
@@ -2011,7 +2012,7 @@ $flashes = Flash::all();
         .dashboard-activity-head span {
 
             color:
-                #9ca3af
+                #F5EBDD
                 !important;
 
             font-weight:
@@ -2042,7 +2043,7 @@ $flashes = Flash::all();
         .dashboard-activity-head small {
 
             color:
-                #9ca3af
+                #F5EBDD
                 !important;
 
             font-weight:
@@ -2088,7 +2089,7 @@ $flashes = Flash::all();
         .dashboard-panel {
 
             color:
-                #111827
+                #413333
                 !important;
 
             background:
@@ -2096,12 +2097,12 @@ $flashes = Flash::all();
                 !important;
 
             border:
-                1px solid #e5e7eb
+                1px solid #e0d3c1
                 !important;
 
             box-shadow:
                 0 1px 3px
-                rgba(0, 0, 0, 0.05)
+                rgba(65, 51, 51, 0.05)
                 !important;
         }
 
@@ -2128,7 +2129,7 @@ $flashes = Flash::all();
                 !important;
 
             color:
-                #111827
+                #413333
                 !important;
 
             font-weight:
@@ -2154,15 +2155,15 @@ $flashes = Flash::all();
         .dashboard-fx-summary {
 
             color:
-                #374151
+                #413333
                 !important;
 
             background:
-                #f8fafc
+                #F5EBDD
                 !important;
 
             border:
-                1px solid #e2e8f0
+                1px solid #e0d3c1
                 !important;
 
             box-shadow:
@@ -2174,7 +2175,7 @@ $flashes = Flash::all();
         .dashboard-fx-summary > i {
 
             color:
-                #111827
+                #413333
                 !important;
 
             background:
@@ -2202,7 +2203,7 @@ $flashes = Flash::all();
                 !important;
 
             color:
-                #111827
+                #413333
                 !important;
 
             font-weight:
@@ -2236,7 +2237,7 @@ $flashes = Flash::all();
         .dashboard-quick-item {
 
             color:
-                #111827
+                #413333
                 !important;
 
             background:
@@ -2244,12 +2245,12 @@ $flashes = Flash::all();
                 !important;
 
             border:
-                1px solid #e5e7eb
+                1px solid #e0d3c1
                 !important;
 
             box-shadow:
                 0 1px 2px
-                rgba(0, 0, 0, 0.04)
+                rgba(65, 51, 51, 0.04)
                 !important;
         }
 
@@ -2257,11 +2258,11 @@ $flashes = Flash::all();
         .dashboard-quick-item:hover {
 
             color:
-                #111827
+                #413333
                 !important;
 
             background:
-                #ffffff
+                #F5EBDD
                 !important;
 
             border-color:
@@ -2282,7 +2283,7 @@ $flashes = Flash::all();
                 !important;
 
             color:
-                #111827
+                #413333
                 !important;
 
             font-weight:
@@ -2305,7 +2306,7 @@ $flashes = Flash::all();
 
         /* 14. NAKED MONOCHROME ICONS: QUICK ACTION */
         .dashboard-quick-item > i:first-child {
-            color: #111827 !important;
+            color: #413333 !important;
             background: transparent !important;
             border: none !important;
             box-shadow: none !important;
@@ -2357,7 +2358,7 @@ $flashes = Flash::all();
                 !important;
 
             color:
-                #111827
+                #413333
                 !important;
 
             background:
@@ -2365,12 +2366,12 @@ $flashes = Flash::all();
                 !important;
 
             border:
-                1px solid #e5e7eb
+                1px solid #e0d3c1
                 !important;
 
             box-shadow:
                 0 1px 3px
-                rgba(0, 0, 0, 0.05)
+                rgba(65, 51, 51, 0.05)
                 !important;
         }
 
@@ -2381,7 +2382,7 @@ $flashes = Flash::all();
         div > span {
 
             color:
-                #4b5563
+                #413333
                 !important;
 
             font-weight:
@@ -2404,7 +2405,7 @@ $flashes = Flash::all();
                 !important;
 
             color:
-                #111827
+                #413333
                 !important;
 
             font-weight:
@@ -2444,7 +2445,7 @@ $flashes = Flash::all();
 
         /* 14. NAKED MONOCHROME ICONS: KPI CARDS */
         .dashboard-kpi-card > i:first-child {
-            color: #111827 !important;
+            color: #413333 !important;
             background: transparent !important;
             border: none !important;
             box-shadow: none !important;
@@ -2482,11 +2483,11 @@ $flashes = Flash::all();
         .dashboard-status-item {
 
             background:
-                #f9fafb
+                #ffffff
                 !important;
 
             border:
-                1px solid #e5e7eb
+                1px solid #e0d3c1
                 !important;
         }
 
@@ -2494,7 +2495,7 @@ $flashes = Flash::all();
         .dashboard-status-item span {
 
             color:
-                #4b5563
+                #413333
                 !important;
 
             font-weight:
@@ -2510,7 +2511,7 @@ $flashes = Flash::all();
                 !important;
 
             color:
-                #111827
+                #413333
                 !important;
 
             font-weight:
@@ -2539,7 +2540,7 @@ $flashes = Flash::all();
         span i {
 
             background:
-                #10b981
+                #413333
                 !important;
         }
 
@@ -2548,7 +2549,7 @@ $flashes = Flash::all();
         span i {
 
             background:
-                #f59e0b
+                #10b981
                 !important;
         }
 
@@ -2557,7 +2558,7 @@ $flashes = Flash::all();
         span i {
 
             background:
-                #dc2626
+                #f59e0b
                 !important;
         }
 
@@ -2566,7 +2567,7 @@ $flashes = Flash::all();
         span i {
 
             background:
-                #7c3aed
+                #dc2626
                 !important;
         }
 
@@ -3070,7 +3071,7 @@ $flashes = Flash::all();
                 !important;
 
             color:
-                #7440da
+                #315B8C
                 !important;
 
             font-weight:
@@ -3815,11 +3816,11 @@ $flashes = Flash::all();
         .fx-toast__icon {
 
             color:
-                #7440da
+                #315B8C
                 !important;
 
             background:
-                #ecddff
+                #F5EBDD
                 !important;
         }
 
