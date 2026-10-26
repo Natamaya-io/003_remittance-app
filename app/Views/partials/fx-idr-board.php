@@ -995,30 +995,15 @@ $quotesCsv =
             <?php endif; ?>
 
 
-            <h2>
-
-                <?= e(
-                    $fxPanelTitle
-                ) ?>
-
-            </h2>
-
-
-            <?php if (
-                $fxPanelDescription !== ''
-            ): ?>
-
-
-                <p>
-
-                    <?= e(
-                        $fxPanelDescription
-                    ) ?>
-
-                </p>
-
-
-            <?php endif; ?>
+            <?= render_heading_with_info(
+                e($fxPanelTitle),
+                $fxPanelDescription,
+                [
+                    'titleTag'     => 'h2',
+                    'titleClass'   => 'm-0',
+                    'wrapperClass' => 'inline-flex items-center gap-1.5',
+                ]
+            ) ?>
 
 
         </div>

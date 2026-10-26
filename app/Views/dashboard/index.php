@@ -494,13 +494,15 @@ $fxBoardFile =
 
             <div>
 
-                <h3>
-                    Pekerjaan operasional
-                </h3>
-
-                <p>
-                    Pintasan ringkas sesuai hak akses akun.
-                </p>
+                <?= render_heading_with_info(
+                    'Pekerjaan operasional',
+                    'Pintasan ringkas sesuai hak akses akun.',
+                    [
+                        'titleTag'     => 'h3',
+                        'titleClass'   => 'm-0',
+                        'wrapperClass' => 'inline-flex items-center gap-1.5',
+                    ]
+                ) ?>
 
             </div>
 
@@ -700,14 +702,15 @@ $fxBoardFile =
 
                 <div>
 
-                    <h3>
-                        Tren Transaksi 14 Hari
-                    </h3>
-
-                    <p>
-                        Pergerakan jumlah transaksi
-                        berdasarkan tanggal.
-                    </p>
+                    <?= render_heading_with_info(
+                        'Tren Transaksi 14 Hari',
+                        'Pergerakan jumlah transaksi berdasarkan tanggal.',
+                        [
+                            'titleTag'     => 'h3',
+                            'titleClass'   => 'm-0',
+                            'wrapperClass' => 'inline-flex items-center gap-1.5',
+                        ]
+                    ) ?>
 
                 </div>
 
@@ -751,17 +754,15 @@ $fxBoardFile =
 
                 <div>
 
-                    <span class="dashboard-section-label">
-                        STATUS
-                    </span>
-
-                    <h3>
-                        Distribusi Status
-                    </h3>
-
-                    <p>
-                        Komposisi transaksi selama 30 hari.
-                    </p>
+                    <?= render_heading_with_info(
+                        'Distribusi Status',
+                        'Komposisi transaksi selama 30 hari.',
+                        [
+                            'titleTag'     => 'h3',
+                            'titleClass'   => 'm-0',
+                            'wrapperClass' => 'inline-flex items-center gap-1.5',
+                        ]
+                    ) ?>
 
                 </div>
 
@@ -998,13 +999,15 @@ $fxBoardFile =
 
             <div>
 
-                <h3>
-                    Transaksi Terbaru
-                </h3>
-
-                <p>
-                    Aktivitas transaksi terbaru dalam sistem.
-                </p>
+                <?= render_heading_with_info(
+                    'Transaksi Terbaru',
+                    'Aktivitas transaksi terbaru dalam sistem.',
+                    [
+                        'titleTag'     => 'h3',
+                        'titleClass'   => 'm-0',
+                        'wrapperClass' => 'inline-flex items-center gap-1.5',
+                    ]
+                ) ?>
 
             </div>
 

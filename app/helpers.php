@@ -546,7 +546,7 @@ function render_heading_with_info(string $title, string $info, array $options = 
         <?php if (trim($info) !== ''): ?>
             <?= render_tooltip(
                 $info,
-                '<span class="info-toggle-btn cursor-help" aria-label="Informasi bantuan"><i class="bi ' . e($icon) . ' text-xs leading-none"></i></span>',
+                '<span class="hs-tooltip-toggle info-toggle-btn cursor-help" aria-label="Informasi bantuan"><i class="bi ' . e($icon) . ' text-xs leading-none"></i></span>',
                 ['placement' => $placement]
             ) ?>
         <?php endif; ?>
