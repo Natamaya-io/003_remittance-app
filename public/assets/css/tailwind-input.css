@@ -983,4 +983,199 @@
     color: #1d4ed8;
     font-weight: 600;
   }
+
+  /* =========================================================
+     DASHBOARD QUICK ACTIONS (PEKERJAAN OPERASIONAL) NORMALIZATION
+     ========================================================= */
+  .dashboard-section-label {
+    display: block;
+    margin-bottom: 4px;
+    color: #2563eb;
+    font-family: var(--font-heading);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .dashboard-section-head h3 {
+    margin: 0;
+    color: #111827;
+    font-family: var(--font-heading);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .dashboard-section-head p {
+    margin: 3px 0 0;
+    color: #6b7280;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .dashboard-panel.dashboard-quick-panel {
+    padding: 20px 22px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.04);
+  }
+
+  .dashboard-fx-summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 12px;
+    color: #374151;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+  }
+
+  .dashboard-fx-summary > i {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    background: #eff6ff;
+    color: #2563eb;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+
+  .dashboard-fx-summary strong {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 12px;
+    font-weight: 600;
+    color: #111827;
+  }
+
+  .dashboard-fx-summary small {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    color: #6b7280;
+  }
+
+  .dashboard-quick-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+
+  .dashboard-quick-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    min-height: 68px;
+    padding: 12px 16px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    text-decoration: none;
+    color: #111827;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    cursor: pointer;
+    transform: none !important;
+  }
+
+  .dashboard-quick-item:hover {
+    background-color: #f9fafb;
+    border-color: #d1d5db;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    color: #111827;
+    transform: none !important;
+  }
+
+  .dashboard-quick-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+    font-size: 18px;
+    shrink: 0;
+  }
+
+  .dashboard-quick-item.blue .dashboard-quick-icon {
+    color: #2563eb;
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+  }
+
+  .dashboard-quick-item.green .dashboard-quick-icon {
+    color: #059669;
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+  }
+
+  .dashboard-quick-item.purple .dashboard-quick-icon {
+    color: #7c3aed;
+    background: #f5f3ff;
+    border: 1px solid #ddd6fe;
+  }
+
+  .dashboard-quick-item.orange .dashboard-quick-icon {
+    color: #d97706;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+  }
+
+  .dashboard-quick-item.cyan .dashboard-quick-icon {
+    color: #0891b2;
+    background: #ecfeff;
+    border: 1px solid #a5f3fc;
+  }
+
+  .dashboard-quick-copy {
+    min-width: 0;
+    flex: 1;
+    padding-right: 14px;
+  }
+
+  .dashboard-quick-copy strong {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #111827;
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dashboard-quick-copy small {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 11.5px;
+    font-weight: 400;
+    color: #6b7280;
+    margin-top: 2px;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .dashboard-quick-arrow {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: #9ca3af;
+    font-size: 13px;
+    transition: color 0.15s ease;
+  }
+
+  .dashboard-quick-item:hover .dashboard-quick-arrow {
+    color: #2563eb;
+  }
 }
