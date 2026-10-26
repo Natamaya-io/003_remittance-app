@@ -257,24 +257,29 @@ Jika tag native `<select>` masih digunakan untuk kasus tertentu (seperti floatin
 
 ---
 
-## 5. Aturan Terkunci: Peniadaan Navbar & Judul Halaman Ganda (Global Zero-Navbar & Zero-Redundant Page Directives / Pure Naked Architecture)
+## 5. Aturan Terkunci: Navigasi SPA Bawah & Peniadaan Navbar/Sidebar Samping (Global Zero-Navbar, Zero-Sidebar & Pure Naked SPA Bottom Navigation Law)
 
-Setiap halaman di dalam aplikasi remittance beroperasi di bawah prinsip **Pure Naked Architecture** untuk menjamin visual berwibawa, efisiensi ruang vertikal maksimal, dan ketiadaan teks maupun bilah mubazir (*zero chrome / zero slop*).
+Setiap halaman di dalam aplikasi remittance beroperasi di bawah prinsip **Pure Naked Architecture** dan **SPA Bottom Navigation Architecture** untuk menjamin visual berwibawa, efisiensi ruang horizontal dan vertikal maksimal, serta kanvas kerja 100% penuh (*zero side-rail / zero chrome / zero slop*).
 
-### 5.1. Peniadaan Total Navbar (Zero-Navbar Law)
-1. **Pemusnahan Bilah Navigasi Atas (Top Navbar Elimination):**
-   - Bilah navigasi atas (`<header>` / topbar) **MUTLAK DITIADAKAN** di seluruh halaman aplikasi. Dilarang merender topbar, navbar header, atau bilah status horizontal statis di atas area konten.
-   - Ruang vertikal layar dimaksimalkan murni untuk visual konten kerja, filter fungsional, dan tabel operasional.
-2. **Sentralisasi Kontrol Global ke Sidebar:**
-   - Seluruh kontrol navigasi dan sesi dipusatkan secara terpadu di dalam sidebar aplikasi (`app/Views/partials/sidebar.php`):
-     - **Navigasi Modul:** Menu vertikal dengan penanda status aktif (`aria-current="page"`, `.bg-blue-50 .text-blue-700`).
-     - **Profil & Sesi:** Footer sidebar memuat kartu profil pengguna (tautan ke `/profile`) dan tombol logout (`POST /logout` dengan CSRF token valid).
-3. **Navigasi Mobile Responsif (Floating Mobile Drawer Toggle):**
-   - Pada layar mobile (`lg:hidden`), navigasi diakses melalui tombol mengambang ramping (`fixed top-3 start-3 z-40 lg:hidden`) yang membuka overlay drawer sidebar tanpa membebani layar dengan navbar statis.
-   - Container utama konten menyediakan bantalan atas halus (`pt-14 sm:pt-6 lg:pt-8`) untuk menjamin kenyamanan interaksi lintas ukuran layar.
+### 5.1. Peniadaan Total Navbar & Sidebar Vertikal (Zero-Navbar & Zero-Sidebar Law)
+1. **Pemusnahan Bilah Navigasi Atas & Sidebar Samping:**
+   - Bilah navigasi atas (`<header>` / topbar) dan sidebar vertikal kiri (`<aside class="w-64">`) **MUTLAK DITIADAKAN** di seluruh halaman aplikasi.
+   - Area kanvas kerja desktop kini 100% penuh tanpa offset horizontal `lg:ps-64`, memaksimalkan densitas data dan kenyamanan analisis pada tabel transaksi dan laporan harian.
+2. **Arsitektur SPA Bottom Navigation:**
+   - **Tablet & Desktop (`sm:` dan ke atas):** Navigasi dipusatkan pada **Floating Bottom Dock** mengambang di tengah bawah (`fixed bottom-5 left-1/2 -translate-x-1/2 z-40 bg-white/95 backdrop-blur-md border border-gray-200/90 rounded-2xl shadow-[0_12px_36px_-6px_rgba(0,0,0,0.12),0_4px_12px_rgba(0,0,0,0.06)] p-1.5 flex items-center gap-1.5`):
+     - **Brand Badge:** Identitas brand `RemitGo!` di sisi kiri.
+     - **Tab Utama (`.spa-dock-tab`):** Dashboard, Transaksi, Laporan. State aktif menggunakan background solid `#eff6ff`, border `#bfdbfe`, dan teks `#1d4ed8` dengan zero-transform.
+     - **Menu "Lainnya" (Upward Popover):** Popover mengambang ke atas (`bottom-full mb-3`) menampilkan modul sekunder terkelompok: Operasional (Rekening Payer, Data PT, Complain, Invoice), Dokumen & Analitik (Dokumen & Template, Entropy–TOPSIS), dan Administrasi (User & Role, Audit Log). Tombol pemicu otomatis menampilkan status aktif jika pengguna berada di salah satu rute tersebut.
+     - **Pill Profil & Sesi:** Menampilkan avatar dan nama pengguna, dengan upward popover untuk tautan Akun (`/profile`) dan tombol Keluar (`POST /logout` dengan CSRF token valid).
+   - **Mobile (`< sm`):** Navigasi menggunakan **Fixed Bottom Tab Bar** (`fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-gray-200/90 shadow-[0_-4px_20px_rgba(0,0,0,0.06)] px-2 py-1 pb-[calc(0.25rem+env(safe-area-inset-bottom,0px))]`):
+     - Memuat tab ringkas `.spa-mobile-tab` (Dashboard, Transaksi, Laporan, Menu, Akun).
+     - Tombol "Menu" membuka **Mobile Bottom Sheet / Drawer** yang meluncur halus dari bawah (`translate-y` transition dengan backdrop blur) memuat kartu profil, tombol logout, serta daftar modul lengkap yang terorganisir rapi.
+3. **Pemusnahan Tombol Hamburger Mobile:**
+   - Tombol toggle drawer kiri atas (`fixed top-3 start-3`) **DITIADAKAN SECARA TOTAL**.
+   - Container utama konten menggunakan bantalan atas bersih (`p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6`) dan ruang aman bawah (`pb-24 sm:pb-28`) agar konten tidak pernah tertutup oleh dock mengambang maupun tab bar mobile.
 
 ### 5.2. Single Source of Truth untuk Konteks Halaman
-- Konteks halaman ditampilkan secara elegan melalui judul tab browser (`<title><?= e($pageTitle) ?> · <?= e($appName) ?></title>`) serta penanda aktif pada sidebar navigasi.
+- Konteks halaman ditampilkan secara elegan melalui judul tab browser (`<title><?= e($pageTitle) ?> · <?= e($appName) ?></title>`) serta penanda aktif pada bottom navigation dock.
 - **DILARANG KERAS** menambahkan banner judul halaman duplikat atau hero seremonial di dalam area konten body, seperti:
   - `<h2>Laporan</h2>` atau `<h2>Report {Bulan}</h2>` atau `<h2>{Tanggal}</h2>`
   - `<div class="page-heading"><h2>...</h2></div>`

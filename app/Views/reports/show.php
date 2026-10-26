@@ -583,7 +583,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
             x-transition:leave="transition ease-in duration-150"
             x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0"
-            class="fixed bottom-6 inset-x-0 z-40 max-w-2xl mx-auto px-4 pointer-events-none"
+            class="fixed bottom-16 sm:bottom-20 inset-x-0 z-40 max-w-2xl mx-auto px-4 pointer-events-none"
             style="display: none;"
         >
             <div class="pointer-events-auto bg-[#2B2A2A] text-white p-3 sm:p-4 rounded-2xl shadow-2xl border border-gray-700 flex flex-wrap items-center justify-between gap-3">

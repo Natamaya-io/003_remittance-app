@@ -5166,28 +5166,16 @@ $flashes = Flash::all();
 
 <body class="bg-gray-50/50 text-gray-800 antialiased font-sans min-h-screen">
 
-    <!-- ========== MOBILE SIDEBAR TOGGLE ========== -->
-    <button
-        type="button"
-        class="fixed top-3 start-3 z-40 size-10 inline-flex items-center justify-center rounded-xl border border-gray-200 bg-white/95 backdrop-blur-xs text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none lg:hidden transition-colors"
-        data-hs-overlay="#hs-application-sidebar"
-        aria-controls="hs-application-sidebar"
-        aria-label="Buka menu navigasi"
-    >
-        <i class="bi bi-list text-xl leading-none"></i>
-    </button>
-    <!-- ========== END MOBILE SIDEBAR TOGGLE ========== -->
-
-    <!-- ========== PRELINE APPLICATION SIDEBAR ========== -->
+    <!-- ========== SPA BOTTOM NAVIGATION & FLOATING DOCK ========== -->
     <?php
     require dirname(__DIR__)
         . '/partials/sidebar.php';
     ?>
-    <!-- ========== END SIDEBAR ========== -->
+    <!-- ========== END NAVIGATION ========== -->
 
     <!-- ========== MAIN CONTENT ========== -->
-    <main id="content" class="w-full lg:ps-64 min-h-screen">
-        <div class="p-4 sm:p-6 lg:p-8 pt-14 sm:pt-6 lg:pt-8 space-y-4 sm:space-y-6">
+    <main id="content" class="w-full min-h-screen pb-24 sm:pb-28">
+        <div class="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
 
             <?php foreach ($flashes as $flash): ?>
                 <?php

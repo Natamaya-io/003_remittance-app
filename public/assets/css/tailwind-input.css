@@ -918,4 +918,69 @@
     align-items: flex-start;
     gap: 6px;
   }
+
+  /* =========================================================
+     SPA BOTTOM NAVIGATION & FLOATING DOCK ARCHITECTURE
+     ========================================================= */
+  .spa-dock-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    height: 38px;
+    padding: 0 12px;
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 500;
+    color: #4b5563;
+    border-radius: 12px;
+    border: 1px solid transparent;
+    background-color: transparent;
+    text-decoration: none;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+    white-space: nowrap;
+    cursor: pointer;
+    transform: none !important;
+  }
+
+  .spa-dock-tab:hover {
+    color: #111827;
+    background-color: #f3f4f6;
+  }
+
+  .spa-dock-tab.is-active,
+  .spa-dock-tab[aria-current="page"] {
+    color: #1d4ed8;
+    background-color: #eff6ff;
+    border-color: #bfdbfe;
+    font-weight: 600;
+  }
+
+  .spa-mobile-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 6px 8px;
+    min-width: 56px;
+    border-radius: 12px;
+    color: #6b7280;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.15s ease, background-color 0.15s ease;
+    transform: none !important;
+  }
+
+  .spa-mobile-tab:hover,
+  .spa-mobile-tab:active {
+    color: #111827;
+  }
+
+  .spa-mobile-tab.is-active,
+  .spa-mobile-tab[aria-current="page"] {
+    color: #1d4ed8;
+    font-weight: 600;
+  }
 }
