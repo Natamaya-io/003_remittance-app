@@ -254,22 +254,36 @@ Jika tag native `<select>` masih digunakan untuk kasus tertentu (seperti floatin
 
 ---
 
-## 5. Aturan Terkunci: Peniadaan Judul Halaman Ganda (Global Zero-Redundant Page Title Directives / Naked Page Architecture)
+## 5. Aturan Terkunci: Peniadaan Navbar & Judul Halaman Ganda (Global Zero-Navbar & Zero-Redundant Page Directives / Pure Naked Architecture)
 
-Setiap halaman di dalam aplikasi remittance beroperasi di bawah prinsip **Naked Page Architecture** untuk menjamin visual berwibawa, efisiensi ruang vertikal, dan ketiadaan teks mubazir (*zero slop*).
+Setiap halaman di dalam aplikasi remittance beroperasi di bawah prinsip **Pure Naked Architecture** untuk menjamin visual berwibawa, efisiensi ruang vertikal maksimal, dan ketiadaan teks maupun bilah mubazir (*zero chrome / zero slop*).
 
-### 5.1. Single Source of Truth untuk Judul Halaman
-- Seluruh judul halaman utama (seperti *Laporan*, *Pencarian Report*, *Rekap Transaksi*, *Invoice*, *Complain*, *Master Rekening Payer*, dll.) **MUTLAK HANYA DITAMPILKAN SATU KALI** pada bilah navigasi atas (Sticky Topbar: `app/Views/partials/topbar.php` via tag `<h1><?= e($title ?? 'Dashboard') ?></h1>`).
-- **DILARANG KERAS** menambahkan banner judul halaman duplikat di dalam area konten body, seperti:
+### 5.1. Peniadaan Total Navbar (Zero-Navbar Law)
+1. **Pemusnahan Bilah Navigasi Atas (Top Navbar Elimination):**
+   - Bilah navigasi atas (`<header>` / topbar) **MUTLAK DITIADAKAN** di seluruh halaman aplikasi. Dilarang merender topbar, navbar header, atau bilah status horizontal statis di atas area konten.
+   - Ruang vertikal layar dimaksimalkan murni untuk visual konten kerja, filter fungsional, dan tabel operasional.
+2. **Sentralisasi Kontrol Global ke Sidebar:**
+   - Seluruh kontrol navigasi dan sesi dipusatkan secara terpadu di dalam sidebar aplikasi (`app/Views/partials/sidebar.php`):
+     - **Navigasi Modul:** Menu vertikal dengan penanda status aktif (`aria-current="page"`, `.bg-blue-50 .text-blue-700`).
+     - **Pencarian Global:** Tombol pemicu Search Modal kustom di bawah brand header (`Cari transaksi... /`).
+     - **Profil & Sesi:** Footer sidebar memuat kartu profil pengguna (tautan ke `/profile`) dan tombol logout (`POST /logout` dengan CSRF token valid).
+3. **Navigasi Mobile Responsif (Floating Mobile Drawer Toggle):**
+   - Pada layar mobile (`lg:hidden`), navigasi diakses melalui tombol mengambang ramping (`fixed top-3 start-3 z-40 lg:hidden`) yang membuka overlay drawer sidebar tanpa membebani layar dengan navbar statis.
+   - Container utama konten menyediakan bantalan atas halus (`pt-14 sm:pt-6 lg:pt-8`) untuk menjamin kenyamanan interaksi lintas ukuran layar.
+
+### 5.2. Single Source of Truth untuk Konteks Halaman
+- Konteks halaman ditampilkan secara elegan melalui judul tab browser (`<title><?= e($pageTitle) ?> · <?= e($appName) ?></title>`) serta penanda aktif pada sidebar navigasi.
+- **DILARANG KERAS** menambahkan banner judul halaman duplikat atau hero seremonial di dalam area konten body, seperti:
   - `<h2>Laporan</h2>` atau `<h2>Report {Bulan}</h2>` atau `<h2>{Tanggal}</h2>`
   - `<div class="page-heading"><h2>...</h2></div>`
   - `<section class="bank-hub-heading"><h2>...</h2></section>`
   - `<div class="spk-hero"><h2>...</h2></div>`
   - `<section class="bank-hero"><h2>...</h2></section>`
   - `<div class="payer-page-heading"><h1>...</h1></div>`
+  - Kapsul/badge status seremonial seperti `"Sistem aktif"`, `"Terbuka"`, dsb.
   - Kicker/eyebrow seremonial seperti `"OPERATION CONTROL CENTER"`, `"CASE MANAGEMENT"`, `"MASTER DATA"`, dll.
 
-### 5.2. Anatomi Body Halaman Murni (Naked Page Anatomy)
+### 5.3. Anatomi Body Halaman Murni (Naked Page Anatomy)
 1. **Langsung ke Inti Fungsi:** Body halaman harus langsung menyajikan bilah filter/pencarian, formulir kerja, kartu bank, atau tabel data tanpa didahului banner seremonial.
 2. **Penataan Tombol Aksi:**
    - Tombol navigasi/aksi halaman (seperti *Kembali*, *Daftar Bulan*, *Export Semua*, *Complain Baru*, *Tambah PT*) diletakkan pada bilah aksi independen yang rata kanan (`flex items-center justify-end gap-2 mb-4` / `.page-actions`) atau dilebur langsung ke bilah pencarian/filter.

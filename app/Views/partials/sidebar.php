@@ -98,6 +98,25 @@ $iconClass = static function (bool $condition): string {
             </button>
         </div>
 
+        <!-- Quick Search Bar in Sidebar -->
+        <div class="px-3 pt-3">
+            <button
+                type="button"
+                x-data
+                @click.stop="$dispatch('open-search-modal')"
+                onclick="event.stopPropagation(); window.openSearchModal ? window.openSearchModal() : null; return false;"
+                class="w-full flex items-center justify-between py-2 px-3 text-xs font-medium text-gray-500 bg-gray-50 hover:bg-gray-100 hover:text-gray-900 border border-gray-200 rounded-xl transition-colors shadow-xs group"
+                title="Pencarian (Tekan / atau Ctrl+K)"
+                aria-label="Buka pencarian global"
+            >
+                <span class="flex items-center gap-x-2.5">
+                    <i class="bi bi-search text-gray-400 group-hover:text-blue-600 transition-colors"></i>
+                    <span>Cari transaksi...</span>
+                </span>
+                <kbd class="py-0.5 px-1.5 text-[10px] bg-white border border-gray-200 rounded text-gray-400 font-mono shadow-xs">/</kbd>
+            </button>
+        </div>
+
         <!-- Navigation Links -->
         <nav class="p-3 w-full flex flex-col space-y-1">
             <a
@@ -233,16 +252,36 @@ $iconClass = static function (bool $condition): string {
         </nav>
     </div>
 
-    <!-- User Profile Pill Footer -->
+    <!-- User Profile & Session Actions Footer -->
     <div class="p-3 border-t border-gray-200/80 bg-gray-50/60">
-        <div class="flex items-center gap-x-3 p-2 rounded-xl bg-white border border-gray-200 shadow-xs">
-            <div class="size-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
-                <?= e($userInitial) ?>
-            </div>
-            <div class="min-w-0 flex-1">
-                <p class="text-xs font-bold text-gray-800 truncate leading-tight"><?= e($userName) ?></p>
-                <p class="text-[10px] text-gray-500 font-medium truncate"><?= e($userRoleName) ?></p>
-            </div>
+        <div class="flex items-center gap-2">
+            <a
+                href="<?= url('/profile') ?>"
+                class="flex-1 flex items-center gap-x-2.5 p-2 rounded-xl bg-white border border-gray-200 shadow-xs hover:border-blue-300 hover:bg-blue-50/40 transition-colors group no-underline text-inherit min-w-0"
+                title="Lihat profil pengguna"
+            >
+                <div class="size-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-xs shrink-0">
+                    <?= e($userInitial) ?>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <p class="text-xs font-bold text-gray-800 truncate leading-tight group-hover:text-blue-700 transition-colors"><?= e($userName) ?></p>
+                    <p class="text-[10px] text-gray-500 font-medium truncate"><?= e($userRoleName) ?></p>
+                </div>
+            </a>
+
+            <!-- Logout Form Button -->
+            <form method="post" action="<?= url('/logout') ?>" class="m-0 shrink-0">
+                <?= csrf_field() ?>
+                <button
+                    type="submit"
+                    class="size-10 inline-flex items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-500 shadow-xs hover:bg-red-50 hover:text-red-600 hover:border-red-200 focus:outline-none transition-colors"
+                    title="Keluar dari sistem"
+                    aria-label="Keluar dari sistem"
+                    data-no-loading="1"
+                >
+                    <i class="bi bi-box-arrow-right text-base leading-none"></i>
+                </button>
+            </form>
         </div>
     </div>
 </aside>
