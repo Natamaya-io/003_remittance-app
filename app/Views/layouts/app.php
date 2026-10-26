@@ -4625,7 +4625,7 @@ $flashes = Flash::all();
                     <i class="bi bi-search text-gray-900 text-lg leading-none shrink-0" aria-hidden="true"></i>
                     <div>
                         <strong class="text-sm font-bold text-gray-900 block" x-text="title"></strong>
-                        <span class="text-xs text-gray-500 block" x-text="subtitle"></span>
+                        <span class="text-xs text-gray-500 block" x-show="subtitle && subtitle.trim().length > 0" x-text="subtitle"></span>
                     </div>
                 </div>
                 <button

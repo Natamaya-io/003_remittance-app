@@ -483,8 +483,8 @@ function render_search_modal_trigger(array $options = []): string
 
     $modalConfig = [
         'action' => (string) ($options['action'] ?? url('/reports/search')),
-        'title' => (string) ($options['title'] ?? 'Pencarian Transaksi'),
-        'subtitle' => (string) ($options['subtitle'] ?? 'Ketik kata kunci lalu tekan Enter untuk mencari.'),
+        'title' => (string) ($options['title'] ?? 'Cari Transaksi'),
+        'subtitle' => (string) ($options['subtitle'] ?? ''),
         'placeholder' => (string) ($options['placeholder'] ?? 'Ketik kata kunci transaksi...'),
         'query' => (string) ($options['query'] ?? ''),
         'extraParams' => (array) ($options['extraParams'] ?? []),

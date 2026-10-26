@@ -38,8 +38,7 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
         <div class="flex items-center gap-2">
             <?= render_search_modal_trigger([
                 'action' => url('/reports/search'),
-                'title' => 'Pencarian Bulan ' . $monthLabel,
-                'subtitle' => 'Cari data transaksi di seluruh tanggal dan tim dalam bulan ' . $monthLabel . '.',
+                'title' => 'Cari Bulan ' . $monthLabel,
                 'placeholder' => 'Cari data report...',
                 'query' => (string) ($filters['q'] ?? ''),
                 'extraParams' => ['month' => $month],

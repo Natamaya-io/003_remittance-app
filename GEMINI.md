@@ -368,8 +368,7 @@ Setiap view yang membutuhkan kontrol pencarian **MUTLAK WAJIB** menggunakan help
 <!-- Mode 1: Pemicu Modal Terpisah (Direkomendasikan untuk Header/Card) -->
 <?= render_search_modal_trigger([
     'action'      => url('/reports/search'),
-    'title'       => 'Pencarian Transaksi Global',
-    'subtitle'    => 'Cari data di seluruh bulan, tanggal, tim, berkas, payer, dan beneficiary.',
+    'title'       => 'Cari Transaksi',
     'placeholder' => 'Ketik kata kunci transaksi...',
     'query'       => (string) ($filters['q'] ?? ''),
 ]) ?>
@@ -423,7 +422,7 @@ Setiap view yang membutuhkan kontrol pencarian **MUTLAK WAJIB** menggunakan help
 ## 8. Aturan Terkunci: Sistem Informasi On-Demand via Hover Ikon (i) (Hover-Only Info Helper Law)
 
 > **STATUS ATURAN: TERKUNCI MUTLAK (LOCKED & NON-NEGOTIABLE)**  
-> Seluruh teks penjelasan, catatan bantuan, atau subtitle deskriptif panjang (contoh: *"Cari data di seluruh bulan, tanggal, tim, berkas, payer, dan beneficiary."*) **MUTLAK HANYA BOLEH MUNCUL KETIKA DI-HOVER DI IKON `i`**. Aturan ini dikunci untuk menjamin estetika minimalis berwibawa (*Naked Page Architecture*), efisiensi ruang vertikal, dan ketiadaan pergeseran tata letak (*Zero Layout Shift*).
+> Seluruh teks penjelasan, catatan bantuan, atau keterangan deskriptif panjang **MUTLAK HANYA BOLEH MUNCUL KETIKA DI-HOVER DI IKON `i`**. Aturan ini dikunci untuk menjamin estetika minimalis berwibawa (*Naked Page Architecture*), efisiensi ruang vertikal, dan ketiadaan pergeseran tata letak (*Zero Layout Shift*).
 
 ### 8.1. Hukum Pemicu Tunggal Hover pada Ikon (i) (Strict Hover-Only Info Trigger)
 1. **Keberadaan Default yang Bersih:** Area judul, kartu, accordion, atau langkah panduan hanya menampilkan judul murni yang berwibawa dengan ikon info melingkar halus (`<i class="bi bi-info-circle"></i>` / `.info-toggle-btn`) di sampingnya.
@@ -442,7 +441,7 @@ Setiap view yang membutuhkan judul kartu dengan informasi on-demand via hover ik
 ```php
 <?= render_heading_with_info(
     'Pencarian Transaksi',
-    'Cari data di seluruh bulan, tanggal, tim, berkas, payer, dan beneficiary.'
+    'Filter data transaksi berdasarkan parameter yang dipilih.'
 ) ?>
 ```
 Atau menggunakan `render_tooltip()` langsung untuk kasus kustom:

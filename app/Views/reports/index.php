@@ -44,8 +44,6 @@ $activeAdvancedFilters = array_filter(
     <div class="flex items-center justify-end gap-2">
         <?= render_search_modal_trigger([
             'action' => url('/reports/search'),
-            'title' => 'Pencarian Transaksi Global',
-            'subtitle' => 'Cari data di seluruh bulan, tanggal, tim, berkas, payer, dan beneficiary.',
             'placeholder' => 'Ketik kata kunci transaksi...',
             'query' => (string) ($filters['q'] ?? ''),
         ]) ?>

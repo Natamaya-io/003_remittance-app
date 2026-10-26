@@ -44,8 +44,7 @@ $returnPath = '/reports/date/' . $date;
 
             <?= render_search_modal_trigger([
                 'action' => url('/reports/search'),
-                'title' => 'Pencarian Tanggal ' . $dateLabel,
-                'subtitle' => 'Mencari batch tim, payer, beneficiary, bank, dan nomor transaksi pada tanggal ' . $dateLabel . '.',
+                'title' => 'Cari Tanggal ' . $dateLabel,
                 'placeholder' => 'Cari data report...',
                 'query' => (string) ($filters['q'] ?? ''),
                 'extraParams' => ['month' => $monthKey, 'date_from' => $date, 'date_to' => $date],
