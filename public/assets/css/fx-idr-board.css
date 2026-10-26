@@ -3,15 +3,15 @@
    ========================================================= */
 
 .fx-modern-board {
-    --fx-blue: #F5EBDD;
-    --fx-blue-2: #e0d3c1;
+    --fx-blue: #315B8C;
+    --fx-blue-2: #284b73;
     --fx-cyan: #F2765E;
     --fx-green: #10b981;
     --fx-red: #ef4444;
     --fx-amber: #f59e0b;
-    --fx-ink: #ffffff;
-    --fx-muted: #F5EBDD;
-    --fx-border: #284b73;
+    --fx-ink: #413333;
+    --fx-muted: #6b7280;
+    --fx-border: #D8CAA7;
 
     position: relative;
     width: 100%;
@@ -20,13 +20,13 @@
     border: 1px solid var(--fx-border);
     border-radius: 20px;
 
-    background: #315B8C;
+    background: #EFE3D3;
 
     box-shadow:
-        0 14px 40px
-        rgba(15, 23, 42, .18);
+        0 4px 16px
+        rgba(65, 51, 51, .05);
 
-    color: #F5EBDD;
+    color: var(--fx-ink);
 }
 
 
@@ -56,10 +56,10 @@
     display: block;
     margin-bottom: 4px;
 
-    color: #F2765E;
+    color: #315B8C;
 
     font-size: 9px;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: .16em;
 }
 
@@ -67,7 +67,7 @@
 .fx-modern-header h2 {
     margin: 0;
 
-    color: #ffffff;
+    color: #413333;
 
     font-size: 27px;
     line-height: 1.08;
@@ -81,8 +81,7 @@
 
     margin: 6px 0 0;
 
-    color: #F5EBDD;
-    opacity: 0.85;
+    color: #6b7280;
 
     font-size: 12px;
     line-height: 1.45;
@@ -123,15 +122,15 @@
 
     padding: 7px 11px;
 
-    border: 1px solid #3c6b9e;
+    border: 1px solid #D8CAA7;
 
-    background: #264970;
+    background: #ECE1D1;
 
-    color: #F5EBDD;
+    color: #413333;
 
     box-shadow:
-        0 4px 12px
-        rgba(0, 0, 0, .12);
+        0 2px 8px
+        rgba(65, 51, 51, .04);
 
     font-size: 10px;
     font-weight: 600;
@@ -170,11 +169,11 @@
 .fx-modern-refresh {
     width: 37px;
 
-    border: 1px solid #3c6b9e;
+    border: 1px solid #D8CAA7;
 
-    background: #264970;
+    background: #ECE1D1;
 
-    color: #ffffff;
+    color: #413333;
 
     font-size: 15px;
 }
@@ -182,22 +181,22 @@
 .fx-modern-refresh:hover {
     color: #F2765E;
     border-color: #F2765E;
-    background: #1e3b5c;
+    background: #E5D7C3;
 }
 
 
 .fx-modern-sync {
     padding: 7px 12px;
 
-    border: 1px solid #d95e46;
+    border: 1px solid #284b73;
 
-    background: #F2765E;
+    background: #315B8C;
 
     color: #fff;
 
     box-shadow:
         0 4px 12px
-        rgba(242, 118, 94, .25);
+        rgba(49, 91, 140, .20);
 
     font-size: 10px;
     font-weight: 600;
@@ -275,7 +274,7 @@
     transform:
         translateY(-50%);
 
-    color: #F5EBDD;
+    color: #413333;
 
     font-size: 15px;
 }
@@ -292,36 +291,36 @@
         42px;
 
     border:
-        1px solid #3c6b9e;
+        1px solid #D8CAA7;
 
     border-radius:
         13px;
 
     outline: 0;
 
-    background: #264970;
+    background: #ECE1D1;
 
-    color: #ffffff;
+    color: #413333;
 
     box-shadow:
-        0 4px 14px
-        rgba(0, 0, 0, .10);
+        0 2px 8px
+        rgba(65, 51, 51, .03);
 
     font-size: 13px;
 }
 
 .fx-modern-search input::placeholder {
-    color: rgba(245, 235, 221, 0.6);
+    color: rgba(65, 51, 51, 0.5);
 }
 
 
 .fx-modern-search input:focus {
     border-color:
-        #F2765E;
+        #315B8C;
 
     box-shadow:
         0 0 0 3px
-        rgba(242, 118, 94, .25);
+        rgba(49, 91, 140, .15);
 }
 
 
@@ -331,8 +330,7 @@
     justify-content: flex-end;
     gap: 11px;
 
-    color: #F5EBDD;
-    opacity: 0.85;
+    color: #6b7280;
 
     font-size: 10px;
 }
@@ -402,19 +400,19 @@
     padding: 14px;
 
     border:
-        1px solid #3c6b9e;
+        1px solid #D8CAA7;
 
     border-radius: 16px;
 
     outline: 0;
 
-    background: #264970;
+    background: #ECE1D1;
 
-    color: #ffffff;
+    color: #413333;
 
     box-shadow:
-        0 4px 14px
-        rgba(0, 0, 0, 0.18);
+        0 2px 8px
+        rgba(65, 51, 51, 0.05);
 
     cursor: pointer;
 
@@ -438,14 +436,14 @@
         none;
 
     background:
-        #21436b;
+        #E5D7C3;
 
     border-color:
         #F2765E;
 
     box-shadow:
-        0 8px 24px
-        rgba(242, 118, 94, .25);
+        0 4px 16px
+        rgba(242, 118, 94, .18);
 }
 
 
@@ -484,11 +482,11 @@
     overflow: hidden;
 
     border:
-        1px solid #3c6b9e;
+        1px solid #D8CAA7;
 
     border-radius: 50%;
 
-    background: #1e3b5c;
+    background: #E5D7C3;
 }
 
 
@@ -509,7 +507,7 @@
 .fx-modern-currency strong {
     font-size: 16px;
     font-weight: 600;
-    color: #ffffff;
+    color: #413333;
 }
 
 
@@ -520,7 +518,7 @@
 
     overflow: hidden;
 
-    color: #F5EBDD;
+    color: #6b7280;
 
     font-size: 9px;
 
@@ -574,8 +572,7 @@
 
 
 .fx-modern-value span {
-    color: #F5EBDD;
-    opacity: 0.85;
+    color: #6b7280;
 
     font-size: 9px;
 }
@@ -584,7 +581,7 @@
 .fx-modern-value strong {
     margin-top: 2px;
 
-    color: #ffffff;
+    color: #413333;
 
     font-size: 23px;
     font-weight: 600;
@@ -708,11 +705,11 @@
     padding: 8px;
 
     border:
-        1px solid #3c6b9e;
+        1px solid #D8CAA7;
 
     border-radius: 9px;
 
-    background: #1e3b5c;
+    background: #E5D7C3;
 }
 
 
@@ -723,8 +720,7 @@
 
 
 .fx-modern-buy-sell span {
-    color: #F5EBDD;
-    opacity: 0.75;
+    color: #6b7280;
 
     font-size: 7px;
 
@@ -737,7 +733,7 @@
 
     overflow: hidden;
 
-    color: #ffffff;
+    color: #413333;
 
     font-size: 9px;
 
