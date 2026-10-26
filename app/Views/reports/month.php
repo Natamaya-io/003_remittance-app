@@ -27,41 +27,32 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
 <div class="max-w-7xl mx-auto space-y-6">
 
     <!-- =========================================================
-         PAGE ACTIONS
+         PAGE ACTIONS (PURE NAKED ARCHITECTURE)
          ========================================================= -->
-    <div class="flex items-center justify-end gap-2">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
         <a class="py-2 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports')) ?>">
             <i class="bi bi-arrow-left"></i>
             Daftar Bulan
         </a>
-    </div>
 
-    <!-- =========================================================
-         PENCARIAN GLOBAL
-         ========================================================= -->
-    <section class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-xs">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <?= render_heading_with_info('Pencarian Transaksi Bulan Ini', 'Cari data transaksi di seluruh tanggal dan tim dalam bulan ' . e($monthLabel) . '.') ?>
+        <div class="flex items-center gap-2">
+            <?= render_search_modal_trigger([
+                'action' => url('/reports/search'),
+                'title' => 'Pencarian Bulan ' . $monthLabel,
+                'subtitle' => 'Cari data transaksi di seluruh tanggal dan tim dalam bulan ' . $monthLabel . '.',
+                'placeholder' => 'Cari data report...',
+                'query' => (string) ($filters['q'] ?? ''),
+                'extraParams' => ['month' => $month],
+            ]) ?>
 
-            <div class="flex items-center gap-2 shrink-0">
-                <?= render_search_modal_trigger([
-                    'action' => url('/reports/search'),
-                    'title' => 'Pencarian Bulan ' . $monthLabel,
-                    'subtitle' => 'Cari data transaksi di seluruh tanggal dan tim dalam bulan ' . $monthLabel . '.',
-                    'placeholder' => 'Cari data report...',
-                    'query' => (string) ($filters['q'] ?? ''),
-                    'extraParams' => ['month' => $month],
-                ]) ?>
-
-                <?php if (can('report.manage')): ?>
-                    <a class="btn btn-primary py-2 px-3.5 inline-flex items-center justify-center gap-x-2 text-xs font-semibold rounded-lg shrink-0 focus:outline-none" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
-                        <i class="bi bi-cloud-arrow-up text-sm"></i>
-                        Upload Excel
-                    </a>
-                <?php endif; ?>
-            </div>
+            <?php if (can('report.manage')): ?>
+                <a class="btn btn-primary" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
+                    <i class="bi bi-cloud-arrow-up text-sm"></i>
+                    Upload Excel
+                </a>
+            <?php endif; ?>
         </div>
-    </section>
+    </div>
 
     <!-- =========================================================
          FILTER TANGGAL & TIM
@@ -236,30 +227,10 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
     <?php endif; ?>
 
     <!-- =========================================================
-         HIERARKI TINGKAT 2 (STEPPER PILLS)
+         TOOLBAR MODE TAMPILAN: TABEL VS KARTU (ALPINE.JS)
          ========================================================= -->
-    <div class="flex flex-wrap items-center gap-2 text-xs font-medium text-gray-500">
-        <a class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors" href="<?= e(url('/reports')) ?>">
-            <span class="size-4 rounded-full bg-gray-300 text-gray-700 text-[10px] inline-flex items-center justify-center font-bold">1</span>
-            Bulan
-        </a>
-        <i class="bi bi-chevron-right text-gray-400 text-xs"></i>
-        <span class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full bg-blue-600 text-white font-bold shadow-xs">
-            <span class="size-4 rounded-full bg-white text-blue-600 text-[10px] inline-flex items-center justify-center font-bold">2</span>
-            Tanggal (<?= e($monthLabel) ?>)
-        </span>
-        <i class="bi bi-chevron-right text-gray-400 text-xs"></i>
-        <span class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full bg-gray-100 text-gray-500">
-            <span class="size-4 rounded-full bg-gray-300 text-gray-700 text-[10px] inline-flex items-center justify-center font-bold">3</span>
-            Tim dan Report
-        </span>
-    </div>
-
-    <!-- =========================================================
-         TOOLBAR MODE TAMPILAN: TABEL VS LIST (ALPINE + PRELINE UI)
-         ========================================================= -->
-    <div x-data="{ viewMode: localStorage.getItem('remitgo_report_view_mode') || localStorage.getItem('fable_report_view_mode') || 'table' }"
-         x-init="$watch('viewMode', val => { localStorage.setItem('remitgo_report_view_mode', val); localStorage.setItem('fable_report_view_mode', val); })"
+    <div x-data="{ viewMode: localStorage.getItem('remitgo_report_view_mode') || 'table' }"
+         x-init="$watch('viewMode', val => localStorage.setItem('remitgo_report_view_mode', val))"
          class="space-y-4">
 
         <div class="flex flex-wrap items-center justify-between gap-3">
@@ -278,41 +249,36 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                         @click="openOptions = !openOptions"
                         class="dropdown-toggle"
                         :aria-expanded="openOptions.toString()"
-                        aria-label="Menu Opsi"
+                        aria-label="Menu Opsi Tampilan"
                     >
-                        <i class="bi bi-gear"></i>
-                        <span>Opsi</span>
+                        <i class="bi bi-sliders"></i>
+                        <span>Tampilan</span>
                         <span class="text-gray-300 font-normal">·</span>
-                        <span class="text-[11px] text-gray-500 font-medium capitalize" x-text="viewMode === 'table' ? 'Tabel' : 'List'"></span>
+                        <span class="text-[11px] text-gray-500 font-medium capitalize" x-text="viewMode === 'table' ? 'Tabel' : 'Kartu'"></span>
                         <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': openOptions }"></i>
                     </button>
 
                     <div
                         x-show="openOptions"
+                        x-cloak
                         x-transition:leave="transition ease-in duration-100"
                         x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
-                        class="dropdown-menu min-w-48 start-auto end-0 top-full mt-1.5 z-50"
+                        class="dropdown-menu min-w-44 start-auto end-0 top-full mt-1.5 z-50 bg-white"
                         style="display: none;"
                     >
-                        <span class="dropdown-header">Aksi Cepat</span>
-                        <a class="dropdown-item" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
-                            <i class="bi bi-cloud-arrow-up text-blue-600"></i>
-                            Upload Excel Baru
-                        </a>
-                        <div class="dropdown-divider"></div>
                         <span class="dropdown-header">Mode Tampilan</span>
                         <button type="button" @click="viewMode = 'table'; openOptions = false" class="dropdown-item justify-between" :class="viewMode === 'table' ? 'active font-semibold' : ''">
                             <span class="flex items-center gap-x-2.5">
-                                <i class="bi bi-table text-indigo-600"></i>
+                                <i class="bi bi-table text-blue-600"></i>
                                 Tampilan Tabel
                             </span>
                             <i x-show="viewMode === 'table'" class="bi bi-check2 text-blue-600 text-sm"></i>
                         </button>
                         <button type="button" @click="viewMode = 'list'; openOptions = false" class="dropdown-item justify-between" :class="viewMode === 'list' ? 'active font-semibold' : ''">
                             <span class="flex items-center gap-x-2.5">
-                                <i class="bi bi-list-ul text-amber-600"></i>
-                                Tampilan List
+                                <i class="bi bi-grid text-gray-500"></i>
+                                Tampilan Kartu
                             </span>
                             <i x-show="viewMode === 'list'" class="bi bi-check2 text-blue-600 text-sm"></i>
                         </button>
@@ -326,8 +292,8 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
              ========================================================= -->
         <div x-show="viewMode === 'table'" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
             <div class="overflow-x-auto border border-gray-200 rounded-2xl bg-white shadow-xs">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50/75">
+                <table class="min-w-full text-start">
+                    <thead class="bg-gray-50/75 border-b border-gray-200">
                         <tr>
                             <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold text-gray-600 uppercase tracking-wider">Tanggal Transaksi</th>
                             <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold text-gray-600 uppercase tracking-wider">Berkas</th>
@@ -339,7 +305,7 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                             <th scope="col" class="py-3.5 px-5 text-end text-xs font-semibold text-gray-600 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-100">
+                    <tbody>
                         <?php foreach ($dates as $dateCard): ?>
                             <?php
                             $dateValue = (string) $dateCard['report_day'];
@@ -412,7 +378,7 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                                     <?= e(format_datetime($lastUpload)) ?>
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap text-end">
-                                    <a class="btn btn-primary py-1 px-2.5 inline-flex items-center gap-x-1 text-xs font-semibold rounded-lg focus:outline-none transition-colors" href="<?= e(url($dateUrl)) ?>">
+                                    <a class="btn btn-primary btn-primary-sm" href="<?= e(url($dateUrl)) ?>">
                                         Buka Tim
                                         <i class="bi bi-arrow-right"></i>
                                     </a>
@@ -527,7 +493,7 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                         <span class="text-[11px] text-gray-500 truncate">
                             Upload: <?= e(format_datetime($lastUpload)) ?>
                         </span>
-                        <a class="btn btn-primary py-1.5 px-3 inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg shrink-0 focus:outline-none transition-colors" href="<?= e(url($dateUrl)) ?>">
+                        <a class="btn btn-primary btn-primary-sm" href="<?= e(url($dateUrl)) ?>">
                             Buka Tim
                             <i class="bi bi-arrow-right"></i>
                         </a>

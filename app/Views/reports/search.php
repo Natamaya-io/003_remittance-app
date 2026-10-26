@@ -395,9 +395,9 @@ $queryText = (string) ($filters['q'] ?? '');
                         <th class="py-3 px-3 text-right">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-100 text-gray-700">
+                <tbody class="text-gray-700">
                 <?php foreach ($rows as $row): ?>
-                    <tr class="even:bg-gray-50/50">
+                    <tr class="even:bg-gray-50/80 [data-no-hover]">
                         <td class="py-2.5 px-3 text-nowrap"><?= e(format_date((string) ($row['report_date'] ?: $row['transaction_date']))) ?></td>
                         <td class="py-2.5 px-3"><strong><?= e((string) ($row['effective_team'] ?? '')) ?></strong></td>
                         <td class="py-2.5 px-3 font-medium text-gray-800 max-w-[160px] truncate"><?= e((string) ($row['batch_name'] ?? '')) ?></td>

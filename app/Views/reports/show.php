@@ -392,8 +392,8 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
         </div>
 
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200 text-left text-xs border-collapse">
-                <thead class="bg-gray-50/75">
+            <table class="min-w-full text-left text-xs border-collapse">
+                <thead class="bg-gray-50/75 border-b border-gray-200">
                     <tr class="text-gray-600 font-semibold text-[11px] uppercase tracking-wider">
                         <?php if (can('report.manage')): ?>
                             <th class="py-3.5 px-3 w-10 text-center">
@@ -430,7 +430,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                         <th class="py-3.5 px-4 text-right sticky right-0 bg-gray-50/95 z-20 shadow-[-4px_0_10px_rgba(0,0,0,0.04)]">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-100 text-gray-700">
+                <tbody class="text-gray-700">
                 <?php foreach ($rows as $row): ?>
                     <?php
                     $rowId = (int) ($row['id'] ?? 0);
@@ -463,7 +463,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                     $notesStr = (string) ($row['notes'] ?? '');
                     $sourceSheet = (string) ($row['source_sheet'] ?? '-');
                     ?>
-                    <tr class="even:bg-gray-50/50">
+                    <tr class="even:bg-gray-50/80 [data-no-hover]">
                         <?php if (can('report.manage')): ?>
                             <td class="py-3 px-3 text-center">
                                 <input type="checkbox" name="row_ids[]" value="<?= $rowId ?>" form="bulkStatusForm" @change="updateCount()" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">

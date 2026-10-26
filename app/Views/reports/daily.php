@@ -21,21 +21,20 @@ $print = (bool) ($print ?? false);
          PAGE ACTIONS
          ========================================================= -->
     <div class="flex flex-wrap items-center justify-end gap-2">
-            <?php if (can('transaction.manage')): ?>
-                <a href="<?= url('/report_paste_import.php') ?>" class="btn btn-primary py-2 px-3.5 text-xs font-medium rounded-lg inline-flex items-center gap-1.5">
-                    <i class="bi bi-clipboard-data"></i>
-                    Paste dari Excel
-                </a>
-                <a href="<?= url('/transactions/import') ?>" class="py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1.5 transition-colors">
-                    <i class="bi bi-file-earmark-excel"></i>
-                    Import XLSX/CSV
-                </a>
-                <a href="<?= url('/transactions/create') ?>" class="py-2 px-3 text-xs font-medium rounded-lg border border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 shadow-xs inline-flex items-center gap-1.5 transition-colors">
-                    <i class="bi bi-plus-lg"></i>
-                    Input Manual
-                </a>
-            <?php endif; ?>
-        </div>
+        <?php if (can('transaction.manage')): ?>
+            <a href="<?= url('/report_paste_import.php') ?>" class="btn btn-primary py-2 px-3.5 text-xs font-medium rounded-lg inline-flex items-center gap-1.5">
+                <i class="bi bi-clipboard-data"></i>
+                Paste dari Excel
+            </a>
+            <a href="<?= url('/transactions/import') ?>" class="py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1.5 transition-colors">
+                <i class="bi bi-file-earmark-excel"></i>
+                Import XLSX/CSV
+            </a>
+            <a href="<?= url('/transactions/create') ?>" class="py-2 px-3 text-xs font-medium rounded-lg border border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 shadow-xs inline-flex items-center gap-1.5 transition-colors">
+                <i class="bi bi-plus-lg"></i>
+                Input Manual
+            </a>
+        <?php endif; ?>
     </div>
 
     <!-- =========================================================
@@ -177,7 +176,7 @@ $print = (bool) ($print ?? false);
         </div>
 
         <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200 text-left text-xs">
+            <table class="min-w-full text-left text-xs">
                 <thead class="bg-gray-50/75">
                     <tr class="text-gray-600 font-semibold text-[11px] uppercase tracking-wider">
                         <th class="py-3.5 px-3">TEAM</th>
@@ -206,9 +205,9 @@ $print = (bool) ($print ?? false);
                         <th class="py-3.5 px-3">Notes</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-100 text-gray-700">
+                <tbody class="text-gray-700">
                 <?php foreach ($rows as $row): ?>
-                    <tr class="even:bg-gray-50/50 [data-no-hover]">
+                    <tr class="even:bg-gray-50/80 [data-no-hover]">
                         <td class="py-3 px-3"><strong><?= e($row['team_no']) ?></strong></td>
                         <td class="py-3 px-3 font-mono"><?= e($row['invoice_no'] ?? '') ?></td>
                         <td class="py-3 px-3 whitespace-nowrap"><?= e(format_date($row['transaction_date'])) ?></td>

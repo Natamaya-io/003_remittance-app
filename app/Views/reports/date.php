@@ -28,45 +28,37 @@ $returnPath = '/reports/date/' . $date;
 <div class="max-w-7xl mx-auto space-y-6">
 
     <!-- =========================================================
-         PAGE ACTIONS
+         PAGE ACTIONS (PURE NAKED ARCHITECTURE)
          ========================================================= -->
-    <div class="flex flex-wrap items-center justify-end gap-2">
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
         <a class="py-2 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports/month/' . $monthKey)) ?>">
             <i class="bi bi-arrow-left"></i>
             Daftar Tanggal
         </a>
-        <a class="py-2 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports/date/' . $date . '/export')) ?>">
-            <i class="bi bi-file-earmark-excel text-emerald-600"></i>
-            Export Semua
-        </a>
-    </div>
 
-    <!-- =========================================================
-         PENCARIAN GLOBAL
-         ========================================================= -->
-    <section class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-xs">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <?= render_heading_with_info('Pencarian Transaksi Tanggal Ini', 'Mencari batch tim, payer, beneficiary, bank, dan nomor transaksi pada tanggal ' . e($dateLabel) . '.') ?>
+        <div class="flex items-center gap-2">
+            <a class="py-2 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports/date/' . $date . '/export')) ?>">
+                <i class="bi bi-file-earmark-excel text-emerald-600"></i>
+                Export Semua
+            </a>
 
-            <div class="flex items-center gap-2 shrink-0">
-                <?= render_search_modal_trigger([
-                    'action' => url('/reports/search'),
-                    'title' => 'Pencarian Tanggal ' . $dateLabel,
-                    'subtitle' => 'Mencari batch tim, payer, beneficiary, bank, dan nomor transaksi pada tanggal ' . $dateLabel . '.',
-                    'placeholder' => 'Cari data report...',
-                    'query' => (string) ($filters['q'] ?? ''),
-                    'extraParams' => ['month' => $monthKey, 'date_from' => $date, 'date_to' => $date],
-                ]) ?>
+            <?= render_search_modal_trigger([
+                'action' => url('/reports/search'),
+                'title' => 'Pencarian Tanggal ' . $dateLabel,
+                'subtitle' => 'Mencari batch tim, payer, beneficiary, bank, dan nomor transaksi pada tanggal ' . $dateLabel . '.',
+                'placeholder' => 'Cari data report...',
+                'query' => (string) ($filters['q'] ?? ''),
+                'extraParams' => ['month' => $monthKey, 'date_from' => $date, 'date_to' => $date],
+            ]) ?>
 
-                <?php if (can('report.manage')): ?>
-                    <a class="btn btn-primary py-2 px-3.5 inline-flex items-center justify-center gap-x-2 text-xs font-semibold rounded-lg shrink-0 focus:outline-none" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
-                        <i class="bi bi-cloud-arrow-up text-sm"></i>
-                        Upload Excel
-                    </a>
-                <?php endif; ?>
-            </div>
+            <?php if (can('report.manage')): ?>
+                <a class="btn btn-primary" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
+                    <i class="bi bi-cloud-arrow-up text-sm"></i>
+                    Upload Excel
+                </a>
+            <?php endif; ?>
         </div>
-    </section>
+    </div>
 
     <!-- =========================================================
          FILTER STATUS & TIM
@@ -299,30 +291,10 @@ $returnPath = '/reports/date/' . $date;
     <?php endif; ?>
 
     <!-- =========================================================
-         HIERARKI TINGKAT 3 (STEPPER PILLS)
+         TOOLBAR MODE TAMPILAN: TABEL VS KARTU (ALPINE.JS)
          ========================================================= -->
-    <div class="flex flex-wrap items-center gap-2 text-xs font-medium text-gray-500">
-        <a class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors" href="<?= e(url('/reports')) ?>">
-            <span class="size-4 rounded-full bg-gray-300 text-gray-700 text-[10px] inline-flex items-center justify-center font-bold">1</span>
-            Bulan
-        </a>
-        <i class="bi bi-chevron-right text-gray-400 text-xs"></i>
-        <a class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors" href="<?= e(url('/reports/month/' . $monthKey)) ?>">
-            <span class="size-4 rounded-full bg-gray-300 text-gray-700 text-[10px] inline-flex items-center justify-center font-bold">2</span>
-            Tanggal
-        </a>
-        <i class="bi bi-chevron-right text-gray-400 text-xs"></i>
-        <span class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full bg-blue-600 text-white font-bold shadow-xs">
-            <span class="size-4 rounded-full bg-white text-blue-600 text-[10px] inline-flex items-center justify-center font-bold">3</span>
-            Tim dan Report (<?= e($dateLabel) ?>)
-        </span>
-    </div>
-
-    <!-- =========================================================
-         TOOLBAR MODE TAMPILAN: TABEL VS LIST (ALPINE + PRELINE UI)
-         ========================================================= -->
-    <div x-data="{ viewMode: localStorage.getItem('remitgo_report_view_mode') || localStorage.getItem('fable_report_view_mode') || 'table', openOptions: false }"
-         x-init="$watch('viewMode', val => { localStorage.setItem('remitgo_report_view_mode', val); localStorage.setItem('fable_report_view_mode', val); })"
+    <div x-data="{ viewMode: localStorage.getItem('remitgo_report_view_mode') || 'table', openOptions: false }"
+         x-init="$watch('viewMode', val => localStorage.setItem('remitgo_report_view_mode', val))"
          class="space-y-4">
 
         <div class="flex flex-wrap items-center justify-between gap-3">
@@ -340,50 +312,38 @@ $returnPath = '/reports/date/' . $date;
                         type="button"
                         class="dropdown-toggle"
                         @click="openOptions = !openOptions"
-                        :aria-expanded="openOptions"
-                        aria-label="Menu Opsi"
+                        :aria-expanded="openOptions.toString()"
+                        aria-label="Menu Opsi Tampilan"
                     >
-                        <i class="bi bi-gear"></i>
-                        <span>Opsi</span>
+                        <i class="bi bi-sliders"></i>
+                        <span>Tampilan</span>
                         <span class="text-gray-300 font-normal">·</span>
-                        <span class="text-[11px] text-gray-500 font-medium capitalize" x-text="viewMode === 'table' ? 'Tabel' : 'List'"></span>
+                        <span class="text-[11px] text-gray-500 font-medium capitalize" x-text="viewMode === 'table' ? 'Tabel' : 'Kartu'"></span>
                         <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': openOptions }"></i>
                     </button>
 
                     <div
-                        class="dropdown-menu absolute right-0 top-full mt-2 w-56 z-50 bg-white"
+                        class="dropdown-menu min-w-44 start-auto end-0 top-full mt-1.5 z-50 bg-white"
                         x-show="openOptions"
-                        x-transition:enter="transition ease-out duration-100"
-                        x-transition:enter-start="opacity-0"
-                        x-transition:enter-end="opacity-100"
-                        x-transition:leave="transition ease-in duration-75"
+                        x-cloak
+                        x-transition:leave="transition ease-in duration-100"
                         x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
                         style="display: none;"
                         role="menu"
                     >
-                        <span class="dropdown-header">Aksi Cepat</span>
-                        <a class="dropdown-item" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
-                            <i class="bi bi-cloud-arrow-up text-blue-600"></i>
-                            Tambah Berkas Excel
-                        </a>
-                        <a class="dropdown-item" href="<?= e(url('/reports/date/' . $date . '/export')) ?>">
-                            <i class="bi bi-file-earmark-excel text-emerald-600"></i>
-                            Export Semua Berkas
-                        </a>
-                        <div class="dropdown-divider"></div>
                         <span class="dropdown-header">Mode Tampilan</span>
                         <button type="button" @click="viewMode = 'table'; openOptions = false" class="dropdown-item justify-between" :class="viewMode === 'table' ? 'active font-semibold' : ''">
                             <span class="flex items-center gap-x-2.5">
-                                <i class="bi bi-table text-indigo-600"></i>
+                                <i class="bi bi-table text-blue-600"></i>
                                 Tampilan Tabel
                             </span>
                             <i x-show="viewMode === 'table'" class="bi bi-check2 text-blue-600 text-sm"></i>
                         </button>
                         <button type="button" @click="viewMode = 'list'; openOptions = false" class="dropdown-item justify-between" :class="viewMode === 'list' ? 'active font-semibold' : ''">
                             <span class="flex items-center gap-x-2.5">
-                                <i class="bi bi-list-ul text-amber-600"></i>
-                                Tampilan List
+                                <i class="bi bi-grid text-gray-500"></i>
+                                Tampilan Kartu
                             </span>
                             <i x-show="viewMode === 'list'" class="bi bi-check2 text-blue-600 text-sm"></i>
                         </button>
@@ -397,8 +357,8 @@ $returnPath = '/reports/date/' . $date;
              ========================================================= -->
         <div x-show="viewMode === 'table'" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
             <div class="overflow-x-auto border border-gray-200 rounded-2xl bg-white shadow-xs">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50/75">
+                <table class="min-w-full text-start">
+                    <thead class="bg-gray-50/75 border-b border-gray-200">
                         <tr>
                             <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold text-gray-600 uppercase tracking-wider">Batch &amp; Tim</th>
                             <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold text-gray-600 uppercase tracking-wider">Berkas &amp; Nama Report</th>
@@ -408,7 +368,7 @@ $returnPath = '/reports/date/' . $date;
                             <th scope="col" class="py-3.5 px-5 text-end text-xs font-semibold text-gray-600 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-100">
+                    <tbody>
                         <?php foreach ($batches as $batch): ?>
                             <?php
                             $total = (int) ($batch['total_rows_live'] ?? $batch['total_rows'] ?? 0);
@@ -474,7 +434,7 @@ $returnPath = '/reports/date/' . $date;
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap text-end">
                                     <div class="inline-flex items-center gap-1.5 justify-end">
-                                        <a class="btn btn-primary py-1 px-2.5 inline-flex items-center gap-x-1 text-xs font-semibold rounded-lg focus:outline-none transition-colors" href="<?= e(url('/reports/' . $batch['id'])) ?>">
+                                        <a class="btn btn-primary btn-primary-sm" href="<?= e(url('/reports/' . $batch['id'])) ?>">
                                             <i class="bi bi-table"></i>
                                             Buka
                                         </a>
@@ -603,7 +563,7 @@ $returnPath = '/reports/date/' . $date;
                             <?php endif; ?>
                         </div>
 
-                        <a class="btn btn-primary py-1.5 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg focus:outline-none transition-colors" href="<?= e(url('/reports/' . $batch['id'])) ?>">
+                        <a class="btn btn-primary btn-primary-sm" href="<?= e(url('/reports/' . $batch['id'])) ?>">
                             <i class="bi bi-table"></i>
                             Buka Report
                         </a>

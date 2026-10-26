@@ -125,6 +125,24 @@
     outline-offset: 2px;
   }
 
+  /* Compact Primary Button for Table Rows & Dense UI */
+  .btn-primary-sm {
+    height: 32px !important;
+    padding: 0 12px !important;
+    font-size: 12.5px !important;
+    border-radius: 8px !important;
+    gap: 6px !important;
+  }
+
+  /* Zebra Table Zero-Hover Enforcement */
+  [data-no-hover],
+  [data-no-hover]:hover,
+  [data-no-hover] > td,
+  [data-no-hover]:hover > td {
+    background-color: inherit !important;
+    transition: none !important;
+  }
+
   /* Table sticky action column support */
   .sticky-col-action {
     position: sticky;

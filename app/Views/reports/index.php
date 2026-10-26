@@ -39,38 +39,40 @@ $activeAdvancedFilters = array_filter(
 <div class="max-w-7xl mx-auto space-y-6">
 
     <!-- =========================================================
-         PENCARIAN GLOBAL
+         PAGE ACTIONS (PURE NAKED ARCHITECTURE)
          ========================================================= -->
-    <section class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-xs">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <?= render_heading_with_info('Pencarian Transaksi', 'Cari data di seluruh bulan, tanggal, tim, berkas, payer, dan beneficiary.') ?>
+    <div class="flex items-center justify-end gap-2">
+        <?= render_search_modal_trigger([
+            'action' => url('/reports/search'),
+            'title' => 'Pencarian Transaksi Global',
+            'subtitle' => 'Cari data di seluruh bulan, tanggal, tim, berkas, payer, dan beneficiary.',
+            'placeholder' => 'Ketik kata kunci transaksi...',
+            'query' => (string) ($filters['q'] ?? ''),
+        ]) ?>
 
-            <div class="flex items-center gap-2 shrink-0">
-                <?= render_search_modal_trigger([
-                    'action' => url('/reports/search'),
-                    'title' => 'Pencarian Transaksi Global',
-                    'subtitle' => 'Cari data di seluruh bulan, tanggal, tim, berkas, payer, dan beneficiary.',
-                    'placeholder' => 'Ketik kata kunci transaksi...',
-                    'query' => (string) ($filters['q'] ?? ''),
-                ]) ?>
-
-                <?php if (can('report.manage')): ?>
-                    <a class="btn btn-primary py-2 px-3.5 inline-flex items-center justify-center gap-x-2 text-xs font-semibold rounded-lg shrink-0 focus:outline-none" href="<?= e(url('/reports/create')) ?>">
-                        <i class="bi bi-cloud-arrow-up text-sm"></i>
-                        Upload Excel
-                    </a>
-                <?php endif; ?>
-            </div>
-        </div>
-    </section>
+        <?php if (can('report.manage')): ?>
+            <a class="btn btn-primary" href="<?= e(url('/reports/create')) ?>">
+                <i class="bi bi-cloud-arrow-up text-sm"></i>
+                Upload Excel
+            </a>
+        <?php endif; ?>
+    </div>
 
     <!-- =========================================================
-         FILTER LANJUTAN (ALPINE.JS ACCORDION)
+         FILTER LANJUTAN (ALPINE.JS ACCORDION - W3C VALID DOM)
          ========================================================= -->
     <div x-data="{ openFilter: <?= $activeAdvancedFilters !== [] ? 'true' : 'false' ?> }" class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-xs">
-        <button type="button" @click="openFilter = !openFilter" class="w-full flex items-center justify-between text-start p-1.5 -m-1.5 rounded-xl hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors">
+        <div
+            @click="openFilter = !openFilter"
+            role="button"
+            tabindex="0"
+            @keydown.enter.prevent="openFilter = !openFilter"
+            @keydown.space.prevent="openFilter = !openFilter"
+            :aria-expanded="openFilter.toString()"
+            class="w-full flex items-center justify-between text-start p-1.5 -m-1.5 rounded-xl hover:bg-gray-50/70 focus:outline-none focus:ring-2 focus:ring-blue-500/20 cursor-pointer select-none transition-colors"
+        >
             <div class="flex items-center gap-2.5">
-                <span class="size-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm">
+                <span class="size-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm shrink-0">
                     <i class="bi bi-sliders"></i>
                 </span>
                 <div x-data="{ showInfo: false }">
@@ -106,7 +108,7 @@ $activeAdvancedFilters = array_filter(
                 </div>
             </div>
             <i class="bi bi-chevron-down text-gray-400 text-xs transition-transform duration-200" :class="{ 'rotate-180': openFilter }"></i>
-        </button>
+        </div>
 
         <form x-show="openFilter" x-transition class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4 mt-4 border-t border-gray-100" method="get" action="<?= e(url('/reports')) ?>">
             <div>
@@ -350,30 +352,10 @@ $activeAdvancedFilters = array_filter(
     <?php endif; ?>
 
     <!-- =========================================================
-         HIERARKI TINGKAT 1 (STEPPER PILLS)
+         TOOLBAR MODE TAMPILAN: TABEL VS KARTU (ALPINE.JS)
          ========================================================= -->
-    <div class="flex flex-wrap items-center gap-2 text-xs font-medium text-gray-500">
-        <span class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full bg-blue-600 text-white font-bold shadow-xs">
-            <span class="size-4 rounded-full bg-white text-blue-600 text-[10px] inline-flex items-center justify-center font-bold">1</span>
-            Bulan
-        </span>
-        <i class="bi bi-chevron-right text-gray-400 text-xs"></i>
-        <span class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full bg-gray-100 text-gray-500">
-            <span class="size-4 rounded-full bg-gray-300 text-gray-700 text-[10px] inline-flex items-center justify-center font-bold">2</span>
-            Tanggal
-        </span>
-        <i class="bi bi-chevron-right text-gray-400 text-xs"></i>
-        <span class="inline-flex items-center gap-1.5 py-1 px-3 rounded-full bg-gray-100 text-gray-500">
-            <span class="size-4 rounded-full bg-gray-300 text-gray-700 text-[10px] inline-flex items-center justify-center font-bold">3</span>
-            Tim dan Report
-        </span>
-    </div>
-
-    <!-- =========================================================
-         TOOLBAR MODE TAMPILAN: TABEL VS LIST (ALPINE + PRELINE UI)
-         ========================================================= -->
-    <div x-data="{ viewMode: localStorage.getItem('remitgo_report_view_mode') || localStorage.getItem('fable_report_view_mode') || 'table' }"
-         x-init="$watch('viewMode', val => { localStorage.setItem('remitgo_report_view_mode', val); localStorage.setItem('fable_report_view_mode', val); })"
+    <div x-data="{ viewMode: localStorage.getItem('remitgo_report_view_mode') || 'table' }"
+         x-init="$watch('viewMode', val => localStorage.setItem('remitgo_report_view_mode', val))"
          class="space-y-4">
 
         <div class="flex flex-wrap items-center justify-between gap-3">
@@ -392,45 +374,36 @@ $activeAdvancedFilters = array_filter(
                         @click="openOptions = !openOptions"
                         class="dropdown-toggle"
                         :aria-expanded="openOptions.toString()"
-                        aria-label="Menu Opsi"
+                        aria-label="Menu Opsi Tampilan"
                     >
-                        <i class="bi bi-gear"></i>
-                        <span>Opsi</span>
+                        <i class="bi bi-sliders"></i>
+                        <span>Tampilan</span>
                         <span class="text-gray-300 font-normal">·</span>
-                        <span class="text-[11px] text-gray-500 font-medium capitalize" x-text="viewMode === 'table' ? 'Tabel' : 'List'"></span>
+                        <span class="text-[11px] text-gray-500 font-medium capitalize" x-text="viewMode === 'table' ? 'Tabel' : 'Kartu'"></span>
                         <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': openOptions }"></i>
                     </button>
 
                     <div
                         x-show="openOptions"
+                        x-cloak
                         x-transition:leave="transition ease-in duration-100"
                         x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0"
-                        class="dropdown-menu min-w-48 start-auto end-0 top-full mt-1.5 z-50"
+                        class="dropdown-menu min-w-44 start-auto end-0 top-full mt-1.5 z-50 bg-white"
                         style="display: none;"
                     >
-                        <span class="dropdown-header">Aksi Cepat</span>
-                        <a class="dropdown-item" href="<?= e(url('/reports/create')) ?>">
-                            <i class="bi bi-cloud-arrow-up text-blue-600"></i>
-                            Upload Report Baru
-                        </a>
-                        <a class="dropdown-item" href="<?= e(url('/reports/search')) ?>">
-                            <i class="bi bi-search text-emerald-600"></i>
-                            Pencarian Global
-                        </a>
-                        <div class="dropdown-divider"></div>
                         <span class="dropdown-header">Mode Tampilan</span>
                         <button type="button" @click="viewMode = 'table'; openOptions = false" class="dropdown-item justify-between" :class="viewMode === 'table' ? 'active font-semibold' : ''">
                             <span class="flex items-center gap-x-2.5">
-                                <i class="bi bi-table text-indigo-600"></i>
+                                <i class="bi bi-table text-blue-600"></i>
                                 Tampilan Tabel
                             </span>
                             <i x-show="viewMode === 'table'" class="bi bi-check2 text-blue-600 text-sm"></i>
                         </button>
                         <button type="button" @click="viewMode = 'list'; openOptions = false" class="dropdown-item justify-between" :class="viewMode === 'list' ? 'active font-semibold' : ''">
                             <span class="flex items-center gap-x-2.5">
-                                <i class="bi bi-list-ul text-amber-600"></i>
-                                Tampilan List
+                                <i class="bi bi-grid text-gray-500"></i>
+                                Tampilan Kartu
                             </span>
                             <i x-show="viewMode === 'list'" class="bi bi-check2 text-blue-600 text-sm"></i>
                         </button>
@@ -444,8 +417,8 @@ $activeAdvancedFilters = array_filter(
              ========================================================= -->
         <div x-show="viewMode === 'table'" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
             <div class="overflow-x-auto border border-gray-200 rounded-2xl bg-white shadow-xs">
-                <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50/75">
+                <table class="min-w-full text-start">
+                    <thead class="bg-gray-50/75 border-b border-gray-200">
                         <tr>
                             <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold text-gray-600 uppercase tracking-wider">Periode Bulan</th>
                             <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold text-gray-600 uppercase tracking-wider">Berkas</th>
@@ -458,7 +431,7 @@ $activeAdvancedFilters = array_filter(
                             <th scope="col" class="py-3.5 px-5 text-end text-xs font-semibold text-gray-600 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-100">
+                    <tbody>
                         <?php foreach ($months as $month): ?>
                             <?php
                             if (!is_array($month)) continue;
@@ -490,7 +463,7 @@ $activeAdvancedFilters = array_filter(
                             $monthUrl = '/reports/month/' . rawurlencode($monthKey) . ($query !== [] ? '?' . http_build_query($query) : '');
                             $lastUpload = isset($month['last_upload']) ? (string) $month['last_upload'] : null;
                             ?>
-                            <tr class="even:bg-gray-50/50 [data-no-hover]">
+                            <tr class="even:bg-gray-50/80 [data-no-hover]">
                                 <td class="py-4 px-5 whitespace-nowrap">
                                     <div class="flex items-center gap-x-3">
                                         <div class="size-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-sm shadow-xs">
@@ -537,7 +510,7 @@ $activeAdvancedFilters = array_filter(
                                 <td class="py-4 px-5 whitespace-nowrap text-center">
                                     <?php if ($skipped > 0): ?>
                                         <span class="inline-flex items-center py-0.5 px-2 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200">
-                                            <?= number_format($skipped, 0, ',', '.') ?>
+                                             <?= number_format($skipped, 0, ',', '.') ?>
                                         </span>
                                     <?php else: ?>
                                         <span class="text-xs text-gray-400">0</span>
@@ -547,7 +520,7 @@ $activeAdvancedFilters = array_filter(
                                     <?= e(format_datetime($lastUpload)) ?>
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap text-end">
-                                    <a class="btn btn-primary py-1 px-2.5 inline-flex items-center gap-x-1 text-xs font-semibold rounded-lg focus:outline-none transition-colors" href="<?= e(url($monthUrl)) ?>">
+                                    <a class="btn btn-primary btn-primary-sm" href="<?= e(url($monthUrl)) ?>">
                                         Buka Bulan
                                         <i class="bi bi-arrow-right"></i>
                                     </a>
@@ -675,8 +648,8 @@ $activeAdvancedFilters = array_filter(
                         <span class="text-[11px] text-gray-500 truncate">
                             Upload: <?= e(format_datetime($lastUpload)) ?>
                         </span>
-                        <a class="btn btn-primary py-1.5 px-3 inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg shrink-0 focus:outline-none transition-colors" href="<?= e(url($monthUrl)) ?>">
-                            Buka Tanggal
+                        <a class="btn btn-primary btn-primary-sm" href="<?= e(url($monthUrl)) ?>">
+                            Buka Bulan
                             <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
