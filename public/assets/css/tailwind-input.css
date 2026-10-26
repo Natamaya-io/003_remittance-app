@@ -39,7 +39,7 @@
     font-family: var(--font-sans);
     font-size: 0.95rem;
     line-height: 1.55;
-    background: #F5EBDD !important;
+    background: #F5F2F2 !important;
     color: #111827;
   }
 
@@ -996,8 +996,8 @@
   .spa-dock-tab.is-active,
   .spa-dock-tab[aria-current="page"] {
     color: #315B8C;
-    background-color: #F5EBDD;
-    border-color: #e0d3c1;
+    background-color: #eff6ff;
+    border-color: #bfdbfe;
     font-weight: 600;
   }
 
@@ -1101,7 +1101,7 @@
     display: block;
     font-family: var(--font-sans);
     font-size: 11px;
-    color: #F5EBDD;
+    color: #F5F2F2;
   }
 
   .dashboard-quick-row {
@@ -1287,7 +1287,7 @@
   .dashboard-hero-modern p {
     max-width: 760px;
     margin: 8px 0 0;
-    color: #F5EBDD;
+    color: #F5F2F2;
     font-family: var(--font-sans);
     font-size: 13.5px;
     line-height: 1.5;
@@ -1337,7 +1337,7 @@
 
   .modern-table tbody tr:nth-child(even),
   .dashboard-table-wrap .table tbody tr:nth-child(even) {
-    background-color: #F5EBDD !important;
+    background-color: #F5F2F2 !important;
   }
 
   .modern-table tbody tr:nth-child(odd),
@@ -1373,7 +1373,7 @@
 
   .dashboard-activity-head span {
     display: block;
-    color: #F5EBDD;
+    color: #F5F2F2;
     font-family: var(--font-sans);
     font-size: 12px;
     font-weight: 500;
@@ -1392,7 +1392,7 @@
   .dashboard-activity-head small {
     display: block;
     margin-top: 2px;
-    color: #F5EBDD;
+    color: #F5F2F2;
     font-family: var(--font-sans);
     font-size: 11.5px;
   }
@@ -1412,7 +1412,7 @@
   .dashboard-activity-meta {
     display: flex;
     justify-content: space-between;
-    color: #F5EBDD;
+    color: #F5F2F2;
     font-family: var(--font-sans);
     font-size: 11.5px;
     margin-top: 6px;
@@ -1523,7 +1523,7 @@
   }
 
   .dashboard-small-link:hover {
-    background-color: #F5EBDD;
+    background-color: #f0f7ff;
     border-color: #315B8C;
     color: #315B8C;
   }

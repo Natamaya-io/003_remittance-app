@@ -1307,7 +1307,7 @@ $flashes = Flash::all();
                 !important;
 
             background:
-                #F5EBDD
+                #f0f7ff
                 !important;
 
             border-color:
@@ -1533,7 +1533,7 @@ $flashes = Flash::all();
         .table thead th {
 
             color:
-                #315B8C
+                #ffffff
                 !important;
 
             font-weight:
@@ -1541,11 +1541,11 @@ $flashes = Flash::all();
                 !important;
 
             background:
-                #F5EBDD
+                #315B8C
                 !important;
 
             border-bottom:
-                2px solid #e0d3c1
+                2px solid #284b73
                 !important;
 
             text-shadow:
@@ -1563,7 +1563,7 @@ $flashes = Flash::all();
         .table tbody tr:nth-child(even) {
 
             background:
-                #F5EBDD
+                #F5F2F2
                 !important;
         }
 
@@ -1938,7 +1938,7 @@ $flashes = Flash::all();
         .dashboard-hero-modern p {
 
             color:
-                #F5EBDD
+                #F5F2F2
                 !important;
 
             font-weight:
@@ -1983,7 +1983,7 @@ $flashes = Flash::all();
         .dashboard-activity-card {
 
             color:
-                #F5EBDD
+                #F5F2F2
                 !important;
 
             background:
@@ -2012,7 +2012,7 @@ $flashes = Flash::all();
         .dashboard-activity-head span {
 
             color:
-                #F5EBDD
+                #F5F2F2
                 !important;
 
             font-weight:
@@ -2043,7 +2043,7 @@ $flashes = Flash::all();
         .dashboard-activity-head small {
 
             color:
-                #F5EBDD
+                #F5F2F2
                 !important;
 
             font-weight:
@@ -2220,7 +2220,7 @@ $flashes = Flash::all();
         .dashboard-fx-summary small {
 
             color:
-                #F5EBDD
+                #F5F2F2
                 !important;
 
             font-weight:
@@ -3870,7 +3870,7 @@ $flashes = Flash::all();
                 !important;
 
             background:
-                #F5EBDD
+                #F5F2F2
                 !important;
         }
 
@@ -4294,7 +4294,7 @@ $flashes = Flash::all();
         .app-main,
         .content-wrap {
             background-image: none !important;
-            background: #F5EBDD !important;
+            background: #F5F2F2 !important;
         }
 
         .sidebar {

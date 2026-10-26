@@ -18,7 +18,7 @@
 2. **Hukum Mutlak Antislop (Gamified Asphalt UI):**
    - **Tipografi:** Wajib menggunakan **DM Sans** (Headings, Tombol/CTA) dan **Roboto** (Body text, data tabel, metadata).
    - **Diet Bold:** Dilarang menggunakan font-weight ultra-tebal (800/900). Maksimum penekanan adalah `font-weight: 600` (`font-semibold` / `.font-bold`).
-   - **Bebas Gradien & Skema Warna Solid Murni (Solid Color Discipline & Absolute Zero-Alien Color Law):** Seluruh elemen UI utama (body canvas, hero, card, panel, alert, dropdown, datepicker, tombol, badge, hingga grafik canvas) **MUTLAK WAJIB** menggunakan warna solid murni berlandaskan **4 Warna Kunci Proyek: 1. #F5EBDD (Warm Cream Base), 2. #F2765E (Vibrant Coral Accent), 3. #315B8C (Deep Brand Blue), 4. #413333 (Deep Asphalt Brown)**. **DILARANG KERAS MENGGUNAKAN WARNA LAIN DI LUAR SKEMA WARNA YANG SUDAH DITENTUKAN INI SECARA MUTLAK**. Dilarang keras menggunakan `linear-gradient`, `radial-gradient`, `conic-gradient`, atau efek kaca `backdrop-filter: blur(...)` / opasitas tembus pandang semu (lihat Bagian 11 untuk aturan terkunci lengkap).
+   - **Bebas Gradien & Skema Warna Solid Murni (Solid Color Discipline & Absolute Zero-Alien Color Law):** Seluruh elemen UI utama (body canvas, hero, card, panel, alert, dropdown, datepicker, tombol, badge, hingga grafik canvas) **MUTLAK WAJIB** menggunakan warna solid murni berlandaskan **4 Warna Kunci Proyek: 1. #F5F2F2 (Asphalt Off-White Base), 2. #F2765E (Vibrant Coral Accent), 3. #315B8C (Deep Brand Blue), 4. #413333 (Deep Asphalt Brown)**. **DILARANG KERAS MENGGUNAKAN WARNA LAIN DI LUAR SKEMA WARNA YANG SUDAH DITENTUKAN INI SECARA MUTLAK**. Dilarang keras menggunakan `linear-gradient`, `radial-gradient`, `conic-gradient`, atau efek kaca `backdrop-filter: blur(...)` / opasitas tembus pandang semu (lihat Bagian 11 untuk aturan terkunci lengkap).
    - **Bebas Transform (Zero-Transform State):** State `:hover`, `:active`, dan `:focus` DILARANG menggunakan efek `transform: translateY(...)`, `scale(...)`, atau pergeseran posisi liar, KECUALI tactile micro-press `translateY(1px)` khusus pada tombol utama (`.btn-primary`) dan tombol aksi resmi sesuai spesifikasi fisika AI global (lihat Bagian 13 untuk aturan terkunci lengkap). Animasi transisi hanya boleh memanipulasi `opacity`, `background-color`, `border-color`, dan `box-shadow`.
    - **Peniadaan Deskripsi Statis & Tooltip Mutlak (Universal Description-to-Tooltip Discipline):** Seluruh deskripsi, keterangan panduan, catatan bantuan, dan subjudul fungsional pada panel, header, card, tabel, maupun formulir **DILARANG KERAS** dirender sebagai teks atau paragraf statis (`<p>`, `<small>`, `.description`). Seluruh deskripsi **MUTLAK WAJIB** dikonversi menjadi tooltip on-demand berbasis hover pada ikon info `(i)` (lihat Bagian 12 untuk aturan terkunci lengkap).
    - **Peniadaan Wrapper Ikon & Monokrom Mutlak (Universal Naked Monochrome Icon Discipline):** Seluruh ikon antarmuka di seluruh aplikasi **MUTLAK DILARANG** menggunakan wrapper/wadah pembungkus dekoratif berlatar warna dan **MUTLAK HANYA DIPERBOLEHKAN BERWARNA HITAM ATAU PUTIH**. Ikon wajib berdiri telanjang berdampingan langsung dengan konten tanpa pembungkus buatan (lihat Bagian 14 untuk aturan terkunci lengkap).
@@ -603,20 +603,20 @@ Atau menggunakan `render_tooltip()` langsung untuk kasus kustom:
    - Dilarang menggunakan background semi-transparan `rgba(..., alpha)` atau utility kelas opasitas slash Tailwind (seperti `bg-gray-50/50`, `bg-gray-50/80`, `bg-white/10`) pada kontainer kartu, panel data, atau body halaman.
    - Semua warna latar belakang wajib berupa warna solid murni yang pekat dan terdefinisi dengan jelas.
 
-### 11.3. Standar 4 Warna Kunci Proyek (Official Locked Quad-Color Scheme: #F5EBDD, #F2765E, #315B8C, #413333)
+### 11.3. Standar 4 Warna Kunci Proyek (Official Locked Quad-Color Scheme: #F5F2F2, #F2765E, #315B8C, #413333)
 Seluruh desain antarmuka, tata letak, komponen interaktif, panel, kartu data, dan kanvas kerja di repositori **`remittance.raxbyte.com`** **MUTLAK DIKUNCI BERDASARKAN 4 WARNA RESMI INI**:
 
 | No | Kode Hex | Nama Resmi | Peran & Hirarki Desain | Implementasi UI & Fungsional |
 | :--- | :--- | :--- | :--- | :--- |
-| **1** | **`#F5EBDD`** | **Warm Alabaster / Cream Base** | **Latar Belakang Kanvas & Dasar Terang** | Kanvas utama halaman (`body`), latar kartu kerja lembut, striping baris genap tabel zebra (`even:bg-[#F5EBDD]`), dan kartu preview sekunder. Menggantikan warna putih klinis dan abu-abu dingin. |
+| **1** | **`#F5F2F2`** | **Asphalt Off-White / Clean Base** | **Latar Belakang Kanvas & Dasar Terang Optimis** | Kanvas utama halaman (`body`), latar kartu kerja lembut, striping baris genap tabel zebra (`even:bg-[#F5F2F2]`), dan kartu preview sekunder. Menggantikan warna krem lumpur dengan dasar asphalt terang yang bersih, cerah, dan memancarkan optimisme modern ala Gamified Asphalt (Gojek Style). |
 | **2** | **`#F2765E`** | **Vibrant Coral / Warm Energy Accent** | **Aksen Kinetik & Penanda Fokus** | Eyebrow/kicker, highlight aktif, badge sorotan, border interaktif fokus, micro-interaction hover, dan aksen energi visual ala Gamified Asphalt (Gojek Style). |
 | **3** | **`#315B8C`** | **Deep Classic Blue / Primary Brand** | **Identitas Brand & Jangkar Struktural** | Warna dasar tombol aksi utama (`--btn-primary-base: #315B8C`), header/hero solid, judul hierarki tinggi, border struktural, status aktif tab dock bawah, dan status transaksi prioritas. |
-| **4** | **`#413333`** | **Deep Asphalt Brown / Dark Espresso** | **Permukaan Gelap & Kontras Tipografis Hangat** | Wadah/kontainer gelap, kartu permukaan kontras tinggi, panel gelap berwibawa, border kontras hangat, dan tipografi teks utama berbobot tinggi. Menggantikan warna hitam mati (`#000000`) atau abu-abu sintetis generik (`#2B2A2A` / `#1F1E1E`) agar selaras murni dengan kehangatan kanvas `#F5EBDD`. |
+| **4** | **`#413333`** | **Deep Asphalt Brown / Dark Espresso** | **Permukaan Gelap & Kontras Tipografis Hangat** | Wadah/kontainer gelap, kartu permukaan kontras tinggi, panel gelap berwibawa, border kontras hangat, dan tipografi teks utama berbobot tinggi. Menggantikan warna hitam mati (`#000000`) atau abu-abu sintetis generik (`#2B2A2A` / `#1F1E1E`) agar selaras murni dengan kehangatan kanvas `#F5F2F2`. |
 
 ### 11.4. Spesifikasi Pemetaan Warna Solid Komponen Utama
 1. **Latar Belakang Kanvas Global (`body`):**
-   - Kanvas utama dikunci menggunakan warna solid warm cream: `background: #F5EBDD !important;` (atau alternatif terang bersih `#FFFFFF` berpadu kanvas `#F5EBDD`).
-   - Memberikan kenyamanan visual tinggi bagi staf operasional perbankan yang menganalisis tabel data transaksi dalam durasi kerja panjang.
+   - Kanvas utama dikunci menggunakan warna solid asphalt off-white: `background: #F5F2F2 !important;` (atau alternatif terang bersih `#FFFFFF` berpadu kanvas `#F5F2F2`).
+   - Menghadirkan atmosfer visual yang bersih, segar, dan optimis ala Gamified Asphalt (Gojek Style), bebas dari kesan kusam/krem lumpur.
 2. **Tombol Aksi Utama (.btn-primary & CTA):**
    - Nilai token dasar brand utama MUTLAK menggunakan `#315B8C`:
      ```css
@@ -630,15 +630,15 @@ Seluruh desain antarmuka, tata letak, komponen interaktif, panel, kartu data, da
    - Indikator peringatan penting, counter notifikasi aktif, dan dot penanda status kinetik menggunakan `#F2765E`.
 4. **The Zebra Tables:**
    - Tabel murni tanpa garis horizontal/vertikal (zero-border).
-   - Seluruh baris genap wajib menggunakan warna solid hangat: `even:bg-[#F5EBDD]`.
+   - Seluruh baris genap wajib menggunakan warna solid asphalt off-white: `even:bg-[#F5F2F2]`.
 5. **Panel Kontainer & Kartu Data:**
-   - Background: Solid `#FFFFFF`, kontainer kanvas `#F5EBDD`, atau kontainer gelap solid `#413333` beraksen `#315B8C` / `#F2765E`.
+   - Background: Solid `#FFFFFF`, kontainer kanvas `#F5F2F2`, atau kontainer gelap solid `#413333` beraksen `#315B8C` / `#F2765E`.
    - Border: Solid 1px `#E5E7EB` (pada kartu terang) atau solid 1px `#413333` / `#315B8C` (pada kartu aktif/terpilih/gelap).
-   - Header Section / Hero: Solid `#315B8C` atau solid `#413333` dengan teks `#F5EBDD`, kicker `#F2765E`, dan tombol aksi `#315B8C` / `#F2765E`.
+   - Header Section / Hero: Solid `#315B8C` atau solid `#413333` dengan teks `#F5F2F2`, kicker `#F2765E`, dan tombol aksi `#315B8C` / `#F2765E`.
 6. **Harmoni dengan Hukum Ikon Monokrom (Bagian 14):**
-   - Keberadaan palet 4 warna (`#F5EBDD`, `#F2765E`, `#315B8C`, `#413333`) **TIDAK MENGUBAH HUKUM IKON MONOKROM**.
+   - Keberadaan palet 4 warna (`#F5F2F2`, `#F2765E`, `#315B8C`, `#413333`) **TIDAK MENGUBAH HUKUM IKON MONOKROM**.
    - Ikon antarmuka tetap **MUTLAK HANYA BERWARNA HITAM (`#111827`) ATAU PUTIH (`#FFFFFF`)**.
-   - Di atas kanvas `#F5EBDD` atau kartu putih: Ikon wajib hitam (`text-gray-900` / `#111827`).
+   - Di atas kanvas `#F5F2F2` atau kartu putih: Ikon wajib hitam (`text-gray-900` / `#111827`).
    - Di atas tombol `#315B8C` atau kontainer gelap `#413333`: Ikon wajib putih (`text-white` / `#FFFFFF`).
 
 ### 11.5. Hukum Mutlak Larangan Warna Asing & Sterilisasi Palet (Absolute Zero-Alien Color Law)
@@ -650,7 +650,10 @@ Seluruh desain antarmuka, tata letak, komponen interaktif, panel, kartu data, da
 1. **Katalog Warna Sah & Tertutup (The Absolute Whitelist):**
    Satu-satunya warna yang diizinkan eksis dan dirender di seluruh antarmuka aplikasi `remittance.raxbyte.com` adalah:
    - **4 Warna Master Proyek:**
-     - **`#F5EBDD`** (Warm Alabaster / Cream Base)
+     - **`#F5F2F2`** (Asphalt Off-White / Clean Base)
+     - **`#F2765E`** (Vibrant Coral / Warm Energy Accent)
+     - **`#315B8C`** (Deep Classic Blue / Primary Brand)
+     - **`#413333`** (Deep Asphalt Brown / Dark Espresso Neutral)
      - **`#F2765E`** (Vibrant Coral / Warm Energy Accent)
      - **`#315B8C`** (Deep Classic Blue / Primary Brand)
      - **`#413333`** (Deep Asphalt Brown / Dark Espresso Neutral)
