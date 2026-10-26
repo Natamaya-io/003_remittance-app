@@ -3,6 +3,9 @@
 > **STATUS DOKUMEN: HUKUM MUTLAK & TERKUNCI (STRICT COMPLIANCE)**  
 > Dokumen ini adalah konstitusi teknis dan visual untuk repositori **`remittance.raxbyte.com`**. Seluruh agen AI (Antigravity/Gemini) dan pengembang perangkat lunak **MUTLAK WAJIB** mematuhi aturan ini tanpa pengecualian.
 
+> **[HUKUM MUTLAK BATAS LINGKUP BEDAH & ANTI-PERUBAHAN LIAR (STRICT SURGICAL SCOPE)]**  
+> Seluruh agen AI dan pengembang **MUTLAK DILARANG** melakukan modifikasi, refaktor, penambahan, penghapusan, atau penyesuaian kode terhadap hal-hal yang **TIDAK SECARA EKSPLISIT DIMINTA** dan **TIDAK DIBUTUHKAN**. Setiap perubahan wajib bersifat intervensi bedah murni (*minimal surgical intervention*) yang terisolasi secara presisi pada target yang diinstruksikan oleh pengguna, dengan nol efek samping sampingan (*zero collateral damage*) terhadap berkas, tata letak, logika bisnis, atau komponen lain yang sudah stabil. Aturan ini **TERKUNCI MUTLAK DAN TIDAK BOLEH DILANGGAR DALAM KONDISI APA PUN**.
+
 ---
 
 ## 1. Identitas Proyek & Hukum Amnesti Proyek Warisan (Legacy Amnesty)
@@ -450,3 +453,29 @@ Atau menggunakan komponen Alpine langsung untuk kasus inline custom:
     </div>
 </div>
 ```
+
+---
+
+## 9. Aturan Terkunci: Hukum Mutlak Batas Lingkup Bedah & Anti-Perubahan Liar (Strict Minimal Scope & Anti-Unsolicited Modification Law)
+
+> **STATUS ATURAN: TERKUNCI MUTLAK (LOCKED & NON-NEGOTIABLE)**  
+> Aturan ini dibuat untuk menghentikan segala bentuk *scope creep*, inisiatif liar AI yang tidak diharapkan (*unsolicited modifications*), refactoring spekulatif tanpa instruksi, dan perusakan stabilitas kode yang sudah berjalan baik.
+
+### 9.1. Prinsip Intervensi Bedah Presisi (Minimal Surgical Intervention)
+1. **Kepatuhan Target Murni (Strict Target Compliance):** Agen AI hanya diizinkan memodifikasi berkas, fungsi, atau elemen UI yang secara langsung, spesifik, dan eksplisit disebutkan dalam instruksi pengguna.
+2. **Sentuhan Minimal (Minimal Touch Law):** Setiap perubahan kode wajib dibatasi hanya pada baris-baris yang mutlak esensial untuk memenuhi permintaan pengguna. Dilarang merombak baris atau fungsi di sekitarnya yang tidak relevan dengan tugas.
+3. **Disiplin Diff Bersih (Clean Diff Discipline):** Dilarang melakukan format ulang massal (*mass reformatting*), mengubah indentasi seluruh file ribuan baris, atau mengubah urutan import/method tanpa instruksi. Setiap baris dalam git diff harus memiliki alasan langsung yang dapat dipertanggungjawabkan terhadap prompt pengguna.
+
+### 9.2. Larangan Absolut Perubahan Spekulatif (Anti-Speculative & Anti-Unsolicited Edits)
+1. **Dilarang "Memperbaiki" Hal yang Sedang Berjalan Baik:** Dilarang keras melakukan refactoring spekulatif ("modernisasi kode", penamaan ulang variabel, pemindahan struktur folder, penataan ulang arsitektur) pada modul, endpoint, view, atau controller yang sudah stabil dengan dalih "best practice", "kebersihan kode", atau "optimasi" kecuali pengguna secara eksplisit memerintahkannya.
+2. **Dilarang Menambah Fitur Tanpa Permintaan (Anti-Feature Creep):** Dilarang menambahkan tombol, modal, link navigasi, filter, tab, badge, shortcut, atau alur baru yang tidak diminta secara tertulis oleh pengguna.
+3. **Dilarang Menghapus Fitur atau Aset Tanpa Instruksi:** Dilarang menghapus logika bisnis, kolom database, helper, rute, atau asset yang sudah ada jika pengguna tidak secara spesifik memerintahkan penghapusannya.
+
+### 9.3. Preservasi Total Logika Bisnis & Sistem Eksisting (Zero Collateral Damage)
+1. **Perlindungan Logika Kritis:** Modul inti perbankan dan operasional—seperti perhitungan multi-kriteria Entropy–TOPSIS, parser file transaksi BNI, standing instruction, generator nomor invoice, otentikasi role/permission, dan audit log—wajib dipreservasi secara absolut dari perubahan sampingan yang tidak diinginkan.
+2. **Integritas Kontrak & Dependensi:** Modifikasi pada komponen bersama (*shared partials/helpers/layouts*) wajib menjamin bahwa seluruh halaman atau fungsi lain yang mengonsumsi komponen tersebut tidak mengalami regresi, eror, atau perubahan perilaku yang tidak diharapkan.
+3. **Verifikasi Bebas Efek Samping:** Setiap kali selesai mengimplementasikan perubahan, pengembang/agen AI wajib mengaudit git status dan git diff untuk memastikan tidak ada file atau baris yang termodifikasi secara tidak sengaja (*unintended changes*). Jika ditemukan berkas yang terubah di luar cakupan tugas, berkas tersebut **MUTLAK WAJIB DIKEMBALIKAN (REVERT) SEKETIKA**.
+
+### 9.4. Kunci Hukum Mutlak (Strict Enforcement Protocol)
+- Aturan ini adalah **HUKUM TERTINGGI REPOSITORI** yang setara dengan konstitusi utama.
+- Segala bentuk penyimpangan, asumsi berlebih, atau modifikasi liar yang tidak diminta oleh pengguna dianggap sebagai **PELANGGARAN SISTEMATIS TINGKAT TINGGI** dan pekerjaan tersebut dinyatakan cacat (*rejected*).
