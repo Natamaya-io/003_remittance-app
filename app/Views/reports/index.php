@@ -75,36 +75,13 @@ $activeAdvancedFilters = array_filter(
                 <span class="size-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm shrink-0">
                     <i class="bi bi-sliders"></i>
                 </span>
-                <div x-data="{ showInfo: false }">
-                    <div class="inline-flex items-center gap-1.5">
-                        <strong class="text-xs font-bold text-gray-900 block">Filter Lanjutan</strong>
-                        <button
-                            type="button"
-                            @click.stop="showInfo = !showInfo"
-                            class="info-toggle-btn"
-                            :class="{ 'is-active': showInfo }"
-                            :aria-expanded="showInfo.toString()"
-                            aria-label="Tampilkan info filter"
-                            title="Informasi bantuan"
-                        >
-                            <i class="bi bi-info-circle text-[11px] leading-none"></i>
-                        </button>
-                    </div>
-                    <div
-                        x-show="showInfo"
-                        x-cloak
-                        x-transition:enter="transition ease-out duration-150"
-                        x-transition:enter-start="opacity-0"
-                        x-transition:enter-end="opacity-100"
-                        x-transition:leave="transition ease-in duration-100"
-                        x-transition:leave-start="opacity-100"
-                        x-transition:leave-end="opacity-0"
-                        class="text-[11px] text-gray-500 mt-1 flex items-start gap-1.5"
-                        style="display: none;"
-                    >
-                        <i class="bi bi-info-circle text-[10px] text-blue-500 mt-0.5 shrink-0" aria-hidden="true"></i>
-                        <span>Saring berdasarkan bulan, rentang tanggal, tim, status kirim, dan hasil.</span>
-                    </div>
+                <div class="inline-flex items-center gap-1.5">
+                    <strong class="text-xs font-bold text-gray-900 block">Filter Lanjutan</strong>
+                    <?= render_tooltip(
+                        'Saring berdasarkan bulan, rentang tanggal, tim, status kirim, dan hasil.',
+                        '<span class="info-toggle-btn cursor-help" aria-label="Informasi bantuan"><i class="bi bi-info-circle text-[11px] leading-none"></i></span>',
+                        ['placement' => 'top']
+                    ) ?>
                 </div>
             </div>
             <i class="bi bi-chevron-down text-gray-400 text-xs transition-transform duration-200" :class="{ 'rotate-180': openFilter }"></i>

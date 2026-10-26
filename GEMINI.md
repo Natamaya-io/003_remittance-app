@@ -413,43 +413,40 @@ Setiap view yang membutuhkan kontrol pencarian **MUTLAK WAJIB** menggunakan help
 
 ---
 
-## 8. Aturan Terkunci: Sistem Informasi On-Demand & Toggleable Helper (Anti-Description Slop)
+## 8. Aturan Terkunci: Sistem Informasi On-Demand via Hover Ikon (i) (Hover-Only Info Helper Law)
 
-Untuk menjaga estetika minimalis berwibawa (*Naked Page Architecture*) dan efisiensi ruang vertikal, seluruh teks penjelasan, catatan bantuan, atau subtitle deskriptif panjang (contoh: *"Cari data di seluruh bulan, tanggal, tim, berkas, payer, dan beneficiary."*) **DILARANG DITAMPILKAN SECARA PERMANEN** di bawah judul card atau heading section.
+> **STATUS ATURAN: TERKUNCI MUTLAK (LOCKED & NON-NEGOTIABLE)**  
+> Seluruh teks penjelasan, catatan bantuan, atau subtitle deskriptif panjang (contoh: *"Cari data di seluruh bulan, tanggal, tim, berkas, payer, dan beneficiary."*) **MUTLAK HANYA BOLEH MUNCUL KETIKA DI-HOVER DI IKON `i`**. Aturan ini dikunci untuk menjamin estetika minimalis berwibawa (*Naked Page Architecture*), efisiensi ruang vertikal, dan ketiadaan pergeseran tata letak (*Zero Layout Shift*).
 
-### 8.1. Transformasi Menjadi Informasi On-Demand (Toggleable Info Law)
-1. **Keberadaan Default:** Secara default, area heading card hanya menyajikan judul utama yang bersih dan berwibawa tanpa teks penjelasan yang memakan tempat.
-2. **Tombol Pemicu Info (`.info-toggle-btn`):** Di samping kanan teks judul, disematkan tombol ikon info melingkar halus (`<i class="bi bi-info-circle"></i>`) berukuran 20px dengan state interaktif lembut (hover background `#eff6ff`, border `#dbeafe`, focus outline ring).
-3. **Panel Informasi (`.info-toggle-box`):** Saat tombol ditekan, teks penjelasan bertransisi mulus (*Zero-Transform*, opasitas murni) langsung di bawah judul dengan ikon penjelas dan padding ringkas.
-4. **Isolasi Event (`@click.stop`):** Tombol info wajib menggunakan penahan perambatan `@click.stop` agar jika disematkan di dalam accordion (seperti Filter Lanjutan) atau tombol aksi lain, klik tidak memicu pembukaan/penutupan elemen induk secara tidak sengaja.
+### 8.1. Hukum Pemicu Tunggal Hover pada Ikon (i) (Strict Hover-Only Info Trigger)
+1. **Keberadaan Default yang Bersih:** Area judul, kartu, accordion, atau langkah panduan hanya menampilkan judul murni yang berwibawa dengan ikon info melingkar halus (`<i class="bi bi-info-circle"></i>` / `.info-toggle-btn`) di sampingnya.
+2. **Pemicu Tunggal Hover (Hover-Only):**
+   - Teks informasi bantuan **MUTLAK HANYA MUNCUL KETIKA KURSOR MOUSE MELAYANG (HOVER) DI ATAS IKON `i`**.
+   - Saat kursor mouse keluar dari ikon `(i)`, informasi **MUTLAK WAJIB LANGSUNG HILANG / TERTUTUP SEKETIKA**.
+3. **Pemusnahan Pemicu Klik (Anti-Click Info Law):**
+   - **DILARANG KERAS** memicu informasi melalui event klik (`click`), tap, atau menahan status terbuka (*sticky/expanded state*).
+   - Ikon `(i)` tidak boleh bertindak sebagai tombol ekspansi accordion atau panel inline.
+4. **Pemusnahan Pergeseran Layout (Zero Layout Shift):**
+   - Dilarang merender box/panel ekspansi statis di bawah judul yang mendorong konten lain ke bawah saat dibuka.
+   - Informasi wajib melayang di atas konten (*floating tooltip*) menggunakan `z-[70]` dan `pointer-events: none` sehingga tidak mengganggu alur baca maupun tata letak halaman.
 
 ### 8.2. Penggunaan via Helper PHP Resmi
-Setiap view yang membutuhkan judul kartu dengan informasi on-demand wajib menggunakan helper `render_heading_with_info()` di `app/helpers.php`:
+Setiap view yang membutuhkan judul kartu dengan informasi on-demand via hover ikon `(i)` wajib menggunakan helper `render_heading_with_info()` di `app/helpers.php`:
 ```php
 <?= render_heading_with_info(
     'Pencarian Transaksi',
     'Cari data di seluruh bulan, tanggal, tim, berkas, payer, dan beneficiary.'
 ) ?>
 ```
-Atau menggunakan komponen Alpine langsung untuk kasus inline custom:
+Atau menggunakan `render_tooltip()` langsung untuk kasus kustom:
 ```html
-<div class="inline-flex items-center gap-1.5" x-data="{ showInfo: false }">
+<div class="inline-flex items-center gap-1.5">
     <strong class="text-sm font-bold text-gray-900">Judul Card</strong>
-    <button
-        type="button"
-        @click.stop="showInfo = !showInfo"
-        class="info-toggle-btn"
-        :class="{ 'is-active': showInfo }"
-        :aria-expanded="showInfo.toString()"
-        aria-label="Tampilkan informasi bantuan"
-        title="Informasi bantuan"
-    >
-        <i class="bi bi-info-circle text-[11px] leading-none"></i>
-    </button>
-    <div x-show="showInfo" x-cloak x-transition class="info-toggle-box" style="display: none;">
-        <i class="bi bi-info-circle text-blue-500 mt-0.5 shrink-0"></i>
-        <span>Teks deskriptif yang hanya muncul ketika diminta.</span>
-    </div>
+    <?= render_tooltip(
+        'Teks deskriptif yang hanya muncul ketika ikon i di-hover.',
+        '<span class="info-toggle-btn cursor-help" aria-label="Informasi bantuan"><i class="bi bi-info-circle text-[11px] leading-none"></i></span>',
+        ['placement' => 'top']
+    ) ?>
 </div>
 ```
 
@@ -495,16 +492,14 @@ Atau menggunakan komponen Alpine langsung untuk kasus inline custom:
    - Mengklik elemen atau ikon target hanya boleh mengeksekusi aksi fungsional murni (navigasi, submit form, membuka modal dialog, dsb), **BUKAN** untuk menampilkan atau menyembunyikan teks tooltip.
    - Tooltip dilarang bertindak sebagai popover atau dialog.
 
-### 10.2. Batas Demarkasi Antara Tooltip vs Toggleable Info Box
-1. **Tooltip (Mikro & Sekilas):**
-   - Ditujukan murni untuk petunjuk singkat (1-3 kata / mikro-hint, contoh: *"Buka di tab baru"*, *"Download CSV"*, *"Salin referensi"*).
-   - Selalu beroperasi dengan `pointer-events: none` sehingga pengguna tidak dapat mengklik atau memilih teks di dalam tooltip.
-   - Pemicu: **HANYA HOVER**.
-2. **Informasi On-Demand / Toggleable Info Box (Aturan Bagian 8):**
-   - Ditujukan untuk teks penjelasan panjang, panduan alur data, atau deskripsi kartu.
-   - Menggunakan tombol interaktif `.info-toggle-btn` dengan Alpine.js `@click.stop="showInfo = !showInfo"`.
-   - Pemicu: **KLIK PADA TOMBOL INFO**.
-   - **DILARANG** mencampuradukkan kedua sistem ini: jangan pernah mengubah tooltip menjadi toggle klik, dan jangan pernah mengganti toggle info box menjadi tooltip hover yang rapuh.
+### 10.2. Integrasi Tooltip dengan Ikon Info (i) (Hover-Only Law)
+1. **Pemicu Ikon Info (`.info-toggle-btn`):**
+   - Ikon info `(i)` bertindak sebagai pemicu tooltip hover murni (`render_tooltip`).
+   - Teks informasi bantuan atau catatan deskriptif **MUTLAK HANYA MUNCUL KETIKA DI-HOVER DI IKON `i`**.
+   - Dilarang memicu informasi via klik atau merender ekspansi box yang menggeser tata letak halaman (*zero layout shift*).
+2. **Tooltip Aksi & Tabel:**
+   - Menampilkan petunjuk singkat untuk tombol aksi ikonik (Export Excel, Edit Metadata, Hapus Batch, Tautan Transaksi, Cetak, dsb).
+   - Selalu beroperasi dengan `pointer-events: none` dan transisi opasitas murni.
 
 ### 10.3. Geometri & Fisika UI Tooltip (Gamified Asphalt Compliance)
 1. **Bebas Transform (Zero-Transform State):**

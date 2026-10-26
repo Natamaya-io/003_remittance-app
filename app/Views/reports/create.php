@@ -141,101 +141,35 @@ $defaultReportName = 'LAPORAN - ' . ($monthNames[$monthNumber] ?? strtoupper(dat
                 <ol class="space-y-4 mb-6">
                     <li class="flex items-start gap-3">
                         <span class="size-6 rounded-full bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
-                        <div x-data="{ showInfo: false }">
-                            <div class="inline-flex items-center gap-1.5">
-                                <strong class="text-xs font-bold text-gray-800">Pilih bulan</strong>
-                                <button
-                                    type="button"
-                                    @click="showInfo = !showInfo"
-                                    class="info-toggle-btn"
-                                    :class="{ 'is-active': showInfo }"
-                                    :aria-expanded="showInfo.toString()"
-                                    aria-label="Info pilih bulan"
-                                    title="Informasi bantuan"
-                                >
-                                    <i class="bi bi-info-circle text-[10px] leading-none"></i>
-                                </button>
-                            </div>
-                            <span
-                                x-show="showInfo"
-                                x-cloak
-                                x-transition:enter="transition ease-out duration-150"
-                                x-transition:enter-start="opacity-0"
-                                x-transition:enter-end="opacity-100"
-                                x-transition:leave="transition ease-in duration-100"
-                                x-transition:leave-start="opacity-100"
-                                x-transition:leave-end="opacity-0"
-                                class="text-xs text-gray-500 mt-0.5 block"
-                                style="display: none;"
-                            >
-                                File otomatis dikelompokkan ke kartu bulan (contoh: Agustus 2026).
-                            </span>
+                        <div class="inline-flex items-center gap-1.5 pt-0.5">
+                            <strong class="text-xs font-bold text-gray-800">Pilih bulan</strong>
+                            <?= render_tooltip(
+                                'File otomatis dikelompokkan ke kartu bulan (contoh: Agustus 2026).',
+                                '<span class="info-toggle-btn cursor-help" aria-label="Info pilih bulan"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
+                                ['placement' => 'top']
+                            ) ?>
                         </div>
                     </li>
                     <li class="flex items-start gap-3">
                         <span class="size-6 rounded-full bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
-                        <div x-data="{ showInfo: false }">
-                            <div class="inline-flex items-center gap-1.5">
-                                <strong class="text-xs font-bold text-gray-800">Tentukan tanggal</strong>
-                                <button
-                                    type="button"
-                                    @click="showInfo = !showInfo"
-                                    class="info-toggle-btn"
-                                    :class="{ 'is-active': showInfo }"
-                                    :aria-expanded="showInfo.toString()"
-                                    aria-label="Info tentukan tanggal"
-                                    title="Informasi bantuan"
-                                >
-                                    <i class="bi bi-info-circle text-[10px] leading-none"></i>
-                                </button>
-                            </div>
-                            <span
-                                x-show="showInfo"
-                                x-cloak
-                                x-transition:enter="transition ease-out duration-150"
-                                x-transition:enter-start="opacity-0"
-                                x-transition:enter-end="opacity-100"
-                                x-transition:leave="transition ease-in duration-100"
-                                x-transition:leave-start="opacity-100"
-                                x-transition:leave-end="opacity-0"
-                                class="text-xs text-gray-500 mt-0.5 block"
-                                style="display: none;"
-                            >
-                                Sistem membentuk kartu tanggal transaksi (contoh: 5 Agustus 2026).
-                            </span>
+                        <div class="inline-flex items-center gap-1.5 pt-0.5">
+                            <strong class="text-xs font-bold text-gray-800">Tentukan tanggal</strong>
+                            <?= render_tooltip(
+                                'Sistem membentuk kartu tanggal transaksi (contoh: 5 Agustus 2026).',
+                                '<span class="info-toggle-btn cursor-help" aria-label="Info tentukan tanggal"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
+                                ['placement' => 'top']
+                            ) ?>
                         </div>
                     </li>
                     <li class="flex items-start gap-3">
                         <span class="size-6 rounded-full bg-blue-100 text-blue-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
-                        <div x-data="{ showInfo: false }">
-                            <div class="inline-flex items-center gap-1.5">
-                                <strong class="text-xs font-bold text-gray-800">Isi nama tim</strong>
-                                <button
-                                    type="button"
-                                    @click="showInfo = !showInfo"
-                                    class="info-toggle-btn"
-                                    :class="{ 'is-active': showInfo }"
-                                    :aria-expanded="showInfo.toString()"
-                                    aria-label="Info nama tim"
-                                    title="Informasi bantuan"
-                                >
-                                    <i class="bi bi-info-circle text-[10px] leading-none"></i>
-                                </button>
-                            </div>
-                            <span
-                                x-show="showInfo"
-                                x-cloak
-                                x-transition:enter="transition ease-out duration-150"
-                                x-transition:enter-start="opacity-0"
-                                x-transition:enter-end="opacity-100"
-                                x-transition:leave="transition ease-in duration-100"
-                                x-transition:leave-start="opacity-100"
-                                x-transition:leave-end="opacity-0"
-                                class="text-xs text-gray-500 mt-0.5 block"
-                                style="display: none;"
-                            >
-                                File tampil sebagai kartu batch tim independen pada tanggal tersebut.
-                            </span>
+                        <div class="inline-flex items-center gap-1.5 pt-0.5">
+                            <strong class="text-xs font-bold text-gray-800">Isi nama tim</strong>
+                            <?= render_tooltip(
+                                'File tampil sebagai kartu batch tim independen pada tanggal tersebut.',
+                                '<span class="info-toggle-btn cursor-help" aria-label="Info nama tim"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
+                                ['placement' => 'top']
+                            ) ?>
                         </div>
                     </li>
                 </ol>
