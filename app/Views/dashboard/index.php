@@ -917,7 +917,7 @@ $fxBoardFile =
                     type="text"
                     x-model="search"
                     placeholder="Cari transaksi (referensi, PT, penerima)..."
-                    class="py-1.5 px-3 ps-8 block w-full border border-[#e0d3c1] bg-white rounded-lg text-xs text-[#413333] placeholder:text-gray-400 focus:border-[#315B8C] focus:ring-[#315B8C]"
+                    class="py-1.5 px-3 ps-8 block w-full border border-[#d8caa7] bg-[#ECE1D1] rounded-lg text-xs text-[#413333] placeholder:text-[#413333]/50 focus:border-[#315B8C] focus:ring-[#315B8C]"
                 >
                 <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-2.5 text-[#413333]">
                     <i class="bi bi-search text-xs"></i>
@@ -937,32 +937,32 @@ $fxBoardFile =
                 <button
                     type="button"
                     @click="status = 'all'"
-                    :class="status === 'all' ? 'bg-[#315B8C] text-white border-[#315B8C]' : 'bg-white text-[#413333] border-[#e0d3c1] hover:bg-[#F5EBDD]'"
-                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border border-[#e0d3c1] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
+                    :class="status === 'all' ? 'bg-[#315B8C] text-white border-[#315B8C]' : 'bg-[#ECE1D1] text-[#413333] border-[#d8caa7] hover:bg-[#F5EBDD]'"
+                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border border-[#d8caa7] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
                 >
                     Semua
                 </button>
                 <button
                     type="button"
                     @click="status = 'success'"
-                    :class="status === 'success' ? 'bg-emerald-600 text-white' : 'bg-white text-[#413333] hover:bg-[#F5EBDD]'"
-                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-[#e0d3c1] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
+                    :class="status === 'success' ? 'bg-emerald-600 text-white' : 'bg-[#ECE1D1] text-[#413333] hover:bg-[#F5EBDD]'"
+                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-[#d8caa7] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
                 >
                     Sukses
                 </button>
                 <button
                     type="button"
                     @click="status = 'pending'"
-                    :class="status === 'pending' ? 'bg-amber-500 text-white' : 'bg-white text-[#413333] hover:bg-[#F5EBDD]'"
-                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-[#e0d3c1] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
+                    :class="status === 'pending' ? 'bg-amber-500 text-white' : 'bg-[#ECE1D1] text-[#413333] hover:bg-[#F5EBDD]'"
+                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-[#d8caa7] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
                 >
                     Pending
                 </button>
                 <button
                     type="button"
                     @click="status = 'refund'"
-                    :class="status === 'refund' ? 'bg-rose-600 text-white' : 'bg-white text-[#413333] hover:bg-[#F5EBDD]'"
-                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-[#e0d3c1] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
+                    :class="status === 'refund' ? 'bg-rose-600 text-white' : 'bg-[#ECE1D1] text-[#413333] hover:bg-[#F5EBDD]'"
+                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-[#d8caa7] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
                 >
                     Refund
                 </button>

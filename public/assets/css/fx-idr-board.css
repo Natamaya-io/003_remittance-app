@@ -20,7 +20,7 @@
     border: 1px solid var(--fx-border);
     border-radius: 20px;
 
-    background: #ffffff;
+    background: #F5EBDD;
 
     box-shadow:
         0 14px 40px
@@ -394,25 +394,25 @@
     padding: 14px;
 
     border:
-        1px solid #e1e9f1;
+        1px solid #544242;
 
     border-radius: 16px;
 
     outline: 0;
 
-    background: #fff;
+    background: #413333;
 
-    color: var(--fx-ink);
+    color: #ffffff;
 
     box-shadow:
-        0 8px 22px
-        rgba(15, 23, 42, .055);
+        0 4px 16px -2px
+        rgba(65, 51, 51, 0.16);
 
     cursor: pointer;
 
     transition:
-        transform .18s ease,
         border-color .18s ease,
+        background-color .18s ease,
         box-shadow .18s ease;
 }
 
@@ -427,14 +427,17 @@
 .fx-modern-card:focus-visible,
 .fx-modern-card.is-selected {
     transform:
-        translateY(-3px);
+        none;
+
+    background:
+        #4a3a3a;
 
     border-color:
-        #a9caef;
+        #315B8C;
 
     box-shadow:
-        0 16px 32px
-        rgba(37, 99, 235, .12);
+        0 8px 24px
+        rgba(49, 91, 140, .20);
 }
 
 
@@ -473,11 +476,11 @@
     overflow: hidden;
 
     border:
-        1px solid #dce6ef;
+        1px solid #544242;
 
     border-radius: 50%;
 
-    background: #f8fafc;
+    background: #332626;
 }
 
 
@@ -497,7 +500,8 @@
 
 .fx-modern-currency strong {
     font-size: 16px;
-    font-weight: 900;
+    font-weight: 600;
+    color: #ffffff;
 }
 
 
@@ -508,7 +512,7 @@
 
     overflow: hidden;
 
-    color: var(--fx-muted);
+    color: #F5EBDD;
 
     font-size: 9px;
 
@@ -562,7 +566,8 @@
 
 
 .fx-modern-value span {
-    color: var(--fx-muted);
+    color: #F5EBDD;
+    opacity: 0.85;
 
     font-size: 9px;
 }
@@ -571,10 +576,10 @@
 .fx-modern-value strong {
     margin-top: 2px;
 
-    color: var(--fx-ink);
+    color: #ffffff;
 
     font-size: 23px;
-    font-weight: 950;
+    font-weight: 600;
 
     letter-spacing: -.035em;
 }
@@ -695,11 +700,11 @@
     padding: 8px;
 
     border:
-        1px solid #e8edf3;
+        1px solid #544242;
 
     border-radius: 9px;
 
-    background: #f8fafc;
+    background: #332626;
 }
 
 
@@ -710,7 +715,8 @@
 
 
 .fx-modern-buy-sell span {
-    color: var(--fx-muted);
+    color: #F5EBDD;
+    opacity: 0.75;
 
     font-size: 7px;
 
@@ -723,7 +729,7 @@
 
     overflow: hidden;
 
-    color: var(--fx-ink);
+    color: #F5EBDD;
 
     font-size: 9px;
 
