@@ -350,16 +350,19 @@ input[type="search"],
    - Hint tombol `<kbd>/</kbd>` yang halus muncul di sisi kanan saat input kosong.
    - Menekan tombol `/` pada keyboard (di luar input/textarea aktif) otomatis memindahkan fokus kursor ke search bar aktif.
 
-### 6.3. Arsitektur Search Bar Command Palette (Pure Command Searchbar Law)
-Untuk menjaga kebersihan tata letak halaman (*Naked Page Architecture*), efisiensi ruang layar, serta pengalaman pencarian keyboard-first tingkat tinggi tanpa distraksi, bar pencarian beroperasi dengan prinsip **Pure Command Searchbar (Zero-Recents)**:
+### 6.3. Arsitektur Search Bar Command Palette (Zero-Recents & Preserved Operations Law)
+Untuk menjaga kebersihan tata letak halaman (*Naked Page Architecture*), efisiensi ruang layar, serta pengalaman pencarian keyboard-first tingkat tinggi tanpa distraksi, bar pencarian beroperasi mengikuti arsitektur **Zero-Recents & Preserved Operations Law**:
 1. **Pemicu Modal (Search Trigger Bar):**
    - Halaman merender pemicu bar pencarian elegan berlatar putih dengan border solid `#e5e7eb`, ikon `<i class="bi bi-search text-gray-400"></i>`, teks placeholder `'Cari transaksi...'`, serta keyboard shortcut badge `<kbd class="font-mono">Ctrl K</kbd>`.
    - Menggunakan helper resmi `render_search_modal_trigger()` yang otomatis memicu event `$dispatch('open-search-modal', { ... })`.
 2. **Modal Pencarian Global (`remitSearchModal`):**
    - Dirender terpusat di `app/Views/layouts/app.php` dengan backdrop blur halus (`bg-gray-900/50 backdrop-blur-xs`).
    - Dialog mengambang `max-w-2xl` tanpa padding luar, dengan border solid `#e5e7eb`, radius `rounded-xl`, dan bayangan `shadow-2xl`.
-   - **Murni Search Bar:** Saat dibuka, modal HANYA menampilkan search bar terpusat tanpa daftar riwayat ("Recents") maupun teks seremonial. Input pencarian borderless menyatu langsung dengan leading icon `bi-search`, input unbordered focus-ring-0, dan badge `<kbd>Esc</kbd>` di sisi kanan.
-   - **Live Search Action:** Begitu pengguna mengetik kata kunci pencarian, panel dropdown ringkas muncul seketika menampilkan aksi `Cari transaksi — "{query}" di seluruh sistem →`.
+   - **Pemusnahan Daftar Riwayat Halaman ("Zero-Recents"):** Sesuai instruksi khusus, daftar "Recents" (riwayat modul/halaman situs luar) **DITIADAKAN SECARA MUTLAK** dari search bar laporan agar terfokus murni pada data transaksi.
+   - **Pemeliharaan Panduan Operasional ("Search tips"):** Bagian "Search tips" **MUTLAK DIPELIHARA** untuk memandu pengguna cara mengoperasikan pencarian dengan filter presisi (`payer:`, `benef:`, `bank:`, `tim:`, `date:`, `inv:`).
+   - **Bilah Panduan Keyboard Footer:** Bagian bawah modal menyajikan instruksi pengoperasian keyboard secara permanen (`↑ ↓ to navigate`, `↵ to select`, `esc to close`).
+   - **Navigasi Keyboard Interaktif:** Pengguna dapat menavigasi tips maupun live search action dengan tombol panah atas/bawah, menekan `Enter` untuk memilih/mengeksekusi, dan `Esc` untuk menutup dialog.
+   - **Live Search Action:** Begitu pengguna mengetik kata kunci pencarian, panel dropdown menampilkan aksi `Cari transaksi — "{query}" di seluruh sistem →`.
    - Menekan tombol `Enter` mengeksekusi pencarian langsung ke rute action (`/reports/search?q=...`).
    - Menekan tombol `ESC` atau klik di luar area dialog otomatis menutup modal.
 

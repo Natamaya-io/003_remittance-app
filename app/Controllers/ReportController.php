@@ -728,36 +728,85 @@ final class ReportController extends BaseController
             $params[] = $filters['result_status'];
         }
         if (($filters['q'] ?? '') !== '') {
-            $search = '%' . $filters['q'] . '%';
-            $where .= " AND (
-                b.name LIKE ?
-                OR b.client_name LIKE ?
-                OR b.team_name LIKE ?
-                OR b.source_filename LIKE ?
-                OR b.month_key LIKE ?
-                OR DATE_FORMAT({$effectiveDate}, '%d/%m/%Y') LIKE ?
-                OR DATE_FORMAT({$effectiveDate}, '%Y-%m-%d') LIKE ?
-                OR EXISTS (
-                    SELECT 1
-                    FROM report_rows rq
-                    WHERE rq.batch_id=b.id
-                      AND (
-                        rq.team_label LIKE ?
-                        OR rq.bill_to LIKE ?
-                        OR rq.beneficiary_name LIKE ?
-                        OR rq.beneficiary_account LIKE ?
-                        OR rq.beneficiary_bank LIKE ?
-                        OR rq.swift LIKE ?
-                        OR rq.invoice_no LIKE ?
-                        OR rq.contract_no LIKE ?
-                        OR rq.payment_details LIKE ?
-                        OR rq.processing_bank LIKE ?
-                        OR rq.currency LIKE ?
-                      )
-                )
-            )";
-            for ($i = 0; $i < 18; $i++) {
+            $rawQ = trim((string) $filters['q']);
+            if (preg_match('/^payer:\s*(.*)$/i', $rawQ, $m)) {
+                $search = '%' . trim($m[1]) . '%';
+                $where .= " AND (
+                    b.client_name LIKE ?
+                    OR EXISTS (SELECT 1 FROM report_rows rq WHERE rq.batch_id=b.id AND rq.bill_to LIKE ?)
+                )";
                 $params[] = $search;
+                $params[] = $search;
+            } elseif (preg_match('/^(?:benef|beneficiary):\s*(.*)$/i', $rawQ, $m)) {
+                $search = '%' . trim($m[1]) . '%';
+                $where .= " AND EXISTS (SELECT 1 FROM report_rows rq WHERE rq.batch_id=b.id AND (rq.beneficiary_name LIKE ? OR rq.beneficiary_account LIKE ?))";
+                $params[] = $search;
+                $params[] = $search;
+            } elseif (preg_match('/^bank:\s*(.*)$/i', $rawQ, $m)) {
+                $search = '%' . trim($m[1]) . '%';
+                $where .= " AND EXISTS (SELECT 1 FROM report_rows rq WHERE rq.batch_id=b.id AND (rq.beneficiary_bank LIKE ? OR rq.processing_bank LIKE ? OR rq.swift LIKE ?))";
+                $params[] = $search;
+                $params[] = $search;
+                $params[] = $search;
+            } elseif (preg_match('/^(?:tim|team):\s*(.*)$/i', $rawQ, $m)) {
+                $search = '%' . trim($m[1]) . '%';
+                $where .= " AND (
+                    b.team_name LIKE ?
+                    OR b.client_name LIKE ?
+                    OR EXISTS (SELECT 1 FROM report_rows rq WHERE rq.batch_id=b.id AND rq.team_label LIKE ?)
+                )";
+                $params[] = $search;
+                $params[] = $search;
+                $params[] = $search;
+            } elseif (preg_match('/^date:\s*(.*)$/i', $rawQ, $m)) {
+                $search = '%' . trim($m[1]) . '%';
+                $where .= " AND (
+                    b.month_key LIKE ?
+                    OR DATE_FORMAT({$effectiveDate}, '%Y-%m-%d') LIKE ?
+                    OR DATE_FORMAT({$effectiveDate}, '%d/%m/%Y') LIKE ?
+                    OR EXISTS (SELECT 1 FROM report_rows rq WHERE rq.batch_id=b.id AND rq.transaction_date LIKE ?)
+                )";
+                $params[] = $search;
+                $params[] = $search;
+                $params[] = $search;
+                $params[] = $search;
+            } elseif (preg_match('/^(?:inv|invoice):\s*(.*)$/i', $rawQ, $m)) {
+                $search = '%' . trim($m[1]) . '%';
+                $where .= " AND EXISTS (SELECT 1 FROM report_rows rq WHERE rq.batch_id=b.id AND (rq.invoice_no LIKE ? OR rq.contract_no LIKE ?))";
+                $params[] = $search;
+                $params[] = $search;
+            } else {
+                $search = '%' . $rawQ . '%';
+                $where .= " AND (
+                    b.name LIKE ?
+                    OR b.client_name LIKE ?
+                    OR b.team_name LIKE ?
+                    OR b.source_filename LIKE ?
+                    OR b.month_key LIKE ?
+                    OR DATE_FORMAT({$effectiveDate}, '%d/%m/%Y') LIKE ?
+                    OR DATE_FORMAT({$effectiveDate}, '%Y-%m-%d') LIKE ?
+                    OR EXISTS (
+                        SELECT 1
+                        FROM report_rows rq
+                        WHERE rq.batch_id=b.id
+                          AND (
+                            rq.team_label LIKE ?
+                            OR rq.bill_to LIKE ?
+                            OR rq.beneficiary_name LIKE ?
+                            OR rq.beneficiary_account LIKE ?
+                            OR rq.beneficiary_bank LIKE ?
+                            OR rq.swift LIKE ?
+                            OR rq.invoice_no LIKE ?
+                            OR rq.contract_no LIKE ?
+                            OR rq.payment_details LIKE ?
+                            OR rq.processing_bank LIKE ?
+                            OR rq.currency LIKE ?
+                          )
+                    )
+                )";
+                for ($i = 0; $i < 18; $i++) {
+                    $params[] = $search;
+                }
             }
         }
 
@@ -794,27 +843,63 @@ final class ReportController extends BaseController
             $params[] = $filters['result_status'];
         }
         if (($filters['q'] ?? '') !== '') {
-            $search = '%' . $filters['q'] . '%';
-            $where .= " AND (
-                b.name LIKE ?
-                OR b.client_name LIKE ?
-                OR b.team_name LIKE ?
-                OR b.source_filename LIKE ?
-                OR b.month_key LIKE ?
-                OR r.team_label LIKE ?
-                OR r.bill_to LIKE ?
-                OR r.beneficiary_name LIKE ?
-                OR r.beneficiary_account LIKE ?
-                OR r.beneficiary_bank LIKE ?
-                OR r.swift LIKE ?
-                OR r.invoice_no LIKE ?
-                OR r.contract_no LIKE ?
-                OR r.payment_details LIKE ?
-                OR r.processing_bank LIKE ?
-                OR r.currency LIKE ?
-            )";
-            for ($i = 0; $i < 16; $i++) {
+            $rawQ = trim((string) $filters['q']);
+            if (preg_match('/^payer:\s*(.*)$/i', $rawQ, $m)) {
+                $search = '%' . trim($m[1]) . '%';
+                $where .= " AND (r.bill_to LIKE ? OR b.client_name LIKE ?)";
                 $params[] = $search;
+                $params[] = $search;
+            } elseif (preg_match('/^(?:benef|beneficiary):\s*(.*)$/i', $rawQ, $m)) {
+                $search = '%' . trim($m[1]) . '%';
+                $where .= " AND (r.beneficiary_name LIKE ? OR r.beneficiary_account LIKE ?)";
+                $params[] = $search;
+                $params[] = $search;
+            } elseif (preg_match('/^bank:\s*(.*)$/i', $rawQ, $m)) {
+                $search = '%' . trim($m[1]) . '%';
+                $where .= " AND (r.beneficiary_bank LIKE ? OR r.processing_bank LIKE ? OR r.swift LIKE ?)";
+                $params[] = $search;
+                $params[] = $search;
+                $params[] = $search;
+            } elseif (preg_match('/^(?:tim|team):\s*(.*)$/i', $rawQ, $m)) {
+                $search = '%' . trim($m[1]) . '%';
+                $where .= " AND (b.team_name LIKE ? OR r.team_label LIKE ? OR b.client_name LIKE ?)";
+                $params[] = $search;
+                $params[] = $search;
+                $params[] = $search;
+            } elseif (preg_match('/^date:\s*(.*)$/i', $rawQ, $m)) {
+                $search = '%' . trim($m[1]) . '%';
+                $where .= " AND (b.report_date LIKE ? OR r.transaction_date LIKE ? OR b.month_key LIKE ?)";
+                $params[] = $search;
+                $params[] = $search;
+                $params[] = $search;
+            } elseif (preg_match('/^(?:inv|invoice):\s*(.*)$/i', $rawQ, $m)) {
+                $search = '%' . trim($m[1]) . '%';
+                $where .= " AND (r.invoice_no LIKE ? OR r.contract_no LIKE ?)";
+                $params[] = $search;
+                $params[] = $search;
+            } else {
+                $search = '%' . $rawQ . '%';
+                $where .= " AND (
+                    b.name LIKE ?
+                    OR b.client_name LIKE ?
+                    OR b.team_name LIKE ?
+                    OR b.source_filename LIKE ?
+                    OR b.month_key LIKE ?
+                    OR r.team_label LIKE ?
+                    OR r.bill_to LIKE ?
+                    OR r.beneficiary_name LIKE ?
+                    OR r.beneficiary_account LIKE ?
+                    OR r.beneficiary_bank LIKE ?
+                    OR r.swift LIKE ?
+                    OR r.invoice_no LIKE ?
+                    OR r.contract_no LIKE ?
+                    OR r.payment_details LIKE ?
+                    OR r.processing_bank LIKE ?
+                    OR r.currency LIKE ?
+                )";
+                for ($i = 0; $i < 16; $i++) {
+                    $params[] = $search;
+                }
             }
         }
 

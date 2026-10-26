@@ -4630,10 +4630,7 @@ $flashes = Flash::all();
                     <input type="hidden" :name="param.name" :value="param.value">
                 </template>
 
-                <div
-                    class="flex items-center px-4 py-3.5 bg-white transition-colors"
-                    :class="query.trim().length > 0 ? 'border-b border-gray-200' : ''"
-                >
+                <div class="flex items-center px-4 py-3.5 border-b border-gray-200 bg-white">
                     <i class="bi bi-search text-gray-400 text-base shrink-0" aria-hidden="true"></i>
                     <input
                         x-ref="modalSearchInput"
@@ -4657,33 +4654,79 @@ $flashes = Flash::all();
                 </div>
             </form>
 
-            <!-- Live Action Dropdown (Muncul HANYA ketika ada kata kunci pencarian) -->
-            <div x-show="query.trim().length > 0" class="p-2 select-none" style="display: none;">
-                <div
-                    class="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm cursor-pointer transition-colors bg-gray-100 text-gray-900 hover:bg-gray-200"
-                    @click="executeSearch(query)"
-                >
-                    <div class="flex items-center gap-3 min-w-0">
-                        <i class="bi bi-search text-base text-gray-400 shrink-0"></i>
-                        <div class="truncate text-sm">
-                            <span class="font-medium text-gray-900">Cari transaksi</span>
-                            <span class="text-gray-400 mx-1.5">—</span>
-                            <span class="text-gray-500 font-normal" x-text="'&quot;' + query.trim() + '&quot; di seluruh sistem'"></span>
+            <!-- Results & Search Tips (Cara Operasikan Search Bar) -->
+            <div x-ref="resultsList" class="max-h-[380px] overflow-y-auto p-2 select-none">
+                <!-- Search Action when query is present -->
+                <template x-if="query.trim().length > 0">
+                    <div
+                        class="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm cursor-pointer transition-colors"
+                        :class="selectedIndex === 0 ? 'bg-gray-100 text-gray-900' : 'text-gray-700 hover:bg-gray-50'"
+                        :data-selected="selectedIndex === 0 ? 'true' : 'false'"
+                        @mouseenter="selectedIndex = 0"
+                        @click="executeSearch(query)"
+                    >
+                        <div class="flex items-center gap-3 min-w-0">
+                            <i class="bi bi-search text-base text-gray-400 shrink-0"></i>
+                            <div class="truncate text-sm">
+                                <span class="font-medium text-gray-900">Cari transaksi</span>
+                                <span class="text-gray-400 mx-1.5">—</span>
+                                <span class="text-gray-500 font-normal" x-text="'&quot;' + query.trim() + '&quot; di seluruh sistem'"></span>
+                            </div>
+                        </div>
+                        <i x-show="selectedIndex === 0" class="bi bi-arrow-right text-gray-400 text-sm shrink-0 ms-2"></i>
+                    </div>
+                </template>
+
+                <!-- Section: Search tips (Panduan & Cara Operasikan Search Bar) -->
+                <template x-if="filteredTips.length > 0">
+                    <div class="mt-1 mb-1">
+                        <div class="px-3 pt-2 pb-1.5 text-xs font-medium text-gray-500 select-none">Search tips</div>
+                        <div class="space-y-0.5">
+                            <template x-for="(tip, idx) in filteredTips" :key="tip.id">
+                                <div
+                                    class="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm cursor-pointer transition-colors"
+                                    :class="selectedIndex === getItemIndex(tip) ? 'bg-gray-100 text-gray-900' : 'text-gray-700 hover:bg-gray-50'"
+                                    :data-selected="selectedIndex === getItemIndex(tip) ? 'true' : 'false'"
+                                    @mouseenter="selectedIndex = getItemIndex(tip)"
+                                    @click="selectItem(tip)"
+                                >
+                                    <div class="flex items-center gap-3 min-w-0">
+                                        <i class="bi text-base text-gray-400 shrink-0" :class="tip.icon"></i>
+                                        <div class="truncate text-sm">
+                                            <span class="font-medium text-gray-900 font-mono text-xs" x-text="tip.prefix"></span>
+                                            <span class="text-gray-400 mx-1.5">—</span>
+                                            <span class="text-gray-500 font-normal" x-text="tip.desc"></span>
+                                        </div>
+                                    </div>
+                                    <i x-show="selectedIndex === getItemIndex(tip)" class="bi bi-arrow-right text-gray-400 text-sm shrink-0 ms-2"></i>
+                                </div>
+                            </template>
                         </div>
                     </div>
-                    <i class="bi bi-arrow-right text-gray-400 text-sm shrink-0 ms-2"></i>
+                </template>
+
+                <!-- Empty State -->
+                <div x-show="allNavigableItems.length === 0" class="py-8 text-center text-xs text-gray-400">
+                    Tekan Enter untuk mencari data transaksi.
                 </div>
             </div>
 
-            <!-- Footer Hint (Muncul HANYA ketika ada kata kunci pencarian) -->
-            <div x-show="query.trim().length > 0" class="px-4 py-2 border-t border-gray-100 bg-white flex items-center justify-between text-xs text-gray-400 select-none" style="display: none;">
-                <span class="inline-flex items-center gap-1.5">
-                    <span class="font-mono text-gray-500 text-xs">↵</span>
-                    <span>tekan Enter untuk mencari</span>
-                </span>
+            <!-- Footer Bar (Cara Operasikan via Keyboard - Sesuai public/search_bar.jpg) -->
+            <div class="px-4 py-2.5 border-t border-gray-100 bg-white flex items-center justify-between text-xs text-gray-400 select-none">
+                <div class="flex items-center gap-4">
+                    <span class="inline-flex items-center gap-1.5">
+                        <span class="font-mono text-gray-500 text-xs">↑</span>
+                        <span class="font-mono text-gray-500 text-xs">↓</span>
+                        <span>to navigate</span>
+                    </span>
+                    <span class="inline-flex items-center gap-1.5">
+                        <span class="font-mono text-gray-500 text-xs">↵</span>
+                        <span>to select</span>
+                    </span>
+                </div>
                 <span class="inline-flex items-center gap-1.5">
                     <span class="font-mono text-gray-500 text-xs">esc</span>
-                    <span>tutup</span>
+                    <span>to close</span>
                 </span>
             </div>
         </div>

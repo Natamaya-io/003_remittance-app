@@ -127,6 +127,16 @@ function initRemitDialogs() {
     extraParams: {},
     selectedIndex: 0,
 
+    // Panduan & Cara Operasikan Pencarian (Search Tips / Syntax Filters)
+    searchTips: [
+      { id: 'tip-payer', icon: 'bi-wallet2', prefix: 'payer:', desc: 'Filter berdasarkan nama payer / pengirim', sample: 'payer: ' },
+      { id: 'tip-benef', icon: 'bi-person-check', prefix: 'benef:', desc: 'Filter berdasarkan nama penerima (beneficiary)', sample: 'benef: ' },
+      { id: 'tip-bank', icon: 'bi-bank', prefix: 'bank:', desc: 'Filter bank tujuan atau nomor rekening', sample: 'bank: ' },
+      { id: 'tip-tim', icon: 'bi-people', prefix: 'tim:', desc: 'Filter transaksi berdasarkan tim operasional', sample: 'tim: ' },
+      { id: 'tip-date', icon: 'bi-calendar-date', prefix: 'date:', desc: 'Filter tanggal transaksi (YYYY-MM-DD)', sample: 'date: ' },
+      { id: 'tip-inv', icon: 'bi-receipt', prefix: 'inv:', desc: 'Filter nomor invoice atau kontrak', sample: 'inv: ' }
+    ],
+
     get extraParamsList() {
       if (!this.extraParams || typeof this.extraParams !== 'object') return [];
       if (Array.isArray(this.extraParams)) return this.extraParams;
@@ -134,6 +144,15 @@ function initRemitDialogs() {
         name: String(name),
         value: value === null || value === undefined ? '' : String(value)
       }));
+    },
+
+    get filteredTips() {
+      const q = this.query.trim().toLowerCase();
+      if (!q) return this.searchTips;
+      return this.searchTips.filter(tip => 
+        tip.prefix.toLowerCase().includes(q) || 
+        tip.desc.toLowerCase().includes(q)
+      );
     },
 
     get allNavigableItems() {
@@ -148,23 +167,66 @@ function initRemitDialogs() {
           subtitle: `"${q}" di seluruh sistem`
         });
       }
+      this.filteredTips.forEach(tip => list.push(tip));
       return list;
     },
 
+    getItemIndex(targetItem) {
+      return this.allNavigableItems.findIndex(i => i.id === targetItem.id);
+    },
+
     handleKeydown(e) {
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      const items = this.allNavigableItems;
+      if (e.key === 'ArrowDown') {
         e.preventDefault();
+        if (items.length > 0) {
+          this.selectedIndex = (this.selectedIndex + 1) % items.length;
+          this.scrollActiveIntoView();
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (items.length > 0) {
+          this.selectedIndex = (this.selectedIndex - 1 + items.length) % items.length;
+          this.scrollActiveIntoView();
+        }
       } else if (e.key === 'Enter') {
         e.preventDefault();
-        this.executeSearch(this.query);
+        if (items.length > 0 && items[this.selectedIndex]) {
+          this.selectItem(items[this.selectedIndex]);
+        } else if (this.query.trim()) {
+          this.executeSearch(this.query);
+        }
       } else if (e.key === 'Escape') {
         e.preventDefault();
         this.closeModal();
       }
     },
 
+    scrollActiveIntoView() {
+      this.$nextTick(() => {
+        const container = this.$refs.resultsList;
+        const activeEl = container?.querySelector('[data-selected="true"]');
+        if (activeEl && container) {
+          const containerRect = container.getBoundingClientRect();
+          const elRect = activeEl.getBoundingClientRect();
+          if (elRect.bottom > containerRect.bottom) {
+            activeEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+          } else if (elRect.top < containerRect.top) {
+            activeEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+          }
+        }
+      });
+    },
+
     selectItem(item) {
-      this.executeSearch(this.query);
+      if (!item) return;
+      if (item.isSearchAction) {
+        this.executeSearch(this.query);
+      } else if (item.sample) {
+        this.query = item.sample;
+        this.selectedIndex = 0;
+        this.$refs.modalSearchInput?.focus();
+      }
     },
 
     executeSearch(q) {
