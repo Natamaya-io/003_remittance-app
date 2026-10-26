@@ -19,7 +19,7 @@
    - **Tipografi:** Wajib menggunakan **DM Sans** (Headings, Tombol/CTA) dan **Roboto** (Body text, data tabel, metadata).
    - **Diet Bold:** Dilarang menggunakan font-weight ultra-tebal (800/900). Maksimum penekanan adalah `font-weight: 600` (`font-semibold` / `.font-bold`).
    - **Bebas Gradien & Skema Warna Solid Murni (Solid Color Discipline):** Seluruh elemen UI utama (body canvas, hero, card, panel, alert, dropdown, datepicker, tombol, badge, hingga grafik canvas) **MUTLAK WAJIB** menggunakan warna solid murni. Dilarang keras menggunakan `linear-gradient`, `radial-gradient`, `conic-gradient`, atau efek kaca `backdrop-filter: blur(...)` / opasitas tembus pandang semu (lihat Bagian 11 untuk aturan terkunci lengkap).
-   - **Bebas Transform (Zero-Transform State):** State `:hover`, `:active`, dan `:focus` DILARANG menggunakan efek `transform: translateY(...)`, `scale(...)`, atau pergeseran posisi. Animasi transisi hanya boleh memanipulasi `opacity`, `background-color`, `border-color`, dan `box-shadow`.
+   - **Bebas Transform (Zero-Transform State):** State `:hover`, `:active`, dan `:focus` DILARANG menggunakan efek `transform: translateY(...)`, `scale(...)`, atau pergeseran posisi liar, KECUALI tactile micro-press `translateY(1px)` khusus pada tombol utama (`.btn-primary`) dan tombol aksi resmi sesuai spesifikasi fisika AI global (lihat Bagian 13 untuk aturan terkunci lengkap). Animasi transisi hanya boleh memanipulasi `opacity`, `background-color`, `border-color`, dan `box-shadow`.
    - **Peniadaan Deskripsi Statis & Tooltip Mutlak (Universal Description-to-Tooltip Discipline):** Seluruh deskripsi, keterangan panduan, catatan bantuan, dan subjudul fungsional pada panel, header, card, tabel, maupun formulir **DILARANG KERAS** dirender sebagai teks atau paragraf statis (`<p>`, `<small>`, `.description`). Seluruh deskripsi **MUTLAK WAJIB** dikonversi menjadi tooltip on-demand berbasis hover pada ikon info `(i)` (lihat Bagian 12 untuk aturan terkunci lengkap).
 
 ---
@@ -699,3 +699,89 @@ Seluruh desain wajib berakar murni pada standar warna solid berikut:
   2. **Eksekusi Konversi Mutlak:** Segera pindahkan isi teks deskripsi tersebut ke dalam tooltip via `render_heading_with_info()` atau `render_tooltip()`.
   3. **Musnahkan Tag Statisnya:** Hapus elemen `<p>` atau subtitle statis tersebut tanpa sisa.
 - Kegagalan mematuhi aturan ini (membiarkan teks deskripsi statis tampil di layar) diklasifikasikan sebagai pelanggaran desain fatal (*severe visual slop violation*).
+
+---
+
+## 13. Aturan Terkunci: Sistem Tombol Utama Global (The Initiation Button Law - .btn-primary)
+
+> **STATUS ATURAN: TERKUNCI MUTLAK & HUKUM WAJIB (STRICT COMPLIANCE & NON-NEGOTIABLE)**  
+> Seluruh tombol aksi utama (Call to Action / Tombol Inisiasi) di dalam repositori **`remittance.raxbyte.com`** **MUTLAK DIKUNCI** menggunakan spesifikasi fisika dan geometri **The Initiation Button (`.btn-primary`)** dari pedoman arsitektur AI global (Asphalt Gojek Style). Dilarang merombak geometri, dimensi, maupun fisika tombol ini.
+
+### 13.1. Spesifikasi Anatomi & Geometri Terkunci
+1. **Dimensi & Sudut:**
+   - Tinggi: Tepat `40px` (`height: 40px;`).
+   - Padding: Horizontal `16px` (`padding: 0 16px;`).
+   - Radius: Sudut membulat presisi `9px` (`border-radius: 9px;`).
+   - Varian Ringkas (`.btn-primary-sm`, `.btn-sm.btn-primary`): Tinggi `32px`, padding `0 12px`, radius `7px`, font `13px`.
+2. **Tipografi & Teks:**
+   - Font Family: `'Inter', 'DM Sans', system-ui, -apple-system, sans-serif`.
+   - Font Weight: `500` (Medium).
+   - Font Size / Line Height: `15px/1`.
+   - Text Shadow: `0 1px 1px rgba(0, 0, 0, 0.2)` (`var(--_text-shadow)`).
+3. **Elevasi & Bayangan Inset:**
+   - Highlight Atas: `inset 0 1px 0 rgba(255, 255, 255, 0.32)`.
+   - Tepi Bawah: `inset 0 -1px 0 rgba(0, 0, 0, 0.16)`.
+   - Bayangan Luar: `0 1px 2px rgba(0, 0, 0, 0.55)`.
+4. **Fisika Interaksi (Tactile Feedback):**
+   - **Hover State:** `filter: brightness(1.1);` (transisi halus `0.15s ease`).
+   - **Active State (Tactile Micro-press):** `transform: translateY(1px) !important; filter: brightness(0.95); box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);`.
+   - **Focus State:** `outline: 2px solid var(--_ring); outline-offset: 2px;`.
+
+### 13.2. Spesifikasi Kode Resmi CSS
+```css
+.btn-primary,
+.dashboard-action-primary {
+  --_from: var(--btn-primary-from, color-mix(in srgb, var(--btn-primary-base, #1f6bf0) 75%, #ffffff));
+  --_to: var(--btn-primary-to, var(--btn-primary-base, #1f6bf0));
+  --_border: var(--btn-primary-border, color-mix(in srgb, var(--btn-primary-base, #1f6bf0) 80%, #000000));
+  --_ring: var(--btn-primary-ring, color-mix(in srgb, var(--btn-primary-base, #1f6bf0) 40%, #ffffff));
+  --_text: var(--btn-primary-text, #ffffff);
+  --_text-shadow: var(--btn-primary-text-shadow, 0 1px 1px rgba(0, 0, 0, 0.2));
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 16px;
+  font: 500 15px/1 'Inter', 'DM Sans', system-ui, -apple-system, sans-serif;
+  color: var(--_text);
+  background: linear-gradient(180deg, var(--_from) 0%, var(--_to) 100%);
+  border: 1px solid var(--_border);
+  border-radius: 9px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.16),
+    0 1px 2px rgba(0, 0, 0, 0.55);
+  text-shadow: var(--_text-shadow);
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none;
+  transition: filter 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.btn-primary:hover,
+.dashboard-action-primary:hover {
+  filter: brightness(1.1);
+}
+
+.btn-primary:active,
+.dashboard-action-primary:active {
+  transform: translateY(1px) !important;
+  filter: brightness(0.95);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+.btn-primary:focus-visible,
+.dashboard-action-primary:focus-visible {
+  outline: 2px solid var(--_ring);
+  outline-offset: 2px;
+}
+```
+
+### 13.3. Spesifikasi Tombol Sekunder & Light (.btn-secondary / .btn-light)
+Tombol sekunder dan pendukung berbagi geometri yang selaras:
+- Tinggi `40px`, padding horizontal `16px`, radius `9px`.
+- Background solid `#ffffff`, border solid `1px solid #d1d5db`, teks `#1f2937`.
+- Hover: Background `#f9fafb`, border `#9ca3af`.
+- Active: `transform: translateY(1px) !important; background: #f3f4f6; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);`.

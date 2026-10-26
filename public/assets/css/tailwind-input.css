@@ -79,9 +79,10 @@
 
 @layer components {
   /* =========================================================
-     ANTISLOP LOCKED PRIMARY BUTTON (.btn-primary)
+     ANTISLOP LOCKED PRIMARY BUTTON (.btn-primary - GLOBAL AI SPEC)
      ========================================================= */
-  .btn-primary {
+  .btn-primary,
+  .dashboard-action-primary {
     --_from: var(--btn-primary-from, color-mix(in srgb, var(--btn-primary-base, #1f6bf0) 75%, #ffffff));
     --_to: var(--btn-primary-to, var(--btn-primary-base, #1f6bf0));
     --_border: var(--btn-primary-border, color-mix(in srgb, var(--btn-primary-base, #1f6bf0) 80%, #000000));
@@ -95,45 +96,93 @@
     gap: 8px;
     height: 40px;
     padding: 0 16px;
-    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1;
+    font: 500 15px/1 'Inter', 'DM Sans', system-ui, -apple-system, sans-serif;
     color: var(--_text);
-    background: var(--_to, #1f6bf0);
+    background: linear-gradient(180deg, var(--_from) 0%, var(--_to) 100%);
     border: 1px solid var(--_border);
     border-radius: 9px;
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      0 1px 2px rgba(0, 0, 0, 0.12);
-    text-shadow: none;
+      inset 0 1px 0 rgba(255, 255, 255, 0.32),  /* highlight atas */
+      inset 0 -1px 0 rgba(0, 0, 0, 0.16),       /* tepi bawah */
+      0 1px 2px rgba(0, 0, 0, 0.55);            /* bayangan */
+    text-shadow: var(--_text-shadow);
     cursor: pointer;
     user-select: none;
-    transition: background-color 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
     text-decoration: none;
+    transition: filter 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
   }
 
-  .btn-primary:hover {
-    filter: brightness(1.08);
+  .btn-primary:hover,
+  .dashboard-action-primary:hover {
+    filter: brightness(1.1);
   }
 
-  .btn-primary:active {
+  .btn-primary:active,
+  .dashboard-action-primary:active {
+    transform: translateY(1px) !important;
     filter: brightness(0.95);
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35);
   }
 
-  .btn-primary:focus-visible {
+  .btn-primary:focus-visible,
+  .dashboard-action-primary:focus-visible {
     outline: 2px solid var(--_ring);
     outline-offset: 2px;
   }
 
   /* Compact Primary Button for Table Rows & Dense UI */
-  .btn-primary-sm {
+  .btn-primary-sm,
+  .btn-sm.btn-primary {
     height: 32px !important;
     padding: 0 12px !important;
-    font-size: 12.5px !important;
-    border-radius: 8px !important;
+    font-size: 13px !important;
+    border-radius: 7px !important;
     gap: 6px !important;
+  }
+
+  /* Secondary & Light Buttons */
+  .btn-secondary,
+  .btn-light,
+  .dashboard-action-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 16px;
+    font: 500 15px/1 'Inter', 'DM Sans', system-ui, -apple-system, sans-serif;
+    color: #1f2937;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+    transition: filter 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease, background-color 0.15s ease;
+  }
+
+  .btn-secondary:hover,
+  .btn-light:hover,
+  .dashboard-action-secondary:hover {
+    background-color: #f9fafb;
+    border-color: #9ca3af;
+    filter: brightness(1.02);
+  }
+
+  .btn-secondary:active,
+  .btn-light:active,
+  .dashboard-action-secondary:active {
+    transform: translateY(1px) !important;
+    background-color: #f3f4f6;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-secondary:focus-visible,
+  .btn-light:focus-visible,
+  .dashboard-action-secondary:focus-visible {
+    outline: 2px solid #9ca3af;
+    outline-offset: 2px;
   }
 
   /* =========================================================

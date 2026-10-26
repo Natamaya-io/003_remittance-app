@@ -1059,95 +1059,115 @@ $flashes = Flash::all();
 
 
         /* =================================================
-           15. BUTTON PRIMARY
+           15. THE INITIATION BUTTON (.btn-primary - GLOBAL AI SPEC)
         ================================================= */
-
-        .btn,
-        .btn-primary,
-        .btn-secondary,
-        .btn-light,
-        .btn-danger,
-        .btn-outline-primary,
-        .btn-outline-danger,
-        .dashboard-action-primary,
-        .dashboard-action-secondary,
-        .dashboard-small-link {
-
-            font-family:
-                var(--font-app)
-                !important;
-
-            font-weight:
-                750
-                !important;
-
-            letter-spacing:
-                -.01em;
-        }
-
 
         .btn-primary,
         .dashboard-action-primary {
+            --_from: var(--btn-primary-from, color-mix(in srgb, var(--btn-primary-base, #1f6bf0) 75%, #ffffff));
+            --_to: var(--btn-primary-to, var(--btn-primary-base, #1f6bf0));
+            --_border: var(--btn-primary-border, color-mix(in srgb, var(--btn-primary-base, #1f6bf0) 80%, #000000));
+            --_ring: var(--btn-primary-ring, color-mix(in srgb, var(--btn-primary-base, #1f6bf0) 40%, #ffffff));
+            --_text: var(--btn-primary-text, #ffffff);
+            --_text-shadow: var(--btn-primary-text-shadow, 0 1px 1px rgba(0, 0, 0, 0.2));
 
-            color:
-                #ffffff
-                !important;
-
-            background:
-                #2563eb
-                !important;
-
-            border:
-                1px solid #1d4ed8
-                !important;
-
-            text-shadow:
-                none
-                !important;
-
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important;
+            height: 40px !important;
+            padding: 0 16px !important;
+            font: 500 15px/1 'Inter', 'DM Sans', system-ui, -apple-system, sans-serif !important;
+            color: var(--_text) !important;
+            background: linear-gradient(180deg, var(--_from) 0%, var(--_to) 100%) !important;
+            border: 1px solid var(--_border) !important;
+            border-radius: 9px !important;
             box-shadow:
-                0 2px 8px
-                rgba(37, 99, 235, 0.25)
-                !important;
+                inset 0 1px 0 rgba(255, 255, 255, 0.32),
+                inset 0 -1px 0 rgba(0, 0, 0, 0.16),
+                0 1px 2px rgba(0, 0, 0, 0.55) !important;
+            text-shadow: var(--_text-shadow) !important;
+            cursor: pointer !important;
+            user-select: none !important;
+            text-decoration: none !important;
+            transition: filter 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease !important;
+        }
+
+        .btn-primary:hover,
+        .dashboard-action-primary:hover {
+            filter: brightness(1.1) !important;
+        }
+
+        .btn-primary:active,
+        .dashboard-action-primary:active {
+            transform: translateY(1px) !important;
+            filter: brightness(0.95) !important;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35) !important;
+        }
+
+        .btn-primary:focus-visible,
+        .dashboard-action-primary:focus-visible {
+            outline: 2px solid var(--_ring) !important;
+            outline-offset: 2px !important;
+        }
+
+        /* Compact Primary Button */
+        .btn-primary-sm,
+        .btn-sm.btn-primary {
+            height: 32px !important;
+            padding: 0 12px !important;
+            font-size: 13px !important;
+            border-radius: 7px !important;
+            gap: 6px !important;
         }
 
         /* =================================================
-           16. BUTTON SECONDARY
+           16. BUTTON SECONDARY & LIGHT
         ================================================= */
 
-        .btn-secondary {
-
-            color:
-                #ffffff
-                !important;
-
-            background:
-                #4b5563
-                !important;
-
-            border:
-                1px solid #374151
-                !important;
-
-            text-shadow:
-                none
-                !important;
-        }
-
+        .btn-secondary,
         .btn-light,
         .dashboard-action-secondary {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important;
+            height: 40px !important;
+            padding: 0 16px !important;
+            font: 500 15px/1 'Inter', 'DM Sans', system-ui, -apple-system, sans-serif !important;
+            color: #1f2937 !important;
+            background: #ffffff !important;
+            border: 1px solid #d1d5db !important;
+            border-radius: 9px !important;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+            text-shadow: none !important;
+            cursor: pointer !important;
+            user-select: none !important;
+            text-decoration: none !important;
+            transition: filter 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease, background-color 0.15s ease !important;
+        }
 
-            color:
-                #5e356a
-                !important;
+        .btn-secondary:hover,
+        .btn-light:hover,
+        .dashboard-action-secondary:hover {
+            background: #f9fafb !important;
+            border-color: #9ca3af !important;
+            filter: brightness(1.02) !important;
+        }
 
-            background:
-                #ffffff
-                !important;
+        .btn-secondary:active,
+        .btn-light:active,
+        .dashboard-action-secondary:active {
+            transform: translateY(1px) !important;
+            background: #f3f4f6 !important;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+        }
 
-            border-color:
-                #dfcce2
-                !important;
+        .btn-secondary:focus-visible,
+        .btn-light:focus-visible,
+        .dashboard-action-secondary:focus-visible {
+            outline: 2px solid #9ca3af !important;
+            outline-offset: 2px !important;
         }
 
 
@@ -4109,16 +4129,6 @@ $flashes = Flash::all();
             background: #1f6bf0 !important;
         }
 
-        .btn-primary,
-        .btn.btn-primary,
-        button.btn-primary,
-        a.btn-primary {
-            background-image: none !important;
-            background: var(--btn-primary-base, #1f6bf0) !important;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08) !important;
-            text-shadow: none !important;
-        }
-
         .btn-success,
         .btn.btn-success {
             background-image: none !important;
@@ -4175,11 +4185,6 @@ $flashes = Flash::all();
         button:hover,
         a:hover,
         [role="button"]:hover,
-        .btn:active,
-        .btn-primary:active,
-        button:active,
-        a:active,
-        [role="button"]:active,
         .btn:focus,
         .btn-primary:focus,
         button:focus,
@@ -4188,6 +4193,14 @@ $flashes = Flash::all();
         .nav-item:hover,
         .card:hover {
             transform: none !important;
+        }
+
+        .btn-primary:active,
+        .dashboard-action-primary:active,
+        .btn-secondary:active,
+        .btn-light:active,
+        .dashboard-action-secondary:active {
+            transform: translateY(1px) !important;
         }
 
         /* Sidebar and Shell layout handled natively by Preline UI */
