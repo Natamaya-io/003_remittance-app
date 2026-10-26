@@ -546,7 +546,7 @@ function render_heading_with_info(string $title, string $info, array $options = 
         <?php if (trim($info) !== ''): ?>
             <?= render_tooltip(
                 $info,
-                '<span class="info-toggle-btn cursor-help" aria-label="Informasi bantuan"><i class="bi ' . e($icon) . ' text-[11px] leading-none"></i></span>',
+                '<span class="info-toggle-btn cursor-help" aria-label="Informasi bantuan"><i class="bi ' . e($icon) . ' text-xs leading-none"></i></span>',
                 ['placement' => $placement]
             ) ?>
         <?php endif; ?>
@@ -562,9 +562,9 @@ function render_heading_with_info(string $title, string $info, array $options = 
  * - Muncul hanya saat hover, langsung tertutup saat kursor keluar
  * - Bebas pemicu klik (anti-click), pointer-events: none
  * - Zero-transform (hanya memanipulasi opasitas/visibilitas)
- * - Tampilan Asphalt solid (#111827 / gray-900, teks putih, 11px font)
+ * - Tampilan Asphalt solid (#111827 / gray-900, teks putih, ukuran nyaman)
  *
- * @param string $text Teks petunjuk singkat (1-3 kata)
+ * @param string $text Teks petunjuk singkat (1-3 kata) atau kalimat info
  * @param string $slot Konten HTML elemen pemicu (tombol, tautan, badge, atau ikon)
  * @param array{
  *   placement?: 'top'|'bottom'|'left'|'right',
@@ -583,12 +583,17 @@ function render_tooltip(string $text, string $slot, array $options = []): string
         'strategy'  => 'fixed',
     ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
 
+    $isLong = mb_strlen($text) > 35;
+    $layoutClass = $isLong
+        ? 'max-w-xs text-center whitespace-normal leading-relaxed'
+        : 'whitespace-nowrap';
+
     ob_start();
     ?>
     <div class="<?= e($wrapperClass) ?>" data-hs-tooltip-options='<?= e($tooltipOptions) ?>'>
         <?= $slot ?>
         <span
-            class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-[70] py-1 px-2.5 bg-gray-900 text-white text-[11px] font-medium rounded-lg shadow-md pointer-events-none whitespace-nowrap <?= e($contentClass) ?>"
+            class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-[70] py-1.5 px-3 bg-gray-900 text-white text-xs font-medium rounded-xl shadow-lg border border-gray-800/80 pointer-events-none <?= e($layoutClass) ?> <?= e($contentClass) ?>"
             role="tooltip"
         >
             <?= e($text) ?>

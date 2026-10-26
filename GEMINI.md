@@ -505,24 +505,25 @@ Atau menggunakan `render_tooltip()` langsung untuk kasus kustom:
 1. **Bebas Transform (Zero-Transform State):**
    - State transisi kemunculan tooltip DILARANG menggunakan efek gerak `transform: translateY(...)`, `scale(...)`, atau translasi pop.
    - Transisi hanya boleh memanipulasi opasitas murni (`opacity-0` ke `opacity-100`, durasi cepat 100ms–150ms).
-2. **Warna & Tipografi:**
-   - Background: Solid `#111827` (`gray-900`) atau `#1f2937` (`gray-800`). Dilarang gradien.
-   - Teks: Solid `#ffffff`, font-size `11px` (`text-[11px]`) atau `12px` (`text-xs`), font-family **Roboto** / **DM Sans**, font-weight `500` / `600`.
-   - Sudut membulat: 6px–8px (`rounded-md` / `rounded-lg`).
-   - Padding: Ringkas `py-1 px-2.5` (`4px 10px`).
-   - Elevasi: Bayangan mikro halus `box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);`.
-   - Z-Index: Wajib berada di lapisan atas aman (`z-50` / `z-[70]`).
+2. **Warna & Tipografi Nyaman:**
+   - Background: Solid `#111827` (`gray-900`) atau `#1f2937` (`gray-800`), bebas gradien.
+   - Teks: Solid `#ffffff`, ukuran proporsional yang jelas terbaca `12.5px` (`text-xs`), font-family **Roboto** / **DM Sans**, font-weight `500` (`font-medium`).
+   - Sudut membulat: 10px (`rounded-xl`).
+   - Padding proporsional: Lega dan nyaman `py-1.5 px-3` (`6px 12px`).
+   - Elevasi: Bayangan lembut `shadow-lg` diperkuat border mikro solid `border border-gray-800/80`.
+   - Z-Index: Wajib berada di lapisan atas aman (`z-[70]`).
+   - Penataan Teks: Teks ringkas menggunakan `whitespace-nowrap`; untuk kalimat penjelasan yang lebih panjang (> 35 karakter), otomatis mengalir rapi dengan `max-w-xs text-center whitespace-normal leading-relaxed`.
 3. **Non-Blokir / Non-Interferensi:**
    - Tooltip wajib memiliki kelas `pointer-events-none` agar tidak menghalangi kursor mouse mengklik tombol atau elemen di balik atau di sekitar tooltip.
 
 ### 10.4. Standar Implementasi Preline UI & TailwindCSS
 1. **Standar Preline UI (`hs-tooltip`):**
-   Wajib menggunakan konfigurasi default `hover`. Dilarang mengonfigurasi `data-hs-tooltip-options='{"eventMode": "click"}'`.
+   Wajib menggunakan konfigurasi default `hover` dan strategi fixed. Dilarang mengonfigurasi `data-hs-tooltip-options='{"eventMode": "click"}'`.
    ```html
-   <div class="hs-tooltip inline-block">
+   <div class="hs-tooltip inline-flex" data-hs-tooltip-options='{"placement":"top","strategy":"fixed"}'>
        <button type="button" class="hs-tooltip-toggle ...">
            <i class="bi bi-question-circle"></i>
-           <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-50 py-1 px-2.5 bg-gray-900 text-white text-[11px] font-medium rounded-lg shadow-md pointer-events-none" role="tooltip">
+           <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-[70] py-1.5 px-3 bg-gray-900 text-white text-xs font-medium rounded-xl shadow-lg border border-gray-800/80 pointer-events-none whitespace-nowrap" role="tooltip">
                Petunjuk singkat hanya muncul saat di-hover
            </span>
        </button>
@@ -534,7 +535,7 @@ Atau menggunakan `render_tooltip()` langsung untuk kasus kustom:
        <button type="button" class="...">
            <i class="bi bi-download"></i>
        </button>
-       <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover:block pointer-events-none z-50 whitespace-nowrap bg-gray-900 text-white text-[11px] font-medium py-1 px-2.5 rounded-lg shadow-md transition-opacity duration-150">
+       <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover:block pointer-events-none z-50 whitespace-nowrap bg-gray-900 text-white text-xs font-medium py-1.5 px-3 rounded-xl shadow-lg border border-gray-800/80 transition-opacity duration-150">
            Download data CSV
        </div>
    </div>
