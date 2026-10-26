@@ -35,10 +35,12 @@
     }
   }
 
-  body {
+  body, body.app-body {
     font-family: var(--font-sans);
     font-size: 0.95rem;
     line-height: 1.55;
+    background: #f8fafc !important;
+    color: #111827;
   }
 
   /* Reset global: hilangkan garis bawah default browser pada seluruh tag link <a> */
@@ -1180,7 +1182,7 @@
   }
 
   /* =========================================================
-     DASHBOARD HARMONIZATION: HERO & ACTIVITY CARD
+     DASHBOARD SOLID COLOR SCHEME: HERO & ACTIVITY CARD
      ========================================================= */
   .dashboard-hero-modern {
     position: relative;
@@ -1192,16 +1194,17 @@
     gap: 22px;
     min-height: 160px;
     padding: 20px 24px;
-    color: #fff;
+    color: #f5f2f2;
     border-radius: 18px;
-    background: radial-gradient(circle at 88% 2%, rgba(99, 102, 241, 0.32), transparent 35%), linear-gradient(123deg, #061b33 0%, #10466f 53%, #3d2456 100%);
-    box-shadow: 0 16px 38px rgba(18, 29, 64, 0.18);
+    background: #2b2a2a;
+    border: 1px solid #2b2a2a;
+    box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.08);
   }
 
   .dashboard-kicker {
     display: block;
     margin-bottom: 6px;
-    color: rgba(218, 237, 255, 0.85);
+    color: #feb05d;
     font-family: var(--font-heading);
     font-size: 11px;
     font-weight: 600;
@@ -1211,7 +1214,7 @@
 
   .dashboard-hero-modern h2 {
     margin: 0;
-    color: #fff;
+    color: #ffffff;
     font-family: var(--font-heading);
     font-size: clamp(22px, 2vw, 28px);
     font-weight: 600;
@@ -1222,7 +1225,7 @@
   .dashboard-hero-modern p {
     max-width: 760px;
     margin: 8px 0 0;
-    color: rgba(230, 242, 255, 0.8);
+    color: #d1d5db;
     font-family: var(--font-sans);
     font-size: 13.5px;
     line-height: 1.5;
@@ -1254,30 +1257,35 @@
   }
 
   .dashboard-action-primary {
-    color: #fff;
+    color: #ffffff;
     background: #2563eb;
     border: 1px solid #1d4ed8;
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.28);
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
   }
 
   .dashboard-action-secondary {
-    color: #fff;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    background: #383535;
+    border: 1px solid #4f4b4b;
   }
 
-  .dashboard-action-primary:hover,
-  .dashboard-action-secondary:hover {
+  .dashboard-action-primary:hover {
     transform: none !important;
     filter: brightness(1.08);
   }
 
+  .dashboard-action-secondary:hover {
+    transform: none !important;
+    background: #4f4b4b;
+    color: #ffffff;
+  }
+
   .dashboard-activity-card {
     padding: 16px 18px;
-    background: rgba(255, 255, 255, 0.09);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: #1f1e1e;
+    border: 1px solid #383535;
     border-radius: 14px;
-    backdrop-filter: blur(14px);
+    backdrop-filter: none;
   }
 
   .dashboard-activity-head {
@@ -1289,7 +1297,7 @@
 
   .dashboard-activity-head span {
     display: block;
-    color: rgba(232, 243, 255, 0.8);
+    color: #9ca3af;
     font-family: var(--font-sans);
     font-size: 12px;
     font-weight: 500;
@@ -1298,7 +1306,7 @@
   .dashboard-activity-head strong {
     display: block;
     margin-top: 3px;
-    color: #fff;
+    color: #ffffff;
     font-family: var(--font-heading);
     font-size: 24px;
     font-weight: 700;
@@ -1308,7 +1316,7 @@
   .dashboard-activity-head small {
     display: block;
     margin-top: 2px;
-    color: rgba(231, 243, 255, 0.7);
+    color: #9ca3af;
     font-family: var(--font-sans);
     font-size: 11.5px;
   }
@@ -1316,8 +1324,9 @@
   .dashboard-activity-head b {
     display: inline-block;
     padding: 4px 8px;
-    color: #10b981;
-    background: rgba(16, 185, 129, 0.15);
+    color: #ffffff;
+    background: #059669;
+    border: 1px solid #047857;
     border-radius: 8px;
     font-family: var(--font-heading);
     font-size: 12px;
@@ -1327,7 +1336,7 @@
   .dashboard-activity-meta {
     display: flex;
     justify-content: space-between;
-    color: rgba(230, 243, 255, 0.7);
+    color: #9ca3af;
     font-family: var(--font-sans);
     font-size: 11.5px;
     margin-top: 6px;

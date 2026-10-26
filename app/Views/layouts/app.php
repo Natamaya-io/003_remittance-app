@@ -5164,7 +5164,7 @@ $flashes = Flash::all();
 </head>
 
 
-<body class="bg-gray-50/50 text-gray-800 antialiased font-sans min-h-screen">
+<body class="bg-slate-50 text-gray-800 antialiased font-sans min-h-screen">
 
     <!-- ========== SPA BOTTOM NAVIGATION & FLOATING DOCK ========== -->
     <?php

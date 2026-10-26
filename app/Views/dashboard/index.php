@@ -300,12 +300,12 @@ $kpiCards = [
 
 
 $statusColors = [
-    '#8b5cf6',
+    '#2563eb',
     '#10b981',
     '#f59e0b',
-    '#ef4444',
-    '#8b5cf6',
-    '#06b6d4',
+    '#dc2626',
+    '#7c3aed',
+    '#0891b2',
 ];
 
 
@@ -1040,7 +1040,7 @@ $fxBoardFile =
 
         <div x-data="{ search: '', status: 'all' }" class="dashboard-recent-filter-wrap">
 
-        <div class="flex flex-wrap items-center justify-between gap-2 p-3 bg-gray-50/80 border border-b-0 border-gray-200 rounded-t-xl">
+        <div class="flex flex-wrap items-center justify-between gap-2 p-3 bg-gray-50 border border-b-0 border-gray-200 rounded-t-xl">
             <div class="relative flex-1 min-w-[200px] max-w-xs">
                 <input
                     type="text"

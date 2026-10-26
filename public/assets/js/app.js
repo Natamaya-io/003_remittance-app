@@ -234,21 +234,11 @@
           : padding + (height - padding * 2) * (1 - ((value - minimum) / range)),
       }));
 
-      const gradient = context.createLinearGradient(0, 0, 0, height);
-      gradient.addColorStop(0, 'rgba(255,255,255,.28)');
-      gradient.addColorStop(1, 'rgba(255,255,255,0)');
-      context.beginPath();
-      context.moveTo(points[0].x, height - padding);
-      smoothPath(context, points);
-      context.lineTo(points[points.length - 1].x, height - padding);
-      context.closePath();
-      context.fillStyle = gradient;
-      context.fill();
-
+      // Solid line rendering: clean solid stroke without gradient fill
       context.beginPath();
       smoothPath(context, points);
-      context.strokeStyle = '#fff';
-      context.lineWidth = 1.8;
+      context.strokeStyle = '#60a5fa';
+      context.lineWidth = 2;
       context.lineCap = 'round';
       context.lineJoin = 'round';
       context.stroke();
@@ -286,30 +276,21 @@
           : padding.left + graphWidth * index / (normalizedTrend.length - 1),
         y: padding.top + graphHeight - graphHeight * row.value / maximum,
       }));
-      const gradient = context.createLinearGradient(0, padding.top, 0, height - padding.bottom);
-      gradient.addColorStop(0, 'rgba(37,99,235,.22)');
-      gradient.addColorStop(1, 'rgba(37,99,235,.01)');
-      context.beginPath();
-      context.moveTo(points[0].x, height - padding.bottom);
-      smoothPath(context, points);
-      context.lineTo(points[points.length - 1].x, height - padding.bottom);
-      context.closePath();
-      context.fillStyle = gradient;
-      context.fill();
+      // Solid line rendering: clean solid stroke and markers without gradient fill
       context.beginPath();
       smoothPath(context, points);
       context.strokeStyle = '#2563eb';
-      context.lineWidth = 2.1;
+      context.lineWidth = 2.2;
       context.lineCap = 'round';
       context.lineJoin = 'round';
       context.stroke();
       points.forEach((point) => {
         context.beginPath();
-        context.arc(point.x, point.y, 2.2, 0, Math.PI * 2);
-        context.fillStyle = '#fff';
+        context.arc(point.x, point.y, 2.5, 0, Math.PI * 2);
+        context.fillStyle = '#ffffff';
         context.fill();
         context.strokeStyle = '#2563eb';
-        context.lineWidth = 1.5;
+        context.lineWidth = 1.8;
         context.stroke();
       });
     };
@@ -416,20 +397,11 @@
         x: padding + (width - padding * 2) * index / (values.length - 1),
         y: padding + (height - padding * 2) * (1 - (value - minimum) / range),
       }));
-      const gradient = context.createLinearGradient(0, 0, 0, height);
-      gradient.addColorStop(0, fillColor);
-      gradient.addColorStop(1, 'rgba(255,255,255,0)');
-      context.beginPath();
-      context.moveTo(points[0].x, height - padding);
-      smoothPath(context, points);
-      context.lineTo(points[points.length - 1].x, height - padding);
-      context.closePath();
-      context.fillStyle = gradient;
-      context.fill();
+      // Solid rendering: Crisp line without gradient fill
       context.beginPath();
       smoothPath(context, points);
       context.strokeStyle = lineColor;
-      context.lineWidth = 1.9;
+      context.lineWidth = 2;
       context.lineCap = 'round';
       context.lineJoin = 'round';
       context.stroke();
@@ -929,52 +901,7 @@
             );
 
 
-            const gradient =
-                context.createLinearGradient(
-                    0,
-                    0,
-                    0,
-                    height
-                );
-
-            gradient.addColorStop(
-                0,
-                fillColor
-            );
-
-            gradient.addColorStop(
-                1,
-                'rgba(255,255,255,0)'
-            );
-
-
-            context.beginPath();
-
-            context.moveTo(
-                points[0].x,
-                height - padding
-            );
-
-            smoothPath(
-                context,
-                points
-            );
-
-            context.lineTo(
-                points[
-                    points.length - 1
-                ].x,
-                height - padding
-            );
-
-            context.closePath();
-
-            context.fillStyle =
-                gradient;
-
-            context.fill();
-
-
+            // Solid rendering: Crisp line without gradient fill
             context.beginPath();
 
             smoothPath(

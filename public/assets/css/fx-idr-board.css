@@ -20,18 +20,7 @@
     border: 1px solid var(--fx-border);
     border-radius: 20px;
 
-    background:
-        radial-gradient(
-            circle at 100% 0,
-            rgba(99, 102, 241, .08),
-            transparent 28%
-        ),
-        linear-gradient(
-            145deg,
-            #fff,
-            #f8fafc 72%,
-            #f5f7ff
-        );
+    background: #ffffff;
 
     box-shadow:
         0 14px 40px
@@ -192,19 +181,14 @@
 .fx-modern-sync {
     padding: 7px 12px;
 
-    border: 0;
+    border: 1px solid #1d4ed8;
 
-    background:
-        linear-gradient(
-            135deg,
-            var(--fx-blue),
-            var(--fx-blue-2)
-        );
+    background: #2563eb;
 
     color: #fff;
 
     box-shadow:
-        0 10px 22px
+        0 4px 12px
         rgba(37, 99, 235, .20);
 
     font-size: 10px;
@@ -430,25 +414,7 @@
 
 .fx-modern-card::before {
     content: "";
-
-    position: absolute;
-
-    z-index: -2;
-
-    inset:
-        0
-        0
-        auto;
-
-    height: 3px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #3b82f6,
-            #ec4899,
-            #8b5cf6
-        );
+    display: none;
 }
 
 
@@ -468,26 +434,7 @@
 
 
 .fx-modern-card-glow {
-    position: absolute;
-
-    z-index: -1;
-
-    right: -70px;
-    bottom: -85px;
-
-    width: 170px;
-    height: 170px;
-
-    border-radius: 50%;
-
-    background:
-        radial-gradient(
-            circle,
-            rgba(56, 189, 248, .16),
-            transparent 69%
-        );
-
-    pointer-events: none;
+    display: none;
 }
 
 
@@ -691,12 +638,7 @@
 
     border-radius: inherit;
 
-    background:
-        linear-gradient(
-            90deg,
-            #8b5cf6,
-            #ec4899
-        );
+    background: #2563eb;
 }
 
 
@@ -709,7 +651,7 @@
     height: 10px;
 
     border:
-        2px solid #8b5cf6;
+        2px solid #2563eb;
 
     border-radius: 50%;
 
@@ -956,13 +898,7 @@
     border-radius:
         20px !important;
 
-    background:
-        linear-gradient(
-            145deg,
-            #fff,
-            #f8fafc 72%,
-            #eef6ff
-        ) !important;
+    background: #ffffff !important;
 
     box-shadow:
         0 34px 90px
@@ -1242,12 +1178,7 @@
     border-radius:
         13px !important;
 
-    background:
-        linear-gradient(
-            180deg,
-            #fff,
-            #f8fafc
-        ) !important;
+    background: #ffffff !important;
 }
 
 
@@ -2117,13 +2048,7 @@ body.fx-modal-open {
     overflow-x: hidden !important;
     overflow-y: auto !important;
 
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff 0%,
-            #fbfdff 60%,
-            #f4f8ff 100%
-        ) !important;
+    background: #ffffff !important;
 
     border:
         1px solid
@@ -2388,12 +2313,7 @@ body.fx-modal-open {
 
     border-radius: 18px !important;
 
-    background:
-        linear-gradient(
-            180deg,
-            #ffffff,
-            #f9fbfd
-        ) !important;
+    background: #ffffff !important;
 
     box-shadow:
         inset
@@ -2458,12 +2378,7 @@ body.fx-modal-open {
 
     border-radius: 14px !important;
 
-    background:
-        linear-gradient(
-            145deg,
-            #ffffff,
-            #f8fbff
-        ) !important;
+    background: #ffffff !important;
 
     box-shadow:
         0 7px 18px
@@ -2490,12 +2405,7 @@ body.fx-modal-open {
     border-radius:
         0 4px 4px 0;
 
-    background:
-        linear-gradient(
-            180deg,
-            #8b5cf6,
-            #ec4899
-        );
+    background: #2563eb;
 }
 
 
