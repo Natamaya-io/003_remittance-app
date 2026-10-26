@@ -21,6 +21,7 @@
    - **Bebas Gradien & Skema Warna Solid Murni (Solid Color Discipline):** Seluruh elemen UI utama (body canvas, hero, card, panel, alert, dropdown, datepicker, tombol, badge, hingga grafik canvas) **MUTLAK WAJIB** menggunakan warna solid murni. Dilarang keras menggunakan `linear-gradient`, `radial-gradient`, `conic-gradient`, atau efek kaca `backdrop-filter: blur(...)` / opasitas tembus pandang semu (lihat Bagian 11 untuk aturan terkunci lengkap).
    - **Bebas Transform (Zero-Transform State):** State `:hover`, `:active`, dan `:focus` DILARANG menggunakan efek `transform: translateY(...)`, `scale(...)`, atau pergeseran posisi liar, KECUALI tactile micro-press `translateY(1px)` khusus pada tombol utama (`.btn-primary`) dan tombol aksi resmi sesuai spesifikasi fisika AI global (lihat Bagian 13 untuk aturan terkunci lengkap). Animasi transisi hanya boleh memanipulasi `opacity`, `background-color`, `border-color`, dan `box-shadow`.
    - **Peniadaan Deskripsi Statis & Tooltip Mutlak (Universal Description-to-Tooltip Discipline):** Seluruh deskripsi, keterangan panduan, catatan bantuan, dan subjudul fungsional pada panel, header, card, tabel, maupun formulir **DILARANG KERAS** dirender sebagai teks atau paragraf statis (`<p>`, `<small>`, `.description`). Seluruh deskripsi **MUTLAK WAJIB** dikonversi menjadi tooltip on-demand berbasis hover pada ikon info `(i)` (lihat Bagian 12 untuk aturan terkunci lengkap).
+   - **Peniadaan Wrapper Ikon & Monokrom Mutlak (Universal Naked Monochrome Icon Discipline):** Seluruh ikon antarmuka di seluruh aplikasi **MUTLAK DILARANG** menggunakan wrapper/wadah pembungkus dekoratif berlatar warna dan **MUTLAK HANYA DIPERBOLEHKAN BERWARNA HITAM ATAU PUTIH**. Ikon wajib berdiri telanjang berdampingan langsung dengan konten tanpa pembungkus buatan (lihat Bagian 14 untuk aturan terkunci lengkap).
 
 ---
 
@@ -785,3 +786,78 @@ Tombol sekunder dan pendukung berbagi geometri yang selaras:
 - Background solid `#ffffff`, border solid `1px solid #d1d5db`, teks `#1f2937`.
 - Hover: Background `#f9fafb`, border `#9ca3af`.
 - Active: `transform: translateY(1px) !important; background: #f3f4f6; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);`.
+
+---
+
+## 14. Aturan Terkunci: Sistem Ikon Global & Universal (Universal Naked Monochrome Icon Law)
+
+> **STATUS ATURAN: TERKUNCI MUTLAK & HUKUM WAJIB (STRICT COMPLIANCE & NON-NEGOTIABLE)**  
+> Di seluruh aplikasi **`remittance.raxbyte.com`**, seluruh ikon antarmuka (Bootstrap Icons, SVG, maupun ikon indikator fungsional) **TUNDUK PADA HUKUM IKON TELANJANG (ZERO-WRAPPER) DAN HUKUM MONOKROM MUTLAK (PURE BLACK & WHITE ONLY)**.  
+> Aturan ini bersifat universal dan berlaku di seluruh halaman tanpa kecuali (Dashboard, Laporan, Transaksi, Dokumen, SPK, Rekening Payer, Complain, Invoice, Master Data, hingga dialog modal).
+
+### 14.1. Hukum Pemusnahan Wrapper Ikon (Absolute Zero-Wrapper Law)
+1. **Larangan Wadah / Kotak / Kapsul Pembungkus Ikon:**
+   - **MUTLAK DILARANG** membungkus elemen ikon di dalam kontainer dekoratif berbentuk kotak, lingkaran, kapsul, kartu mini, atau badge dengan latar belakang warna/pastel tersendiri.
+   - Contoh elemen yang **DIHARAMKAN SECARA MUTLAK**:
+     - Wadah berlatar warna: `<span class="dashboard-kpi-icon blue"><i class="..."></i></span>` (**HARAM**).
+     - Kotak ikon aksi: `<span class="dashboard-quick-icon"><i class="..."></i></span>` (**HARAM**).
+     - Wadah lingkaran: `<div class="icon-circle bg-blue-50"><i class="..."></i></div>` (**HARAM**).
+     - Badge/wrapper seremonial: `<div class="icon-wrap">`, `<span class="avatar-icon">`, `<div class="card-icon-box">` (**HARAM**).
+2. **Ikon Berdiri Telanjang (The Naked Icon Principle):**
+   - Ikon wajib berdiri bebas (*naked icon*) secara langsung di dalam elemen hierarki utamanya (berdampingan langsung dengan teks judul, label, angka metrik, atau di dalam tombol aksi).
+   - Ikon dilarang memiliki background sendiri (`background: transparent !important;`), dilarang memiliki border sendiri, dan dilarang memiliki padding wadah buatan.
+
+### 14.2. Hukum Warna Monokrom Mutlak (Strict Black or White Law)
+1. **Hanya Dua Warna yang Diizinkan:**
+   Warna ikon di seluruh sistem **HANYA DIPERBOLEHKAN DUA WARNA MUTLAK**:
+   - **HITAM (`#111827`, `#000000`, `text-gray-900`, atau `currentColor` pada kontainer terang):**
+     - Digunakan secara universal pada seluruh kanvas terang: kartu putih, tabel, form input, modal, dropdown, dan teks standar.
+   - **PUTIH (`#ffffff` / `text-white` pada kontainer gelap):**
+     - Digunakan secara eksklusif pada kontainer berlatar gelap pekat: header/hero solid `#2B2A2A`, tombol aksi utama `.btn-primary` berlatar gelap, atau tooltip gelap `#111827`.
+2. **Pemusnahan Ikon Berwarna-Warni (Absolute Ban on Colored Icons):**
+   - **DILARANG KERAS** menggunakan warna-warni pada ikon, termasuk kelas warna Tailwind maupun inline style:
+     - `text-blue-600`, `text-blue-500`, `text-indigo-600`, `text-cyan-600` (**DIHARAMKAN**).
+     - `text-emerald-600`, `text-green-500`, `text-teal-600` (**DIHARAMKAN**).
+     - `text-rose-600`, `text-red-500`, `text-amber-500`, `text-orange-500`, `text-purple-600` (**DIHARAMKAN**).
+     - `color: #2563eb !important;`, `color: #059669 !important;`, dsb (**DIHARAMKAN**).
+   - Ikon status (seperti tanda centang sukses atau silang gagal) tidak boleh mewarnai dirinya sendiri dengan warna pelangi; status fungsional diwakili oleh badge teks/label status resmi atau badge monokrom tegas.
+
+### 14.3. Implementasi Kode & Transisi Bersih
+1. **Contoh Benar vs Salah pada Kartu Data (KPI / Summary Card):**
+   ```html
+   <!-- SALAH (Menggunakan Wrapper & Warna Biru Pastel): -->
+   <article class="dashboard-kpi-card">
+       <span class="dashboard-kpi-icon blue"><i class="bi bi-arrow-left-right"></i></span>
+       <div>...</div>
+   </article>
+
+   <!-- BENAR (Ikon Telanjang & Monokrom Murni): -->
+   <article class="dashboard-kpi-card">
+       <i class="bi bi-arrow-left-right text-gray-900 text-xl leading-none"></i>
+       <div>...</div>
+   </article>
+   ```
+
+2. **Contoh Benar vs Salah pada Tombol / Item Aksi:**
+   ```html
+   <!-- SALAH (Menggunakan Wrapper Ikon): -->
+   <a class="dashboard-quick-item blue" href="...">
+       <span class="dashboard-quick-icon"><i class="bi bi-plus-lg"></i></span>
+       ...
+   </a>
+
+   <!-- BENAR (Ikon Telanjang Monokrom Menyatu dengan Tombol): -->
+   <a class="dashboard-quick-item" href="...">
+       <i class="bi bi-plus-lg text-gray-900 text-lg leading-none"></i>
+       ...
+   </a>
+   ```
+
+3. **Ikon Bantuan / Tooltip Info `(i)`:**
+   - Ikon info `(i)` (`.info-toggle-btn`) wajib tampil telanjang dengan warna abu-abu netral/hitam (`#9ca3af` default, `#111827` saat hover) tanpa wrapper latar belakang berwarna.
+
+### 14.4. Mandat Kepatuhan Audit (Enforcement Mandate)
+- Setiap agen AI dan pengembang yang menyentuh view atau CSS antarmuka wajib:
+  1. Mengaudit seluruh tag `<i>` atau `<svg>` di berkas terkait.
+  2. Memusnahkan tag wrapper pembungkusnya (seperti `.dashboard-kpi-icon`, `.dashboard-quick-icon`, `.icon-wrap`, dsb).
+  3. Memastikan warna ikon murni hitam pada elemen terang atau putih pada elemen gelap.
