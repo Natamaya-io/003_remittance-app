@@ -298,6 +298,9 @@ Setiap halaman di dalam aplikasi remittance beroperasi di bawah prinsip **Pure N
 2. **Penataan Tombol Aksi:**
    - Tombol navigasi/aksi halaman (seperti *Kembali*, *Daftar Bulan*, *Export Semua*, *Complain Baru*, *Tambah PT*) diletakkan pada bilah aksi independen yang rata kanan (`flex items-center justify-end gap-2 mb-4` / `.page-actions`) atau dilebur langsung ke bilah pencarian/filter.
    - Tombol utama tidak boleh membungkus diri dalam card heading besar berwarna yang membuang ruang layar.
+3. **Filter Modal On-Demand (Bilah Aksi Terintegrasi):**
+   - Filter lanjutan pada halaman laporan (`/reports`) diintegrasikan ke dalam tombol aksi ramping `[Filter]` di samping `[Upload Excel]`, memicu dialog modal filter (`openFilterModal`) saat ditekan.
+   - Peniadaan total card accordion tebal dari aliran kanvas utama halaman, menjamin densitas informasi optimal dan tata letak berwibawa (*Pure Naked Architecture*).
 
 ---
 

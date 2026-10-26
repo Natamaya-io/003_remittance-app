@@ -36,7 +36,7 @@ $activeAdvancedFilters = array_filter(
 );
 ?>
 
-<div class="max-w-7xl mx-auto space-y-6">
+<div class="max-w-7xl mx-auto space-y-6" x-data="{ openFilterModal: false }">
 
     <!-- =========================================================
          PAGE ACTIONS (PURE NAKED ARCHITECTURE)
@@ -48,6 +48,22 @@ $activeAdvancedFilters = array_filter(
             'query' => (string) ($filters['q'] ?? ''),
         ]) ?>
 
+        <!-- Tombol Filter Modal (Disamping Upload Excel) -->
+        <button
+            type="button"
+            @click="openFilterModal = true"
+            class="py-2 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg border border-gray-200 bg-white text-gray-700 shadow-2xs hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors cursor-pointer select-none shrink-0"
+            aria-label="Buka Filter Lanjutan"
+        >
+            <i class="bi bi-sliders text-sm text-gray-500"></i>
+            <span>Filter</span>
+            <?php if (!empty($activeAdvancedFilters)): ?>
+                <span class="inline-flex items-center justify-center size-4 text-[10px] font-bold text-white bg-blue-600 rounded-full">
+                    <?= count($activeAdvancedFilters) ?>
+                </span>
+            <?php endif; ?>
+        </button>
+
         <?php if (can('report.manage')): ?>
             <a class="btn btn-primary" href="<?= e(url('/reports/create')) ?>">
                 <i class="bi bi-cloud-arrow-up text-sm"></i>
@@ -57,239 +73,279 @@ $activeAdvancedFilters = array_filter(
     </div>
 
     <!-- =========================================================
-         FILTER LANJUTAN (ALPINE.JS ACCORDION - W3C VALID DOM)
+         MODAL FILTER TRANSAKSI LAPORAN (ALPINE.JS MODAL)
          ========================================================= -->
-    <div x-data="{ openFilter: <?= $activeAdvancedFilters !== [] ? 'true' : 'false' ?> }" class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-xs">
+    <div
+        x-show="openFilterModal"
+        x-cloak
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/50 backdrop-blur-xs overflow-y-auto"
+        @click.self="openFilterModal = false"
+        @keydown.escape.window="openFilterModal = false"
+        x-transition:enter="transition ease-out duration-150"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-100"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-filter-title"
+        style="display: none;"
+    >
         <div
-            @click="openFilter = !openFilter"
-            role="button"
-            tabindex="0"
-            @keydown.enter.prevent="openFilter = !openFilter"
-            @keydown.space.prevent="openFilter = !openFilter"
-            :aria-expanded="openFilter.toString()"
-            class="w-full flex items-center justify-between text-start p-1.5 -m-1.5 rounded-xl hover:bg-gray-50/70 focus:outline-none focus:ring-2 focus:ring-blue-500/20 cursor-pointer select-none transition-colors"
+            class="bg-white rounded-2xl max-w-xl w-full shadow-2xl border border-gray-200 overflow-hidden text-left relative my-8"
         >
-            <div class="flex items-center gap-2.5">
-                <span class="size-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm shrink-0">
-                    <i class="bi bi-sliders"></i>
-                </span>
-                <div class="inline-flex items-center gap-1.5">
-                    <strong class="text-xs font-bold text-gray-900 block">Filter Lanjutan</strong>
-                    <?= render_tooltip(
-                        'Saring berdasarkan bulan, rentang tanggal, tim, status kirim, dan hasil.',
-                        '<span class="info-toggle-btn cursor-help" aria-label="Informasi bantuan"><i class="bi bi-info-circle text-[11px] leading-none"></i></span>',
-                        ['placement' => 'top']
-                    ) ?>
-                </div>
-            </div>
-            <i class="bi bi-chevron-down text-gray-400 text-xs transition-transform duration-200" :class="{ 'rotate-180': openFilter }"></i>
-        </div>
-
-        <form x-show="openFilter" x-transition class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-4 mt-4 border-t border-gray-100" method="get" action="<?= e(url('/reports')) ?>">
-            <div>
-                <label class="block text-xs font-semibold text-gray-700 mb-1">Bulan report</label>
-                <?= render_datepicker('month', (string) ($filters['month'] ?? ''), ['mode' => 'month', 'placeholder' => 'Semua bulan']) ?>
-            </div>
-
-            <div>
-                <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal mulai</label>
-                <?= render_datepicker('date_from', (string) ($filters['date_from'] ?? ''), ['placeholder' => 'Pilih tanggal mulai']) ?>
-            </div>
-
-            <div>
-                <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal akhir</label>
-                <?= render_datepicker('date_to', (string) ($filters['date_to'] ?? ''), ['placeholder' => 'Pilih tanggal akhir']) ?>
-            </div>
-
-            <div>
-                <label class="block text-xs font-semibold text-gray-700 mb-1">Tim</label>
-                <?php
-                $currTeam = (string) ($filters['team'] ?? '');
-                $currTeamLabel = $currTeam !== '' ? $currTeam : 'Semua tim';
-                ?>
-                <div class="custom-select-root" x-data="{ open: false, selected: '<?= e(addslashes($currTeam)) ?>', label: '<?= e(addslashes($currTeamLabel)) ?>' }" @click.outside="open = false">
-                    <input type="hidden" name="team" :value="selected">
-                    <button
-                        type="button"
-                        @click="open = !open"
-                        class="dropdown-toggle"
-                        :aria-expanded="open.toString()"
-                    >
-                        <span class="truncate" x-text="label"></span>
-                        <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
-                    </button>
-                    <div
-                        x-show="open"
-                        x-cloak
-                        x-transition:leave="transition ease-in duration-100"
-                        x-transition:leave-start="opacity-100"
-                        x-transition:leave-end="opacity-0"
-                        :class="{ 'block': open, 'hidden': !open }"
-                        class="dropdown-menu"
-                        style="display: none;"
-                    >
-                        <button
-                            type="button"
-                            class="dropdown-item justify-between"
-                            :class="{ 'active': selected === '' }"
-                            @click="selected = ''; label = 'Semua tim'; open = false"
-                        >
-                            <span>Semua tim</span>
-                            <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
-                        </button>
-                        <?php foreach ($teams as $team): ?>
-                            <?php $teamValue = trim((string) $team); if ($teamValue === '') continue; ?>
-                            <button
-                                type="button"
-                                class="dropdown-item justify-between"
-                                :class="{ 'active': selected === '<?= e(addslashes($teamValue)) ?>' }"
-                                @click="selected = '<?= e(addslashes($teamValue)) ?>'; label = '<?= e(addslashes($teamValue)) ?>'; open = false"
-                            >
-                                <span class="truncate"><?= e($teamValue) ?></span>
-                                <i x-show="selected === '<?= e(addslashes($teamValue)) ?>'" class="bi bi-check2 text-blue-600 text-sm"></i>
-                            </button>
-                        <?php endforeach; ?>
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-white">
+                <div class="flex items-center gap-2.5">
+                    <span class="size-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm shrink-0">
+                        <i class="bi bi-sliders"></i>
+                    </span>
+                    <div>
+                        <strong id="modal-filter-title" class="text-sm font-bold text-gray-900 block">Filter Transaksi Laporan</strong>
+                        <span class="text-xs text-gray-500 block">Saring data berdasarkan parameter di bawah ini.</span>
                     </div>
                 </div>
-            </div>
-
-            <div>
-                <label class="block text-xs font-semibold text-gray-700 mb-1">Status kirim</label>
-                <?php
-                $currDelivery = (string) ($filters['delivery_status'] ?? '');
-                $deliveryLabels = ['PENDING' => 'Pending', 'SENT' => 'Terkirim'];
-                $currDeliveryLabel = $deliveryLabels[$currDelivery] ?? 'Semua status';
-                ?>
-                <div class="custom-select-root" x-data="{ open: false, selected: '<?= e(addslashes($currDelivery)) ?>', label: '<?= e(addslashes($currDeliveryLabel)) ?>' }" @click.outside="open = false">
-                    <input type="hidden" name="delivery_status" :value="selected">
-                    <button
-                        type="button"
-                        @click="open = !open"
-                        class="dropdown-toggle"
-                        :aria-expanded="open.toString()"
-                    >
-                        <span class="truncate" x-text="label"></span>
-                        <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
-                    </button>
-                    <div
-                        x-show="open"
-                        x-cloak
-                        x-transition:leave="transition ease-in duration-100"
-                        x-transition:leave-start="opacity-100"
-                        x-transition:leave-end="opacity-0"
-                        :class="{ 'block': open, 'hidden': !open }"
-                        class="dropdown-menu"
-                        style="display: none;"
-                    >
-                        <button
-                            type="button"
-                            class="dropdown-item justify-between"
-                            :class="{ 'active': selected === '' }"
-                            @click="selected = ''; label = 'Semua status'; open = false"
-                        >
-                            <span>Semua status</span>
-                            <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
-                        </button>
-                        <button
-                            type="button"
-                            class="dropdown-item justify-between"
-                            :class="{ 'active': selected === 'PENDING' }"
-                            @click="selected = 'PENDING'; label = 'Pending'; open = false"
-                        >
-                            <span>Pending</span>
-                            <i x-show="selected === 'PENDING'" class="bi bi-check2 text-blue-600 text-sm"></i>
-                        </button>
-                        <button
-                            type="button"
-                            class="dropdown-item justify-between"
-                            :class="{ 'active': selected === 'SENT' }"
-                            @click="selected = 'SENT'; label = 'Terkirim'; open = false"
-                        >
-                            <span>Terkirim</span>
-                            <i x-show="selected === 'SENT'" class="bi bi-check2 text-blue-600 text-sm"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <label class="block text-xs font-semibold text-gray-700 mb-1">Hasil</label>
-                <?php
-                $currResult = (string) ($filters['result_status'] ?? '');
-                $resultLabels = ['PENDING' => 'Pending', 'SUCCESS' => 'Success', 'FAILED' => 'Failed'];
-                $currResultLabel = $resultLabels[$currResult] ?? 'Semua hasil';
-                ?>
-                <div class="custom-select-root" x-data="{ open: false, selected: '<?= e(addslashes($currResult)) ?>', label: '<?= e(addslashes($currResultLabel)) ?>' }" @click.outside="open = false">
-                    <input type="hidden" name="result_status" :value="selected">
-                    <button
-                        type="button"
-                        @click="open = !open"
-                        class="dropdown-toggle"
-                        :aria-expanded="open.toString()"
-                    >
-                        <span class="truncate" x-text="label"></span>
-                        <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
-                    </button>
-                    <div
-                        x-show="open"
-                        x-cloak
-                        x-transition:leave="transition ease-in duration-100"
-                        x-transition:leave-start="opacity-100"
-                        x-transition:leave-end="opacity-0"
-                        :class="{ 'block': open, 'hidden': !open }"
-                        class="dropdown-menu"
-                        style="display: none;"
-                    >
-                        <button
-                            type="button"
-                            class="dropdown-item justify-between"
-                            :class="{ 'active': selected === '' }"
-                            @click="selected = ''; label = 'Semua hasil'; open = false"
-                        >
-                            <span>Semua hasil</span>
-                            <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
-                        </button>
-                        <button
-                            type="button"
-                            class="dropdown-item justify-between"
-                            :class="{ 'active': selected === 'PENDING' }"
-                            @click="selected = 'PENDING'; label = 'Pending'; open = false"
-                        >
-                            <span>Pending</span>
-                            <i x-show="selected === 'PENDING'" class="bi bi-check2 text-blue-600 text-sm"></i>
-                        </button>
-                        <button
-                            type="button"
-                            class="dropdown-item justify-between"
-                            :class="{ 'active': selected === 'SUCCESS' }"
-                            @click="selected = 'SUCCESS'; label = 'Success'; open = false"
-                        >
-                            <span>Success</span>
-                            <i x-show="selected === 'SUCCESS'" class="bi bi-check2 text-blue-600 text-sm"></i>
-                        </button>
-                        <button
-                            type="button"
-                            class="dropdown-item justify-between"
-                            :class="{ 'active': selected === 'FAILED' }"
-                            @click="selected = 'FAILED'; label = 'Failed'; open = false"
-                        >
-                            <span>Failed</span>
-                            <i x-show="selected === 'FAILED'" class="bi bi-check2 text-blue-600 text-sm"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="sm:col-span-2 lg:col-span-3 flex items-center justify-end gap-2 pt-2 border-t border-gray-100">
-                <a class="py-1.5 px-3 inline-flex justify-center items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports')) ?>">
-                    Reset
-                </a>
-                <button class="btn btn-primary py-1.5 px-3.5 inline-flex justify-center items-center gap-x-1.5 text-xs font-semibold rounded-lg focus:outline-none" type="submit">
-                    <i class="bi bi-funnel"></i>
-                    Terapkan Filter
+                <button
+                    type="button"
+                    @click="openFilterModal = false"
+                    class="size-8 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 flex items-center justify-center transition-colors cursor-pointer"
+                    aria-label="Tutup modal"
+                >
+                    <i class="bi bi-x-lg text-xs"></i>
                 </button>
             </div>
-        </form>
+
+            <!-- Modal Form Body -->
+            <form method="get" action="<?= e(url('/reports')) ?>" class="m-0 p-0">
+                <?php if (($filters['q'] ?? '') !== ''): ?>
+                    <input type="hidden" name="q" value="<?= e($filters['q']) ?>">
+                <?php endif; ?>
+
+                <div class="p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Bulan report</label>
+                        <?= render_datepicker('month', (string) ($filters['month'] ?? ''), ['mode' => 'month', 'placeholder' => 'Semua bulan']) ?>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Tim</label>
+                        <?php
+                        $currTeam = (string) ($filters['team'] ?? '');
+                        $currTeamLabel = $currTeam !== '' ? $currTeam : 'Semua tim';
+                        ?>
+                        <div class="custom-select-root" x-data="{ open: false, selected: '<?= e(addslashes($currTeam)) ?>', label: '<?= e(addslashes($currTeamLabel)) ?>' }" @click.outside="open = false">
+                            <input type="hidden" name="team" :value="selected">
+                            <button
+                                type="button"
+                                @click="open = !open"
+                                class="dropdown-toggle"
+                                :aria-expanded="open.toString()"
+                            >
+                                <span class="truncate" x-text="label"></span>
+                                <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                            </button>
+                            <div
+                                x-show="open"
+                                x-cloak
+                                x-transition:leave="transition ease-in duration-100"
+                                x-transition:leave-start="opacity-100"
+                                x-transition:leave-end="opacity-0"
+                                :class="{ 'block': open, 'hidden': !open }"
+                                class="dropdown-menu"
+                                style="display: none;"
+                            >
+                                <button
+                                    type="button"
+                                    class="dropdown-item justify-between"
+                                    :class="{ 'active': selected === '' }"
+                                    @click="selected = ''; label = 'Semua tim'; open = false"
+                                >
+                                    <span>Semua tim</span>
+                                    <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                </button>
+                                <?php foreach ($teams as $team): ?>
+                                    <?php $teamValue = trim((string) $team); if ($teamValue === '') continue; ?>
+                                    <button
+                                        type="button"
+                                        class="dropdown-item justify-between"
+                                        :class="{ 'active': selected === '<?= e(addslashes($teamValue)) ?>' }"
+                                        @click="selected = '<?= e(addslashes($teamValue)) ?>'; label = '<?= e(addslashes($teamValue)) ?>'; open = false"
+                                    >
+                                        <span class="truncate"><?= e($teamValue) ?></span>
+                                        <i x-show="selected === '<?= e(addslashes($teamValue)) ?>'" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                    </button>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal mulai</label>
+                        <?= render_datepicker('date_from', (string) ($filters['date_from'] ?? ''), ['placeholder' => 'Pilih tanggal mulai']) ?>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal akhir</label>
+                        <?= render_datepicker('date_to', (string) ($filters['date_to'] ?? ''), ['placeholder' => 'Pilih tanggal akhir']) ?>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Status kirim</label>
+                        <?php
+                        $currDelivery = (string) ($filters['delivery_status'] ?? '');
+                        $deliveryLabels = ['PENDING' => 'Pending', 'SENT' => 'Terkirim'];
+                        $currDeliveryLabel = $deliveryLabels[$currDelivery] ?? 'Semua status';
+                        ?>
+                        <div class="custom-select-root" x-data="{ open: false, selected: '<?= e(addslashes($currDelivery)) ?>', label: '<?= e(addslashes($currDeliveryLabel)) ?>' }" @click.outside="open = false">
+                            <input type="hidden" name="delivery_status" :value="selected">
+                            <button
+                                type="button"
+                                @click="open = !open"
+                                class="dropdown-toggle"
+                                :aria-expanded="open.toString()"
+                            >
+                                <span class="truncate" x-text="label"></span>
+                                <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                            </button>
+                            <div
+                                x-show="open"
+                                x-cloak
+                                x-transition:leave="transition ease-in duration-100"
+                                x-transition:leave-start="opacity-100"
+                                x-transition:leave-end="opacity-0"
+                                :class="{ 'block': open, 'hidden': !open }"
+                                class="dropdown-menu"
+                                style="display: none;"
+                            >
+                                <button
+                                    type="button"
+                                    class="dropdown-item justify-between"
+                                    :class="{ 'active': selected === '' }"
+                                    @click="selected = ''; label = 'Semua status'; open = false"
+                                >
+                                    <span>Semua status</span>
+                                    <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                </button>
+                                <button
+                                    type="button"
+                                    class="dropdown-item justify-between"
+                                    :class="{ 'active': selected === 'PENDING' }"
+                                    @click="selected = 'PENDING'; label = 'Pending'; open = false"
+                                >
+                                    <span>Pending</span>
+                                    <i x-show="selected === 'PENDING'" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                </button>
+                                <button
+                                    type="button"
+                                    class="dropdown-item justify-between"
+                                    :class="{ 'active': selected === 'SENT' }"
+                                    @click="selected = 'SENT'; label = 'Terkirim'; open = false"
+                                >
+                                    <span>Terkirim</span>
+                                    <i x-show="selected === 'SENT'" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Hasil</label>
+                        <?php
+                        $currResult = (string) ($filters['result_status'] ?? '');
+                        $resultLabels = ['PENDING' => 'Pending', 'SUCCESS' => 'Success', 'FAILED' => 'Failed'];
+                        $currResultLabel = $resultLabels[$currResult] ?? 'Semua hasil';
+                        ?>
+                        <div class="custom-select-root" x-data="{ open: false, selected: '<?= e(addslashes($currResult)) ?>', label: '<?= e(addslashes($currResultLabel)) ?>' }" @click.outside="open = false">
+                            <input type="hidden" name="result_status" :value="selected">
+                            <button
+                                type="button"
+                                @click="open = !open"
+                                class="dropdown-toggle"
+                                :aria-expanded="open.toString()"
+                            >
+                                <span class="truncate" x-text="label"></span>
+                                <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                            </button>
+                            <div
+                                x-show="open"
+                                x-cloak
+                                x-transition:leave="transition ease-in duration-100"
+                                x-transition:leave-start="opacity-100"
+                                x-transition:leave-end="opacity-0"
+                                :class="{ 'block': open, 'hidden': !open }"
+                                class="dropdown-menu"
+                                style="display: none;"
+                            >
+                                <button
+                                    type="button"
+                                    class="dropdown-item justify-between"
+                                    :class="{ 'active': selected === '' }"
+                                    @click="selected = ''; label = 'Semua hasil'; open = false"
+                                >
+                                    <span>Semua hasil</span>
+                                    <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                </button>
+                                <button
+                                    type="button"
+                                    class="dropdown-item justify-between"
+                                    :class="{ 'active': selected === 'PENDING' }"
+                                    @click="selected = 'PENDING'; label = 'Pending'; open = false"
+                                >
+                                    <span>Pending</span>
+                                    <i x-show="selected === 'PENDING'" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                </button>
+                                <button
+                                    type="button"
+                                    class="dropdown-item justify-between"
+                                    :class="{ 'active': selected === 'SUCCESS' }"
+                                    @click="selected = 'SUCCESS'; label = 'Success'; open = false"
+                                >
+                                    <span>Success</span>
+                                    <i x-show="selected === 'SUCCESS'" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                </button>
+                                <button
+                                    type="button"
+                                    class="dropdown-item justify-between"
+                                    :class="{ 'active': selected === 'FAILED' }"
+                                    @click="selected = 'FAILED'; label = 'Failed'; open = false"
+                                >
+                                    <span>Failed</span>
+                                    <i x-show="selected === 'FAILED'" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="px-5 py-3.5 bg-gray-50/70 border-t border-gray-100 flex items-center justify-between gap-3">
+                    <a
+                        class="py-2 px-3.5 inline-flex justify-center items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none transition-colors"
+                        href="<?= e(url('/reports')) ?>"
+                    >
+                        Reset Filter
+                    </a>
+
+                    <div class="flex items-center gap-2">
+                        <button
+                            type="button"
+                            @click="openFilterModal = false"
+                            class="py-2 px-3.5 inline-flex justify-center items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none transition-colors cursor-pointer"
+                        >
+                            Batal
+                        </button>
+                        <button
+                            class="btn btn-primary py-2 px-4 inline-flex justify-center items-center gap-x-1.5 text-xs font-semibold rounded-lg focus:outline-none"
+                            type="submit"
+                        >
+                            <i class="bi bi-funnel"></i>
+                            Terapkan Filter
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 
     <?php if ($activeAdvancedFilters !== []): ?>
