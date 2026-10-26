@@ -117,9 +117,7 @@ Sistem dropdown mendukung **Preline UI (`hs-dropdown`)** dan **Alpine.js (`x-dat
 - **Dilarang Keras:** Menetapkan `.dropdown-menu { display: none; }` secara global di stylesheet CSS tanpa selector kelas pembuka (seperti `.open`), karena akan menolak `x-show` milik Alpine.js saat inline style dihapus.
 - **Standar Bulletproof:** Seluruh menu dropdown Alpine.js wajib menyertakan kelas Tailwind `:class="{ 'block': open, 'hidden': !open }"` dan `x-cloak` selain `x-show="open"`, agar dropdown terjamin muncul seketika saat tombol ditekan.
 
-Sistem dropdown mendukung **Preline UI (`hs-dropdown`)** dan **Alpine.js (`x-data="{ open: false }"`)**. Keduanya berbagi standar geometri dan visual yang sama.
-
-### 4.1. Anatomi 4 Lapisan Dropdown
+### 4.2. Anatomi 4 Lapisan Dropdown (Geometri & Fisika UI)
 1. **Trigger Toggle (`.dropdown-toggle`, `.hs-dropdown-toggle`):**
    - Tinggi 38px, padding horizontal 14px, radius 10px, border solid `#e5e7eb`, background `#ffffff`.
    - Focus ring: `border-color: #1f6bf0`, ring `rgba(31, 107, 240, 0.15)`.
@@ -140,7 +138,7 @@ Sistem dropdown mendukung **Preline UI (`hs-dropdown`)** dan **Alpine.js (`x-dat
    - `.dropdown-header`: Teks huruf kapital 10.5px, tracking-wider, warna `#9ca3af`.
    - `.dropdown-divider`: Garis solid 1px warna `#f3f4f6`, margin `4px -6px`.
 
-### 4.2. Contoh Implementasi Standar Preline UI
+### 4.3. Contoh Implementasi Standar Preline UI
 ```html
 <div class="hs-dropdown relative inline-flex">
     <button
@@ -178,7 +176,7 @@ Sistem dropdown mendukung **Preline UI (`hs-dropdown`)** dan **Alpine.js (`x-dat
 </div>
 ```
 
-### 4.3. Aturan Terkunci: Custom Select Dropdown (Alpine.js Filter & Selection)
+### 4.4. Aturan Terkunci: Custom Select Dropdown (Alpine.js Filter & Selection)
 
 Untuk kontrol pemilihan nilai (filter form, combobox, pemilihan entitas) yang membutuhkan tampilan custom UI bebas dari keterbatasan styling browser native:
 
@@ -246,7 +244,7 @@ Untuk kontrol pemilihan nilai (filter form, combobox, pemilihan entitas) yang me
 </div>
 ```
 
-### 4.4. Normalisasi Global Elemen `<select>` Native
+### 4.5. Normalisasi Global Elemen `<select>` Native
 
 Jika tag native `<select>` masih digunakan untuk kasus tertentu (seperti floating batch toolbar atau reactive modal with `x-model`), elemen wajib dinormalkan melalui CSS global:
 - `appearance: none; -webkit-appearance: none; -moz-appearance: none;`

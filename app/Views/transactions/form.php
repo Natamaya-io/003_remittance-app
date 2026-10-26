@@ -140,20 +140,14 @@ $action =
                         Tanggal transaksi *
                     </span>
 
-                    <input
-                        class="form-control"
-                        type="date"
-                        name="transaction_date"
-                        required
-                        value="<?= e(
-                            (string) (
-                                $transaction[
-                                    'transaction_date'
-                                ]
-                                ?? ''
-                            )
-                        ) ?>"
-                    >
+                    <?= render_datepicker(
+                        'transaction_date',
+                        (string) ($transaction['transaction_date'] ?? ''),
+                        [
+                            'placeholder' => 'Pilih tanggal transaksi',
+                            'required' => true,
+                        ]
+                    ) ?>
 
                 </label>
 

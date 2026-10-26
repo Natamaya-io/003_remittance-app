@@ -964,7 +964,7 @@ $filters = array_replace(
                                         $accountId .
                                         '/delete'
                                     ) ?>"
-                                    onsubmit="return confirm('Hapus rekening payer ini?');"
+                                    data-confirm="Hapus rekening payer ini?"
                                 >
 
                                     <?= csrf_field() ?>

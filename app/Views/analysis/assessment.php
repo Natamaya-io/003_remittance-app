@@ -3,7 +3,7 @@
 <div class="spk-section">
     <div class="spk-section-head">
         <div x-data="{ showInfo: false }"><div class="d-inline-flex align-items-center gap-2"><h3 class="m-0">Matriks C1-C6</h3><button type="button" @click="showInfo = !showInfo" class="info-toggle-btn" :class="{ 'is-active': showInfo }" :aria-expanded="showInfo.toString()" aria-label="Tampilkan info periode" title="Informasi bantuan"><i class="bi bi-info-circle text-xs leading-none"></i></button></div><div x-show="showInfo" x-cloak x-transition class="spk-muted mt-1" style="display: none;">P1: 1 September-31 Oktober 2024 · P2: 1 November-31 Desember 2024.</div></div>
-        <form method="post" action="<?=url('/analysis/assessment/reset')?>" onsubmit="return confirm('Kembalikan semua nilai ke otomatis dari Report 2024 + Actual?')"><?=csrf_field()?><button class="btn btn-light">Reset ke Otomatis</button></form>
+        <form method="post" action="<?=url('/analysis/assessment/reset')?>" data-confirm="Kembalikan semua nilai ke otomatis dari Report 2024 + Actual?"><?=csrf_field()?><button class="btn btn-light">Reset ke Otomatis</button></form>
     </div>
 
     <div class="table-responsive"><table class="spk-table"><thead><tr><th>Alternatif</th><?php foreach($criteria as $c):?><th><?=e($c['code'])?><div class="spk-muted">Benefit</div></th><?php endforeach;?></tr></thead><tbody>

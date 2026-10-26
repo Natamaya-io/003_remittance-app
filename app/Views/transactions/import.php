@@ -224,10 +224,6 @@ $manualColumns = [
 
         <div class="trx-workflow-copy">
 
-            <span class="trx-kicker">
-                BANK BRI WORKFLOW
-            </span>
-
             <h2>
                 Excel / Copy Paste
                 <span>→</span>

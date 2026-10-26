@@ -315,16 +315,13 @@ $filters = array_replace(
                     Dari
                 </span>
 
-                <input
-                    class="form-control"
-                    type="date"
-                    name="date_from"
-                    value="<?= e(
-                        (string) $filters[
-                            'date_from'
-                        ]
-                    ) ?>"
-                >
+                <?= render_datepicker(
+                    'date_from',
+                    (string) ($filters['date_from'] ?? ''),
+                    [
+                        'placeholder' => 'Pilih tanggal mulai',
+                    ]
+                ) ?>
 
             </label>
 
@@ -335,16 +332,13 @@ $filters = array_replace(
                     Sampai
                 </span>
 
-                <input
-                    class="form-control"
-                    type="date"
-                    name="date_to"
-                    value="<?= e(
-                        (string) $filters[
-                            'date_to'
-                        ]
-                    ) ?>"
-                >
+                <?= render_datepicker(
+                    'date_to',
+                    (string) ($filters['date_to'] ?? ''),
+                    [
+                        'placeholder' => 'Pilih tanggal akhir',
+                    ]
+                ) ?>
 
             </label>
 
@@ -724,7 +718,7 @@ $filters = array_replace(
                                             $transactionId .
                                             '/delete'
                                         ) ?>"
-                                        onsubmit="return confirm('Hapus transaksi ini?');"
+                                        data-confirm="Hapus transaksi ini?"
                                     >
 
                                         <?= csrf_field() ?>

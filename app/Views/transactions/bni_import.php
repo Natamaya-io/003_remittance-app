@@ -114,7 +114,7 @@ $columns = [
 
     <section class="panel-card bni-history-card">
         <div class="bni-preview-head">
-            <div><span class="eyebrow dark">RIWAYAT</span><h3>Batch BNI Terbaru</h3></div>
+            <div><h3>Batch BNI Terbaru</h3></div>
         </div>
         <div class="table-responsive">
             <table class="table modern-table">

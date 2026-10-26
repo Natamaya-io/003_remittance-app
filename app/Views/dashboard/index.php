@@ -341,11 +341,6 @@ $fxBoardFile =
         <div class="dashboard-hero-copy">
 
 
-            <span class="dashboard-kicker">
-                OPERATION CONTROL CENTER
-            </span>
-
-
             <h2>
                 Selamat datang,
                 <?= e($userName) ?>
