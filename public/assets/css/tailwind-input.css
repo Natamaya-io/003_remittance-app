@@ -1200,10 +1200,11 @@
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 280px;
-    align-items: center;
-    gap: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
     min-height: 160px;
     padding: 20px 24px;
     color: #f5f2f2;
@@ -1211,6 +1212,57 @@
     background: #2b2a2a;
     border: 1px solid #2b2a2a;
     box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.08);
+  }
+
+  @media (min-width: 640px) {
+    .dashboard-hero-modern {
+      flex-direction: row;
+      align-items: center;
+      gap: 24px;
+      padding: 24px 28px;
+      border-radius: 20px;
+    }
+  }
+
+  .dashboard-hero-copy {
+    position: relative;
+    z-index: 2;
+    max-width: 640px;
+    flex: 1 1 auto;
+  }
+
+  .dashboard-hero-visual {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    pointer-events: none;
+  }
+
+  .dashboard-hero-illustration {
+    display: block;
+    width: auto;
+    height: auto;
+    max-height: 130px;
+    max-width: 150px;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.28));
+  }
+
+  @media (min-width: 640px) {
+    .dashboard-hero-illustration {
+      max-height: 150px;
+      max-width: 170px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .dashboard-hero-illustration {
+      max-height: 165px;
+      max-width: 190px;
+    }
   }
 
   .dashboard-kicker {

@@ -1713,9 +1713,44 @@ $flashes = Flash::all();
         ================================================= */
 
         .dashboard-hero-modern {
+            display:
+                flex
+                !important;
 
-            grid-template-columns:
-                1fr
+            flex-direction:
+                column
+                !important;
+
+            justify-content:
+                space-between
+                !important;
+
+            align-items:
+                flex-start
+                !important;
+
+            gap:
+                20px
+                !important;
+
+            position:
+                relative
+                !important;
+
+            overflow:
+                hidden
+                !important;
+
+            min-height:
+                160px
+                !important;
+
+            padding:
+                24px 28px
+                !important;
+
+            border-radius:
+                20px
                 !important;
 
             color:
@@ -1734,6 +1769,128 @@ $flashes = Flash::all();
                 0 4px 16px -2px
                 rgba(0, 0, 0, 0.08)
                 !important;
+        }
+
+        @media (min-width: 640px) {
+            .dashboard-hero-modern {
+                flex-direction:
+                    row
+                    !important;
+
+                align-items:
+                    center
+                    !important;
+
+                gap:
+                    24px
+                    !important;
+            }
+        }
+
+        .dashboard-hero-copy {
+            position:
+                relative
+                !important;
+
+            z-index:
+                2
+                !important;
+
+            max-width:
+                640px
+                !important;
+
+            flex:
+                1 1 auto
+                !important;
+        }
+
+        .dashboard-hero-visual {
+            position:
+                relative
+                !important;
+
+            z-index:
+                1
+                !important;
+
+            display:
+                flex
+                !important;
+
+            align-items:
+                center
+                !important;
+
+            justify-content:
+                center
+                !important;
+
+            flex-shrink:
+                0
+                !important;
+
+            pointer-events:
+                none
+                !important;
+        }
+
+        .dashboard-hero-illustration {
+            display:
+                block
+                !important;
+
+            width:
+                auto
+                !important;
+
+            height:
+                auto
+                !important;
+
+            max-height:
+                130px
+                !important;
+
+            max-width:
+                150px
+                !important;
+
+            object-fit:
+                contain
+                !important;
+
+            filter:
+                drop-shadow(0 8px 20px rgba(0, 0, 0, 0.28))
+                !important;
+
+            transform:
+                none
+                !important;
+        }
+
+        @media (min-width: 640px) {
+            .dashboard-hero-illustration {
+                max-height:
+                    150px
+                    !important;
+
+                max-width:
+                    170px
+                    !important;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .dashboard-hero-illustration {
+                max-height:
+                    165px
+                    !important;
+
+                max-width:
+                    190px
+                    !important;
+            }
         }
 
 
