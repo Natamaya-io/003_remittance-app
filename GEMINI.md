@@ -268,7 +268,6 @@ Setiap halaman di dalam aplikasi remittance beroperasi di bawah prinsip **Pure N
 2. **Sentralisasi Kontrol Global ke Sidebar:**
    - Seluruh kontrol navigasi dan sesi dipusatkan secara terpadu di dalam sidebar aplikasi (`app/Views/partials/sidebar.php`):
      - **Navigasi Modul:** Menu vertikal dengan penanda status aktif (`aria-current="page"`, `.bg-blue-50 .text-blue-700`).
-     - **Pencarian Global:** Tombol pemicu Search Modal kustom di bawah brand header (`Cari transaksi... /`).
      - **Profil & Sesi:** Footer sidebar memuat kartu profil pengguna (tautan ke `/profile`) dan tombol logout (`POST /logout` dengan CSRF token valid).
 3. **Navigasi Mobile Responsif (Floating Mobile Drawer Toggle):**
    - Pada layar mobile (`lg:hidden`), navigasi diakses melalui tombol mengambang ramping (`fixed top-3 start-3 z-40 lg:hidden`) yang membuka overlay drawer sidebar tanpa membebani layar dengan navbar statis.

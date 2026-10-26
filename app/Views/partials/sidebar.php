@@ -98,25 +98,6 @@ $iconClass = static function (bool $condition): string {
             </button>
         </div>
 
-        <!-- Quick Search Bar in Sidebar -->
-        <div class="px-3 pt-3">
-            <button
-                type="button"
-                x-data
-                @click.stop="$dispatch('open-search-modal')"
-                onclick="event.stopPropagation(); window.openSearchModal ? window.openSearchModal() : null; return false;"
-                class="w-full flex items-center justify-between py-2 px-3 text-xs font-medium text-gray-500 bg-gray-50 hover:bg-gray-100 hover:text-gray-900 border border-gray-200 rounded-xl transition-colors shadow-xs group"
-                title="Pencarian (Tekan / atau Ctrl+K)"
-                aria-label="Buka pencarian global"
-            >
-                <span class="flex items-center gap-x-2.5">
-                    <i class="bi bi-search text-gray-400 group-hover:text-blue-600 transition-colors"></i>
-                    <span>Cari transaksi...</span>
-                </span>
-                <kbd class="py-0.5 px-1.5 text-[10px] bg-white border border-gray-200 rounded text-gray-400 font-mono shadow-xs">/</kbd>
-            </button>
-        </div>
-
         <!-- Navigation Links -->
         <nav class="p-3 w-full flex flex-col space-y-1">
             <a
