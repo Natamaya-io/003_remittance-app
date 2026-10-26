@@ -18,7 +18,7 @@
 2. **Hukum Mutlak Antislop (Gamified Asphalt UI):**
    - **Tipografi:** Wajib menggunakan **DM Sans** (Headings, Tombol/CTA) dan **Roboto** (Body text, data tabel, metadata).
    - **Diet Bold:** Dilarang menggunakan font-weight ultra-tebal (800/900). Maksimum penekanan adalah `font-weight: 600` (`font-semibold` / `.font-bold`).
-   - **Bebas Gradien & Skema Warna Solid Murni (Solid Color Discipline):** Seluruh elemen UI utama (body canvas, hero, card, panel, alert, dropdown, datepicker, tombol, badge, hingga grafik canvas) **MUTLAK WAJIB** menggunakan warna solid murni berlandaskan **4 Warna Kunci Proyek: 1. #F5EBDD (Warm Cream Base), 2. #F2765E (Vibrant Coral Accent), 3. #315B8C (Deep Brand Blue), 4. #413333 (Deep Asphalt Brown)**. Dilarang keras menggunakan `linear-gradient`, `radial-gradient`, `conic-gradient`, atau efek kaca `backdrop-filter: blur(...)` / opasitas tembus pandang semu (lihat Bagian 11 untuk aturan terkunci lengkap).
+   - **Bebas Gradien & Skema Warna Solid Murni (Solid Color Discipline & Absolute Zero-Alien Color Law):** Seluruh elemen UI utama (body canvas, hero, card, panel, alert, dropdown, datepicker, tombol, badge, hingga grafik canvas) **MUTLAK WAJIB** menggunakan warna solid murni berlandaskan **4 Warna Kunci Proyek: 1. #F5EBDD (Warm Cream Base), 2. #F2765E (Vibrant Coral Accent), 3. #315B8C (Deep Brand Blue), 4. #413333 (Deep Asphalt Brown)**. **DILARANG KERAS MENGGUNAKAN WARNA LAIN DI LUAR SKEMA WARNA YANG SUDAH DITENTUKAN INI SECARA MUTLAK**. Dilarang keras menggunakan `linear-gradient`, `radial-gradient`, `conic-gradient`, atau efek kaca `backdrop-filter: blur(...)` / opasitas tembus pandang semu (lihat Bagian 11 untuk aturan terkunci lengkap).
    - **Bebas Transform (Zero-Transform State):** State `:hover`, `:active`, dan `:focus` DILARANG menggunakan efek `transform: translateY(...)`, `scale(...)`, atau pergeseran posisi liar, KECUALI tactile micro-press `translateY(1px)` khusus pada tombol utama (`.btn-primary`) dan tombol aksi resmi sesuai spesifikasi fisika AI global (lihat Bagian 13 untuk aturan terkunci lengkap). Animasi transisi hanya boleh memanipulasi `opacity`, `background-color`, `border-color`, dan `box-shadow`.
    - **Peniadaan Deskripsi Statis & Tooltip Mutlak (Universal Description-to-Tooltip Discipline):** Seluruh deskripsi, keterangan panduan, catatan bantuan, dan subjudul fungsional pada panel, header, card, tabel, maupun formulir **DILARANG KERAS** dirender sebagai teks atau paragraf statis (`<p>`, `<small>`, `.description`). Seluruh deskripsi **MUTLAK WAJIB** dikonversi menjadi tooltip on-demand berbasis hover pada ikon info `(i)` (lihat Bagian 12 untuk aturan terkunci lengkap).
    - **Peniadaan Wrapper Ikon & Monokrom Mutlak (Universal Naked Monochrome Icon Discipline):** Seluruh ikon antarmuka di seluruh aplikasi **MUTLAK DILARANG** menggunakan wrapper/wadah pembungkus dekoratif berlatar warna dan **MUTLAK HANYA DIPERBOLEHKAN BERWARNA HITAM ATAU PUTIH**. Ikon wajib berdiri telanjang berdampingan langsung dengan konten tanpa pembungkus buatan (lihat Bagian 14 untuk aturan terkunci lengkap).
@@ -583,7 +583,7 @@ Atau menggunakan `render_tooltip()` langsung untuk kasus kustom:
 ## 11. Aturan Terkunci: Hukum Mutlak Skema Warna Solid Global (Global Solid Color Scheme Law)
 
 > **STATUS ATURAN: TERKUNCI MUTLAK (LOCKED & NON-NEGOTIABLE)**  
-> Seluruh elemen antarmuka, kanvas tata letak, latar belakang halaman (`body`), header, hero, panel, kartu data, tombol aksi, badge, tabel, dan grafik di dalam repositori **`remittance.raxbyte.com`** **MUTLAK WAJIB MENGGUNAKAN SKEMA WARNA SOLID (100% OPAQUE & SOLID COLOR DISCIPLINE)**. Aturan ini dikunci untuk memastikan kewibawaan visual Gamified Asphalt, kejelasan kontras data finansial, dan ketiadaan efek lembek/slop.
+> Seluruh elemen antarmuka, kanvas tata letak, latar belakang halaman (`body`), header, hero, panel, kartu data, tombol aksi, badge, tabel, dan grafik di dalam repositori **`remittance.raxbyte.com`** **MUTLAK WAJIB MENGGUNAKAN SKEMA WARNA SOLID (100% OPAQUE & SOLID COLOR DISCIPLINE)**. Aturan ini dikunci untuk memastikan kewibawaan visual Gamified Asphalt, kejelasan kontras data finansial, dan ketiadaan efek lembek/slop. **DILARANG KERAS MENGGUNAKAN WARNA LAIN SELAIN SKEMA RESMI INI SECARA MUTLAK**.
 
 ### 11.1. Pemusnahan Gradien Total (Absolute Zero-Gradient Law)
 1. **Larangan Gradien CSS & Tailwind:**
@@ -640,6 +640,39 @@ Seluruh desain antarmuka, tata letak, komponen interaktif, panel, kartu data, da
    - Ikon antarmuka tetap **MUTLAK HANYA BERWARNA HITAM (`#111827`) ATAU PUTIH (`#FFFFFF`)**.
    - Di atas kanvas `#F5EBDD` atau kartu putih: Ikon wajib hitam (`text-gray-900` / `#111827`).
    - Di atas tombol `#315B8C` atau kontainer gelap `#413333`: Ikon wajib putih (`text-white` / `#FFFFFF`).
+
+### 11.5. Hukum Mutlak Larangan Warna Asing & Sterilisasi Palet (Absolute Zero-Alien Color Law)
+
+> **STATUS HUKUM: TERKUNCI MUTLAK & STRICT COMPLIANCE (NON-NEGOTIABLE)**  
+> **DILARANG KERAS MENGGUNAKAN WARNA LAIN SELAIN SKEMA WARNA YANG SUDAH DITENTUKAN SECARA MUTLAK DI DALAM DOKUMEN INI.**  
+> Seluruh agen AI (Antigravity/Gemini) dan pengembang perangkat lunak **MUTLAK DILARANG** mengarang, menyusupkan, atau menerapkan kode warna heksadesimal, kelas Tailwind warna acak, atau inline style warna apa pun di luar katalog resmi di bawah ini. Penyimpangan sekecil apa pun dianggap sebagai kegagalan sistematis yang fatal (*fatal compliance failure*).
+
+1. **Katalog Warna Sah & Tertutup (The Absolute Whitelist):**
+   Satu-satunya warna yang diizinkan eksis dan dirender di seluruh antarmuka aplikasi `remittance.raxbyte.com` adalah:
+   - **4 Warna Master Proyek:**
+     - **`#F5EBDD`** (Warm Alabaster / Cream Base)
+     - **`#F2765E`** (Vibrant Coral / Warm Energy Accent)
+     - **`#315B8C`** (Deep Classic Blue / Primary Brand)
+     - **`#413333`** (Deep Asphalt Brown / Dark Espresso Neutral)
+   - **Netral Fungsional Kanvas & Teks:**
+     - **`#FFFFFF`** (Putih solid untuk latar card/panel terang, teks tombol aksi, dan ikon putih).
+     - **`#111827` / `#000000`** (Dark Ink / Hitam solid untuk teks body typography, judul gelap, dan ikon hitam monokrom).
+     - **`#E5E7EB` / `#E0D3C1` / `#D1D5DB`** (Border solid netral untuk pemisah tabel dan pembatas panel terang).
+   - **Indikator Status & Alert Semantik Terisolasi (Hanya untuk Alert & Badge Status):**
+     - Sukses: `#10b981` / `#059669` / `#ecfdf5`
+     - Bahaya / Error: `#dc2626` / `#991b1b` / `#fef2f2`
+     - Peringatan: `#f59e0b` / `#92400e` / `#fffbeb`
+     - Info: `#315B8C` / `#1e40af` / `#eff6ff`
+
+2. **Daftar Hitam Warna Asing Terlarang (The Absolute Blacklist):**
+   - **DILARANG KERAS** menggunakan warna ungu / violet / indigo asing (seperti `#8b5cf6`, `#7c3aed`, `#6366f1`, `#7440da`, `#a247dd`, `#1e152a`, dll.) pada komponen baru atau refaktor.
+   - **DILARANG KERAS** menggunakan warna pink / fuchsia / magenta (seperti `#ec4899`, `#d946ef`, `#eb4c79`, `#d64069`, `#ffe3ed`).
+   - **DILARANG KERAS** menggunakan warna cyan / teal neon (seperti `#06b6d4`, `#14b8a6`, `#31bad5`, `#2fca8b`).
+   - **DILARANG KERAS** menggunakan abu-abu sintetis generik yang bertentangan dengan kehangatan palet asphalt (seperti `#2B2A2A`, `#1F1E1E`, `#f8fafc`). Seluruh permukaan gelap wajib menggunakan solid `#413333`.
+
+3. **Protokol Penolakan & Pembersihan Otomatis:**
+   - Setiap berkas CSS baru, penambahan utility class Tailwind, style canvas JavaScript, maupun template PHP view wajib divalidasi silang terhadap 4 warna master.
+   - Jika ditemukan warna asing di luar palet resmi, kode tersebut **MUTLAK DITOLAK** dan wajib segera disterilisasi kembali ke 4 warna master proyek.
 
 ---
 
