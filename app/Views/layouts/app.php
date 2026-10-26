@@ -1521,6 +1521,16 @@ $flashes = Flash::all();
         }
 
 
+        table,
+        .table,
+        .modern-table,
+        .report-zebra-table,
+        .spk-table {
+            font-family:
+                var(--font-app)
+                !important;
+        }
+
         .table th,
         .table td {
 
@@ -1529,6 +1539,25 @@ $flashes = Flash::all();
                 !important;
         }
 
+        table th,
+        .table th,
+        table thead th,
+        .table thead th,
+        .modern-table thead th,
+        .report-zebra-table thead th,
+        .spk-table thead th {
+
+            font-family:
+                var(--font-heading)
+                !important;
+
+            font-weight:
+                600
+                !important;
+
+            letter-spacing:
+                -0.01em;
+        }
 
         .table thead th {
 
@@ -1575,6 +1604,18 @@ $flashes = Flash::all();
                 !important;
         }
 
+        table td,
+        .table td,
+        table tbody td,
+        .table tbody td,
+        .modern-table tbody td,
+        .report-zebra-table tbody td,
+        .spk-table tbody td {
+
+            font-family:
+                var(--font-app)
+                !important;
+        }
 
         .table tbody td {
 
@@ -1584,6 +1625,26 @@ $flashes = Flash::all();
 
             font-weight:
                 500
+                !important;
+        }
+
+        table .font-mono,
+        .table .font-mono {
+            font-family:
+                var(--font-app)
+                !important;
+            font-variant-numeric:
+                tabular-nums;
+        }
+
+        table strong,
+        table b,
+        table .font-bold,
+        .table strong,
+        .table b,
+        .table .font-bold {
+            font-weight:
+                600
                 !important;
         }
 

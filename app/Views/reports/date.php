@@ -358,12 +358,12 @@ $returnPath = '/reports/date/' . $date;
                 <table class="min-w-full text-start">
                     <thead class="bg-gray-50/75 border-b border-gray-200">
                         <tr>
-                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold text-gray-600 uppercase tracking-wider">Batch &amp; Tim</th>
-                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold text-gray-600 uppercase tracking-wider">Berkas &amp; Nama Report</th>
-                            <th scope="col" class="py-3.5 px-5 text-end text-xs font-semibold text-gray-600 uppercase tracking-wider">Total Baris</th>
-                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold text-gray-600 uppercase tracking-wider" style="min-width: 170px;">Status Kirim</th>
-                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold text-gray-600 uppercase tracking-wider">Hasil Eksekusi</th>
-                            <th scope="col" class="py-3.5 px-5 text-end text-xs font-semibold text-gray-600 uppercase tracking-wider">Aksi</th>
+                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Batch &amp; Tim</th>
+                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Berkas &amp; Nama Report</th>
+                            <th scope="col" class="py-3.5 px-5 text-end text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Total Baris</th>
+                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider" style="min-width: 170px;">Status Kirim</th>
+                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Hasil Eksekusi</th>
+                            <th scope="col" class="py-3.5 px-5 text-end text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -380,17 +380,17 @@ $returnPath = '/reports/date/' . $date;
                             <tr class="even:bg-gray-50/50 [data-no-hover]">
                                 <td class="py-4 px-5 whitespace-nowrap">
                                     <div class="space-y-1">
-                                        <span class="inline-flex items-center py-0.5 px-2 rounded-full text-[11px] font-mono font-semibold bg-gray-100 text-gray-700">
+                                        <span class="inline-flex items-center py-0.5 px-2 rounded-full text-[11px] tabular-nums font-semibold bg-gray-100 text-gray-700">
                                             Batch #<?= (int) $batch['id'] ?>
                                         </span>
-                                        <strong class="text-xs font-bold text-gray-900 block">
+                                        <strong class="text-xs font-semibold text-gray-900 block">
                                             TEAM: <?= e(strtoupper((string) ($batch['effective_team'] ?? 'Tanpa Tim'))) ?>
                                         </strong>
                                     </div>
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap">
                                     <div>
-                                        <strong class="text-sm font-bold text-gray-900 block truncate max-w-xs" title="<?= e($batch['source_filename']) ?>">
+                                        <strong class="text-sm font-semibold text-gray-900 block truncate max-w-xs" title="<?= e($batch['source_filename']) ?>">
                                             <i class="bi bi-file-earmark-excel text-emerald-600 me-1"></i>
                                             <?= e($batch['source_filename']) ?>
                                         </strong>
@@ -399,14 +399,14 @@ $returnPath = '/reports/date/' . $date;
                                         </span>
                                     </div>
                                 </td>
-                                <td class="py-4 px-5 whitespace-nowrap text-end font-mono font-bold text-gray-900">
+                                <td class="py-4 px-5 whitespace-nowrap text-end tabular-nums font-semibold text-gray-900">
                                     <?= number_format($total, 0, ',', '.') ?>
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap">
                                     <div class="space-y-1.5">
                                         <div class="flex items-center justify-between text-xs">
                                             <span class="font-semibold text-emerald-700"><?= number_format($sent, 0, ',', '.') ?> Kirim</span>
-                                            <span class="text-gray-500 font-mono"><?= number_format($pending, 0, ',', '.') ?> Pnd</span>
+                                            <span class="text-gray-500 tabular-nums"><?= number_format($pending, 0, ',', '.') ?> Pnd</span>
                                         </div>
                                         <div class="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden flex">
                                             <div class="h-full bg-blue-600 rounded-full" style="width: <?= $progress ?>%;"></div>

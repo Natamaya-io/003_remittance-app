@@ -172,7 +172,7 @@ $print = (bool) ($print ?? false);
         <div class="overflow-x-auto">
             <table class="min-w-full text-left text-xs">
                 <thead class="bg-gray-50/75">
-                    <tr class="text-gray-600 font-semibold text-[11px] uppercase tracking-wider">
+                    <tr class="text-gray-600 font-semibold font-heading text-[11px] uppercase tracking-wider">
                         <th class="py-3.5 px-3">TEAM</th>
                         <th class="py-3.5 px-3">No. Invoice</th>
                         <th class="py-3.5 px-3">Date</th>
@@ -203,25 +203,25 @@ $print = (bool) ($print ?? false);
                 <?php foreach ($rows as $row): ?>
                     <tr class="even:bg-gray-50/80 [data-no-hover]">
                         <td class="py-3 px-3"><strong><?= e($row['team_no']) ?></strong></td>
-                        <td class="py-3 px-3 font-mono"><?= e($row['invoice_no'] ?? '') ?></td>
+                        <td class="py-3 px-3 tabular-nums"><?= e($row['invoice_no'] ?? '') ?></td>
                         <td class="py-3 px-3 whitespace-nowrap"><?= e(format_date($row['transaction_date'])) ?></td>
                         <td class="py-3 px-3 font-medium text-gray-900 whitespace-nowrap"><?= e($row['company_name']) ?></td>
                         <td class="py-3 px-3 font-medium text-gray-900 whitespace-nowrap"><?= e($row['beneficiary_name'] ?? '') ?></td>
-                        <td class="py-3 px-3 font-mono text-gray-600 whitespace-nowrap"><?= e($row['beneficiary_account'] ?? '') ?></td>
+                        <td class="py-3 px-3 tabular-nums text-gray-600 whitespace-nowrap"><?= e($row['beneficiary_account'] ?? '') ?></td>
                         <td class="py-3 px-3 whitespace-nowrap"><?= e($row['beneficiary_bank'] ?? '') ?></td>
                         <td class="py-3 px-3 text-gray-500 max-w-[180px] truncate"><?= e($row['beneficiary_bank_location'] ?? '') ?></td>
-                        <td class="py-3 px-3 text-right whitespace-nowrap font-bold text-gray-900 font-mono"><?= e(number_format((float) $row['amount'], 2, ',', '.')) ?></td>
+                        <td class="py-3 px-3 text-right whitespace-nowrap font-semibold text-gray-900 tabular-nums"><?= e(number_format((float) $row['amount'], 2, ',', '.')) ?></td>
                         <td class="py-3 px-3 whitespace-nowrap"><?= e($row['beneficiary_country'] ?? '') ?></td>
                         <td class="py-3 px-3 whitespace-nowrap"><?= e($row['beneficiary_city'] ?? '') ?></td>
                         <td class="py-3 px-3 text-gray-500 max-w-[200px] truncate"><?= e($row['beneficiary_address'] ?? '') ?></td>
-                        <td class="py-3 px-3"><span class="inline-flex items-center py-0.5 px-2 rounded-full bg-gray-100 text-gray-700 font-mono text-[11px]"><?= e($row['swift'] ?? '') ?></span></td>
+                        <td class="py-3 px-3"><span class="inline-flex items-center py-0.5 px-2 rounded-full bg-gray-100 text-gray-700 tabular-nums text-[11px]"><?= e($row['swift'] ?? '') ?></span></td>
                         <td class="py-3 px-3 text-gray-500 max-w-[180px] truncate"><?= e($row['payment_details'] ?? '') ?></td>
-                        <td class="py-3 px-3 font-mono font-bold text-gray-800"><?= e($row['currency'] ?? '') ?></td>
+                        <td class="py-3 px-3 tabular-nums font-semibold text-gray-800"><?= e($row['currency'] ?? '') ?></td>
                         <td class="py-3 px-3 whitespace-nowrap"><?= e($row['correspondent_bank'] ?? '') ?></td>
-                        <td class="py-3 px-3 font-mono text-[11px]"><?= e($row['correspondent_swift'] ?? '') ?></td>
+                        <td class="py-3 px-3 tabular-nums text-[11px]"><?= e($row['correspondent_swift'] ?? '') ?></td>
                         <td class="py-3 px-3 whitespace-nowrap"><?= e($row['correspondent_location'] ?? '') ?></td>
                         <td class="py-3 px-3 whitespace-nowrap"><?= e($row['payer_bank'] ?? '') ?></td>
-                        <td class="py-3 px-3 font-mono text-[11px]"><?= e($row['reference_no'] ?? '') ?></td>
+                        <td class="py-3 px-3 tabular-nums text-[11px]"><?= e($row['reference_no'] ?? '') ?></td>
                         <td class="py-3 px-3 whitespace-nowrap">
                             <?php if (!empty($row['invoice_link'])): ?>
                                 <?= render_tooltip('Buka Invoice di Tab Baru', '<a class="text-blue-600 hover:underline inline-flex items-center gap-1" href="' . e($row['invoice_link']) . '" target="_blank" rel="noopener"><i class="bi bi-box-arrow-up-right"></i> Buka</a>') ?>

@@ -381,18 +381,18 @@ $queryText = (string) ($filters['q'] ?? '');
             <table class="w-full text-left text-xs border-collapse">
                 <thead>
                     <tr class="bg-gray-50/80 border-b border-gray-200 text-gray-600 font-semibold text-[11px] uppercase tracking-wider">
-                        <th class="py-3 px-3">Tanggal</th>
-                        <th class="py-3 px-3">Tim</th>
-                        <th class="py-3 px-3">Report</th>
-                        <th class="py-3 px-3">Payer</th>
-                        <th class="py-3 px-3">Beneficiary</th>
-                        <th class="py-3 px-3">Bank</th>
-                        <th class="py-3 px-3">SWIFT</th>
-                        <th class="py-3 px-3">Invoice</th>
-                        <th class="py-3 px-3">Currency</th>
-                        <th class="py-3 px-3 text-right">Amount</th>
-                        <th class="py-3 px-3">Status</th>
-                        <th class="py-3 px-3 text-right">Aksi</th>
+                        <th class="py-3 px-3 font-heading">Tanggal</th>
+                        <th class="py-3 px-3 font-heading">Tim</th>
+                        <th class="py-3 px-3 font-heading">Report</th>
+                        <th class="py-3 px-3 font-heading">Payer</th>
+                        <th class="py-3 px-3 font-heading">Beneficiary</th>
+                        <th class="py-3 px-3 font-heading">Bank</th>
+                        <th class="py-3 px-3 font-heading">SWIFT</th>
+                        <th class="py-3 px-3 font-heading">Invoice</th>
+                        <th class="py-3 px-3 font-heading">Currency</th>
+                        <th class="py-3 px-3 text-right font-heading">Amount</th>
+                        <th class="py-3 px-3 font-heading">Status</th>
+                        <th class="py-3 px-3 text-right font-heading">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="text-gray-700">
@@ -404,10 +404,10 @@ $queryText = (string) ($filters['q'] ?? '');
                         <td class="py-2.5 px-3"><?= e((string) ($row['bill_to'] ?? '')) ?></td>
                         <td class="py-2.5 px-3 font-semibold text-gray-900"><?= e((string) ($row['beneficiary_name'] ?? '')) ?></td>
                         <td class="py-2.5 px-3"><?= e((string) ($row['beneficiary_bank'] ?? '')) ?></td>
-                        <td class="py-2.5 px-3"><span class="inline-flex items-center py-0.5 px-1.5 rounded bg-gray-100 text-gray-700 font-mono text-[11px]"><?= e((string) ($row['swift'] ?? '')) ?></span></td>
+                        <td class="py-2.5 px-3"><span class="inline-flex items-center py-0.5 px-1.5 rounded bg-gray-100 text-gray-700 tabular-nums text-[11px]"><?= e((string) ($row['swift'] ?? '')) ?></span></td>
                         <td class="py-2.5 px-3"><?= e((string) ($row['invoice_no'] ?? '')) ?></td>
-                        <td class="py-2.5 px-3 font-bold text-gray-800"><?= e((string) ($row['currency'] ?? '')) ?></td>
-                        <td class="py-2.5 px-3 text-right text-nowrap font-bold text-gray-900 font-mono"><?= e(number_format((float) ($row['amount'] ?? 0), 2, ',', '.')) ?></td>
+                        <td class="py-2.5 px-3 font-semibold text-gray-800"><?= e((string) ($row['currency'] ?? '')) ?></td>
+                        <td class="py-2.5 px-3 text-right text-nowrap font-semibold text-gray-900 tabular-nums"><?= e(number_format((float) ($row['amount'] ?? 0), 2, ',', '.')) ?></td>
                         <td class="py-2.5 px-3"><?= status_badge((string) ($row['delivery_status'] ?? '')) ?></td>
                         <td class="py-2.5 px-3 text-right">
                             <a class="py-1 px-2.5 inline-flex items-center gap-x-1 text-xs font-semibold rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors focus:outline-hidden focus:bg-gray-50" href="<?= e(url('/reports/' . $row['batch_id'] . '?q=' . urlencode($queryText))) ?>">

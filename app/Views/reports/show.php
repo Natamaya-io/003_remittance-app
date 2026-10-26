@@ -394,7 +394,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
         <div class="overflow-x-auto">
             <table class="min-w-full text-left text-xs border-collapse">
                 <thead class="bg-gray-50/75 border-b border-gray-200">
-                    <tr class="text-gray-600 font-semibold text-[11px] uppercase tracking-wider">
+                    <tr class="text-gray-600 font-semibold font-heading text-[11px] uppercase tracking-wider">
                         <?php if (can('report.manage')): ?>
                             <th class="py-3.5 px-3 w-10 text-center">
                                 <input type="checkbox" :checked="allSelected" @change="toggleAll($el.checked)" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
@@ -470,24 +470,24 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                             </td>
                         <?php endif; ?>
                         <td class="py-3 px-3 font-semibold text-gray-900 whitespace-nowrap"><?= e($teamLabel) ?></td>
-                        <td class="py-3 px-3 font-mono text-gray-500"><?= $itemNumber ?></td>
+                        <td class="py-3 px-3 tabular-nums text-gray-500"><?= $itemNumber ?></td>
                         <td class="py-3 px-3 whitespace-nowrap"><?= e(format_date($trxDate)) ?></td>
                         <td class="py-3 px-3 font-medium text-gray-900 whitespace-nowrap max-w-xs truncate" title="<?= e($payerName) ?>"><?= e($payerName) ?></td>
                         <td class="py-3 px-3 font-medium text-gray-900 whitespace-nowrap max-w-xs truncate" title="<?= e($beneficiaryName) ?>"><?= e($beneficiaryName) ?></td>
-                        <td class="py-3 px-3 font-mono text-xs whitespace-nowrap"><?= e($beneficiaryAccount) ?></td>
+                        <td class="py-3 px-3 tabular-nums text-xs whitespace-nowrap"><?= e($beneficiaryAccount) ?></td>
                         <td class="py-3 px-3 whitespace-nowrap max-w-xs truncate" title="<?= e($beneficiaryBank) ?>"><?= e($beneficiaryBank) ?></td>
                         <td class="py-3 px-3 whitespace-nowrap max-w-xs truncate text-gray-500" title="<?= e($bankAddress) ?>"><?= e($bankAddress) ?></td>
-                        <td class="py-3 px-3 text-right font-mono font-bold text-gray-900 whitespace-nowrap"><?= $amountFormatted ?></td>
+                        <td class="py-3 px-3 text-right tabular-nums font-semibold text-gray-900 whitespace-nowrap"><?= $amountFormatted ?></td>
                         <td class="py-3 px-3 whitespace-nowrap"><?= e($countryStr) ?></td>
                         <td class="py-3 px-3 whitespace-nowrap"><?= e($cityStr) ?></td>
                         <td class="py-3 px-3 whitespace-nowrap max-w-xs truncate text-gray-500" title="<?= e($beneficiaryAddress) ?>"><?= e($beneficiaryAddress) ?></td>
-                        <td class="py-3 px-3 font-mono whitespace-nowrap"><?= e($swiftCode) ?></td>
+                        <td class="py-3 px-3 tabular-nums whitespace-nowrap"><?= e($swiftCode) ?></td>
                         <td class="py-3 px-3 whitespace-nowrap max-w-xs truncate text-gray-500" title="<?= e($paymentDetails) ?>"><?= e($paymentDetails) ?></td>
-                        <td class="py-3 px-3 font-mono whitespace-nowrap"><?= e($currencyStr) ?></td>
-                        <td class="py-3 px-3 font-mono whitespace-nowrap"><?= e($invoiceNo) ?></td>
+                        <td class="py-3 px-3 tabular-nums whitespace-nowrap"><?= e($currencyStr) ?></td>
+                        <td class="py-3 px-3 tabular-nums whitespace-nowrap"><?= e($invoiceNo) ?></td>
                         <td class="py-3 px-3 whitespace-nowrap"><?= e($contractNo) ?></td>
                         <td class="py-3 px-3 whitespace-nowrap max-w-xs truncate text-gray-500" title="<?= e($corrBank) ?>"><?= e($corrBank) ?></td>
-                        <td class="py-3 px-3 font-mono whitespace-nowrap"><?= e($corrSwift) ?></td>
+                        <td class="py-3 px-3 tabular-nums whitespace-nowrap"><?= e($corrSwift) ?></td>
                         <td class="py-3 px-3 whitespace-nowrap"><?= e($corrCountry) ?></td>
                         <td class="py-3 px-3 whitespace-nowrap"><?= e($bankOfPayer) ?></td>
                         <td class="py-3 px-3 whitespace-nowrap">

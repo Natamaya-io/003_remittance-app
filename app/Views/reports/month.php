@@ -293,14 +293,14 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                 <table class="min-w-full text-start">
                     <thead class="bg-gray-50/75 border-b border-gray-200">
                         <tr>
-                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold text-gray-600 uppercase tracking-wider">Tanggal Transaksi</th>
-                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold text-gray-600 uppercase tracking-wider">Berkas</th>
-                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold text-gray-600 uppercase tracking-wider">Tim</th>
-                            <th scope="col" class="py-3.5 px-5 text-end text-xs font-semibold text-gray-600 uppercase tracking-wider">Total Baris</th>
-                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold text-gray-600 uppercase tracking-wider" style="min-width: 170px;">Progress Kirim</th>
-                            <th scope="col" class="py-3.5 px-5 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Dilewati</th>
-                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold text-gray-600 uppercase tracking-wider">Upload Terakhir</th>
-                            <th scope="col" class="py-3.5 px-5 text-end text-xs font-semibold text-gray-600 uppercase tracking-wider">Aksi</th>
+                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Tanggal Transaksi</th>
+                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Berkas</th>
+                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Tim</th>
+                            <th scope="col" class="py-3.5 px-5 text-end text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Total Baris</th>
+                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider" style="min-width: 170px;">Progress Kirim</th>
+                            <th scope="col" class="py-3.5 px-5 text-center text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Dilewati</th>
+                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Upload Terakhir</th>
+                            <th scope="col" class="py-3.5 px-5 text-end text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -332,8 +332,8 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                                             <i class="bi bi-calendar-event"></i>
                                         </div>
                                         <div>
-                                            <strong class="text-sm font-bold text-gray-900 block"><?= e($dateLabel) ?></strong>
-                                            <span class="text-xs text-gray-500 font-mono"><?= e($dateValue) ?></span>
+                                            <strong class="text-sm font-semibold text-gray-900 block"><?= e($dateLabel) ?></strong>
+                                            <span class="text-xs text-gray-500 tabular-nums"><?= e($dateValue) ?></span>
                                         </div>
                                     </div>
                                 </td>
@@ -343,14 +343,14 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                                 <td class="py-4 px-5 whitespace-nowrap">
                                     <?= render_tooltip('Jumlah tim aktif pada tanggal ini', '<span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-700 cursor-default"><i class="bi bi-people text-gray-400"></i>' . (int) $dateCard['team_count'] . ' Tim</span>') ?>
                                 </td>
-                                <td class="py-4 px-5 whitespace-nowrap text-end font-mono font-bold text-gray-900">
+                                <td class="py-4 px-5 whitespace-nowrap text-end tabular-nums font-semibold text-gray-900">
                                     <?= number_format($total, 0, ',', '.') ?>
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap">
                                     <div class="space-y-1.5">
                                         <div class="flex items-center justify-between text-xs">
                                             <span class="font-semibold text-emerald-700"><?= $progress ?>% Kirim</span>
-                                            <span class="text-gray-500 font-mono"><?= number_format($pending, 0, ',', '.') ?> Pnd</span>
+                                            <span class="text-gray-500 tabular-nums"><?= number_format($pending, 0, ',', '.') ?> Pnd</span>
                                         </div>
                                         <div class="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden flex">
                                             <div class="h-full bg-blue-600 rounded-full" style="width: <?= $progress ?>%;"></div>

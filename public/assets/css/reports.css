@@ -1365,13 +1365,15 @@ b {
     margin: 0;
     font-size: 13px;
     text-align: left;
+    font-family: var(--font-app, var(--font-sans, 'Roboto', sans-serif));
 }
 
 .report-zebra-table thead th {
+    font-family: var(--font-heading, 'DM Sans', sans-serif) !important;
     background: #f8fafc;
     color: #475569;
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     padding: 14px 18px;
@@ -1388,6 +1390,7 @@ b {
 }
 
 .report-zebra-table tbody td {
+    font-family: var(--font-app, var(--font-sans, 'Roboto', sans-serif)) !important;
     padding: 14px 18px;
     vertical-align: middle;
     color: #334155;

@@ -65,6 +65,52 @@
   }
 
   /* =========================================================
+     HUKUM TIPOGRAFI TABEL (GEMINI.MD - DM SANS TH & ROBOTO TD)
+     ========================================================= */
+  table, .table, .modern-table, .report-zebra-table, .spk-table {
+    font-family: var(--font-sans) !important;
+  }
+
+  table th,
+  .table th,
+  thead th,
+  table thead th,
+  .table thead th,
+  .modern-table thead th,
+  .report-zebra-table thead th,
+  .spk-table thead th {
+    font-family: var(--font-heading) !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.01em;
+  }
+
+  table td,
+  .table td,
+  tbody td,
+  table tbody td,
+  .table tbody td,
+  .modern-table tbody td,
+  .report-zebra-table tbody td,
+  .spk-table tbody td {
+    font-family: var(--font-sans) !important;
+  }
+
+  table .font-mono,
+  .table .font-mono {
+    font-family: var(--font-sans) !important;
+    font-variant-numeric: tabular-nums;
+  }
+
+  table strong,
+  table b,
+  table .font-bold,
+  .table strong,
+  .table b,
+  .table .font-bold {
+    font-weight: 600 !important;
+  }
+
+  /* =========================================================
      HUKUM BEBAS TRANSFORM (STATE HOVER/FOCUS/ACTIVE STATIS)
      ========================================================= */
   .btn, .btn-primary, button, a, [role="button"], .card, .panel, .badge {
@@ -1356,6 +1402,7 @@
 
   .modern-table thead th,
   .dashboard-table-wrap .table thead th {
+    font-family: var(--font-heading) !important;
     background: #315B8C !important;
     color: #ffffff !important;
     border-bottom: 2px solid #284b73 !important;
@@ -1379,6 +1426,7 @@
 
   .modern-table tbody td,
   .dashboard-table-wrap .table tbody td {
+    font-family: var(--font-sans) !important;
     color: #413333 !important;
   }
 
