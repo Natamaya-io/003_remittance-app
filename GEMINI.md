@@ -20,6 +20,7 @@
    - **Diet Bold:** Dilarang menggunakan font-weight ultra-tebal (800/900). Maksimum penekanan adalah `font-weight: 600` (`font-semibold` / `.font-bold`).
    - **Bebas Gradien & Skema Warna Solid Murni (Solid Color Discipline):** Seluruh elemen UI utama (body canvas, hero, card, panel, alert, dropdown, datepicker, tombol, badge, hingga grafik canvas) **MUTLAK WAJIB** menggunakan warna solid murni. Dilarang keras menggunakan `linear-gradient`, `radial-gradient`, `conic-gradient`, atau efek kaca `backdrop-filter: blur(...)` / opasitas tembus pandang semu (lihat Bagian 11 untuk aturan terkunci lengkap).
    - **Bebas Transform (Zero-Transform State):** State `:hover`, `:active`, dan `:focus` DILARANG menggunakan efek `transform: translateY(...)`, `scale(...)`, atau pergeseran posisi. Animasi transisi hanya boleh memanipulasi `opacity`, `background-color`, `border-color`, dan `box-shadow`.
+   - **Peniadaan Deskripsi Statis & Tooltip Mutlak (Universal Description-to-Tooltip Discipline):** Seluruh deskripsi, keterangan panduan, catatan bantuan, dan subjudul fungsional pada panel, header, card, tabel, maupun formulir **DILARANG KERAS** dirender sebagai teks atau paragraf statis (`<p>`, `<small>`, `.description`). Seluruh deskripsi **MUTLAK WAJIB** dikonversi menjadi tooltip on-demand berbasis hover pada ikon info `(i)` (lihat Bagian 12 untuk aturan terkunci lengkap).
 
 ---
 
@@ -628,3 +629,73 @@ Seluruh desain wajib berakar murni pada standar warna solid berikut:
    - Info / Process: Solid Blue `#2563EB` (teks `#FFFFFF` atau teks `#1E40AF` di atas solid `#EFF6FF`).
 4. **Latar Belakang Kanvas Global (`body`):**
    - Dikunci secara mutlak dengan warna solid `background: #f8fafc !important;` (atau Tailwind `bg-slate-50`).
+
+---
+
+## 12. Aturan Terkunci: Hukum Mutlak Seluruh Deskripsi Menjadi Tooltips (Universal Description-to-Tooltip Law)
+
+> **STATUS ATURAN: TERKUNCI MUTLAK & HUKUM WAJIB (STRICT COMPLIANCE & NON-NEGOTIABLE)**  
+> Di seluruh aplikasi **`remittance.raxbyte.com`**, **DILARANG KERAS** menampilkan teks deskripsi, subjudul penjelas, panduan fungsional, keterangan teknis, atau catatan bantuan sebagai teks/paragraf statis (`<p>`, `<small>`, `<span>`, subtitle card, atau subheader).  
+> **SELURUH DESKRIPSI MUTLAK WAJIB DIKONVERSI MENJADI TOOLTIPS ON-DEMAND BERBASIS HOVER IKON INFO `(i)`**. Aturan ini dikunci secara absolut untuk menjaga kebersihan visual *Naked Page Architecture*, mencegah *layout bloat*, memelihara ruang kerja vertikal yang maksimal, dan mengeliminasi *AI-slop* deskriptif yang tidak perlu.
+
+### 12.1. Pemusnahan Deskripsi Statis (Absolute Zero-Static Description Law)
+1. **Pemusnahan Paragraf Subtitle Panel & Card:**
+   - Dilarang merender teks deskripsi statis di bawah judul panel atau di dalam header section, seperti:
+     - `<header class="dashboard-section-head"><h3>Judul</h3><p>Deskripsi fungsi di sini...</p></header>` (**DIHARAMKAN SECARA MUTLAK**).
+     - `<div class="panel-head"><h3>Judul</h3><p>Keterangan alur kerja...</p></div>` (**DIHARAMKAN SECARA MUTLAK**).
+     - `<div class="card-body"><span class="text-muted">Penjelasan input ini...</span></div>` (**DIHARAMKAN SECARA MUTLAK**).
+   - Seluruh baris deskripsi statis tersebut wajib dibersihkan dari markup DOM statis.
+2. **Konversi Mutlak Menjadi Tooltip Hover-Only:**
+   - Setiap teks deskripsi, petunjuk konteks, atau panduan kerja **MUTLAK WAJIB** dimasukkan ke dalam tooltip yang hanya muncul ketika pengguna mengarahkan kursor mouse (*hover*) di atas ikon info `(i)` (`.info-toggle-btn` / `<i class="bi bi-info-circle"></i>`).
+   - Judul kartu/panel wajib dibiarkan mandiri, tegas, dan berwibawa berdampingan secara *inline* dengan pemicu tooltip info.
+
+### 12.2. Implementasi Wajib via Helper PHP Resmi
+1. **Untuk Header Panel, Card, dan Section (`render_heading_with_info`):**
+   Setiap judul yang memiliki teks deskripsi **MUTLAK WAJIB** menggunakan helper `render_heading_with_info()` dari `app/helpers.php`:
+   ```php
+   <!-- Standar Wajib Header Panel dengan Deskripsi Menjadi Tooltip -->
+   <?= render_heading_with_info(
+       'Pekerjaan operasional',
+       'Pintasan ringkas sesuai hak akses akun.',
+       [
+           'titleTag'     => 'h3',
+           'titleClass'   => 'm-0',
+           'wrapperClass' => 'inline-flex items-center gap-1.5',
+       ]
+   ) ?>
+   ```
+2. **Untuk Label Form, Kolom Tabel, dan Komponen Kustom (`render_tooltip`):**
+   Untuk label form input, header kolom data, atau elemen inline lainnya yang membutuhkan deskripsi bantuan:
+   ```php
+   <!-- Standar Wajib Label / Elemen Inline dengan Deskripsi Menjadi Tooltip -->
+   <label class="form-label inline-flex items-center gap-1.5">
+       <span>Nominal Transaksi</span>
+       <?= render_tooltip(
+           'Nominal dalam mata uang asal sebelum konversi kurs.',
+           '<span class="info-toggle-btn cursor-help" aria-label="Bantuan nominal"><i class="bi bi-info-circle text-xs leading-none"></i></span>',
+           ['placement' => 'top']
+       ) ?>
+   </label>
+   ```
+
+### 12.3. Fisika & Geometri Tooltip Deskripsi (Zero-Shift & Zero-Transform)
+1. **Pemicu Tunggal Hover (Strict Hover Trigger):**
+   - Tooltip deskripsi **HANYA BOLEH MUNCUL KETIKA IKON `(i)` DI-HOVER** (`mouseenter` / `:hover`).
+   - Begitu kursor mouse meninggalkan ikon `(i)`, tooltip **MUTLAK WAJIB LANGSUNG LENYAP SEKETIKA**.
+   - Dilarang keras mengaitkan deskripsi ke event klik (`click`) yang membuka accordion atau toggle panel statis.
+2. **Pemusnahan Pergeseran Tata Letak (Zero Layout Shift):**
+   - Tooltip deskripsi wajib beroperasi sebagai lapisan mengambang (*floating overlay*) dengan posisi absolut/fixed dan layer `z-[70]`.
+   - Tooltip dilarang mendorong elemen tetangga, merusak posisi tabel, atau memicu scrollbar tak terduga saat muncul.
+3. **Standar Visual Tooltip:**
+   - Background: Warna solid pekat `#111827` (`gray-900`) atau `#1f2937` (`gray-800`), bebas gradien.
+   - Teks: Solid `#ffffff`, ukuran `12px` / `text-xs`, font **Roboto** / **DM Sans**, bobot medium (500).
+   - Padding & Radius: `py-1.5 px-3`, membulat halus `rounded-xl` (10px–12px), border solid mikro `border border-gray-800/80`, bayangan lembut `shadow-lg`.
+   - Kelas Non-Interferensi: Wajib menyertakan `pointer-events-none` agar tidak menghalangi interaksi tombol atau tautan di sekitarnya.
+   - Text Wrapping: Menggunakan `max-w-xs text-center whitespace-normal leading-relaxed` untuk deskripsi multibaris, atau `whitespace-nowrap` untuk deskripsi ringkas.
+
+### 12.4. Protokol Kepatuhan AI & Pengembang (Enforcement Mandate)
+- Setiap kali agen AI atau pengembang membuat atau memperbarui antarmuka (view, card, modal, form, report, dashboard, login, settings):
+  1. **Audit Eksistensi Paragraf Deskripsi:** Periksa apakah ada tag `<p>`, `<small>`, atau subtitle yang berisi kalimat panduan atau catatan fungsi.
+  2. **Eksekusi Konversi Mutlak:** Segera pindahkan isi teks deskripsi tersebut ke dalam tooltip via `render_heading_with_info()` atau `render_tooltip()`.
+  3. **Musnahkan Tag Statisnya:** Hapus elemen `<p>` atau subtitle statis tersebut tanpa sisa.
+- Kegagalan mematuhi aturan ini (membiarkan teks deskripsi statis tampil di layar) diklasifikasikan sebagai pelanggaran desain fatal (*severe visual slop violation*).
