@@ -279,7 +279,7 @@
       // Solid line rendering: clean solid stroke and markers without gradient fill
       context.beginPath();
       smoothPath(context, points);
-      context.strokeStyle = '#2563eb';
+      context.strokeStyle = '#315B8C';
       context.lineWidth = 2.2;
       context.lineCap = 'round';
       context.lineJoin = 'round';
@@ -289,7 +289,7 @@
         context.arc(point.x, point.y, 2.5, 0, Math.PI * 2);
         context.fillStyle = '#ffffff';
         context.fill();
-        context.strokeStyle = '#2563eb';
+        context.strokeStyle = '#F2765E';
         context.lineWidth = 1.8;
         context.stroke();
       });
@@ -308,7 +308,7 @@
       const data = prepareCanvas(canvas, 120, 120);
       if (!data) return;
       const { context, width, height } = data;
-      const colors = ['#2563eb', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'];
+      const colors = ['#315B8C', '#F2765E', '#10b981', '#f59e0b', '#dc2626', '#7c3aed'];
       const total = rows.reduce((sum, row) => sum + row.value, 0);
       const radius = Math.min(width, height) * 0.36;
       const innerRadius = radius * 0.68;

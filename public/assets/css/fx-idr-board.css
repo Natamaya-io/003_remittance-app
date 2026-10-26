@@ -3,9 +3,9 @@
    ========================================================= */
 
 .fx-modern-board {
-    --fx-blue: #8b5cf6;
-    --fx-blue-2: #4f46e5;
-    --fx-cyan: #ec4899;
+    --fx-blue: #315B8C;
+    --fx-blue-2: #284b73;
+    --fx-cyan: #F2765E;
     --fx-green: #10b981;
     --fx-red: #ef4444;
     --fx-amber: #f59e0b;
@@ -186,15 +186,15 @@
 .fx-modern-sync {
     padding: 7px 12px;
 
-    border: 1px solid #1d4ed8;
+    border: 1px solid #284b73;
 
-    background: #2563eb;
+    background: #315B8C;
 
     color: #fff;
 
     box-shadow:
         0 4px 12px
-        rgba(37, 99, 235, .20);
+        rgba(49, 91, 140, .20);
 
     font-size: 10px;
     font-weight: 850;
@@ -203,7 +203,7 @@
 
 .fx-modern-refresh:hover,
 .fx-modern-sync:hover {
-    transform: translateY(-1px);
+    transform: none;
 }
 
 

@@ -945,11 +945,18 @@ $flashes = Flash::all();
         .table-link {
 
             color:
-                #7440da
+                #315B8C
                 !important;
 
             font-weight:
-                700
+                600
+                !important;
+        }
+
+        .dashboard-table-link:hover,
+        .table-link:hover {
+            color:
+                #F2765E
                 !important;
         }
 
@@ -1064,10 +1071,10 @@ $flashes = Flash::all();
 
         .btn-primary,
         .dashboard-action-primary {
-            --_from: var(--btn-primary-from, color-mix(in srgb, var(--btn-primary-base, #1f6bf0) 75%, #ffffff));
-            --_to: var(--btn-primary-to, var(--btn-primary-base, #1f6bf0));
-            --_border: var(--btn-primary-border, color-mix(in srgb, var(--btn-primary-base, #1f6bf0) 80%, #000000));
-            --_ring: var(--btn-primary-ring, color-mix(in srgb, var(--btn-primary-base, #1f6bf0) 40%, #ffffff));
+            --_from: var(--btn-primary-from, color-mix(in srgb, var(--btn-primary-base, #315B8C) 75%, #ffffff));
+            --_to: var(--btn-primary-to, var(--btn-primary-base, #315B8C));
+            --_border: var(--btn-primary-border, color-mix(in srgb, var(--btn-primary-base, #315B8C) 80%, #000000));
+            --_ring: var(--btn-primary-ring, color-mix(in srgb, var(--btn-primary-base, #315B8C) 40%, #ffffff));
             --_text: var(--btn-primary-text, #ffffff);
             --_text-shadow: var(--btn-primary-text-shadow, 0 1px 1px rgba(0, 0, 0, 0.2));
 
@@ -1241,7 +1248,7 @@ $flashes = Flash::all();
 
         .dashboard-small-link {
             color:
-                #111827
+                #315B8C
                 !important;
 
             background:
@@ -1296,27 +1303,27 @@ $flashes = Flash::all();
 
         .dashboard-small-link:hover {
             color:
-                #000000
+                #315B8C
                 !important;
 
             background:
-                #f3f4f6
+                #F5EBDD
                 !important;
 
             border-color:
-                #9ca3af
+                #315B8C
                 !important;
         }
 
         .dashboard-small-link i {
             color:
-                #111827
+                #315B8C
                 !important;
         }
 
         .dashboard-small-link:hover i {
             color:
-                #000000
+                #315B8C
                 !important;
         }
 
@@ -1526,7 +1533,7 @@ $flashes = Flash::all();
         .table thead th {
 
             color:
-                #374151
+                #315B8C
                 !important;
 
             font-weight:
@@ -1534,11 +1541,11 @@ $flashes = Flash::all();
                 !important;
 
             background:
-                #f9fafb
+                #F5EBDD
                 !important;
 
             border-bottom:
-                1px solid #e5e7eb
+                2px solid #e0d3c1
                 !important;
 
             text-shadow:
@@ -1546,10 +1553,17 @@ $flashes = Flash::all();
                 !important;
         }
 
-        .table tbody tr {
+        .table tbody tr:nth-child(odd) {
 
             background:
                 #ffffff
+                !important;
+        }
+
+        .table tbody tr:nth-child(even) {
+
+            background:
+                #F5EBDD
                 !important;
         }
 
@@ -1557,7 +1571,7 @@ $flashes = Flash::all();
         .table tbody tr:hover {
 
             background:
-                #fff2f8
+                inherit
                 !important;
         }
 
@@ -1754,20 +1768,20 @@ $flashes = Flash::all();
                 !important;
 
             color:
-                #f5f2f2
+                #ffffff
                 !important;
 
             background:
-                #2b2a2a
+                #315B8C
                 !important;
 
             border:
-                1px solid #2b2a2a
+                1px solid #284b73
                 !important;
 
             box-shadow:
                 0 4px 16px -2px
-                rgba(0, 0, 0, 0.08)
+                rgba(49, 91, 140, 0.16)
                 !important;
         }
 
@@ -1924,7 +1938,7 @@ $flashes = Flash::all();
         .dashboard-hero-modern p {
 
             color:
-                #d1d5db
+                #F5EBDD
                 !important;
 
             font-weight:
@@ -1936,7 +1950,7 @@ $flashes = Flash::all();
         .dashboard-kicker {
 
             color:
-                #feb05d
+                #F2765E
                 !important;
 
             font-weight:
@@ -1945,6 +1959,22 @@ $flashes = Flash::all();
 
             letter-spacing:
                 .13em;
+        }
+
+        .dashboard-hero-modern .dashboard-action-primary {
+            --btn-primary-base: #F2765E !important;
+        }
+
+        .dashboard-hero-modern .dashboard-action-secondary {
+            background: #254970 !important;
+            border: 1px solid #3c6596 !important;
+            color: #F5EBDD !important;
+        }
+
+        .dashboard-hero-modern .dashboard-action-secondary:hover {
+            background: #1e3c5e !important;
+            border-color: #F2765E !important;
+            color: #ffffff !important;
         }
         /* =================================================
            23. DASHBOARD ACTIVITY CARD
@@ -2079,7 +2109,7 @@ $flashes = Flash::all();
         .dashboard-section-label {
 
             color:
-                #2563eb
+                #315B8C
                 !important;
 
             font-weight:
@@ -2144,15 +2174,23 @@ $flashes = Flash::all();
         .dashboard-fx-summary > i {
 
             color:
-                #2563eb
+                #111827
                 !important;
 
             background:
-                #eff6ff
+                transparent
                 !important;
 
             border:
-                1px solid #dbeafe
+                none
+                !important;
+
+            box-shadow:
+                none
+                !important;
+
+            padding:
+                0
                 !important;
         }
 
@@ -2223,16 +2261,16 @@ $flashes = Flash::all();
                 !important;
 
             background:
-                #f9fafb
+                #ffffff
                 !important;
 
             border-color:
-                #d1d5db
+                #315B8C
                 !important;
 
             box-shadow:
-                0 4px 6px -1px
-                rgba(0, 0, 0, 0.06)
+                0 4px 12px
+                rgba(49, 91, 140, 0.08)
                 !important;
         }
 
@@ -2283,7 +2321,7 @@ $flashes = Flash::all();
         }
 
         .dashboard-quick-item:hover .dashboard-quick-arrow {
-            color: #111827 !important;
+            color: #F2765E !important;
         }
 
         /* =================================================
@@ -2483,7 +2521,7 @@ $flashes = Flash::all();
         span i {
 
             background:
-                #7740dd
+                #315B8C
                 !important;
         }
 
@@ -2492,7 +2530,7 @@ $flashes = Flash::all();
         span i {
 
             background:
-                #2fca8b
+                #F2765E
                 !important;
         }
 
@@ -2501,7 +2539,7 @@ $flashes = Flash::all();
         span i {
 
             background:
-                #ff9b3e
+                #10b981
                 !important;
         }
 
@@ -2510,7 +2548,7 @@ $flashes = Flash::all();
         span i {
 
             background:
-                #eb4c79
+                #f59e0b
                 !important;
         }
 
@@ -2519,7 +2557,7 @@ $flashes = Flash::all();
         span i {
 
             background:
-                #a247dd
+                #dc2626
                 !important;
         }
 
@@ -2528,7 +2566,7 @@ $flashes = Flash::all();
         span i {
 
             background:
-                #31bad5
+                #7c3aed
                 !important;
         }
 
@@ -4205,7 +4243,7 @@ $flashes = Flash::all();
         .app-main,
         .content-wrap {
             background-image: none !important;
-            background: #f8fafc !important;
+            background: #F5EBDD !important;
         }
 
         .sidebar {
@@ -4215,18 +4253,18 @@ $flashes = Flash::all();
 
         .brand-mark {
             background-image: none !important;
-            background: #1f6bf0 !important;
+            background: #315B8C !important;
         }
 
         .avatar-sm,
         .avatar-initial {
             background-image: none !important;
-            background: #2563eb !important;
+            background: #315B8C !important;
         }
 
         .nav-item.active {
             background-image: none !important;
-            background: #1f6bf0 !important;
+            background: #315B8C !important;
         }
 
         .btn-success,
