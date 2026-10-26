@@ -103,26 +103,6 @@ $successPercentage = $todayTotal > 0
     : 0;
 
 
-/*
-|--------------------------------------------------------------------------
-| FX
-|--------------------------------------------------------------------------
-*/
-
-$fxRates = is_array(
-    $fxData['rates']
-    ?? null
-)
-    ? $fxData['rates']
-    : [];
-
-$fxProvider = trim(
-    (string) (
-        $fxData['provider']
-        ?? 'Offline'
-    )
-);
-
 
 /*
 |--------------------------------------------------------------------------
@@ -505,32 +485,6 @@ $fxBoardFile =
                 ) ?>
 
             </div>
-
-
-            <div class="dashboard-fx-summary">
-
-
-                <i class="bi bi-activity"></i>
-
-
-                <div>
-
-                    <strong>
-
-                        <?= count($fxRates) ?>
-                        mata uang
-
-                    </strong>
-
-                    <small>
-                        <?= e($fxProvider) ?>
-                    </small>
-
-                </div>
-
-
-            </div>
-
 
         </header>
 
