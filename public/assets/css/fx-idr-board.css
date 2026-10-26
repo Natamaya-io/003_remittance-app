@@ -3,15 +3,15 @@
    ========================================================= */
 
 .fx-modern-board {
-    --fx-blue: #315B8C;
-    --fx-blue-2: #284b73;
+    --fx-blue: #F5EBDD;
+    --fx-blue-2: #e0d3c1;
     --fx-cyan: #F2765E;
     --fx-green: #10b981;
     --fx-red: #ef4444;
     --fx-amber: #f59e0b;
-    --fx-ink: #413333;
-    --fx-muted: #6b7280;
-    --fx-border: #e0d3c1;
+    --fx-ink: #ffffff;
+    --fx-muted: #F5EBDD;
+    --fx-border: #284b73;
 
     position: relative;
     width: 100%;
@@ -20,13 +20,13 @@
     border: 1px solid var(--fx-border);
     border-radius: 20px;
 
-    background: #F5EBDD;
+    background: #315B8C;
 
     box-shadow:
         0 14px 40px
-        rgba(15, 23, 42, .07);
+        rgba(15, 23, 42, .18);
 
-    color: var(--fx-ink);
+    color: #F5EBDD;
 }
 
 
@@ -56,10 +56,10 @@
     display: block;
     margin-bottom: 4px;
 
-    color: var(--fx-blue);
+    color: #F2765E;
 
     font-size: 9px;
-    font-weight: 900;
+    font-weight: 700;
     letter-spacing: .16em;
 }
 
@@ -67,11 +67,12 @@
 .fx-modern-header h2 {
     margin: 0;
 
-    color: var(--fx-ink);
+    color: #ffffff;
 
     font-size: 27px;
     line-height: 1.08;
     letter-spacing: -.035em;
+    font-weight: 600;
 }
 
 
@@ -80,7 +81,8 @@
 
     margin: 6px 0 0;
 
-    color: var(--fx-muted);
+    color: #F5EBDD;
+    opacity: 0.85;
 
     font-size: 12px;
     line-height: 1.45;
@@ -121,18 +123,18 @@
 
     padding: 7px 11px;
 
-    border: 1px solid #dfe7ef;
+    border: 1px solid #3c6b9e;
 
-    background: #fff;
+    background: #264970;
 
-    color: #624276;
+    color: #F5EBDD;
 
     box-shadow:
-        0 6px 16px
-        rgba(15, 23, 42, .04);
+        0 4px 12px
+        rgba(0, 0, 0, .12);
 
     font-size: 10px;
-    font-weight: 800;
+    font-weight: 600;
 }
 
 
@@ -168,36 +170,37 @@
 .fx-modern-refresh {
     width: 37px;
 
-    border: 1px solid #dbe5ef;
+    border: 1px solid #3c6b9e;
 
-    background: #fff;
+    background: #264970;
 
-    color: #111827;
+    color: #ffffff;
 
     font-size: 15px;
 }
 
 .fx-modern-refresh:hover {
-    color: #000000;
-    border-color: #cbd5e1;
+    color: #F2765E;
+    border-color: #F2765E;
+    background: #1e3b5c;
 }
 
 
 .fx-modern-sync {
     padding: 7px 12px;
 
-    border: 1px solid #284b73;
+    border: 1px solid #d95e46;
 
-    background: #315B8C;
+    background: #F2765E;
 
     color: #fff;
 
     box-shadow:
         0 4px 12px
-        rgba(49, 91, 140, .20);
+        rgba(242, 118, 94, .25);
 
     font-size: 10px;
-    font-weight: 850;
+    font-weight: 600;
 }
 
 
@@ -272,7 +275,7 @@
     transform:
         translateY(-50%);
 
-    color: #111827;
+    color: #F5EBDD;
 
     font-size: 15px;
 }
@@ -289,32 +292,36 @@
         42px;
 
     border:
-        1px solid #d8e2ed;
+        1px solid #3c6b9e;
 
     border-radius:
         13px;
 
     outline: 0;
 
-    background: #fff;
+    background: #264970;
 
-    color: var(--fx-ink);
+    color: #ffffff;
 
     box-shadow:
-        0 6px 18px
-        rgba(15, 23, 42, .035);
+        0 4px 14px
+        rgba(0, 0, 0, .10);
 
     font-size: 13px;
+}
+
+.fx-modern-search input::placeholder {
+    color: rgba(245, 235, 221, 0.6);
 }
 
 
 .fx-modern-search input:focus {
     border-color:
-        #8bb8ee;
+        #F2765E;
 
     box-shadow:
         0 0 0 3px
-        rgba(37, 99, 235, .08);
+        rgba(242, 118, 94, .25);
 }
 
 
@@ -324,7 +331,8 @@
     justify-content: flex-end;
     gap: 11px;
 
-    color: var(--fx-muted);
+    color: #F5EBDD;
+    opacity: 0.85;
 
     font-size: 10px;
 }
@@ -394,19 +402,19 @@
     padding: 14px;
 
     border:
-        1px solid #544242;
+        1px solid #3c6b9e;
 
     border-radius: 16px;
 
     outline: 0;
 
-    background: #413333;
+    background: #264970;
 
     color: #ffffff;
 
     box-shadow:
-        0 4px 16px -2px
-        rgba(65, 51, 51, 0.16);
+        0 4px 14px
+        rgba(0, 0, 0, 0.18);
 
     cursor: pointer;
 
@@ -430,14 +438,14 @@
         none;
 
     background:
-        #4a3a3a;
+        #21436b;
 
     border-color:
-        #315B8C;
+        #F2765E;
 
     box-shadow:
         0 8px 24px
-        rgba(49, 91, 140, .20);
+        rgba(242, 118, 94, .25);
 }
 
 
@@ -476,11 +484,11 @@
     overflow: hidden;
 
     border:
-        1px solid #544242;
+        1px solid #3c6b9e;
 
     border-radius: 50%;
 
-    background: #332626;
+    background: #1e3b5c;
 }
 
 
@@ -700,11 +708,11 @@
     padding: 8px;
 
     border:
-        1px solid #544242;
+        1px solid #3c6b9e;
 
     border-radius: 9px;
 
-    background: #332626;
+    background: #1e3b5c;
 }
 
 
@@ -729,7 +737,7 @@
 
     overflow: hidden;
 
-    color: #F5EBDD;
+    color: #ffffff;
 
     font-size: 9px;
 
