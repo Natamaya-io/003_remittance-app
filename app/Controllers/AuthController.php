@@ -7,16 +7,13 @@ namespace App\Controllers;
 use App\Core\Auth;
 use App\Core\BaseController;
 use App\Services\AuditService;
-use App\Services\FxService;
 
 final class AuthController extends BaseController
 {
     public function showLogin(): void
     {
         if (Auth::check()) redirect('/');
-        $fx = ['rates' => [], 'provider' => 'offline'];
-        try { $fx = (new FxService())->getRates('IDR', ['USD', 'EUR', 'CNY', 'AED']); } catch (\Throwable $exception) { $fx['error'] = $exception->getMessage(); }
-        $this->view('auth/login', ['title' => 'Masuk', 'fx' => $fx], 'guest');
+        $this->view('auth/login', ['title' => 'Masuk'], 'guest');
     }
 
     public function login(): void
