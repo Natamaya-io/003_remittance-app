@@ -58,11 +58,6 @@ $flashes = Flash::all();
         href="<?= e(asset('css/app.css?v=22.0.2')) ?>"
     >
 
-    <link
-        rel="stylesheet"
-        href="<?= e(asset('css/login.css?v=36.0.0')) ?>"
-    >
-
     <!-- =====================================================
          GOOGLE FONTS: DM SANS (HEADINGS/CTA) & ROBOTO (BODY)
     ====================================================== -->
@@ -108,6 +103,8 @@ $flashes = Flash::all();
             font-family: var(--font-app) !important;
             font-size: 0.95rem;
             line-height: 1.6;
+            background: #F5F2F2 !important;
+            color: #111827;
         }
         h1, h2, h3, h4, h5, h6, .brand-title {
             font-family: var(--font-heading) !important;
@@ -120,89 +117,59 @@ $flashes = Flash::all();
         b, strong, .font-bold {
             font-weight: 600 !important;
         }
-        .btn, .btn-primary, button, a, [role="button"], .card {
-            transform: none !important;
-        }
-        .btn:hover, .btn-primary:hover, button:hover, a:hover,
-        .btn:active, .btn-primary:active, button:active, a:active {
-            transform: none !important;
-        }
-        .btn-primary {
-            background-image: none !important;
-            background: #1f6bf0 !important;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08) !important;
-            text-shadow: none !important;
-        }
     </style>
 </head>
 
-<body class="login-body">
+<body class="login-body min-h-screen bg-[#F5F2F2] text-gray-900 antialiased font-sans">
 
     <?php if ($flashes !== []): ?>
-
-        <div class="login-flash-stack">
-
+        <div class="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4 space-y-3">
             <?php foreach ($flashes as $flash): ?>
-
                 <?php
-
-                $flashMessage = trim(
-                    (string) (
-                        $flash['message']
-                        ?? ''
-                    )
-                );
-
+                $flashType = trim((string) ($flash['type'] ?? 'info'));
+                $flashMessage = trim((string) ($flash['message'] ?? ''));
+                if ($flashMessage === '') continue;
+                $alertClass = match($flashType) {
+                    'success' => 'alert-success',
+                    'danger', 'error' => 'alert-danger',
+                    'warning' => 'alert-warning',
+                    default => 'alert-info',
+                };
+                $alertIcon = match($flashType) {
+                    'success' => 'bi-check-circle-fill',
+                    'danger', 'error' => 'bi-x-circle-fill',
+                    'warning' => 'bi-exclamation-triangle-fill',
+                    default => 'bi-info-circle-fill',
+                };
                 ?>
-
-                <?php if ($flashMessage !== ''): ?>
-
-                    <div
-                        class="login-flash"
-                        role="alert"
-                        x-data="{ show: true }"
-                        x-show="show"
-                        x-transition:leave="transition ease-in duration-150"
-                        x-transition:leave-start="opacity-100"
-                        x-transition:leave-end="opacity-0"
-                    >
-
-                        <span class="login-flash-icon">
-
-                            <i class="bi bi-info-lg"></i>
-
+                <div
+                    class="alert <?= $alertClass ?>"
+                    role="alert"
+                    x-data="{ show: true }"
+                    x-show="show"
+                    x-transition:leave="transition ease-in duration-150"
+                    x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0"
+                >
+                    <div class="alert-content">
+                        <span class="alert-icon">
+                            <i class="bi <?= $alertIcon ?>"></i>
                         </span>
-
-                        <div class="login-flash-copy">
-
-                            <strong>
-                                Informasi
-                            </strong>
-
-                            <span>
-                                <?= e($flashMessage) ?>
-                            </span>
-
+                        <div class="alert-body">
+                            <div class="alert-message"><?= e($flashMessage) ?></div>
                         </div>
-
-                        <button
-                            type="button"
-                            class="login-flash-close"
-                            @click="show = false"
-                            data-login-flash-close
-                            aria-label="Tutup notifikasi"
-                        >
-                            ×
-                        </button>
-
                     </div>
-
-                <?php endif; ?>
-
+                    <button
+                        class="alert-close"
+                        type="button"
+                        @click="show = false"
+                        aria-label="Tutup notifikasi"
+                    >
+                        <i class="bi bi-x text-lg leading-none"></i>
+                    </button>
+                </div>
             <?php endforeach; ?>
-
         </div>
-
     <?php endif; ?>
 
     <?= $content ?>
