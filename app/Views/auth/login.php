@@ -18,10 +18,10 @@ declare(strict_types=1);
 */
 ?>
 
-<div class="min-h-screen w-full flex flex-col lg:flex-row bg-[#F5F2F2]">
+<div class="h-screen max-h-screen w-full flex flex-col lg:flex-row bg-[#F5F2F2] overflow-hidden">
 
-    <!-- KOLOM KIRI: VISUAL ART PENUH (login_art.jpeg) -->
-    <div class="w-full lg:w-1/2 h-56 sm:h-72 lg:h-auto lg:min-h-screen relative overflow-hidden bg-slate-900 flex-shrink-0">
+    <!-- KOLOM KIRI: VISUAL ART PENUH (KROP OTOMATIS FIT VIEWPORT) -->
+    <div class="w-full lg:w-1/2 h-44 sm:h-56 lg:h-full lg:min-h-screen relative overflow-hidden bg-slate-900 flex-shrink-0">
         <picture class="w-full h-full block">
             <source srcset="<?= e(url('/login_art.avif')) ?>" type="image/avif">
             <source srcset="<?= e(url('/login_art.webp')) ?>" type="image/webp">
@@ -36,9 +36,9 @@ declare(strict_types=1);
         </picture>
     </div>
 
-    <!-- KOLOM KANAN: WORKSPACE FORMULIR MASUK -->
-    <div class="w-full lg:w-1/2 min-h-screen flex flex-col justify-center items-center p-6 sm:p-10 lg:p-14 bg-white overflow-y-auto">
-        <div class="max-w-[400px] w-full mx-auto my-auto space-y-6">
+    <!-- KOLOM KANAN: WORKSPACE FORMULIR MASUK (FIT VIEWPORT NON-SCROLLABLE) -->
+    <div class="w-full lg:w-1/2 h-full lg:h-screen max-h-screen flex flex-col justify-center items-center p-4 sm:p-6 lg:p-8 bg-white overflow-hidden flex-1">
+        <div class="max-w-[380px] sm:max-w-[400px] w-full mx-auto my-auto space-y-4 sm:space-y-5">
 
             <!-- BRANDING LOGO RESMI (REMITGO!) -->
             <div class="flex flex-col items-center justify-center text-center">
@@ -46,7 +46,7 @@ declare(strict_types=1);
                     <img
                         src="<?= e(url('/remitgo.png')) ?>"
                         alt="RemitGo!"
-                        class="h-12 sm:h-[56px] w-auto max-w-[220px] object-contain select-none"
+                        class="h-10 sm:h-12 w-auto max-w-[180px] sm:max-w-[200px] object-contain select-none"
                         loading="eager"
                         width="1720"
                         height="744"
@@ -59,7 +59,7 @@ declare(strict_types=1);
             <form
                 method="post"
                 action="<?= e(url('/login')) ?>"
-                class="space-y-4"
+                class="space-y-3.5 sm:space-y-4"
                 x-data="{ loading: false }"
                 @submit="loading = true"
             >
@@ -67,7 +67,7 @@ declare(strict_types=1);
 
                 <!-- FIELD USERNAME / EMAIL -->
                 <div>
-                    <label for="loginUsername" class="block text-xs font-semibold text-gray-700 mb-1.5 font-sans">
+                    <label for="loginUsername" class="block text-xs font-semibold text-gray-700 mb-1 font-sans">
                         Username atau Email
                     </label>
                     <div class="relative flex items-center">
@@ -88,7 +88,7 @@ declare(strict_types=1);
 
                 <!-- FIELD PASSWORD DENGAN VISIBILITY TOGGLE TELANJANG -->
                 <div x-data="{ showPass: false }">
-                    <label for="loginPassword" class="block text-xs font-semibold text-gray-700 mb-1.5 font-sans">
+                    <label for="loginPassword" class="block text-xs font-semibold text-gray-700 mb-1 font-sans">
                         Password
                     </label>
                     <div class="relative flex items-center">
@@ -115,7 +115,7 @@ declare(strict_types=1);
                 </div>
 
                 <!-- TOMBOL AKSI UTAMA (.btn-primary RESMI GEMINI.MD SECTION 13 & GLOBAL AI SPEC) -->
-                <div class="pt-2">
+                <div class="pt-1.5 sm:pt-2">
                     <button
                         type="submit"
                         :disabled="loading"

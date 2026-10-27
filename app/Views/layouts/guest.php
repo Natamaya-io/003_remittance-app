@@ -98,6 +98,11 @@ $flashes = Flash::all();
                 font-size: 20px;
             }
         }
+        html, body.login-body {
+            height: 100%;
+            max-height: 100vh;
+            overflow: hidden;
+        }
         body, body.login-body {
             font-family: var(--font-app) !important;
             font-size: 0.95rem;
@@ -119,7 +124,7 @@ $flashes = Flash::all();
     </style>
 </head>
 
-<body class="login-body min-h-screen bg-[#F5F2F2] text-gray-900 antialiased font-sans">
+<body class="login-body h-screen max-h-screen bg-[#F5F2F2] text-gray-900 antialiased font-sans overflow-hidden">
 
     <?php if ($flashes !== []): ?>
         <div class="fixed top-5 left-1/2 -translate-x-1/2 z-50 w-full max-w-md px-4 space-y-3">
