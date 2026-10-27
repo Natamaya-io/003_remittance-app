@@ -558,8 +558,8 @@ $activeAdvancedFilters = array_filter(
                                     <i class="bi bi-calendar3"></i>
                                 </div>
                                 <div class="min-w-0">
-                                    <strong class="text-base font-bold text-gray-900 block truncate"><?= e($monthLabel) ?></strong>
-                                    <span class="inline-flex items-center py-0.5 px-2 rounded-full text-[11px] font-mono font-semibold bg-gray-100 text-gray-600">
+                                    <strong class="text-base font-semibold font-heading text-gray-900 block truncate"><?= e($monthLabel) ?></strong>
+                                    <span class="inline-flex items-center py-0.5 px-2 rounded-full text-[11px] tabular-nums font-semibold bg-gray-100 text-gray-600">
                                         <?= e($monthKey) ?>
                                     </span>
                                 </div>
@@ -568,15 +568,15 @@ $activeAdvancedFilters = array_filter(
 
                         <!-- Stats Pills -->
                         <div class="flex flex-wrap items-center gap-1.5 text-xs">
-                            <span class="inline-flex items-center gap-1 py-1 px-2.5 rounded-full bg-gray-100 text-gray-700 font-medium">
+                            <span class="inline-flex items-center gap-1 py-1 px-2.5 rounded-full bg-gray-100 text-gray-700 font-medium tabular-nums">
                                 <i class="bi bi-files text-gray-400"></i>
                                 <?= number_format($fileCount, 0, ',', '.') ?> berkas
                             </span>
-                            <span class="inline-flex items-center gap-1 py-1 px-2.5 rounded-full bg-gray-100 text-gray-700 font-medium">
+                            <span class="inline-flex items-center gap-1 py-1 px-2.5 rounded-full bg-gray-100 text-gray-700 font-medium tabular-nums">
                                 <i class="bi bi-calendar-event text-gray-400"></i>
                                 <?= number_format($dateCount, 0, ',', '.') ?> hari
                             </span>
-                            <span class="inline-flex items-center gap-1 py-1 px-2.5 rounded-full bg-gray-100 text-gray-700 font-medium">
+                            <span class="inline-flex items-center gap-1 py-1 px-2.5 rounded-full bg-gray-100 text-gray-700 font-medium tabular-nums">
                                 <i class="bi bi-people text-gray-400"></i>
                                 <?= number_format($teamCount, 0, ',', '.') ?> tim
                             </span>
@@ -586,27 +586,27 @@ $activeAdvancedFilters = array_filter(
                         <div class="grid grid-cols-2 gap-2 pt-2 border-t border-gray-100 text-xs">
                             <div class="bg-gray-50/75 rounded-xl p-2.5">
                                 <span class="text-gray-500 block text-[11px]">Total Baris</span>
-                                <strong class="text-sm font-bold text-gray-900 font-mono"><?= number_format($total, 0, ',', '.') ?></strong>
+                                <strong class="text-sm font-semibold text-gray-900 tabular-nums"><?= number_format($total, 0, ',', '.') ?></strong>
                             </div>
                             <div class="bg-emerald-50/50 rounded-xl p-2.5 border border-emerald-100">
                                 <span class="text-emerald-700 block text-[11px]">Terkirim</span>
-                                <strong class="text-sm font-bold text-emerald-800 font-mono"><?= number_format($sent, 0, ',', '.') ?></strong>
+                                <strong class="text-sm font-semibold text-emerald-800 tabular-nums"><?= number_format($sent, 0, ',', '.') ?></strong>
                             </div>
                             <div class="bg-amber-50/50 rounded-xl p-2.5 border border-amber-100">
                                 <span class="text-amber-700 block text-[11px]">Pending</span>
-                                <strong class="text-sm font-bold text-amber-800 font-mono"><?= number_format($pending, 0, ',', '.') ?></strong>
+                                <strong class="text-sm font-semibold text-amber-800 tabular-nums"><?= number_format($pending, 0, ',', '.') ?></strong>
                             </div>
                             <div class="bg-gray-50/75 rounded-xl p-2.5">
                                 <span class="text-gray-500 block text-[11px]">Dilewati</span>
-                                <strong class="text-sm font-bold text-gray-700 font-mono"><?= number_format($skipped, 0, ',', '.') ?></strong>
+                                <strong class="text-sm font-semibold text-gray-700 tabular-nums"><?= number_format($skipped, 0, ',', '.') ?></strong>
                             </div>
                         </div>
 
                         <!-- Progress Bar -->
                         <div class="space-y-1.5 pt-1">
                             <div class="flex items-center justify-between text-xs font-medium">
-                                <span class="text-emerald-700 font-semibold"><?= $progress ?>% Terkirim</span>
-                                <span class="text-gray-500 font-mono text-[11px]"><?= number_format($sent, 0, ',', '.') ?> dari <?= number_format($total, 0, ',', '.') ?></span>
+                                <span class="text-emerald-700 font-semibold tabular-nums"><?= $progress ?>% Terkirim</span>
+                                <span class="text-gray-500 tabular-nums text-[11px]"><?= number_format($sent, 0, ',', '.') ?> dari <?= number_format($total, 0, ',', '.') ?></span>
                             </div>
                             <div class="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden flex">
                                 <div class="h-full bg-blue-600 rounded-full" style="width: <?= $progress ?>%;"></div>
@@ -616,7 +616,7 @@ $activeAdvancedFilters = array_filter(
 
                     <!-- Card Footer -->
                     <div class="pt-3 border-t border-gray-100 flex items-center justify-between gap-2">
-                        <span class="text-[11px] text-gray-500 truncate">
+                        <span class="text-[11px] text-gray-500 truncate tabular-nums">
                             Upload: <?= e(format_datetime($lastUpload)) ?>
                         </span>
                         <a class="btn btn-primary btn-primary-sm" href="<?= e(url($monthUrl)) ?>">
@@ -630,7 +630,7 @@ $activeAdvancedFilters = array_filter(
             <?php if ($months === []): ?>
                 <div class="col-span-full bg-white border border-gray-200 rounded-2xl p-12 text-center shadow-xs">
                     <i class="bi bi-calendar-x text-3xl text-gray-400 block mb-3"></i>
-                    <h3 class="text-base font-bold text-gray-800 mb-1">Tidak ada bulan yang cocok</h3>
+                    <h3 class="text-base font-semibold font-heading text-gray-800 mb-1">Tidak ada bulan yang cocok</h3>
                     <p class="text-xs text-gray-500 mb-4">Ubah filter atau upload report baru untuk mulai mengisi data.</p>
                     <?php if (can('report.manage')): ?>
                         <a class="btn btn-primary py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg focus:outline-none" href="<?= e(url('/reports/create')) ?>">

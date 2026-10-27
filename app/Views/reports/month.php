@@ -376,8 +376,8 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                                     <i class="bi bi-calendar-date"></i>
                                 </div>
                                 <div class="min-w-0">
-                                    <strong class="text-base font-bold text-gray-900 block truncate"><?= e($dateLabel) ?></strong>
-                                    <span class="inline-flex items-center py-0.5 px-2 rounded-full text-[11px] font-semibold <?= $pending > 0 ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-emerald-50 text-emerald-700 border border-emerald-200' ?>">
+                                    <strong class="text-base font-semibold font-heading text-gray-900 block truncate"><?= e($dateLabel) ?></strong>
+                                    <span class="inline-flex items-center py-0.5 px-2 rounded-full text-[11px] font-semibold tabular-nums <?= $pending > 0 ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-emerald-50 text-emerald-700 border border-emerald-200' ?>">
                                         <?= $pending > 0 ? $pending . ' pending' : 'Selesai' ?>
                                     </span>
                                 </div>
@@ -386,12 +386,12 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
 
                         <!-- Meta Info -->
                         <div class="flex items-center gap-2 text-xs text-gray-500 font-medium">
-                            <span class="inline-flex items-center gap-1">
+                            <span class="inline-flex items-center gap-1 tabular-nums">
                                 <i class="bi bi-files text-gray-400"></i>
                                 <?= (int) $dateCard['file_count'] ?> berkas
                             </span>
                             <span>·</span>
-                            <span class="inline-flex items-center gap-1">
+                            <span class="inline-flex items-center gap-1 tabular-nums">
                                 <i class="bi bi-people text-gray-400"></i>
                                 <?= (int) $dateCard['team_count'] ?> tim
                             </span>
@@ -401,27 +401,27 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                         <div class="grid grid-cols-2 gap-2 pt-2 border-t border-gray-100 text-xs">
                             <div class="bg-gray-50/75 rounded-xl p-2.5">
                                 <span class="text-gray-500 block text-[11px]">Total Baris</span>
-                                <strong class="text-sm font-bold text-gray-900 font-mono"><?= number_format($total, 0, ',', '.') ?></strong>
+                                <strong class="text-sm font-semibold text-gray-900 tabular-nums"><?= number_format($total, 0, ',', '.') ?></strong>
                             </div>
                             <div class="bg-emerald-50/50 rounded-xl p-2.5 border border-emerald-100">
                                 <span class="text-emerald-700 block text-[11px]">Terkirim</span>
-                                <strong class="text-sm font-bold text-emerald-800 font-mono"><?= number_format($sent, 0, ',', '.') ?></strong>
+                                <strong class="text-sm font-semibold text-emerald-800 tabular-nums"><?= number_format($sent, 0, ',', '.') ?></strong>
                             </div>
                             <div class="bg-amber-50/50 rounded-xl p-2.5 border border-amber-100">
                                 <span class="text-amber-700 block text-[11px]">Pending</span>
-                                <strong class="text-sm font-bold text-amber-800 font-mono"><?= number_format($pending, 0, ',', '.') ?></strong>
+                                <strong class="text-sm font-semibold text-amber-800 tabular-nums"><?= number_format($pending, 0, ',', '.') ?></strong>
                             </div>
                             <div class="bg-gray-50/75 rounded-xl p-2.5">
                                 <span class="text-gray-500 block text-[11px]">Dilewati</span>
-                                <strong class="text-sm font-bold text-gray-700 font-mono"><?= number_format($skipped, 0, ',', '.') ?></strong>
+                                <strong class="text-sm font-semibold text-gray-700 tabular-nums"><?= number_format($skipped, 0, ',', '.') ?></strong>
                             </div>
                         </div>
 
                         <!-- Progress Bar -->
                         <div class="space-y-1.5 pt-1">
                             <div class="flex items-center justify-between text-xs font-medium">
-                                <span class="text-emerald-700 font-semibold"><?= $progress ?>% Terkirim</span>
-                                <span class="text-gray-500 font-mono text-[11px]"><?= number_format($sent, 0, ',', '.') ?> dari <?= number_format($total, 0, ',', '.') ?></span>
+                                <span class="text-emerald-700 font-semibold tabular-nums"><?= $progress ?>% Terkirim</span>
+                                <span class="text-gray-500 tabular-nums text-[11px]"><?= number_format($sent, 0, ',', '.') ?> dari <?= number_format($total, 0, ',', '.') ?></span>
                             </div>
                             <div class="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden flex">
                                 <div class="h-full bg-blue-600 rounded-full" style="width: <?= $progress ?>%;"></div>
@@ -431,7 +431,7 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
 
                     <!-- Card Footer -->
                     <div class="pt-3 border-t border-gray-100 flex items-center justify-between gap-2">
-                        <span class="text-[11px] text-gray-500 truncate">
+                        <span class="text-[11px] text-gray-500 truncate tabular-nums">
                             Upload: <?= e(format_datetime($lastUpload)) ?>
                         </span>
                         <a class="btn btn-primary btn-primary-sm" href="<?= e(url($dateUrl)) ?>">
@@ -445,7 +445,7 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
             <?php if ($dates === []): ?>
                 <div class="col-span-full bg-white border border-gray-200 rounded-2xl p-12 text-center shadow-xs">
                     <i class="bi bi-calendar-x text-3xl text-gray-400 block mb-3"></i>
-                    <h3 class="text-base font-bold text-gray-800 mb-1">Belum ada report pada bulan ini</h3>
+                    <h3 class="text-base font-semibold font-heading text-gray-800 mb-1">Belum ada report pada bulan ini</h3>
                     <p class="text-xs text-gray-500 mb-4">Upload berkas Excel untuk membentuk daftar tanggal transaksi otomatis.</p>
                     <?php if (can('report.manage')): ?>
                         <a class="btn btn-primary py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg focus:outline-none" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">

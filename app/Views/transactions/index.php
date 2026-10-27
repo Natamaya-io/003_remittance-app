@@ -16,7 +16,7 @@ $bniBatches = (int) ($bniBatches ?? 0);
                 <div class="bank-choice-copy" x-data="{ showInfo: false }">
                     <span class="bank-choice-kicker text-xs font-semibold text-blue-600 tracking-wide uppercase">BANK BRI</span>
                     <div class="flex items-center gap-2 mt-1 mb-2">
-                        <h3 class="text-lg font-bold text-gray-900 m-0">Transaksi BRI</h3>
+                        <h3 class="text-lg font-semibold font-heading text-gray-900 m-0">Transaksi BRI</h3>
                         <button
                             type="button"
                             @click="showInfo = !showInfo"
@@ -53,7 +53,7 @@ $bniBatches = (int) ($bniBatches ?? 0);
                 </div>
             </div>
             <div class="bank-choice-footer pt-4 border-t border-gray-100 flex items-center justify-between gap-3 mt-auto">
-                <span class="bank-choice-count text-xs text-gray-500"><strong class="font-bold text-gray-800"><?= $briJobs ?></strong> batch tersimpan</span>
+                <span class="bank-choice-count text-xs text-gray-500"><strong class="font-semibold text-gray-800 tabular-nums"><?= $briJobs ?></strong> batch tersimpan</span>
                 <div class="bank-choice-actions flex items-center gap-2">
                     <a class="btn btn-light py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-700" href="<?= url('/transactions/bri/history') ?>">Riwayat</a>
                     <?php if (can('transaction.manage')): ?>
@@ -73,7 +73,7 @@ $bniBatches = (int) ($bniBatches ?? 0);
                 <div class="bank-choice-copy" x-data="{ showInfo: false }">
                     <span class="bank-choice-kicker text-xs font-semibold text-emerald-600 tracking-wide uppercase">BANK BNI</span>
                     <div class="flex items-center gap-2 mt-1 mb-2">
-                        <h3 class="text-lg font-bold text-gray-900 m-0">Transaksi BNI</h3>
+                        <h3 class="text-lg font-semibold font-heading text-gray-900 m-0">Transaksi BNI</h3>
                         <button
                             type="button"
                             @click="showInfo = !showInfo"
@@ -108,7 +108,7 @@ $bniBatches = (int) ($bniBatches ?? 0);
                 </div>
             </div>
             <div class="bank-choice-footer pt-4 border-t border-gray-100 flex items-center justify-between gap-3 mt-auto">
-                <span class="bank-choice-count text-xs text-gray-500"><strong class="font-bold text-gray-800"><?= $bniBatches ?></strong> batch tersimpan</span>
+                <span class="bank-choice-count text-xs text-gray-500"><strong class="font-semibold text-gray-800 tabular-nums"><?= $bniBatches ?></strong> batch tersimpan</span>
                 <?php if (can('transaction.manage')): ?>
                     <a class="btn btn-primary py-2 px-3.5 text-xs font-medium rounded-lg" href="<?= url('/transactions/bni') ?>">
                         <i class="bi bi-file-earmark-arrow-up me-1"></i> Import Template

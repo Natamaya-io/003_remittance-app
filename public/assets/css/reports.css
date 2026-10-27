@@ -448,7 +448,7 @@ b {
 .report-date-card:hover,
 .report-team-card:hover {
     transform:
-        translateY(-2px);
+        none !important;
 
     border-color:
         #bdd5e9;
@@ -1425,7 +1425,8 @@ b {
 .report-month-title small {
     font-size: 11px;
     color: #64748b;
-    font-family: monospace;
+    font-family: var(--font-app, var(--font-sans, 'Roboto', sans-serif));
+    font-variant-numeric: tabular-nums;
 }
 
 /* Progress bar inside table and list */

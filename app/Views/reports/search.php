@@ -318,8 +318,8 @@ $queryText = (string) ($filters['q'] ?? '');
          ========================================================= -->
     <section class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-xs">
         <div class="mb-4 pb-3 border-b border-gray-100 flex items-center justify-between">
-            <h3 class="text-sm font-bold text-gray-900">Berkas Report yang Cocok</h3>
-            <span class="text-xs font-mono text-gray-500"><?= number_format(count($batches), 0, ',', '.') ?> berkas</span>
+            <h3 class="text-sm font-semibold font-heading text-gray-900">Berkas Report yang Cocok</h3>
+            <span class="text-xs tabular-nums text-gray-500"><?= number_format(count($batches), 0, ',', '.') ?> berkas</span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -327,22 +327,22 @@ $queryText = (string) ($filters['q'] ?? '');
                 <article class="bg-gray-50/60 border border-gray-200 rounded-xl p-4 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between gap-2 mb-2">
-                            <span class="inline-flex items-center py-0.5 px-2 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-bold uppercase tracking-wider">
+                            <span class="inline-flex items-center py-0.5 px-2 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-semibold uppercase tracking-wider">
                                 <?= e(strtoupper((string) ($batch['effective_team'] ?? 'Tanpa Tim'))) ?>
                             </span>
-                            <span class="inline-flex items-center py-0.5 px-2 rounded-full bg-gray-100 text-gray-700 text-[11px] font-medium font-mono">
+                            <span class="inline-flex items-center py-0.5 px-2 rounded-full bg-gray-100 text-gray-700 text-[11px] font-medium tabular-nums">
                                 <?= e((string) ($batch['effective_date'] ?? '')) ?>
                             </span>
                         </div>
-                        <h4 class="text-sm font-bold text-gray-900 truncate mb-1" title="<?= e((string) ($batch['source_filename'] ?? '')) ?>">
+                        <h4 class="text-sm font-semibold font-heading text-gray-900 truncate mb-1" title="<?= e((string) ($batch['source_filename'] ?? '')) ?>">
                             <?= e((string) ($batch['source_filename'] ?? '')) ?>
                         </h4>
                         <p class="text-xs text-gray-500 mb-3 truncate"><?= e((string) ($batch['name'] ?? '')) ?></p>
 
                         <div class="flex items-center gap-3 py-2 px-3 bg-white rounded-lg border border-gray-200 text-xs mb-3">
-                            <span><b class="text-gray-800"><?= (int) ($batch['total_rows_live'] ?? 0) ?></b> total</span>
-                            <span><b class="text-emerald-600"><?= (int) ($batch['sent_rows_live'] ?? 0) ?></b> terkirim</span>
-                            <span><b class="text-amber-600"><?= (int) ($batch['pending_rows_live'] ?? 0) ?></b> pending</span>
+                            <span><b class="text-gray-800 tabular-nums font-semibold"><?= (int) ($batch['total_rows_live'] ?? 0) ?></b> total</span>
+                            <span><b class="text-emerald-600 tabular-nums font-semibold"><?= (int) ($batch['sent_rows_live'] ?? 0) ?></b> terkirim</span>
+                            <span><b class="text-amber-600 tabular-nums font-semibold"><?= (int) ($batch['pending_rows_live'] ?? 0) ?></b> pending</span>
                         </div>
                     </div>
 
@@ -361,7 +361,7 @@ $queryText = (string) ($filters['q'] ?? '');
             <?php if ($batches === []): ?>
                 <div class="col-span-full py-10 text-center text-gray-400">
                     <i class="bi bi-file-earmark-x text-3xl block mb-2 text-gray-300"></i>
-                    <h3 class="text-sm font-semibold text-gray-700">Tidak ada report yang cocok</h3>
+                    <h3 class="text-sm font-semibold font-heading text-gray-700">Tidak ada report yang cocok</h3>
                     <p class="text-xs text-gray-400 mt-0.5">Coba gunakan kata kunci atau rentang tanggal lain.</p>
                 </div>
             <?php endif; ?>

@@ -430,14 +430,14 @@ $returnPath = '/reports/date/' . $date;
                         <div class="flex items-start justify-between gap-3">
                             <div class="min-w-0">
                                 <div class="flex items-center gap-2 mb-1">
-                                    <span class="inline-flex items-center py-0.5 px-2 rounded-full text-[11px] font-mono font-semibold bg-gray-100 text-gray-700">
+                                    <span class="inline-flex items-center py-0.5 px-2 rounded-full text-[11px] tabular-nums font-semibold bg-gray-100 text-gray-700">
                                         Batch #<?= (int) $batch['id'] ?>
                                     </span>
-                                    <span class="inline-flex items-center py-0.5 px-2.5 rounded-full text-xs font-bold bg-blue-50 text-blue-800 border border-blue-200">
+                                    <span class="inline-flex items-center py-0.5 px-2.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-800 border border-blue-200">
                                         <?= e(strtoupper((string) ($batch['effective_team'] ?? 'Tanpa Tim'))) ?>
                                     </span>
                                 </div>
-                                <strong class="text-sm font-bold text-gray-900 block truncate" title="<?= e($batch['source_filename']) ?>">
+                                <strong class="text-sm font-semibold font-heading text-gray-900 block truncate" title="<?= e($batch['source_filename']) ?>">
                                     <?= e($batch['source_filename']) ?>
                                 </strong>
                                 <span class="text-xs text-gray-500 block truncate mt-0.5">
@@ -450,27 +450,27 @@ $returnPath = '/reports/date/' . $date;
                         <div class="grid grid-cols-2 gap-2 pt-2 border-t border-gray-100 text-xs">
                             <div class="bg-gray-50/75 rounded-xl p-2.5">
                                 <span class="text-gray-500 block text-[11px]">Total Baris</span>
-                                <strong class="text-sm font-bold text-gray-900 font-mono"><?= number_format($total, 0, ',', '.') ?></strong>
+                                <strong class="text-sm font-semibold text-gray-900 tabular-nums"><?= number_format($total, 0, ',', '.') ?></strong>
                             </div>
                             <div class="bg-emerald-50/50 rounded-xl p-2.5 border border-emerald-100">
                                 <span class="text-emerald-700 block text-[11px]">Terkirim</span>
-                                <strong class="text-sm font-bold text-emerald-800 font-mono"><?= number_format($sent, 0, ',', '.') ?></strong>
+                                <strong class="text-sm font-semibold text-emerald-800 tabular-nums"><?= number_format($sent, 0, ',', '.') ?></strong>
                             </div>
                             <div class="bg-emerald-50/50 rounded-xl p-2.5 border border-emerald-100">
                                 <span class="text-emerald-700 block text-[11px]">Success</span>
-                                <strong class="text-sm font-bold text-emerald-800 font-mono"><?= number_format($success, 0, ',', '.') ?></strong>
+                                <strong class="text-sm font-semibold text-emerald-800 tabular-nums"><?= number_format($success, 0, ',', '.') ?></strong>
                             </div>
                             <div class="bg-red-50/50 rounded-xl p-2.5 border border-red-100">
                                 <span class="text-red-700 block text-[11px]">Failed</span>
-                                <strong class="text-sm font-bold text-red-800 font-mono"><?= number_format($failed, 0, ',', '.') ?></strong>
+                                <strong class="text-sm font-semibold text-red-800 tabular-nums"><?= number_format($failed, 0, ',', '.') ?></strong>
                             </div>
                         </div>
 
                         <!-- Progress Bar -->
                         <div class="space-y-1.5 pt-1">
                             <div class="flex items-center justify-between text-xs font-medium">
-                                <span class="text-emerald-700 font-semibold"><?= $progress ?>% Terkirim</span>
-                                <span class="text-gray-500 font-mono text-[11px]"><?= number_format($sent, 0, ',', '.') ?> dari <?= number_format($total, 0, ',', '.') ?></span>
+                                <span class="text-emerald-700 font-semibold tabular-nums"><?= $progress ?>% Terkirim</span>
+                                <span class="text-gray-500 tabular-nums text-[11px]"><?= number_format($sent, 0, ',', '.') ?> dari <?= number_format($total, 0, ',', '.') ?></span>
                             </div>
                             <div class="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden flex">
                                 <div class="h-full bg-blue-600 rounded-full" style="width: <?= $progress ?>%;"></div>
@@ -504,7 +504,7 @@ $returnPath = '/reports/date/' . $date;
             <?php if ($batches === []): ?>
                 <div class="col-span-full bg-white border border-gray-200 rounded-2xl p-12 text-center shadow-xs">
                     <i class="bi bi-file-earmark-x text-3xl text-gray-400 block mb-3"></i>
-                    <h3 class="text-base font-bold text-gray-800 mb-1">Tidak ada report tim</h3>
+                    <h3 class="text-base font-semibold font-heading text-gray-800 mb-1">Tidak ada report tim</h3>
                     <p class="text-xs text-gray-500 mb-4">Belum ada berkas pada tanggal ini atau data tidak cocok dengan filter yang dipilih.</p>
                     <?php if (can('report.manage')): ?>
                         <a class="btn btn-primary py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg focus:outline-none" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">

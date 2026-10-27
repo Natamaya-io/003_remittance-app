@@ -111,6 +111,89 @@
   }
 
   /* =========================================================
+     HUKUM TIPOGRAFI KARTU (GEMINI.MD - DM SANS TITLE & ROBOTO DATA)
+     ========================================================= */
+  .card,
+  .panel-card,
+  .form-card,
+  .summary-card,
+  .bank-choice-card,
+  .payer-summary-card,
+  .payer-account-card,
+  .job-stat-card,
+  .dashboard-kpi-card,
+  .dashboard-panel,
+  article,
+  article.rounded-2xl,
+  article.rounded-xl {
+    font-family: var(--font-sans) !important;
+  }
+
+  .card h1, .card h2, .card h3, .card h4, .card h5, .card h6,
+  .card strong.text-base, .card strong.text-lg, .card strong.text-sm,
+  .card .card-title,
+  .panel-card h1, .panel-card h2, .panel-card h3, .panel-card h4, .panel-card h5, .panel-card h6,
+  .panel-card strong.text-base, .panel-card strong.text-lg, .panel-card strong.text-sm,
+  .panel-card .card-title,
+  .bank-choice-card h1, .bank-choice-card h2, .bank-choice-card h3, .bank-choice-card h4,
+  .bank-choice-card strong.text-base, .bank-choice-card strong.text-lg,
+  article h1, article h2, article h3, article h4, article h5, article h6,
+  article strong.text-base, article strong.text-lg, article strong.text-sm,
+  article strong.text-xs,
+  article .card-title,
+  .card-heading {
+    font-family: var(--font-heading) !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.015em;
+  }
+
+  .card .font-mono,
+  .panel-card .font-mono,
+  .form-card .font-mono,
+  .bank-choice-card .font-mono,
+  article .font-mono {
+    font-family: var(--font-sans) !important;
+    font-variant-numeric: tabular-nums !important;
+  }
+
+  .card [class*="tabular-nums"],
+  .panel-card [class*="tabular-nums"],
+  article [class*="tabular-nums"],
+  .dashboard-kpi-card strong,
+  .card strong,
+  .panel-card strong,
+  article strong {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .card strong,
+  .card b,
+  .card .font-bold,
+  .panel-card strong,
+  .panel-card b,
+  .panel-card .font-bold,
+  article strong,
+  article b,
+  article .font-bold {
+    font-weight: 600 !important;
+  }
+
+  .card button,
+  .card .btn,
+  .card .btn-primary,
+  .card [role="button"],
+  .panel-card button,
+  .panel-card .btn,
+  .panel-card .btn-primary,
+  .panel-card [role="button"],
+  article button,
+  article .btn,
+  article .btn-primary,
+  article [role="button"] {
+    font-family: var(--font-cta) !important;
+  }
+
+  /* =========================================================
      HUKUM BEBAS TRANSFORM (STATE HOVER/FOCUS/ACTIVE STATIS)
      ========================================================= */
   .btn, .btn-primary, button, a, [role="button"], .card, .panel, .badge {
