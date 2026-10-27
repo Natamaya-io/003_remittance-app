@@ -296,7 +296,7 @@ $returnPath = '/reports/date/' . $date;
          class="space-y-4">
 
         <div class="flex items-center justify-end">
-            <!-- Switch Button Tampilan Antara Tabel dan Kartu (UI Kustom) -->
+            <!-- Toggle Tampilan Teks Antara Tabel dan Kartu (UI Kustom) -->
             <?= render_table_view_toggle('viewMode') ?>
         </div>
 
