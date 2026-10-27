@@ -113,13 +113,16 @@ declare(strict_types=1);
                             required
                             class="custom-form-input has-leading-icon has-trailing-action"
                         >
-                        <button
-                            type="button"
+                        <i
+                            :class="showPass ? 'bi bi-eye-slash' : 'bi bi-eye'"
                             @click="showPass = !showPass"
-                            :class="showPass ? 'bi-eye-slash' : 'bi-eye'"
-                            class="bi bi-eye absolute right-2.5 p-1 text-gray-400 hover:text-gray-700 transition-colors focus:outline-none text-base cursor-pointer leading-none"
+                            @keydown.enter.prevent="showPass = !showPass"
+                            @keydown.space.prevent="showPass = !showPass"
+                            role="button"
+                            tabindex="0"
+                            class="bi bi-eye absolute right-3 text-gray-400 hover:text-gray-700 cursor-pointer text-base select-none leading-none focus:outline-none transition-colors"
                             :aria-label="showPass ? 'Sembunyikan password' : 'Tampilkan password'"
-                        ></button>
+                        ></i>
                     </div>
                 </div>
 

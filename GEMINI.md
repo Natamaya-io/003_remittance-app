@@ -862,11 +862,22 @@ Tombol sekunder dan pendukung berbagi geometri yang selaras:
 2. **Ikon Berdiri Telanjang (The Naked Icon Principle):**
    - Ikon wajib berdiri bebas (*naked icon*) secara langsung di dalam elemen hierarki utamanya (berdampingan langsung dengan teks judul, label, angka metrik, atau di dalam tombol aksi).
    - Ikon dilarang memiliki background sendiri (`background: transparent !important;`), dilarang memiliki border sendiri, dan dilarang memiliki padding wadah buatan.
-3. **Standar Ikon Aksi Interaktif (Single-Element Action Icon & Zero-Wrapper Sintaksis):**
-   - Ikon yang memiliki fungsi interaktif (seperti visibility toggle password atau info tooltip) wajib menggunakan elemen semantik tombol (`<button type="button">`) demi kepatuhan aksesibilitas keyboard (W3C WCAG 2.1 AA) dan pembaca layar (`:aria-label`).
-   - Namun, untuk menjamin **Zero-Wrapper sejati hingga ke tingkat struktur DOM**, tag `<button>` tersebut **MUTLAK DILEBUR LANGSUNG MENJADI IKON ITU SENDIRI TANPA MENYARANGKAN TAG `<i>` ATAU `<span>` DI DALAMNYA**:
-     `<button type="button" @click="..." :class="..." class="bi bi-eye ..."></button>`.
-   - Pola lama yang menyarangkan `<button><i>...</i></button>` dinyatakan usang (*deprecated*) demi kebersihan hierarki DOM dan kepatuhan mutlak pada prinsip Zero-Wrapper.
+3. **Standar Ikon Aksi Interaktif (Pure Naked Action Icon - Ikon Berdiri Sendiri):**
+   - Seluruh ikon antarmuka (termasuk ikon interaktif seperti toggle visibilitas password atau pemicu aksi inline) **MUTLAK WAJIB BERDIRI SENDIRI MURNI SEBAGAI TAG IKON (`<i>` ATAU `<svg>`) TANPA WRAPPER ELEMEN APA PUN**.
+   - **Pemusnahan Tag Pembungkus `<button>`:** DILARANG membungkus ikon di dalam tag `<button>`, dan DILARANG mengubah elemen tombol menjadi pengganti tag ikon jika yang dimaksudkan adalah ikon input. Aksi klik dan aksesibilitas keyboard W3C (WCAG 2.1 AA) **MUTLAK DIINJEKSIKAN LANGSUNG PADA TAG `<i>` ITU SENDIRI**:
+     ```html
+     <i
+         :class="showPass ? 'bi bi-eye-slash' : 'bi bi-eye'"
+         @click="showPass = !showPass"
+         @keydown.enter.prevent="showPass = !showPass"
+         @keydown.space.prevent="showPass = !showPass"
+         role="button"
+         tabindex="0"
+         class="bi bi-eye absolute right-3 text-gray-400 hover:text-gray-700 cursor-pointer text-base select-none leading-none focus:outline-none transition-colors"
+         :aria-label="showPass ? 'Sembunyikan password' : 'Tampilkan password'"
+     ></i>
+     ```
+   - Dengan standar ini, ikon berdiri sendiri 100% (*pure naked icon*), simetris dengan ikon pasif pendampingnya, dan bebas dari wrapper elemen buatan apa pun.
 
 ### 14.2. Hukum Warna Monokrom Mutlak (Strict Black or White Law)
 1. **Hanya Dua Warna yang Diizinkan:**
@@ -1257,7 +1268,7 @@ Didefinisikan secara resmi di `@layer components` dalam `public/assets/css/tailw
     >
 </div>
 
-<!-- 3. Input Password dengan Visibility Toggle Kanan (Single-Element Action Icon) -->
+<!-- 3. Input Password dengan Visibility Toggle Ikon Murni Berdiri Sendiri -->
 <div class="relative flex items-center" x-data="{ showPass: false }">
     <i class="bi bi-lock absolute left-3 text-gray-400 pointer-events-none text-base"></i>
     <input
@@ -1268,13 +1279,16 @@ Didefinisikan secara resmi di `@layer components` dalam `public/assets/css/tailw
         class="custom-form-input has-leading-icon has-trailing-action"
         required
     >
-    <button
-        type="button"
+    <i
+        :class="showPass ? 'bi bi-eye-slash' : 'bi bi-eye'"
         @click="showPass = !showPass"
-        :class="showPass ? 'bi-eye-slash' : 'bi-eye'"
-        class="bi bi-eye absolute right-2.5 p-1 text-gray-400 hover:text-gray-700 transition-colors focus:outline-none text-base cursor-pointer leading-none"
+        @keydown.enter.prevent="showPass = !showPass"
+        @keydown.space.prevent="showPass = !showPass"
+        role="button"
+        tabindex="0"
+        class="bi bi-eye absolute right-3 text-gray-400 hover:text-gray-700 cursor-pointer text-base select-none leading-none focus:outline-none transition-colors"
         :aria-label="showPass ? 'Sembunyikan password' : 'Tampilkan password'"
-    ></button>
+    ></i>
 </div>
 ```
 
