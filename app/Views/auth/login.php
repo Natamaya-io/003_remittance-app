@@ -21,13 +21,18 @@ declare(strict_types=1);
 <div class="min-h-screen w-full flex flex-col items-center justify-center p-4 sm:p-6 bg-[#F5F2F2]">
     <div class="w-full max-w-[420px] bg-white border border-gray-200 rounded-2xl shadow-[0_10px_25px_-5px_rgba(0,0,0,0.06),0_8px_10px_-6px_rgba(0,0,0,0.04)] p-6 sm:p-8 space-y-6">
 
-        <!-- BRANDING & JUDUL TELANJANG (ZERO-SLOP) -->
-        <div class="flex flex-col items-center text-center space-y-2">
-            <div class="inline-flex items-center justify-center text-3xl text-gray-900">
-                <i class="bi bi-bank2"></i>
-            </div>
-            <h1 class="font-heading font-semibold text-2xl text-gray-900 tracking-tight">
-                RemitGo!
+        <!-- BRANDING LOGO RESMI (REMITGO!) -->
+        <div class="flex flex-col items-center justify-center text-center">
+            <h1 class="m-0 leading-none inline-flex items-center justify-center">
+                <img
+                    src="<?= e(url('/remitgo.png')) ?>"
+                    alt="RemitGo!"
+                    class="h-12 sm:h-[56px] w-auto max-w-[220px] object-contain select-none"
+                    loading="eager"
+                    width="1720"
+                    height="744"
+                >
+                <span class="sr-only">RemitGo!</span>
             </h1>
         </div>
 
