@@ -37,6 +37,7 @@
    - **Sistem Popup Notifikasi Toast Kustom Mutlak (Universal Custom Toast Notification Law):** Seluruh notifikasi popup, pesan umpan balik tindakan, konfirmasi aksi, maupun peringatan sistem **MUTLAK HARUS MENGGUNAKAN TOAST DENGAN UI KUSTOM TANPA STYLE BAWAAN BROWSER**. Penggunaan notifikasi browser native (seperti alert dialog abu-abu OS, Web Notification bubble bawaan sistem operasi, atau `window.alert()` / `window.confirm()`) **DIHARAMKAN SECARA MUTLAK**. Toast beroperasi secara mengambang (*floating viewport stack*), sudut membulat elegan (`rounded-xl` / `rounded-2xl`), border solid 1px, soft elevation, 4 warna solid varian status resmi, tombol tutup dismissible kustom, auto-dismiss dengan timer pause saat hover, dan transisi Alpine.js halus tanpa efek bounce atau layout shift (lihat Bagian 16 untuk aturan terkunci lengkap).
    - **Sistem Form Input Teks Kustom Mutlak (Universal Custom Form Input Law):** Seluruh elemen input form teks (`<input type="text">`, `type="password"`, `type="email"`, dsb.) **MUTLAK WAJIB** menggunakan kelas terpusat `.custom-form-input` dengan ketinggian presisi 40px (selaras 1:1 dengan `.btn-primary` dan `.custom-search-input`), sudut membulat modular `rounded-[9px]`, latar permukaan well `#F5F2F2` dengan bayangan inset mikro, batas kontur `#d1d5db`, transisi fokus bersih ke putih dengan border solid `#315B8C` (*Deep Brand Blue*), serta jarak ikon kiri rapat alami (38px padding kiri, celah 8-10px) (lihat Bagian 17 untuk aturan terkunci lengkap).
    - **Anti-Kode Utilitas Ad-Hoc Sementara & Wajib Kustom UI Komprehensif (Zero Quick Placeholder Law):** DILARANG KERAS menggunakan rangkaian kelas utilitas tambal sulam instan (*ad-hoc quick placeholder*) saat merombak antarmuka. Setiap perombakan elemen UI MUTLAK WAJIB langsung mengimplementasikan Kustom UI Komprehensif dengan geometri modular terstandarisasi (misal tinggi 40px, radius 9px, surface depth #F5F2F2, spasi rapat), terintegrasi ke sistem komponen global, dan tahan terhadap penskalaan visual root 20px (lihat Bagian 18 untuk aturan terkunci lengkap).
+   - **Arsitektur Halaman Login Split-Screen & Ramah Lansia (Universal Split Login & Senior Accessibility Law):** Halaman login beroperasi dengan tata letak split-screen 50/50 full-screen non-scrollable, pemisah bergelombang organik dinamis, logo resmi RemitGo! (teks "Remit" oranye solid `#F2765E`), skala elemen lansia 50px presisi (`.custom-form-input-lg` & `.btn-primary-lg`), bebas font-bold, dan ikon mata password telanjang murni tanpa wrapper (lihat Bagian 19 untuk aturan terkunci lengkap).
 
 ---
 
@@ -1415,3 +1416,396 @@ Sebelum menyatakan tugas perombakan UI selesai, seluruh poin audit berikut wajib
 
 ### 18.5. Sanksi Arsitektural & Pelanggaran Mutlak
 Penyerahan kode antarmuka yang terbukti menggunakan kode utilitas ad-hoc sementara (*quick placeholder*) akan **DITOLAK SECARA MUTLAK (REJECTED)**. Agen AI wajib melakukan refaktor seketika menjadi Kustom UI Komprehensif sebelum tugas dapat dinyatakan tuntas.
+
+---
+
+## 19. Aturan Terkunci: Arsitektur Desain Halaman Login & Autentikasi (Universal Split-Screen Non-Scrollable Login Architecture Law)
+
+> **STATUS ATURAN: HUKUM MUTLAK & TERKUNCI PERMANEN (STRICT COMPLIANCE & NON-NEGOTIABLE)**  
+> Halaman login (`/login`, view: `app/Views/auth/login.php`, layout: `app/Views/layouts/guest.php`) adalah pintu gerbang operasional utama aplikasi perbankan dan remitansi **RemitGo!**. Seluruh pengembang dan agen AI **MUTLAK WAJIB** mematuhi konstitusi desain ini secara utuh tanpa modifikasi spekulatif atau pengurangan standar estetika, aksesibilitas, dan fungsionalitas.
+
+### 19.1. Filosofi Arsitektur & Prinsip Pembeda
+1. **Pemisahan Visual 50/50 Full-Screen:** Menyeimbangkan visual berwibawa enterprise di sisi kiri dengan ruang kerja formulir masuk yang ergonomis di sisi kanan.
+2. **Imunitas Terhadap Scrollbar Desktop (Universal Non-Scrollable Fit Viewport):** Tampilan login pada resolusi desktop ($\ge 1024\text{px}$) **MUTLAK FIT DI DALAM VIEWPORT (100vh)** tanpa memicu scrollbar vertikal pada peramban web klien.
+3. **Pemisah Bergelombang Organik (The Wavy Boundary):** Batas pembatas visual art dan kanvas formulir login dilarang berupa garis lurus geometris yang kaku. Wajib berupa kurva gelombang organik dinamis yang menyatu lembut ke kanvas putih formulir.
+4. **Ergonomi Ramah Lansia (Senior & High-Accessibility Standard):** Ukuran kontrol diperbesar secara proporsional (ketinggian 50px) dengan tipografi non-bold jernih untuk memfasilitasi pengguna lanjut usia dan operator perbankan.
+5. **Universal Naked Action Icon:** Ikon aksi interaktif (khususnya visibilitas password) wajib berdiri telanjang murni sebagai elemen `<i>` semantik tanpa pembungkus dekoratif apa pun.
+
+---
+
+### 19.2. Geometri Tata Letak Split 50/50 & Pengendalian Viewport (Desktop vs Mobile)
+
+```
++-------------------------------------------------------------------------------+
+|                                  VIEWPORT 100vh                               |
+| +------------------------------------+--------------------------------------+ |
+| |        KOLOM KIRI (50% WIDTH)      |        KOLOM KANAN (50% WIDTH)       | |
+| |                                    |                                      | |
+| |  Visual Art Penuh (Object-Cover)   |   [Logo RemitGo! (Remit: Oranye)]    | |
+| |  - AVIF -> WebP -> JPEG Fallback   |                                      | |
+| |  - Background: Slate-900           |   [Input Username / Email (50px)]    | |
+| |                                    |   - Ikon person (20px, left-4)       | |
+| |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ |                                      | |
+| |  PEMISAH BERGELOMBANG ORGANIK      |   [Input Password (50px)]            | |
+| |  - Desktop: SVG Vertikal Kanan     |   - Ikon lock (20px, left-4)         | |
+| |  - Mobile:  SVG Horizontal Bawah   |   - Ikon mata telanjang (right-4)    | |
+| |                                    |                                      | |
+| |                                    |   [Tombol Masuk .btn-primary (50px)] | |
+| |                                    |   - Non-bold (Font-Medium 500)       | |
+| +------------------------------------+--------------------------------------+ |
++-------------------------------------------------------------------------------+
+```
+
+1. **Struktur Kontainer Induk:**
+   - Kelas Kontainer: `<div class="h-screen max-h-screen w-full flex flex-col lg:flex-row bg-[#F5F2F2] overflow-hidden">`.
+   - Layout CSS Global: `html, body.login-body { height: 100%; max-height: 100vh; overflow: hidden; }`.
+   - **Larangan Scrollbar Desktop:** Dilarang menggunakan padding atau margin berlebih yang memaksa dokumen melebihi `100vh`. Seluruh elemen formulir dan kartu wajib berada rapi di tengah secara vertikal (`my-auto`).
+2. **Responsivitas Perangkat:**
+   - **Desktop ($\ge 1024\text{px}$):** Dua kolom berdampingan (`lg:flex-row`), masing-masing mengambil porsi tepat 50% (`w-full lg:w-1/2`). Kolom kiri `lg:h-full lg:min-h-screen`, kolom kanan `lg:h-screen`.
+   - **Tablet & Mobile ($< 1024\text{px}$):** Tata letak bertumpuk vertikal (`flex-col`). Kolom visual art menyusut proporsional menjadi banner atas (`h-44 sm:h-56`) dengan pemisah bergelombang horizontal di bagian bawah, sementara kolom formulir mengisi area bawah secara fleksibel (`flex-1`).
+
+---
+
+### 19.3. Kolom Kiri Visual Art & Pemisah Bergelombang (The Wavy Boundary Law)
+
+1. **Rendering Aset Visual Multi-Format:**
+   - Wajib menggunakan elemen `<picture class="w-full h-full block">` dengan fallback format berkinerja tinggi:
+     1. `<source srcset="<?= e(url('/login_art.avif')) ?>" type="image/avif">`
+     2. `<source srcset="<?= e(url('/login_art.webp')) ?>" type="image/webp">`
+     3. `<img src="<?= e(url('/login_art.jpeg')) ?>" alt="RemitGo! Visual Art" class="w-full h-full object-cover object-center select-none" loading="eager" width="1696" height="2528">`
+   - Kontainer gambar wajib memiliki kelas `relative overflow-hidden bg-slate-900 flex-shrink-0`.
+2. **Pemisah Bergelombang Organik (Organic Wavy Divider):**
+   - **Hukum Anti-Garis Lurus:** Garis pemisah antara area visual art dan area form login **MUTLAK DILARANG LURUS KAKU**. Wajib menggunakan kurva bergelombang organik berbasis SVG vektor dengan warna teks putih (`text-white`) yang menyatu sempurna tanpa celah ke latar formulir:
+   - **Varian Desktop (Vertikal di Tepi Kanan Visual Art):**
+     ```html
+     <svg class="hidden lg:block absolute inset-y-0 -right-[1px] h-full w-14 lg:w-16 xl:w-20 2xl:w-24 pointer-events-none z-10 text-white" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true">
+         <path fill="currentColor" d="M 100 0 L 100 1000 L 40 1000 C 15 900, 80 850, 45 750 C 10 650, 75 550, 35 450 C 5 350, 70 250, 40 150 C 15 80, 60 40, 30 0 Z"></path>
+     </svg>
+     ```
+   - **Varian Mobile (Horizontal di Tepi Bawah Visual Art):**
+     ```html
+     <svg class="block lg:hidden absolute -bottom-[1px] inset-x-0 w-full h-6 sm:h-8 pointer-events-none z-10 text-white" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+         <path fill="currentColor" d="M 0 120 L 1200 120 L 1200 45 C 1050 85, 900 15, 750 50 C 600 85, 450 15, 300 50 C 150 85, 50 20, 0 45 Z"></path>
+     </svg>
+     ```
+
+---
+
+### 19.4. Spesifikasi Logo Resmi RemitGo! & Cache Invalidation
+
+1. **Geometri & Penempatan:**
+   - Diletakkan di bagian atas formulir dengan perataan tengah penuh (`flex flex-col items-center justify-center text-center`).
+   - Ukuran terkunci: `class="h-12 sm:h-14 lg:h-16 w-auto max-w-[200px] sm:max-w-[240px] object-contain select-none"`.
+   - Atribut wajib: `width="1720" height="744" loading="eager"`.
+   - Aksesibilitas: Teks pembaca layar `<span class="sr-only">RemitGo!</span>`.
+2. **Kepatuhan Warna Tipografi Logo:**
+   - **Segmen Teks "Remit":** **MUTLAK WAJIB BERWARNA ORANYE SOLID (`#F2765E` - Vibrant Coral Accent)**. DILARANG KERAS menggunakan warna putih atau biru karena teks putih akan hilang tertelan latar belakang putih formulir.
+   - **Segmen Teks "Go!":** Wajib solid Brand Blue (`#2482FF` / `#315B8C`).
+   - **Maskot:** Deep Blue (`#0065F8`), Asphalt Dark (`#383838`), dan sorot mata putih (`#FFFFFF`).
+3. **Mekanisme Anti-Cache Browser (Cache-Buster):**
+   - URL logo pada view wajib menyertakan query string versi: `src="<?= e(url('/remitgo.png?v=20261027')) ?>"` untuk menjamin pembaruan aset seketika di seluruh peramban pengguna.
+4. **Pemusnahan Subjudul & Paragraf Basa-Basi:**
+   - Logo berdiri telanjang. **DILARANG KERAS** menambahkan subtitle seperti "Silakan masukkan kredensial Anda", "Sistem Masuk Aman Remitansi", atau slogan promosi lainnya di bawah logo.
+
+---
+
+### 19.5. Standar Varian Ergonomi Ramah Lansia (Senior Accessibility Law)
+
+Berdasarkan demografi pengguna operasional perbankan yang mencakup usia lanjut, elemen formulir pada halaman `/login` beroperasi dengan standar dimensi besar terstandarisasi:
+
+1. **Bidang Input Teks Lansia (`.custom-form-input.custom-form-input-lg`):**
+   - **Ketinggian Fisik:** 50px presisi (`height: 50px; line-height: 50px;`).
+   - **Ukuran Tipografi:** 16px Roboto Normal (`font-size: 16px; font-weight: 400;`).
+   - **Radius Sudut:** 11px modular (`border-radius: 11px;`).
+   - **Kedalaman Tekstur:** Permukaan well `#F5F2F2` dengan bayangan cekung mikro `box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04)`.
+   - **Batas Kontur & Fokus:** Border `#d1d5db`, transisi fokus ke putih bersih dengan border solid `#315B8C` (*Deep Brand Blue*) dan ring halo `3px rgba(49, 91, 140, 0.15)`.
+   - **Padding Ikon:** Kelas `.has-leading-icon` menyematkan padding kiri 44px (`padding-left: 44px;`) untuk memberikan spasi lega terhadap ikon `left-4`.
+2. **Tombol Masuk Utama Lansia (`.btn-primary.btn-primary-lg`):**
+   - **Ketinggian Fisik:** 50px presisi (selaras 1:1 dengan input 50px).
+   - **Ukuran Tipografi:** 17px DM Sans Medium (`font-size: 17px; font-weight: 500;`).
+   - **Radius Sudut:** 11px modular (`border-radius: 11px;`).
+   - **Padding:** Horizontal 24px (`px-6`).
+   - **Elevasi Taktil:** Inset highlight atas `inset 0 1px 0 rgba(255,255,255,0.32)`, tepi bawah `inset 0 -1px 0 rgba(0,0,0,0.16)`, dan bayangan luar `0 1px 2px rgba(0,0,0,0.55)`.
+   - **Fisika Taktil Bebas Transform:** Hover brightness 110%, active micro-press `translateY(1px)` dengan bayangan inset.
+3. **Dimensi Ikon:**
+   - Ikon leading (`bi-person`, `bi-lock`) dan ikon trailing (`bi-eye`, `bi-eye-slash`) menggunakan ukuran 20px (`text-xl`) berwarna netral `#9ca3af` (`text-gray-400`).
+
+---
+
+### 19.6. Hukum Mutlak Pemusnahan Huruf Tebal (Universal Non-Bold Login Law)
+
+1. **Alasan Ergonomi Keterbacaan:**
+   Huruf tebal (*bold / font-weight: 600, 700, 800*) memicu penumpukan tinta digital (*pixel bleeding*) yang menyulitkan mata lansia dalam mengenali detail huruf pada formulir berdensitas ringkas.
+2. **Spesifikasi Bobot Huruf Terkunci pada `/login`:**
+   - Label formulir: `font-normal` (`font-weight: 400; color: #374151; font-size: 0.875rem` hingga `1rem`).
+   - Input teks & placeholder: `font-normal` (`font-weight: 400; font-size: 16px;`).
+   - Tombol submit CTA: `font-medium` (`font-weight: 500; font-size: 1.0625rem;`).
+   - **Larangan Mutlak:** DILARANG KERAS menyematkan kelas `font-bold`, `font-semibold`, atau tag `<b>`, `<strong>` pada label, input, atau tombol di halaman `/login`.
+
+---
+
+### 19.7. Ikon Aksi Telanjang & Toggle Visibilitas Password (Naked Action Icon Law)
+
+1. **Pemusnahan Wrapper Tombol / Kapsul:**
+   - Ikon interaktif toggle visibilitas password **MUTLAK DILARANG DIBUNGKUS** menggunakan elemen `<button>`, `<span>`, atau wadah dekoratif berlatar warna.
+   - Ikon wajib berdiri telanjang murni sebagai elemen `<i>` interaktif yang diletakkan langsung di dalam kontainer input relatif (`relative flex items-center`).
+2. **Pola Dua Ikon Terpisah Berbasis Kondisi Visibilitas:**
+   - **Saat Password Tersembunyi (Kondisi Default):**
+     Menampilkan ikon mata terbuka (`bi-eye`) untuk memicu aksi melihat password.
+   - **Saat Password Terlihat (Kondisi Aktif):**
+     Menampilkan ikon mata tercoret (`bi-eye-slash`) untuk memicu aksi menyembunyikan kembali password.
+3. **Kepatuhan Aksesibilitas Standar W3C (Keyboard & Screen Reader Accessibility):**
+   - Wajib menyertakan `role="button"` dan `tabindex="0"`.
+   - Wajib menyertakan keyboard event handler: `@keydown.enter.prevent` dan `@keydown.space.prevent`.
+   - Wajib menyertakan `aria-label` dan `title` yang deskriptif ("Tampilkan password" / "Sembunyikan password").
+4. **Implementasi DOM Standar:**
+   ```html
+   <div x-data="{ showPass: false }">
+       <label for="loginPassword" class="block text-sm sm:text-base font-normal text-gray-700 mb-1.5 font-sans">
+           Password
+       </label>
+       <div class="relative flex items-center">
+           <i class="bi bi-lock absolute left-4 text-gray-400 pointer-events-none text-xl"></i>
+           <input
+               :type="showPass ? 'text' : 'password'"
+               type="password"
+               id="loginPassword"
+               name="password"
+               placeholder="Masukkan password akun"
+               autocomplete="current-password"
+               required
+               class="custom-form-input custom-form-input-lg has-leading-icon has-trailing-action font-normal"
+           >
+           <!-- Ikon Mata: Tampilkan Password -->
+           <i
+               x-show="!showPass"
+               @click="showPass = true"
+               @keydown.enter.prevent="showPass = true"
+               @keydown.space.prevent="showPass = true"
+               role="button"
+               tabindex="0"
+               class="bi bi-eye absolute right-4 text-gray-400 hover:text-gray-700 cursor-pointer text-xl select-none leading-none focus:outline-none transition-colors p-1"
+               aria-label="Tampilkan password"
+               title="Tampilkan password"
+           ></i>
+
+           <!-- Ikon Mata Tercoret: Sembunyikan Password -->
+           <i
+               x-show="showPass"
+               x-cloak
+               @click="showPass = false"
+               @keydown.enter.prevent="showPass = false"
+               @keydown.space.prevent="showPass = false"
+               role="button"
+               tabindex="0"
+               class="bi bi-eye-slash absolute right-4 text-gray-400 hover:text-gray-700 cursor-pointer text-xl select-none leading-none focus:outline-none transition-colors p-1"
+               aria-label="Sembunyikan password"
+               title="Sembunyikan password"
+           ></i>
+       </div>
+   </div>
+   ```
+
+---
+
+### 19.8. Pemusnahan Total AI Slop & Ornamen Seremonial (Zero-Slop Authentication)
+
+1. **Lencana Keamanan Palsu (Security Badges):** DILARANG KERAS menyematkan lencana/badge "Enkripsi TLS 1.3", "Single-Tenant Isolation", "Bank Grade Security", atau logo gembok hijau di halaman login.
+2. **Kapsul Status Seremonial:** DILARANG menyematkan kapsul status seperti "Terbuka", "Aktif", "Server Online", atau sejenisnya.
+3. **Footer & Hak Cipta Statis:** DILARANG menambahkan baris footer copyright dekoratif di dalam form area yang memakan ruang vertikal dan memicu scrollbar.
+4. **Bilah Switcher Mode Tab:** DILARANG membuat tab switcher ("Masuk" vs "Daftar Akun") karena aplikasi perbankan ini bersifat privat dan tidak mendukung pendaftaran publik mandiri.
+
+---
+
+### 19.9. Sistem Notifikasi Flash Sesi & Toast Mengambang
+
+1. **Peniadaan Alert Box Statis:**
+   - DILARANG menampilkan kotak alert statis di atas atau di bawah formulir login yang menyebabkan pergeseran layout (*layout shift*) atau memicu munculnya scrollbar vertikal.
+2. **Integrasi Floating Toast Global:**
+   - Seluruh pesan galat autentikasi (seperti "Kredensial tidak valid" atau "Sesi Anda telah berakhir") wajib dikonversi menjadi popup notifikasi **Toast Kustom Mengambang** (`window.RemitToast` / `remitToastStack`).
+   - Toast mengambang di pojok kanan atas (`fixed top-5 right-5 z-[9999] pointer-events-none`), memiliki transisi halus, border solid 1px, bayangan lembut, tombol tutup kustom, dan penghitung waktu auto-dismiss tanpa mengganggu posisi formulir kerja.
+
+---
+
+### 19.10. Disiplin 4 Warna Solid Murni (Strict Solid Palette Compliance)
+
+Halaman login **MUTLAK TUNDUK** pada Bagian 11:
+- **Kanvas Dasar:** `#F5F2F2` (Asphalt Off-White Base).
+- **Kanvas Formulir:** `#FFFFFF` (Solid Clean White).
+- **Aksen Primer Logo:** `#F2765E` (Vibrant Coral Accent pada teks "Remit").
+- **Tombol & Fokus Utama:** `#315B8C` (Deep Brand Blue).
+- **Teks Utama & Ikon:** `#111827`, `#374151`, `#413333` (Deep Asphalt Brown), `#9ca3af` (Netral).
+- **Bebas Gradien Alien:** Dilarang menggunakan gradien ungu, warna neon, atau efek kaca blur semu pada area formulir login.
+
+---
+
+### 19.11. Cetak Biru DOM Terkunci (The Golden Login View Blueprint)
+
+Berikut adalah struktur kode acuan mutlak untuk [`app/Views/auth/login.php`](file:///home/m4yestik/Projects/client/remittance.raxbyte.com/app/Views/auth/login.php):
+
+```html
+<div class="h-screen max-h-screen w-full flex flex-col lg:flex-row bg-[#F5F2F2] overflow-hidden">
+
+    <!-- KOLOM KIRI: VISUAL ART PENUH (KROP OTOMATIS FIT VIEWPORT) -->
+    <div class="w-full lg:w-1/2 h-44 sm:h-56 lg:h-full lg:min-h-screen relative overflow-hidden bg-slate-900 flex-shrink-0">
+        <picture class="w-full h-full block">
+            <source srcset="<?= e(url('/login_art.avif')) ?>" type="image/avif">
+            <source srcset="<?= e(url('/login_art.webp')) ?>" type="image/webp">
+            <img
+                src="<?= e(url('/login_art.jpeg')) ?>"
+                alt="RemitGo! Visual Art"
+                class="w-full h-full object-cover object-center select-none"
+                loading="eager"
+                width="1696"
+                height="2528"
+            >
+        </picture>
+
+        <!-- PEMISAH BERGELOMBANG DESKTOP (VERTIKAL DI TEPI KANAN ART) -->
+        <svg class="hidden lg:block absolute inset-y-0 -right-[1px] h-full w-14 lg:w-16 xl:w-20 2xl:w-24 pointer-events-none z-10 text-white" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true">
+            <path fill="currentColor" d="M 100 0 L 100 1000 L 40 1000 C 15 900, 80 850, 45 750 C 10 650, 75 550, 35 450 C 5 350, 70 250, 40 150 C 15 80, 60 40, 30 0 Z"></path>
+        </svg>
+
+        <!-- PEMISAH BERGELOMBANG MOBILE (HORIZONTAL DI TEPI BAWAH ART) -->
+        <svg class="block lg:hidden absolute -bottom-[1px] inset-x-0 w-full h-6 sm:h-8 pointer-events-none z-10 text-white" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+            <path fill="currentColor" d="M 0 120 L 1200 120 L 1200 45 C 1050 85, 900 15, 750 50 C 600 85, 450 15, 300 50 C 150 85, 50 20, 0 45 Z"></path>
+        </svg>
+    </div>
+
+    <!-- KOLOM KANAN: WORKSPACE FORMULIR MASUK (FIT VIEWPORT NON-SCROLLABLE & HIGH ACCESSIBILITY) -->
+    <div class="w-full lg:w-1/2 h-full lg:h-screen max-h-screen flex flex-col justify-center items-center p-4 sm:p-6 lg:p-8 bg-white overflow-hidden flex-1">
+        <div class="max-w-[420px] sm:max-w-[460px] w-full mx-auto my-auto space-y-5 sm:space-y-6">
+
+            <!-- BRANDING LOGO RESMI (REMITGO!) -->
+            <div class="flex flex-col items-center justify-center text-center">
+                <h1 class="m-0 leading-none inline-flex items-center justify-center">
+                    <img
+                        src="<?= e(url('/remitgo.png?v=20261027')) ?>"
+                        alt="RemitGo!"
+                        class="h-12 sm:h-14 lg:h-16 w-auto max-w-[200px] sm:max-w-[240px] object-contain select-none"
+                        loading="eager"
+                        width="1720"
+                        height="744"
+                    >
+                    <span class="sr-only">RemitGo!</span>
+                </h1>
+            </div>
+
+            <!-- FORMULIR MASUK (RAMAH LANSIA / HIGH ACCESSIBILITY) -->
+            <form
+                method="post"
+                action="<?= e(url('/login')) ?>"
+                class="space-y-4 sm:space-y-5"
+                x-data="{ loading: false }"
+                @submit="loading = true"
+            >
+                <?= csrf_field() ?>
+
+                <!-- FIELD USERNAME / EMAIL -->
+                <div>
+                    <label for="loginUsername" class="block text-sm sm:text-base font-normal text-gray-700 mb-1.5 font-sans">
+                        Username atau Email
+                    </label>
+                    <div class="relative flex items-center">
+                        <i class="bi bi-person absolute left-4 text-gray-400 pointer-events-none text-xl"></i>
+                        <input
+                            id="loginUsername"
+                            type="text"
+                            name="login"
+                            value="<?= e(old('login', '')) ?>"
+                            placeholder="Masukkan username atau email"
+                            autocomplete="username"
+                            required
+                            autofocus
+                            class="custom-form-input custom-form-input-lg has-leading-icon font-normal"
+                        >
+                    </div>
+                </div>
+
+                <!-- FIELD PASSWORD DENGAN VISIBILITY TOGGLE TELANJANG -->
+                <div x-data="{ showPass: false }">
+                    <label for="loginPassword" class="block text-sm sm:text-base font-normal text-gray-700 mb-1.5 font-sans">
+                        Password
+                    </label>
+                    <div class="relative flex items-center">
+                        <i class="bi bi-lock absolute left-4 text-gray-400 pointer-events-none text-xl"></i>
+                        <input
+                            :type="showPass ? 'text' : 'password'"
+                            type="password"
+                            id="loginPassword"
+                            name="password"
+                            placeholder="Masukkan password akun"
+                            autocomplete="current-password"
+                            required
+                            class="custom-form-input custom-form-input-lg has-leading-icon has-trailing-action font-normal"
+                        >
+                        <!-- IKON MATA: TAMPILKAN PASSWORD (SAAT PASSWORD TERSEMBUNYI) -->
+                        <i
+                            x-show="!showPass"
+                            @click="showPass = true"
+                            @keydown.enter.prevent="showPass = true"
+                            @keydown.space.prevent="showPass = true"
+                            role="button"
+                            tabindex="0"
+                            class="bi bi-eye absolute right-4 text-gray-400 hover:text-gray-700 cursor-pointer text-xl select-none leading-none focus:outline-none transition-colors p-1"
+                            aria-label="Tampilkan password"
+                            title="Tampilkan password"
+                        ></i>
+
+                        <!-- IKON MATA TERCOROT: SEMBUNYIKAN PASSWORD (SAAT PASSWORD TERLIHAT) -->
+                        <i
+                            x-show="showPass"
+                            x-cloak
+                            @click="showPass = false"
+                            @keydown.enter.prevent="showPass = false"
+                            @keydown.space.prevent="showPass = false"
+                            role="button"
+                            tabindex="0"
+                            class="bi bi-eye-slash absolute right-4 text-gray-400 hover:text-gray-700 cursor-pointer text-xl select-none leading-none focus:outline-none transition-colors p-1"
+                            aria-label="Sembunyikan password"
+                            title="Sembunyikan password"
+                        ></i>
+                    </div>
+                </div>
+
+                <!-- TOMBOL AKSI UTAMA (.btn-primary-lg BEBAS BOLD - HIGH READABILITY) -->
+                <div class="pt-2 sm:pt-2.5">
+                    <button
+                        type="submit"
+                        :disabled="loading"
+                        class="btn-primary btn-primary-lg w-full justify-center h-[50px] px-6 font-medium text-base sm:text-lg leading-none text-white font-cta rounded-[11px] shadow-[inset_0_1px_0_rgba(255,255,255,0.32),inset_0_-1px_0_rgba(0,0,0,0.16),0_1px_2px_rgba(0,0,0,0.55)] [text-shadow:0_1px_1px_rgba(0,0,0,0.2)] hover:brightness-110 active:translate-y-[1px] active:brightness-95 active:shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] disabled:opacity-75 disabled:pointer-events-none"
+                        id="submitLoginBtn"
+                    >
+                        <span x-show="!loading" class="inline-flex items-center gap-2.5">
+                            <span>Masuk ke Dashboard</span>
+                            <i class="bi bi-arrow-right text-lg sm:text-xl"></i>
+                        </span>
+                        <span x-show="loading" x-cloak class="inline-flex items-center gap-2.5">
+                            <i class="bi bi-arrow-repeat animate-spin text-lg sm:text-xl"></i>
+                            <span>Memproses...</span>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+```
+
+---
+
+### 19.12. Protokol Audit & Checklist Kepatuhan Mutlak Halaman Login
+
+Sebelum menyerahkan tugas atau melakukan commit pada kode yang menyentuh `/login`, seluruh poin audit berikut **MUTLAK WAJIB BERNILAI YES**:
+- [ ] Apakah tata letak desktop terbukti split 50/50 dan 100% fit di dalam viewport (`h-screen overflow-hidden`) tanpa memicu scrollbar vertikal?
+- [ ] Apakah garis pemisah antara area visual art dan area form login menggunakan kurva bergelombang dinamis (SVG wavy divider) dan bukan garis lurus kaku?
+- [ ] Apakah logo resmi RemitGo! menampilkan teks "Remit" dalam warna oranye solid `#F2765E` (bukan putih atau biru)?
+- [ ] Apakah URL logo memuat parameter cache-buster `?v=...`?
+- [ ] Apakah bidang input menggunakan varian lansia `.custom-form-input-lg` dengan ketinggian presisi 50px dan radius 11px?
+- [ ] Apakah tombol masuk menggunakan varian `.btn-primary-lg` dengan ketinggian presisi 50px dan radius 11px?
+- [ ] Apakah seluruh elemen formulir login bebas dari font-weight tebal/bold (label `font-normal` 400, tombol `font-medium` 500)?
+- [ ] Apakah ikon mata password berdiri telanjang murni sebagai tag `<i>` semantik tanpa wrapper `<button>` atau `<span>`?
+- [ ] Apakah fungsi toggle password bekerja dua arah (`bi-eye` untuk tampilkan, `bi-eye-slash` untuk sembunyikan) dengan aksesibilitas keyboard lengkap?
+- [ ] Apakah halaman bersih dari badge keamanan palsu, lencana seremonial, teks deskripsi statis, dan footer copyright?
+- [ ] Apakah notifikasi flash sesi menggunakan sistem toast mengambang bebas layout shift?
+
