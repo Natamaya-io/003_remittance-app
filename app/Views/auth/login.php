@@ -113,15 +113,31 @@ declare(strict_types=1);
                             required
                             class="custom-form-input has-leading-icon has-trailing-action"
                         >
+                        <!-- IKON MATA: TAMPILKAN PASSWORD (SAAT PASSWORD TERSEMBUNYI) -->
                         <i
-                            :class="showPass ? 'bi bi-eye-slash' : 'bi bi-eye'"
-                            @click="showPass = !showPass"
-                            @keydown.enter.prevent="showPass = !showPass"
-                            @keydown.space.prevent="showPass = !showPass"
+                            x-show="!showPass"
+                            @click="showPass = true"
+                            @keydown.enter.prevent="showPass = true"
+                            @keydown.space.prevent="showPass = true"
                             role="button"
                             tabindex="0"
                             class="bi bi-eye absolute right-3 text-gray-400 hover:text-gray-700 cursor-pointer text-base select-none leading-none focus:outline-none transition-colors"
-                            :aria-label="showPass ? 'Sembunyikan password' : 'Tampilkan password'"
+                            aria-label="Tampilkan password"
+                            title="Tampilkan password"
+                        ></i>
+
+                        <!-- IKON MATA TERCOROT: SEMBUNYIKAN PASSWORD (SAAT PASSWORD TERLIHAT) -->
+                        <i
+                            x-show="showPass"
+                            x-cloak
+                            @click="showPass = false"
+                            @keydown.enter.prevent="showPass = false"
+                            @keydown.space.prevent="showPass = false"
+                            role="button"
+                            tabindex="0"
+                            class="bi bi-eye-slash absolute right-3 text-gray-400 hover:text-gray-700 cursor-pointer text-base select-none leading-none focus:outline-none transition-colors"
+                            aria-label="Sembunyikan password"
+                            title="Sembunyikan password"
                         ></i>
                     </div>
                 </div>

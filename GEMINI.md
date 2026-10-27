@@ -866,15 +866,31 @@ Tombol sekunder dan pendukung berbagi geometri yang selaras:
    - Seluruh ikon antarmuka (termasuk ikon interaktif seperti toggle visibilitas password atau pemicu aksi inline) **MUTLAK WAJIB BERDIRI SENDIRI MURNI SEBAGAI TAG IKON (`<i>` ATAU `<svg>`) TANPA WRAPPER ELEMEN APA PUN**.
    - **Pemusnahan Tag Pembungkus `<button>`:** DILARANG membungkus ikon di dalam tag `<button>`, dan DILARANG mengubah elemen tombol menjadi pengganti tag ikon jika yang dimaksudkan adalah ikon input. Aksi klik dan aksesibilitas keyboard W3C (WCAG 2.1 AA) **MUTLAK DIINJEKSIKAN LANGSUNG PADA TAG `<i>` ITU SENDIRI**:
      ```html
+     <!-- Ikon Mata: Tampilkan Password (Saat Password Tersembunyi) -->
      <i
-         :class="showPass ? 'bi bi-eye-slash' : 'bi bi-eye'"
-         @click="showPass = !showPass"
-         @keydown.enter.prevent="showPass = !showPass"
-         @keydown.space.prevent="showPass = !showPass"
+         x-show="!showPass"
+         @click="showPass = true"
+         @keydown.enter.prevent="showPass = true"
+         @keydown.space.prevent="showPass = true"
          role="button"
          tabindex="0"
          class="bi bi-eye absolute right-3 text-gray-400 hover:text-gray-700 cursor-pointer text-base select-none leading-none focus:outline-none transition-colors"
-         :aria-label="showPass ? 'Sembunyikan password' : 'Tampilkan password'"
+         aria-label="Tampilkan password"
+         title="Tampilkan password"
+     ></i>
+
+     <!-- Ikon Mata Tercoret: Sembunyikan Password (Saat Password Terlihat) -->
+     <i
+         x-show="showPass"
+         x-cloak
+         @click="showPass = false"
+         @keydown.enter.prevent="showPass = false"
+         @keydown.space.prevent="showPass = false"
+         role="button"
+         tabindex="0"
+         class="bi bi-eye-slash absolute right-3 text-gray-400 hover:text-gray-700 cursor-pointer text-base select-none leading-none focus:outline-none transition-colors"
+         aria-label="Sembunyikan password"
+         title="Sembunyikan password"
      ></i>
      ```
    - Dengan standar ini, ikon berdiri sendiri 100% (*pure naked icon*), simetris dengan ikon pasif pendampingnya, dan bebas dari wrapper elemen buatan apa pun.
@@ -1279,15 +1295,31 @@ Didefinisikan secara resmi di `@layer components` dalam `public/assets/css/tailw
         class="custom-form-input has-leading-icon has-trailing-action"
         required
     >
+    <!-- Ikon Mata: Tampilkan Password (Saat Password Tersembunyi) -->
     <i
-        :class="showPass ? 'bi bi-eye-slash' : 'bi bi-eye'"
-        @click="showPass = !showPass"
-        @keydown.enter.prevent="showPass = !showPass"
-        @keydown.space.prevent="showPass = !showPass"
+        x-show="!showPass"
+        @click="showPass = true"
+        @keydown.enter.prevent="showPass = true"
+        @keydown.space.prevent="showPass = true"
         role="button"
         tabindex="0"
         class="bi bi-eye absolute right-3 text-gray-400 hover:text-gray-700 cursor-pointer text-base select-none leading-none focus:outline-none transition-colors"
-        :aria-label="showPass ? 'Sembunyikan password' : 'Tampilkan password'"
+        aria-label="Tampilkan password"
+        title="Tampilkan password"
+    ></i>
+
+    <!-- Ikon Mata Tercoret: Sembunyikan Password (Saat Password Terlihat) -->
+    <i
+        x-show="showPass"
+        x-cloak
+        @click="showPass = false"
+        @keydown.enter.prevent="showPass = false"
+        @keydown.space.prevent="showPass = false"
+        role="button"
+        tabindex="0"
+        class="bi bi-eye-slash absolute right-3 text-gray-400 hover:text-gray-700 cursor-pointer text-base select-none leading-none focus:outline-none transition-colors"
+        aria-label="Sembunyikan password"
+        title="Sembunyikan password"
     ></i>
 </div>
 ```
