@@ -862,6 +862,11 @@ Tombol sekunder dan pendukung berbagi geometri yang selaras:
 2. **Ikon Berdiri Telanjang (The Naked Icon Principle):**
    - Ikon wajib berdiri bebas (*naked icon*) secara langsung di dalam elemen hierarki utamanya (berdampingan langsung dengan teks judul, label, angka metrik, atau di dalam tombol aksi).
    - Ikon dilarang memiliki background sendiri (`background: transparent !important;`), dilarang memiliki border sendiri, dan dilarang memiliki padding wadah buatan.
+3. **Standar Ikon Aksi Interaktif (Single-Element Action Icon & Zero-Wrapper Sintaksis):**
+   - Ikon yang memiliki fungsi interaktif (seperti visibility toggle password atau info tooltip) wajib menggunakan elemen semantik tombol (`<button type="button">`) demi kepatuhan aksesibilitas keyboard (W3C WCAG 2.1 AA) dan pembaca layar (`:aria-label`).
+   - Namun, untuk menjamin **Zero-Wrapper sejati hingga ke tingkat struktur DOM**, tag `<button>` tersebut **MUTLAK DILEBUR LANGSUNG MENJADI IKON ITU SENDIRI TANPA MENYARANGKAN TAG `<i>` ATAU `<span>` DI DALAMNYA**:
+     `<button type="button" @click="..." :class="..." class="bi bi-eye ..."></button>`.
+   - Pola lama yang menyarangkan `<button><i>...</i></button>` dinyatakan usang (*deprecated*) demi kebersihan hierarki DOM dan kepatuhan mutlak pada prinsip Zero-Wrapper.
 
 ### 14.2. Hukum Warna Monokrom Mutlak (Strict Black or White Law)
 1. **Hanya Dua Warna yang Diizinkan:**
@@ -1252,7 +1257,7 @@ Didefinisikan secara resmi di `@layer components` dalam `public/assets/css/tailw
     >
 </div>
 
-<!-- 3. Input Password dengan Visibility Toggle Kanan -->
+<!-- 3. Input Password dengan Visibility Toggle Kanan (Single-Element Action Icon) -->
 <div class="relative flex items-center" x-data="{ showPass: false }">
     <i class="bi bi-lock absolute left-3 text-gray-400 pointer-events-none text-base"></i>
     <input
@@ -1266,11 +1271,10 @@ Didefinisikan secara resmi di `@layer components` dalam `public/assets/css/tailw
     <button
         type="button"
         @click="showPass = !showPass"
-        class="absolute right-2.5 p-1 text-gray-400 hover:text-gray-700 transition-colors focus:outline-none"
+        :class="showPass ? 'bi-eye-slash' : 'bi-eye'"
+        class="bi bi-eye absolute right-2.5 p-1 text-gray-400 hover:text-gray-700 transition-colors focus:outline-none text-base cursor-pointer leading-none"
         :aria-label="showPass ? 'Sembunyikan password' : 'Tampilkan password'"
-    >
-        <i :class="showPass ? 'bi bi-eye-slash' : 'bi bi-eye'" class="bi bi-eye text-base"></i>
-    </button>
+    ></button>
 </div>
 ```
 

@@ -116,11 +116,10 @@ declare(strict_types=1);
                         <button
                             type="button"
                             @click="showPass = !showPass"
-                            class="absolute right-2.5 p-1 text-gray-400 hover:text-gray-700 transition-colors focus:outline-none"
+                            :class="showPass ? 'bi-eye-slash' : 'bi-eye'"
+                            class="bi bi-eye absolute right-2.5 p-1 text-gray-400 hover:text-gray-700 transition-colors focus:outline-none text-base cursor-pointer leading-none"
                             :aria-label="showPass ? 'Sembunyikan password' : 'Tampilkan password'"
-                        >
-                            <i :class="showPass ? 'bi bi-eye-slash' : 'bi bi-eye'" class="bi bi-eye text-base"></i>
-                        </button>
+                        ></button>
                     </div>
                 </div>
 
