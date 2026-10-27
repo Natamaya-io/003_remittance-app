@@ -6,6 +6,10 @@
 > **[HUKUM MUTLAK BATAS LINGKUP BEDAH & ANTI-PERUBAHAN LIAR (STRICT SURGICAL SCOPE)]**  
 > Seluruh agen AI dan pengembang **MUTLAK DILARANG** melakukan modifikasi, refaktor, penambahan, penghapusan, atau penyesuaian kode terhadap hal-hal yang **TIDAK SECARA EKSPLISIT DIMINTA** dan **TIDAK DIBUTUHKAN**. Setiap perubahan wajib bersifat intervensi bedah murni (*minimal surgical intervention*) yang terisolasi secara presisi pada target yang diinstruksikan oleh pengguna, dengan nol efek samping sampingan (*zero collateral damage*) terhadap berkas, tata letak, logika bisnis, atau komponen lain yang sudah stabil. Aturan ini **TERKUNCI MUTLAK DAN TIDAK BOLEH DILANGGAR DALAM KONDISI APA PUN**.
 
+> **[HUKUM MUTLAK ANTI-KODE UTILITAS AD-HOC SEMENTARA & WAJIB KUSTOM UI KOMPREHENSIF (THE ZERO AD-HOC QUICK PLACEHOLDER & MANDATORY COMPREHENSIVE CUSTOM UI LAW)]**  
+> Setiap kali agen AI atau pengembang merombak, merefaktor, menyusun ulang, atau memperbarui elemen antarmuka (view, formulir, input, tombol, kartu, tabel, dialog, dsb.), AI **MUTLAK DILARANG KERAS** menggunakan kode utilitas ad-hoc sementara (*quick placeholder*) atau rangkaian kelas utility instan yang belum matang dengan dalih "nanti diperbaiki".  
+> Setiap perombakan elemen **MUTLAK WAJIB LANGSUNG MENGGUNAKAN KUSTOM UI KOMPREHENSIF** yang telah terstandarisasi, memiliki kelas komponen terpusat di `@layer components` atau helper resmi, mematuhi skala kenyamanan visual 125% W3C (`html { font-size: 20px; }`), memiliki geometri proporsional yang selaras 1:1 dengan elemen pendamping (seperti tinggi 40px tombol `.btn-primary` dan search bar), beroperasi dengan 4 warna solid kunci (#F5F2F2, #F2765E, #315B8C, #413333), serta memiliki elevasi taktil dan interaktivitas yang tuntas sejak detik pertama implementasi.
+
 ---
 
 ## 1. Identitas Proyek & Hukum Amnesti Proyek Warisan (Legacy Amnesty)
@@ -26,6 +30,7 @@
    - **Scrollbar Kustom Global Mutlak (Universal Custom Scrollbar Law):** Seluruh scrollbar browser bawaan sistem operasi (native Windows/macOS/Linux) yang tebal, kaku, dan abu-abu semen kotak **DIHARAMKAN SECARA MUTLAK**. Seluruh antarmuka (window viewport `html`, `body`, modal, popover, dropdown, hingga tabel scroll horizontal) **MUTLAK WAJIB** menggunakan sistem scrollbar kustom global ramping (7px), sudut membulat penuh (*capsule thumb*), track transparan, dengan warna thumb netral `#cbd5e1` dan interaksi hover solid *Deep Brand Blue* (`#315B8C`) (lihat Bagian 15 untuk aturan terkunci lengkap).
    - **Sistem Popup Notifikasi Toast Kustom Mutlak (Universal Custom Toast Notification Law):** Seluruh notifikasi popup, pesan umpan balik tindakan, konfirmasi aksi, maupun peringatan sistem **MUTLAK HARUS MENGGUNAKAN TOAST DENGAN UI KUSTOM TANPA STYLE BAWAAN BROWSER**. Penggunaan notifikasi browser native (seperti alert dialog abu-abu OS, Web Notification bubble bawaan sistem operasi, atau `window.alert()` / `window.confirm()`) **DIHARAMKAN SECARA MUTLAK**. Toast beroperasi secara mengambang (*floating viewport stack*), sudut membulat elegan (`rounded-xl` / `rounded-2xl`), border solid 1px, soft elevation, 4 warna solid varian status resmi, tombol tutup dismissible kustom, auto-dismiss dengan timer pause saat hover, dan transisi Alpine.js halus tanpa efek bounce atau layout shift (lihat Bagian 16 untuk aturan terkunci lengkap).
    - **Sistem Form Input Teks Kustom Mutlak (Universal Custom Form Input Law):** Seluruh elemen input form teks (`<input type="text">`, `type="password"`, `type="email"`, dsb.) **MUTLAK WAJIB** menggunakan kelas terpusat `.custom-form-input` dengan ketinggian presisi 40px (selaras 1:1 dengan `.btn-primary` dan `.custom-search-input`), sudut membulat modular `rounded-[9px]`, latar permukaan well `#F5F2F2` dengan bayangan inset mikro, batas kontur `#d1d5db`, transisi fokus bersih ke putih dengan border solid `#315B8C` (*Deep Brand Blue*), serta jarak ikon kiri rapat alami (38px padding kiri, celah 8-10px) (lihat Bagian 17 untuk aturan terkunci lengkap).
+   - **Anti-Kode Utilitas Ad-Hoc Sementara & Wajib Kustom UI Komprehensif (Zero Quick Placeholder Law):** DILARANG KERAS menggunakan rangkaian kelas utilitas tambal sulam instan (*ad-hoc quick placeholder*) saat merombak antarmuka. Setiap perombakan elemen UI MUTLAK WAJIB langsung mengimplementasikan Kustom UI Komprehensif dengan geometri modular terstandarisasi (misal tinggi 40px, radius 9px, surface depth #F5F2F2, spasi rapat), terintegrasi ke sistem komponen global, dan tahan terhadap penskalaan visual root 20px (lihat Bagian 18 untuk aturan terkunci lengkap).
 
 ---
 
@@ -1274,3 +1279,63 @@ Didefinisikan secara resmi di `@layer components` dalam `public/assets/css/tailw
 2. **Dilarang Keras Celah Ikon Renggang:** Padding teks kiri jika ada ikon dilarang melebihi 40px (`pl-10` = 50px diharamkan). Wajib 38px (`has-leading-icon`) agar teks dan ikon berjarak rapat dan harmonis.
 3. **Dilarang Keras Tampilan Datar Putih di Atas Putih:** Input di atas kartu putih wajib memiliki latar cekungan `#F5F2F2` dengan bayangan inset mikro.
 4. **Dilarang Keras Warna Alien:** Border fokus dilarang menggunakan warna ungu, pink, atau hijau. Wajib menggunakan warna master `#315B8C` (*Deep Brand Blue*).
+
+---
+
+## 18. Aturan Terkunci: Hukum Mutlak Anti-Kode Utilitas Ad-Hoc Sementara & Wajib Kustom UI Komprehensif (Zero Quick Placeholder & Comprehensive Custom UI Law)
+
+> **STATUS ATURAN: TERKUNCI MUTLAK & HUKUM WAJIB (STRICT COMPLIANCE & NON-NEGOTIABLE)**  
+> Kebiasaan menyusun kelas utilitas Tailwind instan secara tambal sulam (*ad-hoc quick placeholder*) saat merombak atau membersihkan elemen lama dengan asumsi "nanti bisa dipercantik" **DIHARAMKAN SECARA ABSOLUT SAMPAI KE AKARNYA**.  
+> Seluruh agen AI dan pengembang perangkat lunak **MUTLAK WAJIB LANGSUNG MERANCANG & MENERAPKAN KUSTOM UI KOMPREHENSIF** sejak intervensi bedah pertama dilakukan.
+
+### 18.1. Definisi & Pemusnahan "Quick Placeholder" (The Total Purge of Temporary Ad-Hoc Styling)
+1. **Apa Itu "Quick Placeholder":**
+   Rangkaian kelas utilitas atomik panjang (contoh: `w-full h-11 pl-10 pr-4 text-sm bg-white border border-gray-300 rounded-xl`) yang ditulis secara ad-hoc langsung pada elemen tanpa:
+   - Memperhitungkan efek penskalaan root W3C 125% (`html { font-size: 20px; }`).
+   - Memastikan keselarasan modular dengan komponen pendamping (seperti tinggi 40px tombol `.btn-primary` dan search bar).
+   - Memperhitungkan celah mikro antara ikon indikator dan teks input.
+   - Memberikan kedalaman tekstur fisik (*tactile surface well* / inset shadow) khas arsitektur Gamified Asphalt.
+2. **Kiamat Kode Sementara:**
+   - Konsep "kode sementara", "draft kasar", atau "styling asal jalan dulu" dinyatakan sebagai **KEGAGALAN SISTEMATIS TINGKAT TINGGI**.
+   - Setiap baris antarmuka yang ditulis oleh AI wajib berstatus *production-grade*, berwibawa, dan selesai secara tuntas (*finished state*).
+
+### 18.2. Lima Pilar Kustom UI Komprehensif (The 5 Pillars of Comprehensive Custom UI)
+Setiap kali elemen antarmuka dirombak, dimodernisasi, atau dibersihkan, hasilnya **MUTLAK WAJIB** memenuhi 5 pilar arsitektur berikut:
+
+1. **Terpusat di Sistem Komponen (Centralized Component Definition):**
+   - Elemen yang dirombak WAJIB didefinisikan sebagai kelas komponen terstandarisasi di `@layer components` dalam `public/assets/css/tailwind-input.css` (seperti `.custom-form-input`, `.btn-primary`, `.custom-search-input`) atau helper resmi PHP di `app/helpers.php`.
+   - DILARANG menyalin string utilitas panjang yang rentan inkonsistensi dari satu view ke view lainnya.
+2. **Imunitas Terhadap Penskalaan W3C 125% (Immunity to Root REM Scaling):**
+   - Ketinggian, padding horizontal, dan radius kelengkungan wajib dihitung secara presisi di bawah kondisi `html { font-size: 20px; }`.
+   - DILARANG menggunakan utilitas kelas relatif sembrono seperti `h-11` (yang membengkak menjadi 55px) jika target proporsinya adalah 40px. Ketinggian elemen wajib dikunci secara presisi (`height: 40px;`).
+3. **Simetri Modular 1:1 dengan Elemen Pendamping (Modular Geometric Harmony):**
+   - Seluruh elemen kontrol utama (input teks, tombol aksi, search bar, trigger dropdown, datepicker) wajib berbagi proporsi ketinggian terpadu **40px** dan radius modular **9px hingga 12px**.
+   - Dilarang membuat satu elemen berpenampilan raksasa (*bloated*) sementara elemen sebelahnya berpenampilan kerdil.
+4. **Kedalaman Permukaan Taktil (Tactile Surface Depth vs Flat White Slop):**
+   - DILARANG membuat elemen putih polos datar di atas kartu putih polos (*flat white-on-white slop*).
+   - Wadah kontrol wajib memanfaatkan palet master: Off-White Base `#F5F2F2` dengan bayangan cekungan mikro (`box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04)`), kontur batas netral `#d1d5db`, dan transisi fokus aktif ke putih bersih dengan halo warna brand `#315B8C` (*Deep Brand Blue*).
+5. **Spasi Mikro Ergonomis (Micro-Spacing & Anti-Void Gap):**
+   - Jarak antara ikon indikator dan teks dilarang menyisakan celah kosong melompong (> 12px).
+   - Ikon di `left-3` (12px) wajib diimbangi dengan padding teks `38px` (`has-leading-icon`), sehingga celah nyata antara ujung ikon dan huruf pertama placeholder terkunci rapat di kisaran 8px - 10px.
+
+### 18.3. Protokol Eksekusi Perombakan Elemen UI (Element Overhaul Workflow)
+Setiap agen AI yang diperintahkan merombak atau memperbaiki antarmuka wajib menempuh 3 langkah protokol ini secara berurutan:
+1. **Langkah 1 (Audit Spesifikasi Terkunci):** Periksa apakah elemen yang akan dirombak sudah memiliki kelas baku di `GEMINI.md` (Tombol di Bagian 13, Input Form di Bagian 17, Search Bar di Bagian 6, Datepicker di Bagian 3, Dropdown di Bagian 4, Toast di Bagian 16, Alert di Bagian 2).
+2. **Langkah 2 (Implementasi Kustom Komprehensif):**
+   - Jika kelas baku sudah ada: Terapkan kelas resmi tersebut secara murni (misal: `<input class="custom-form-input has-leading-icon">`).
+   - Jika kelas baku belum ada: Rancang kelas komponen kustom komprehensif baru di `public/assets/css/tailwind-input.css` di bawah `@layer components`, lakukan kompilasi aset dengan `npm run build:css`, dan bukukan aturannya ke dalam `GEMINI.md`. Dilarang meninggalkan string utilitas ad-hoc di markup.
+3. **Langkah 3 (Verifikasi DOM & Rendering Nyata):**
+   - Lakukan verifikasi curl ke server lokal (`http://127.0.0.1:8000`) untuk memastikan struktur HTML ter-render sempurna tanpa eror sintaks.
+   - Periksa git diff untuk memastikan tidak ada efek samping liar terhadap file atau bagian lain yang tidak diminta.
+
+### 18.4. Checklist Verifikasi Anti-Placeholder Sebelum Penyerahan Kode
+Sebelum menyatakan tugas perombakan UI selesai, seluruh poin audit berikut wajib terjawab **YES**:
+- [ ] Apakah elemen menggunakan kelas komponen kustom terpusat atau helper resmi (bukan string utilitas ad-hoc sementara)?
+- [ ] Apakah ketinggian elemen terbukti proporsional dan selaras modular 1:1 dengan elemen pendamping (seperti tinggi 40px tombol `.btn-primary`)?
+- [ ] Apakah jarak antara ikon dan teks rapat alami (celah 8px - 10px, tanpa jurang kosong)?
+- [ ] Apakah permukaan kontrol memiliki kedalaman taktil (surface well #F5F2F2, inset shadow, kontur border rapi)?
+- [ ] Apakah status interaktif (hover, focus border #315B8C, ring halo) aktif dan tuntas?
+- [ ] Apakah aset CSS telah dikompilasi ulang menggunakan `npm run build:css`?
+
+### 18.5. Sanksi Arsitektural & Pelanggaran Mutlak
+Penyerahan kode antarmuka yang terbukti menggunakan kode utilitas ad-hoc sementara (*quick placeholder*) akan **DITOLAK SECARA MUTLAK (REJECTED)**. Agen AI wajib melakukan refaktor seketika menjadi Kustom UI Komprehensif sebelum tugas dapat dinyatakan tuntas.
