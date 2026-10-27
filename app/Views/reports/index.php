@@ -104,207 +104,226 @@ $activePeriodFilters = array_filter(
     </div>
 
     <!-- =========================================================
-         MODAL FILTER TRANSAKSI LAPORAN (ALPINE.JS MODAL)
+         MODAL FILTER TRANSAKSI LAPORAN (ALPINE.JS MODAL TELEPORTED TO BODY)
          ========================================================= -->
-    <div
-        x-show="openFilterModal"
-        x-cloak
-        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/50 backdrop-blur-xs overflow-y-auto"
-        @click.self="openFilterModal = false"
-        @keydown.escape.window="openFilterModal = false"
-        x-transition:enter="transition ease-out duration-150"
-        x-transition:enter-start="opacity-0"
-        x-transition:enter-end="opacity-100"
-        x-transition:leave="transition ease-in duration-100"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modal-filter-title"
-        style="display: none;"
-    >
+    <template x-teleport="body">
         <div
-            class="bg-white rounded-2xl max-w-xl w-full shadow-2xl border border-gray-200 overflow-hidden text-left relative my-8"
+            x-show="openFilterModal"
+            x-cloak
+            class="fixed inset-0 z-[9999] overflow-y-auto"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-filter-title"
+            style="display: none;"
+            @keydown.escape.window="openFilterModal = false"
         >
-            <!-- Modal Header -->
-            <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-white">
-                <div class="flex items-center gap-2.5">
-                    <span class="size-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm shrink-0">
-                        <i class="bi bi-calendar3"></i>
-                    </span>
-                    <div>
-                        <strong id="modal-filter-title" class="text-sm font-bold text-gray-900 block">Filter Periode Laporan</strong>
-                        <span class="text-xs text-gray-500 block">Saring data laporan berdasarkan bulan dan tahun.</span>
-                    </div>
-                </div>
-                <button
-                    type="button"
-                    @click="openFilterModal = false"
-                    class="size-8 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 flex items-center justify-center transition-colors cursor-pointer"
-                    aria-label="Tutup modal"
+            <!-- 1. Full-screen Backdrop (Opacity Menutupi 100% Seluruh Halaman Tanpa Celah) -->
+            <div
+                x-show="openFilterModal"
+                x-transition:enter="transition-opacity ease-out duration-150"
+                x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100"
+                x-transition:leave="transition-opacity ease-in duration-100"
+                x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                class="fixed inset-0 w-full h-full bg-gray-900/60 backdrop-blur-sm"
+                @click="openFilterModal = false"
+                aria-hidden="true"
+            ></div>
+
+            <!-- 2. Modal Positioning Container (Terpusat Vertikal & Horizontal) -->
+            <div class="min-h-full flex items-center justify-center p-4 relative z-10 pointer-events-none">
+                <div
+                    class="bg-white rounded-2xl max-w-xl w-full shadow-2xl border border-gray-200 overflow-hidden text-left relative my-8 pointer-events-auto"
+                    x-show="openFilterModal"
+                    x-transition:enter="transition ease-out duration-150"
+                    x-transition:enter-start="opacity-0"
+                    x-transition:enter-end="opacity-100"
+                    x-transition:leave="transition ease-in duration-100"
+                    x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0"
                 >
-                    <i class="bi bi-x-lg text-xs"></i>
-                </button>
-            </div>
-
-            <!-- Modal Form Body -->
-            <form method="get" action="<?= e(url('/reports')) ?>" class="m-0 p-0">
-                <?php if (($filters['q'] ?? '') !== ''): ?>
-                    <input type="hidden" name="q" value="<?= e($filters['q']) ?>">
-                <?php endif; ?>
-
-                <div class="p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <!-- Dropdown Bulan -->
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1">Bulan</label>
-                        <?php
-                        $currMonthLabel = 'Semua bulan';
-                        if ($selectedMonth !== '' && isset($monthsList[$selectedMonth])) {
-                            $currMonthLabel = $monthsList[$selectedMonth];
-                        }
-                        ?>
-                        <div class="custom-select-root relative" x-data="{ open: false, selected: '<?= e(addslashes($selectedMonth)) ?>', label: '<?= e(addslashes($currMonthLabel)) ?>' }" @click.outside="open = false">
-                            <input type="hidden" name="month" :value="selected">
-                            <button
-                                type="button"
-                                @click="open = !open"
-                                class="dropdown-toggle"
-                                :aria-expanded="open.toString()"
-                                aria-label="Filter Bulan"
-                            >
-                                <i class="bi bi-calendar-month text-gray-400"></i>
-                                <span class="truncate text-gray-900" x-text="label"></span>
-                                <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
-                            </button>
-
-                            <div
-                                class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
-                                x-show="open"
-                                x-cloak
-                                x-transition:enter="transition ease-out duration-100"
-                                x-transition:enter-start="opacity-0"
-                                x-transition:enter-end="opacity-100"
-                                x-transition:leave="transition ease-in duration-75"
-                                x-transition:leave-start="opacity-100"
-                                x-transition:leave-end="opacity-0"
-                                :class="{ 'block': open, 'hidden': !open }"
-                                style="display: none;"
-                                role="listbox"
-                            >
-                                <button
-                                    type="button"
-                                    class="dropdown-item justify-between"
-                                    :class="{ 'active': selected === '' }"
-                                    @click="selected = ''; label = 'Semua bulan'; open = false"
-                                >
-                                    <span>Semua bulan</span>
-                                    <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
-                                </button>
-                                <?php foreach ($monthsList as $mCode => $mName): ?>
-                                    <?php $mCodeStr = sprintf('%02d', (int) $mCode); ?>
-                                    <button
-                                        type="button"
-                                        class="dropdown-item justify-between"
-                                        :class="{ 'active': selected === '<?= e(addslashes($mCodeStr)) ?>' }"
-                                        @click="selected = '<?= e(addslashes($mCodeStr)) ?>'; label = '<?= e(addslashes((string) $mName)) ?>'; open = false"
-                                    >
-                                        <span><?= e((string) $mName) ?></span>
-                                        <i x-show="selected === '<?= e(addslashes($mCodeStr)) ?>'" class="bi bi-check2 text-blue-600 text-sm"></i>
-                                    </button>
-                                <?php endforeach; ?>
+                    <!-- Modal Header -->
+                    <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-white">
+                        <div class="flex items-center gap-2.5">
+                            <span class="size-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm shrink-0">
+                                <i class="bi bi-calendar3"></i>
+                            </span>
+                            <div>
+                                <strong id="modal-filter-title" class="text-sm font-bold text-gray-900 block">Filter Periode Laporan</strong>
+                                <span class="text-xs text-gray-500 block">Saring data laporan berdasarkan bulan dan tahun.</span>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Dropdown Tahun -->
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1">Tahun</label>
-                        <?php
-                        $currYearLabel = $selectedYear !== '' ? $selectedYear : 'Semua tahun';
-                        ?>
-                        <div class="custom-select-root relative" x-data="{ open: false, selected: '<?= e(addslashes($selectedYear)) ?>', label: '<?= e(addslashes($currYearLabel)) ?>' }" @click.outside="open = false">
-                            <input type="hidden" name="year" :value="selected">
-                            <button
-                                type="button"
-                                @click="open = !open"
-                                class="dropdown-toggle"
-                                :aria-expanded="open.toString()"
-                                aria-label="Filter Tahun"
-                            >
-                                <i class="bi bi-calendar3 text-gray-400"></i>
-                                <span class="truncate text-gray-900" x-text="label"></span>
-                                <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
-                            </button>
-
-                            <div
-                                class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
-                                x-show="open"
-                                x-cloak
-                                x-transition:enter="transition ease-out duration-100"
-                                x-transition:enter-start="opacity-0"
-                                x-transition:enter-end="opacity-100"
-                                x-transition:leave="transition ease-in duration-75"
-                                x-transition:leave-start="opacity-100"
-                                x-transition:leave-end="opacity-0"
-                                :class="{ 'block': open, 'hidden': !open }"
-                                style="display: none;"
-                                role="listbox"
-                            >
-                                <button
-                                    type="button"
-                                    class="dropdown-item justify-between"
-                                    :class="{ 'active': selected === '' }"
-                                    @click="selected = ''; label = 'Semua tahun'; open = false"
-                                >
-                                    <span>Semua tahun</span>
-                                    <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
-                                </button>
-                                <?php foreach ($availableYears as $yOption): ?>
-                                    <?php $yOption = (string) $yOption; if ($yOption === '') continue; ?>
-                                    <button
-                                        type="button"
-                                        class="dropdown-item justify-between"
-                                        :class="{ 'active': selected === '<?= e(addslashes($yOption)) ?>' }"
-                                        @click="selected = '<?= e(addslashes($yOption)) ?>'; label = '<?= e(addslashes($yOption)) ?>'; open = false"
-                                    >
-                                        <span><?= e($yOption) ?></span>
-                                        <i x-show="selected === '<?= e(addslashes($yOption)) ?>'" class="bi bi-check2 text-blue-600 text-sm"></i>
-                                    </button>
-                                <?php endforeach; ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Modal Footer -->
-                <div class="px-5 py-3.5 bg-gray-50/70 border-t border-gray-100 flex items-center justify-between gap-3">
-                    <a
-                        class="py-2 px-3.5 inline-flex justify-center items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none transition-colors"
-                        href="<?= e(url('/reports')) ?>"
-                    >
-                        Reset Filter
-                    </a>
-
-                    <div class="flex items-center gap-2">
                         <button
                             type="button"
                             @click="openFilterModal = false"
-                            class="py-2 px-3.5 inline-flex justify-center items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none transition-colors cursor-pointer"
+                            class="size-8 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 flex items-center justify-center transition-colors cursor-pointer"
+                            aria-label="Tutup modal"
                         >
-                            Batal
-                        </button>
-                        <button
-                            class="btn btn-primary py-2 px-4 inline-flex justify-center items-center gap-x-1.5 text-xs font-semibold rounded-lg focus:outline-none"
-                            type="submit"
-                        >
-                            <i class="bi bi-funnel"></i>
-                            Terapkan Filter
+                            <i class="bi bi-x-lg text-xs"></i>
                         </button>
                     </div>
+
+                    <!-- Modal Form Body -->
+                    <form method="get" action="<?= e(url('/reports')) ?>" class="m-0 p-0">
+                        <?php if (($filters['q'] ?? '') !== ''): ?>
+                            <input type="hidden" name="q" value="<?= e($filters['q']) ?>">
+                        <?php endif; ?>
+
+                        <div class="p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Dropdown Bulan -->
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-700 mb-1">Bulan</label>
+                                <?php
+                                $currMonthLabel = 'Semua bulan';
+                                if ($selectedMonth !== '' && isset($monthsList[$selectedMonth])) {
+                                    $currMonthLabel = $monthsList[$selectedMonth];
+                                }
+                                ?>
+                                <div class="custom-select-root relative" x-data="{ open: false, selected: '<?= e(addslashes($selectedMonth)) ?>', label: '<?= e(addslashes($currMonthLabel)) ?>' }" @click.outside="open = false">
+                                    <input type="hidden" name="month" :value="selected">
+                                    <button
+                                        type="button"
+                                        @click="open = !open"
+                                        class="dropdown-toggle"
+                                        :aria-expanded="open.toString()"
+                                        aria-label="Filter Bulan"
+                                    >
+                                        <i class="bi bi-calendar-month text-gray-400"></i>
+                                        <span class="truncate text-gray-900" x-text="label"></span>
+                                        <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                                    </button>
+
+                                    <div
+                                        class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
+                                        x-show="open"
+                                        x-cloak
+                                        x-transition:enter="transition ease-out duration-100"
+                                        x-transition:enter-start="opacity-0"
+                                        x-transition:enter-end="opacity-100"
+                                        x-transition:leave="transition ease-in duration-75"
+                                        x-transition:leave-start="opacity-100"
+                                        x-transition:leave-end="opacity-0"
+                                        :class="{ 'block': open, 'hidden': !open }"
+                                        style="display: none;"
+                                        role="listbox"
+                                    >
+                                        <button
+                                            type="button"
+                                            class="dropdown-item justify-between"
+                                            :class="{ 'active': selected === '' }"
+                                            @click="selected = ''; label = 'Semua bulan'; open = false"
+                                        >
+                                            <span>Semua bulan</span>
+                                            <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                        </button>
+                                        <?php foreach ($monthsList as $mCode => $mName): ?>
+                                            <?php $mCodeStr = sprintf('%02d', (int) $mCode); ?>
+                                            <button
+                                                type="button"
+                                                class="dropdown-item justify-between"
+                                                :class="{ 'active': selected === '<?= e(addslashes($mCodeStr)) ?>' }"
+                                                @click="selected = '<?= e(addslashes($mCodeStr)) ?>'; label = '<?= e(addslashes((string) $mName)) ?>'; open = false"
+                                            >
+                                                <span><?= e((string) $mName) ?></span>
+                                                <i x-show="selected === '<?= e(addslashes($mCodeStr)) ?>'" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                            </button>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dropdown Tahun -->
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-700 mb-1">Tahun</label>
+                                <?php
+                                $currYearLabel = $selectedYear !== '' ? $selectedYear : 'Semua tahun';
+                                ?>
+                                <div class="custom-select-root relative" x-data="{ open: false, selected: '<?= e(addslashes($selectedYear)) ?>', label: '<?= e(addslashes($currYearLabel)) ?>' }" @click.outside="open = false">
+                                    <input type="hidden" name="year" :value="selected">
+                                    <button
+                                        type="button"
+                                        @click="open = !open"
+                                        class="dropdown-toggle"
+                                        :aria-expanded="open.toString()"
+                                        aria-label="Filter Tahun"
+                                    >
+                                        <i class="bi bi-calendar3 text-gray-400"></i>
+                                        <span class="truncate text-gray-900" x-text="label"></span>
+                                        <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                                    </button>
+
+                                    <div
+                                        class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
+                                        x-show="open"
+                                        x-cloak
+                                        x-transition:enter="transition ease-out duration-100"
+                                        x-transition:enter-start="opacity-0"
+                                        x-transition:enter-end="opacity-100"
+                                        x-transition:leave="transition ease-in duration-75"
+                                        x-transition:leave-start="opacity-100"
+                                        x-transition:leave-end="opacity-0"
+                                        :class="{ 'block': open, 'hidden': !open }"
+                                        style="display: none;"
+                                        role="listbox"
+                                    >
+                                        <button
+                                            type="button"
+                                            class="dropdown-item justify-between"
+                                            :class="{ 'active': selected === '' }"
+                                            @click="selected = ''; label = 'Semua tahun'; open = false"
+                                        >
+                                            <span>Semua tahun</span>
+                                            <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                        </button>
+                                        <?php foreach ($availableYears as $yOption): ?>
+                                            <?php $yOption = (string) $yOption; if ($yOption === '') continue; ?>
+                                            <button
+                                                type="button"
+                                                class="dropdown-item justify-between"
+                                                :class="{ 'active': selected === '<?= e(addslashes($yOption)) ?>' }"
+                                                @click="selected = '<?= e(addslashes($yOption)) ?>'; label = '<?= e(addslashes($yOption)) ?>'; open = false"
+                                            >
+                                                <span><?= e($yOption) ?></span>
+                                                <i x-show="selected === '<?= e(addslashes($yOption)) ?>'" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                            </button>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal Footer -->
+                        <div class="px-5 py-3.5 bg-gray-50/70 border-t border-gray-100 flex items-center justify-between gap-3">
+                            <a
+                                class="py-2 px-3.5 inline-flex justify-center items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none transition-colors"
+                                href="<?= e(url('/reports')) ?>"
+                            >
+                                Reset Filter
+                            </a>
+
+                            <div class="flex items-center gap-2">
+                                <button
+                                    type="button"
+                                    @click="openFilterModal = false"
+                                    class="py-2 px-3.5 inline-flex justify-center items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none transition-colors cursor-pointer"
+                                >
+                                    Batal
+                                </button>
+                                <button
+                                    class="btn btn-primary py-2 px-4 inline-flex justify-center items-center gap-x-1.5 text-xs font-semibold rounded-lg focus:outline-none"
+                                    type="submit"
+                                >
+                                    <i class="bi bi-funnel"></i>
+                                    Terapkan Filter
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </template>
 
     <?php if (!empty($activePeriodFilters)): ?>
         <!-- ALERT STATUS: FILTER PERIODE AKTIF -->
