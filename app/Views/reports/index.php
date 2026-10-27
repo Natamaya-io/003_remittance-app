@@ -27,12 +27,42 @@ $monthNames = [
     12 => 'Desember',
 ];
 
-$activeAdvancedFilters = array_filter(
-    $filters,
-    static function (mixed $value, string|int $key): bool {
-        return (string) $key !== 'q' && $value !== '' && $value !== null;
-    },
-    ARRAY_FILTER_USE_BOTH
+$availableYears = is_array($availableYears ?? null) ? $availableYears : [date('Y')];
+
+$selectedMonth = trim((string) ($filters['month'] ?? ''));
+$selectedYear = trim((string) ($filters['year'] ?? ''));
+
+// Normalisasi jika format YYYY-MM
+if (preg_match('/^(\d{4})-(\d{2})$/', $selectedMonth, $mMatches)) {
+    if ($selectedYear === '') {
+        $selectedYear = $mMatches[1];
+    }
+    $selectedMonth = $mMatches[2];
+} elseif (preg_match('/^[1-9]$/', $selectedMonth)) {
+    $selectedMonth = sprintf('%02d', (int) $selectedMonth);
+}
+
+$monthsList = [
+    '01' => 'Januari',
+    '02' => 'Februari',
+    '03' => 'Maret',
+    '04' => 'April',
+    '05' => 'Mei',
+    '06' => 'Juni',
+    '07' => 'Juli',
+    '08' => 'Agustus',
+    '09' => 'September',
+    '10' => 'Oktober',
+    '11' => 'November',
+    '12' => 'Desember',
+];
+
+$activePeriodFilters = array_filter(
+    [
+        'month' => $selectedMonth,
+        'year' => $selectedYear,
+    ],
+    static fn($val): bool => trim((string) $val) !== ''
 );
 ?>
 
@@ -53,13 +83,14 @@ $activeAdvancedFilters = array_filter(
             type="button"
             @click="openFilterModal = true"
             class="btn btn-primary"
-            aria-label="Buka Filter Lanjutan"
+            aria-label="Buka Filter Periode Laporan"
+            title="Filter berdasarkan bulan dan tahun"
         >
             <i class="bi bi-sliders text-sm"></i>
             <span>Filter</span>
-            <?php if (!empty($activeAdvancedFilters)): ?>
-                <span class="inline-flex items-center justify-center min-w-4.5 h-4.5 px-1.5 text-[11px] font-bold text-[#315B8C] bg-white rounded-full leading-none shadow-xs">
-                    <?= count($activeAdvancedFilters) ?>
+            <?php if (!empty($activePeriodFilters)): ?>
+                <span class="inline-flex items-center justify-center min-w-4.5 h-4.5 px-1.5 text-[11px] font-bold text-[#315B8C] bg-white rounded-full leading-none shadow-xs tabular-nums">
+                    <?= count($activePeriodFilters) ?>
                 </span>
             <?php endif; ?>
         </button>
@@ -99,11 +130,11 @@ $activeAdvancedFilters = array_filter(
             <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-white">
                 <div class="flex items-center gap-2.5">
                     <span class="size-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm shrink-0">
-                        <i class="bi bi-sliders"></i>
+                        <i class="bi bi-calendar3"></i>
                     </span>
                     <div>
-                        <strong id="modal-filter-title" class="text-sm font-bold text-gray-900 block">Filter Transaksi Laporan</strong>
-                        <span class="text-xs text-gray-500 block">Saring data berdasarkan parameter di bawah ini.</span>
+                        <strong id="modal-filter-title" class="text-sm font-bold text-gray-900 block">Filter Periode Laporan</strong>
+                        <span class="text-xs text-gray-500 block">Saring data laporan berdasarkan bulan dan tahun.</span>
                     </div>
                 </div>
                 <button
@@ -123,196 +154,123 @@ $activeAdvancedFilters = array_filter(
                 <?php endif; ?>
 
                 <div class="p-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Dropdown Bulan -->
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1">Bulan report</label>
-                        <?= render_datepicker('month', (string) ($filters['month'] ?? ''), ['mode' => 'month', 'placeholder' => 'Semua bulan']) ?>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1">Tim</label>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Bulan</label>
                         <?php
-                        $currTeam = (string) ($filters['team'] ?? '');
-                        $currTeamLabel = $currTeam !== '' ? $currTeam : 'Semua tim';
+                        $currMonthLabel = 'Semua bulan';
+                        if ($selectedMonth !== '' && isset($monthsList[$selectedMonth])) {
+                            $currMonthLabel = $monthsList[$selectedMonth];
+                        }
                         ?>
-                        <div class="custom-select-root" x-data="{ open: false, selected: '<?= e(addslashes($currTeam)) ?>', label: '<?= e(addslashes($currTeamLabel)) ?>' }" @click.outside="open = false">
-                            <input type="hidden" name="team" :value="selected">
+                        <div class="custom-select-root relative" x-data="{ open: false, selected: '<?= e(addslashes($selectedMonth)) ?>', label: '<?= e(addslashes($currMonthLabel)) ?>' }" @click.outside="open = false">
+                            <input type="hidden" name="month" :value="selected">
                             <button
                                 type="button"
                                 @click="open = !open"
                                 class="dropdown-toggle"
                                 :aria-expanded="open.toString()"
+                                aria-label="Filter Bulan"
                             >
-                                <span class="truncate" x-text="label"></span>
-                                <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                                <i class="bi bi-calendar-month text-gray-400"></i>
+                                <span class="truncate text-gray-900" x-text="label"></span>
+                                <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
                             </button>
+
                             <div
+                                class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
                                 x-show="open"
                                 x-cloak
-                                x-transition:leave="transition ease-in duration-100"
+                                x-transition:enter="transition ease-out duration-100"
+                                x-transition:enter-start="opacity-0"
+                                x-transition:enter-end="opacity-100"
+                                x-transition:leave="transition ease-in duration-75"
                                 x-transition:leave-start="opacity-100"
                                 x-transition:leave-end="opacity-0"
                                 :class="{ 'block': open, 'hidden': !open }"
-                                class="dropdown-menu"
                                 style="display: none;"
+                                role="listbox"
                             >
                                 <button
                                     type="button"
                                     class="dropdown-item justify-between"
                                     :class="{ 'active': selected === '' }"
-                                    @click="selected = ''; label = 'Semua tim'; open = false"
+                                    @click="selected = ''; label = 'Semua bulan'; open = false"
                                 >
-                                    <span>Semua tim</span>
+                                    <span>Semua bulan</span>
                                     <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
                                 </button>
-                                <?php foreach ($teams as $team): ?>
-                                    <?php $teamValue = trim((string) $team); if ($teamValue === '') continue; ?>
+                                <?php foreach ($monthsList as $mCode => $mName): ?>
+                                    <?php $mCodeStr = sprintf('%02d', (int) $mCode); ?>
                                     <button
                                         type="button"
                                         class="dropdown-item justify-between"
-                                        :class="{ 'active': selected === '<?= e(addslashes($teamValue)) ?>' }"
-                                        @click="selected = '<?= e(addslashes($teamValue)) ?>'; label = '<?= e(addslashes($teamValue)) ?>'; open = false"
+                                        :class="{ 'active': selected === '<?= e(addslashes($mCodeStr)) ?>' }"
+                                        @click="selected = '<?= e(addslashes($mCodeStr)) ?>'; label = '<?= e(addslashes((string) $mName)) ?>'; open = false"
                                     >
-                                        <span class="truncate"><?= e($teamValue) ?></span>
-                                        <i x-show="selected === '<?= e(addslashes($teamValue)) ?>'" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                        <span><?= e((string) $mName) ?></span>
+                                        <i x-show="selected === '<?= e(addslashes($mCodeStr)) ?>'" class="bi bi-check2 text-blue-600 text-sm"></i>
                                     </button>
                                 <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Dropdown Tahun -->
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal mulai</label>
-                        <?= render_datepicker('date_from', (string) ($filters['date_from'] ?? ''), ['placeholder' => 'Pilih tanggal mulai']) ?>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal akhir</label>
-                        <?= render_datepicker('date_to', (string) ($filters['date_to'] ?? ''), ['placeholder' => 'Pilih tanggal akhir']) ?>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1">Status kirim</label>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Tahun</label>
                         <?php
-                        $currDelivery = (string) ($filters['delivery_status'] ?? '');
-                        $deliveryLabels = ['PENDING' => 'Pending', 'SENT' => 'Terkirim'];
-                        $currDeliveryLabel = $deliveryLabels[$currDelivery] ?? 'Semua status';
+                        $currYearLabel = $selectedYear !== '' ? $selectedYear : 'Semua tahun';
                         ?>
-                        <div class="custom-select-root" x-data="{ open: false, selected: '<?= e(addslashes($currDelivery)) ?>', label: '<?= e(addslashes($currDeliveryLabel)) ?>' }" @click.outside="open = false">
-                            <input type="hidden" name="delivery_status" :value="selected">
+                        <div class="custom-select-root relative" x-data="{ open: false, selected: '<?= e(addslashes($selectedYear)) ?>', label: '<?= e(addslashes($currYearLabel)) ?>' }" @click.outside="open = false">
+                            <input type="hidden" name="year" :value="selected">
                             <button
                                 type="button"
                                 @click="open = !open"
                                 class="dropdown-toggle"
                                 :aria-expanded="open.toString()"
+                                aria-label="Filter Tahun"
                             >
-                                <span class="truncate" x-text="label"></span>
-                                <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                                <i class="bi bi-calendar3 text-gray-400"></i>
+                                <span class="truncate text-gray-900" x-text="label"></span>
+                                <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
                             </button>
-                            <div
-                                x-show="open"
-                                x-cloak
-                                x-transition:leave="transition ease-in duration-100"
-                                x-transition:leave-start="opacity-100"
-                                x-transition:leave-end="opacity-0"
-                                :class="{ 'block': open, 'hidden': !open }"
-                                class="dropdown-menu"
-                                style="display: none;"
-                            >
-                                <button
-                                    type="button"
-                                    class="dropdown-item justify-between"
-                                    :class="{ 'active': selected === '' }"
-                                    @click="selected = ''; label = 'Semua status'; open = false"
-                                >
-                                    <span>Semua status</span>
-                                    <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
-                                </button>
-                                <button
-                                    type="button"
-                                    class="dropdown-item justify-between"
-                                    :class="{ 'active': selected === 'PENDING' }"
-                                    @click="selected = 'PENDING'; label = 'Pending'; open = false"
-                                >
-                                    <span>Pending</span>
-                                    <i x-show="selected === 'PENDING'" class="bi bi-check2 text-blue-600 text-sm"></i>
-                                </button>
-                                <button
-                                    type="button"
-                                    class="dropdown-item justify-between"
-                                    :class="{ 'active': selected === 'SENT' }"
-                                    @click="selected = 'SENT'; label = 'Terkirim'; open = false"
-                                >
-                                    <span>Terkirim</span>
-                                    <i x-show="selected === 'SENT'" class="bi bi-check2 text-blue-600 text-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1">Hasil</label>
-                        <?php
-                        $currResult = (string) ($filters['result_status'] ?? '');
-                        $resultLabels = ['PENDING' => 'Pending', 'SUCCESS' => 'Success', 'FAILED' => 'Failed'];
-                        $currResultLabel = $resultLabels[$currResult] ?? 'Semua hasil';
-                        ?>
-                        <div class="custom-select-root" x-data="{ open: false, selected: '<?= e(addslashes($currResult)) ?>', label: '<?= e(addslashes($currResultLabel)) ?>' }" @click.outside="open = false">
-                            <input type="hidden" name="result_status" :value="selected">
-                            <button
-                                type="button"
-                                @click="open = !open"
-                                class="dropdown-toggle"
-                                :aria-expanded="open.toString()"
-                            >
-                                <span class="truncate" x-text="label"></span>
-                                <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
-                            </button>
                             <div
+                                class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
                                 x-show="open"
                                 x-cloak
-                                x-transition:leave="transition ease-in duration-100"
+                                x-transition:enter="transition ease-out duration-100"
+                                x-transition:enter-start="opacity-0"
+                                x-transition:enter-end="opacity-100"
+                                x-transition:leave="transition ease-in duration-75"
                                 x-transition:leave-start="opacity-100"
                                 x-transition:leave-end="opacity-0"
                                 :class="{ 'block': open, 'hidden': !open }"
-                                class="dropdown-menu"
                                 style="display: none;"
+                                role="listbox"
                             >
                                 <button
                                     type="button"
                                     class="dropdown-item justify-between"
                                     :class="{ 'active': selected === '' }"
-                                    @click="selected = ''; label = 'Semua hasil'; open = false"
+                                    @click="selected = ''; label = 'Semua tahun'; open = false"
                                 >
-                                    <span>Semua hasil</span>
+                                    <span>Semua tahun</span>
                                     <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
                                 </button>
-                                <button
-                                    type="button"
-                                    class="dropdown-item justify-between"
-                                    :class="{ 'active': selected === 'PENDING' }"
-                                    @click="selected = 'PENDING'; label = 'Pending'; open = false"
-                                >
-                                    <span>Pending</span>
-                                    <i x-show="selected === 'PENDING'" class="bi bi-check2 text-blue-600 text-sm"></i>
-                                </button>
-                                <button
-                                    type="button"
-                                    class="dropdown-item justify-between"
-                                    :class="{ 'active': selected === 'SUCCESS' }"
-                                    @click="selected = 'SUCCESS'; label = 'Success'; open = false"
-                                >
-                                    <span>Success</span>
-                                    <i x-show="selected === 'SUCCESS'" class="bi bi-check2 text-blue-600 text-sm"></i>
-                                </button>
-                                <button
-                                    type="button"
-                                    class="dropdown-item justify-between"
-                                    :class="{ 'active': selected === 'FAILED' }"
-                                    @click="selected = 'FAILED'; label = 'Failed'; open = false"
-                                >
-                                    <span>Failed</span>
-                                    <i x-show="selected === 'FAILED'" class="bi bi-check2 text-blue-600 text-sm"></i>
-                                </button>
+                                <?php foreach ($availableYears as $yOption): ?>
+                                    <?php $yOption = (string) $yOption; if ($yOption === '') continue; ?>
+                                    <button
+                                        type="button"
+                                        class="dropdown-item justify-between"
+                                        :class="{ 'active': selected === '<?= e(addslashes($yOption)) ?>' }"
+                                        @click="selected = '<?= e(addslashes($yOption)) ?>'; label = '<?= e(addslashes($yOption)) ?>'; open = false"
+                                    >
+                                        <span><?= e($yOption) ?></span>
+                                        <i x-show="selected === '<?= e(addslashes($yOption)) ?>'" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                    </button>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
@@ -348,8 +306,8 @@ $activeAdvancedFilters = array_filter(
         </div>
     </div>
 
-    <?php if ($activeAdvancedFilters !== []): ?>
-        <!-- ALERT STATUS: FILTER LANJUTAN AKTIF -->
+    <?php if (!empty($activePeriodFilters)): ?>
+        <!-- ALERT STATUS: FILTER PERIODE AKTIF -->
         <div
             class="alert alert-info"
             role="alert"
@@ -364,10 +322,19 @@ $activeAdvancedFilters = array_filter(
                     <i class="bi bi-info-circle-fill"></i>
                 </span>
                 <div class="alert-body">
-                    <strong class="alert-title">Filter Lanjutan Aktif</strong>
+                    <strong class="alert-title">Filter Periode Aktif</strong>
                     <div class="alert-message">
-                        Menampilkan data dengan <?= count($activeAdvancedFilters) ?> parameter filter aktif.
-                        <a href="<?= e(url('/reports')) ?>" class="underline font-semibold ml-1 hover:text-blue-900">Reset Semua</a>
+                        <?php
+                        $filterDescs = [];
+                        if ($selectedMonth !== '' && isset($monthsList[$selectedMonth])) {
+                            $filterDescs[] = 'Bulan ' . $monthsList[$selectedMonth];
+                        }
+                        if ($selectedYear !== '') {
+                            $filterDescs[] = 'Tahun ' . $selectedYear;
+                        }
+                        ?>
+                        Menampilkan data periode <?= e(implode(' · ', $filterDescs)) ?>.
+                        <a href="<?= e(url('/reports')) ?>" class="underline font-semibold ml-1 hover:text-blue-900">Reset Filter</a>
                     </div>
                 </div>
             </div>
@@ -434,15 +401,7 @@ $activeAdvancedFilters = array_filter(
 
                             $progress = $total > 0 ? min(100, (int) round(($sent / $total) * 100)) : 0;
 
-                            $query = array_filter([
-                                'team' => (string) ($filters['team'] ?? ''),
-                                'date_from' => (string) ($filters['date_from'] ?? ''),
-                                'date_to' => (string) ($filters['date_to'] ?? ''),
-                                'delivery_status' => (string) ($filters['delivery_status'] ?? ''),
-                                'result_status' => (string) ($filters['result_status'] ?? ''),
-                            ], static fn($val): bool => trim((string) $val) !== '');
-
-                            $monthUrl = '/reports/month/' . rawurlencode($monthKey) . ($query !== [] ? '?' . http_build_query($query) : '');
+                            $monthUrl = '/reports/month/' . rawurlencode($monthKey);
                             $lastUpload = isset($month['last_upload']) ? (string) $month['last_upload'] : null;
                             ?>
                             <tr class="even:bg-gray-50/80 [data-no-hover]">
@@ -539,15 +498,7 @@ $activeAdvancedFilters = array_filter(
 
                 $progress = $total > 0 ? min(100, (int) round(($sent / $total) * 100)) : 0;
 
-                $query = array_filter([
-                    'team' => (string) ($filters['team'] ?? ''),
-                    'date_from' => (string) ($filters['date_from'] ?? ''),
-                    'date_to' => (string) ($filters['date_to'] ?? ''),
-                    'delivery_status' => (string) ($filters['delivery_status'] ?? ''),
-                    'result_status' => (string) ($filters['result_status'] ?? ''),
-                ], static fn($val): bool => trim((string) $val) !== '');
-
-                $monthUrl = '/reports/month/' . rawurlencode($monthKey) . ($query !== [] ? '?' . http_build_query($query) : '');
+                $monthUrl = '/reports/month/' . rawurlencode($monthKey);
                 $lastUpload = isset($month['last_upload']) ? (string) $month['last_upload'] : null;
                 ?>
                 <article class="bg-white border border-gray-200 rounded-2xl p-5 shadow-xs hover:shadow-md transition-shadow duration-200 flex flex-col justify-between space-y-4">

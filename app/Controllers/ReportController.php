@@ -57,6 +57,7 @@ final class ReportController extends BaseController
             'months' => $months,
             'filters' => $filters,
             'teams' => $this->teamOptions(),
+            'availableYears' => $this->availableReportYears(),
         ]);
     }
 
@@ -681,6 +682,7 @@ final class ReportController extends BaseController
     {
         return [
             'month' => trim((string) ($_GET['month'] ?? '')),
+            'year' => trim((string) ($_GET['year'] ?? '')),
             'date_from' => trim((string) ($_GET['date_from'] ?? '')),
             'date_to' => trim((string) ($_GET['date_to'] ?? '')),
             'team' => trim((string) ($_GET['team'] ?? '')),
@@ -696,9 +698,22 @@ final class ReportController extends BaseController
         $params = [];
         $effectiveDate = $this->effectiveDateSql('b');
 
-        if (($filters['month'] ?? '') !== '' && preg_match('/^\d{4}-\d{2}$/', (string) $filters['month'])) {
+        $month = trim((string) ($filters['month'] ?? ''));
+        $year = trim((string) ($filters['year'] ?? ''));
+
+        if ($month !== '' && preg_match('/^\d{4}-\d{2}$/', $month)) {
             $where .= ' AND b.month_key=?';
-            $params[] = $filters['month'];
+            $params[] = $month;
+        } elseif ($month !== '' && preg_match('/^(?:0?[1-9]|1[0-2])$/', $month) && $year !== '' && preg_match('/^\d{4}$/', $year)) {
+            $monthKey = sprintf('%04d-%02d', (int) $year, (int) $month);
+            $where .= ' AND b.month_key=?';
+            $params[] = $monthKey;
+        } elseif ($month !== '' && preg_match('/^(?:0?[1-9]|1[0-2])$/', $month)) {
+            $where .= ' AND b.month_key LIKE ?';
+            $params[] = sprintf('%%-%02d', (int) $month);
+        } elseif ($year !== '' && preg_match('/^\d{4}$/', $year)) {
+            $where .= ' AND b.month_key LIKE ?';
+            $params[] = sprintf('%04d-%%', (int) $year);
         }
         if (($filters['date_from'] ?? '') !== '' && $this->isValidDate((string) $filters['date_from'])) {
             $where .= " AND {$effectiveDate}>=?";
@@ -1092,5 +1107,27 @@ final class ReportController extends BaseController
         ];
         $parsed = new \DateTime($date);
         return $parsed->format('j') . ' ' . ($months[(int) $parsed->format('n')] ?? '') . ' ' . $parsed->format('Y');
+    }
+
+    private function availableReportYears(): array
+    {
+        try {
+            $stmt = App::db()->query(
+                "SELECT DISTINCT SUBSTRING(month_key, 1, 4) AS yr
+                 FROM report_batches
+                 WHERE month_key IS NOT NULL AND month_key != ''
+                 ORDER BY yr DESC"
+            );
+            $dbYears = $stmt->fetchAll(PDO::FETCH_COLUMN);
+            $dbYears = array_filter($dbYears, static fn($y) => is_string($y) && preg_match('/^\d{4}$/', $y));
+        } catch (\Throwable) {
+            $dbYears = [];
+        }
+
+        $currentYear = (int) date('Y');
+        $defaultYears = [(string) ($currentYear + 1), (string) $currentYear, (string) ($currentYear - 1), (string) ($currentYear - 2)];
+        $allYears = array_unique(array_merge($dbYears, $defaultYears));
+        rsort($allYears);
+        return array_values($allYears);
     }
 }
