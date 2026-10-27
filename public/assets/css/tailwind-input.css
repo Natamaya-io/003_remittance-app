@@ -239,14 +239,13 @@
 
   /* =========================================================
      HUKUM BEBAS TRANSFORM (STATE HOVER/FOCUS/ACTIVE STATIS)
+     Kecuali tactile micro-press translateY(1px) resmi pada .btn-primary
      ========================================================= */
-  .btn, .btn-primary, button, a, [role="button"], .card, .panel, .badge {
+  .card, .panel, .badge {
     transform: none !important;
   }
 
-  .btn:hover, .btn-primary:hover, button:hover, a:hover, [role="button"]:hover,
-  .btn:active, .btn-primary:active, button:active, a:active, [role="button"]:active,
-  .btn:focus, .btn-primary:focus, button:focus, a:focus, [role="button"]:focus {
+  .card:hover, .panel:hover, .badge:hover {
     transform: none !important;
   }
 }

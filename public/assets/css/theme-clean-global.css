@@ -1,25 +1,15 @@
 
 /* CLEAN GLOBAL THEME */
 :root {
-  --primary: #1f6bf0;
-  --secondary: #1553c7;
-  --background: #f8fafc;
-  --text: #1e293b;
+  --primary: #315B8C;
+  --secondary: #24466c;
+  --background: #F5F2F2;
+  --text: #111827;
 }
 body { background: var(--background) !important; color: var(--text) !important; }
-button, .button, .btn, input[type=submit] {
-  background: var(--primary) !important;
-  color: white !important;
-  border: none !important;
-  transform: none !important;
-}
-button:hover, .button:hover, .btn:hover, button:active, .btn:active {
-  transform: none !important;
-}
 .card, .panel {
   background: #fff !important;
   border-color: #e2e8f0 !important;
-  transform: none !important;
 }
 input, select, textarea {
   border-color: #cbd5e1 !important;

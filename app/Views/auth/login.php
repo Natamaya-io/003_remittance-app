@@ -90,12 +90,13 @@ declare(strict_types=1);
                 </div>
             </div>
 
-            <!-- TOMBOL AKSI UTAMA (.btn-primary RESMI GEMINI.MD) -->
+            <!-- TOMBOL AKSI UTAMA (.btn-primary RESMI GEMINI.MD SECTION 13 & GLOBAL AI SPEC) -->
             <div class="pt-2">
                 <button
                     type="submit"
                     :disabled="loading"
-                    class="btn-primary w-full justify-center h-11 rounded-xl text-sm font-medium text-white shadow-sm disabled:opacity-75 disabled:pointer-events-none"
+                    class="btn-primary w-full justify-center h-10 px-4 font-medium text-[15px] leading-none text-white font-cta rounded-[9px] shadow-[inset_0_1px_0_rgba(255,255,255,0.32),inset_0_-1px_0_rgba(0,0,0,0.16),0_1px_2px_rgba(0,0,0,0.55)] [text-shadow:0_1px_1px_rgba(0,0,0,0.2)] hover:brightness-110 active:translate-y-[1px] active:brightness-95 active:shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] disabled:opacity-75 disabled:pointer-events-none"
+                    id="submitLoginBtn"
                 >
                     <span x-show="!loading" class="inline-flex items-center gap-2">
                         <span>Masuk ke Dashboard</span>
