@@ -11,28 +11,32 @@
     --font-cta: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   }
 
+  /* =========================================================
+     STANDAR PENSKALAAN VISUAL MURNI W3C (GEMINI.MD BAGIAN 1.2)
+     Root font-size 20px = Tepat 125% dari standar 16px (16px * 1.25 = 20px)
+     Bebas racun koordinat zoom non-standar browser
+     ========================================================= */
   html {
-    font-size: 16px;
+    font-size: 20px;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    zoom: 1.25;
   }
 
-  @media (min-width: 640px) {
+  @media (max-width: 639px) {
     html {
-      font-size: 16.5px;
+      font-size: 16px;
+    }
+  }
+
+  @media (min-width: 640px) and (max-width: 1023px) {
+    html {
+      font-size: 18px;
     }
   }
 
   @media (min-width: 1024px) {
     html {
-      font-size: 17.5px;
-    }
-  }
-
-  @media (min-width: 1440px) {
-    html {
-      font-size: 18px;
+      font-size: 20px;
     }
   }
 

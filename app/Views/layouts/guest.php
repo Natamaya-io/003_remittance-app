@@ -85,23 +85,23 @@ $flashes = Flash::all();
             --font-cta: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
         }
         html {
-            font-size: 16px;
+            font-size: 20px;
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
         }
-        @media (min-width: 640px) {
+        @media (max-width: 639px) {
             html {
-                font-size: 16.5px;
+                font-size: 16px;
+            }
+        }
+        @media (min-width: 640px) and (max-width: 1023px) {
+            html {
+                font-size: 18px;
             }
         }
         @media (min-width: 1024px) {
             html {
-                font-size: 17.5px;
-            }
-        }
-        @media (min-width: 1440px) {
-            html {
-                font-size: 18px;
+                font-size: 20px;
             }
         }
         body, body.login-body {

@@ -731,9 +731,21 @@ function render_tooltip(string $text, string $slot, array $options = []): string
     $wrapperClass = (string) ($options['wrapperClass'] ?? 'hs-tooltip inline-flex');
     $contentClass = (string) ($options['contentClass'] ?? '');
 
+    // Konfigurasi Preline UI HSTooltip: Scope window untuk teleportasi ke body (anti-kliping tabel)
+    if (!str_contains($wrapperClass, '[--scope:')) {
+        $wrapperClass .= ' [--scope:window]';
+    }
+    if (!str_contains($wrapperClass, '[--strategy:')) {
+        $wrapperClass .= ' [--strategy:fixed]';
+    }
+    if (!str_contains($wrapperClass, '[--placement:')) {
+        $wrapperClass .= ' [--placement:' . $placement . ']';
+    }
+
     $tooltipOptions = json_encode([
         'placement' => $placement,
         'strategy'  => 'fixed',
+        'scope'     => 'window',
     ], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
 
     $isLong = mb_strlen($text) > 35;
