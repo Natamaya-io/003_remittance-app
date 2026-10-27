@@ -231,18 +231,9 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
          x-init="$watch('viewMode', val => localStorage.setItem('remitgo_report_view_mode', val))"
          class="space-y-4">
 
-        <div class="flex flex-wrap items-center justify-between gap-3">
-            <div class="flex items-center gap-2">
-                <span class="text-xs font-bold text-gray-700">Tanggal Transaksi</span>
-                <span class="inline-flex items-center py-0.5 px-2.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 shadow-xs">
-                    <?= count($dates) ?> Hari Aktif
-                </span>
-            </div>
-
-            <div class="flex items-center gap-2">
-                <!-- Tombol Toggle Tampilan Tabel (UI Kustom) -->
-                <?= render_table_view_toggle('viewMode', ['label' => 'Tampilan Tabel']) ?>
-            </div>
+        <div class="flex items-center justify-end">
+            <!-- Tombol Toggle Tampilan Tabel (UI Kustom) -->
+            <?= render_table_view_toggle('viewMode', ['label' => 'Tampilan Tabel']) ?>
         </div>
 
         <!-- =========================================================
