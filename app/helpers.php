@@ -757,43 +757,74 @@ function render_tooltip(string $text, string $slot, array $options = []): string
 }
 
 /**
- * Render Tombol Toggle Tampilan Tabel (UI Kustom - Anti-Dropdown & Anti-Segment-Group)
+ * Render Switch Button Tampilan Antara Tabel dan Kartu (UI Kustom)
  *
- * Mengubah opsi tampilan tabel menjadi tombol toggle interaktif non-native:
+ * Mengubah opsi tampilan report menjadi switch button interaktif antara tabel dan kartu:
  * - Menggunakan Alpine.js reactive state ($modelVar)
- * - Switch track & knob UI kustom (zero-transform, transisi left murni)
- * - Skema warna solid Deep Brand Blue (#315B8C) & Asphalt Base (#F5F2F2)
- * - Aksesibilitas WCAG (role="switch", :aria-checked)
+ * - Switch track & knob UI kustom di antara label Tabel dan Kartu
+ * - Tombol Tabel di sisi kiri, Switch Track di tengah, Tombol Kartu di sisi kanan
+ * - Skema warna solid Deep Brand Blue (#315B8C) & Asphalt Off-White (#F5F2F2)
+ * - Zero-transform, bebas rotasi/translasi liar
+ * - Aksesibilitas WCAG (role="group", role="switch", :aria-checked, :aria-pressed)
  *
  * @param string $modelVar Variabel model Alpine (default: 'viewMode')
  * @param array{
+ *   table_label?: string,
+ *   card_label?: string,
  *   label?: string,
  *   class?: string
  * } $options
  */
 function render_table_view_toggle(string $modelVar = 'viewMode', array $options = []): string
 {
-    $label = (string) ($options['label'] ?? 'Tampilan Tabel');
+    $tableLabel = (string) ($options['table_label'] ?? 'Tabel');
+    $cardLabel = (string) ($options['card_label'] ?? 'Kartu');
     $wrapperClass = (string) ($options['class'] ?? '');
 
     ob_start();
     ?>
-    <button
-        type="button"
-        role="switch"
-        :aria-checked="<?= e($modelVar) ?> === 'table'"
-        @click="<?= e($modelVar) ?> = <?= e($modelVar) ?> === 'table' ? 'list' : 'table'"
-        class="custom-table-toggle-btn <?= e($wrapperClass) ?>"
-        :class="{ 'is-active': <?= e($modelVar) ?> === 'table' }"
-        aria-label="Toggle <?= e($label) ?>"
-        title="Klik untuk beralih antara tampilan tabel dan kartu"
+    <div
+        class="custom-table-toggle-btn custom-switch-between <?= e($wrapperClass) ?>"
+        role="group"
+        aria-label="Beralih antara tampilan tabel dan kartu"
     >
-        <i class="bi bi-table text-sm"></i>
-        <span><?= e($label) ?></span>
-        <span class="custom-toggle-track" :class="{ 'is-active': <?= e($modelVar) ?> === 'table' }">
+        <button
+            type="button"
+            @click="<?= e($modelVar) ?> = 'table'"
+            class="switch-option text-table"
+            :class="{ 'is-active': <?= e($modelVar) ?> === 'table' }"
+            :aria-pressed="<?= e($modelVar) ?> === 'table'"
+            title="Tampilkan dalam bentuk tabel"
+        >
+            <i class="bi bi-table text-sm" aria-hidden="true"></i>
+            <span><?= e($tableLabel) ?></span>
+        </button>
+
+        <button
+            type="button"
+            role="switch"
+            :aria-checked="<?= e($modelVar) ?> === 'list'"
+            @click="<?= e($modelVar) ?> = <?= e($modelVar) ?> === 'table' ? 'list' : 'table'"
+            class="custom-toggle-track"
+            :class="{ 'is-card': <?= e($modelVar) ?> === 'list', 'is-table': <?= e($modelVar) ?> === 'table' }"
+            aria-label="Switch antara tabel dan kartu"
+            title="Beralih antara tabel dan kartu"
+        >
             <span class="custom-toggle-knob"></span>
-        </span>
-    </button>
+        </button>
+
+        <button
+            type="button"
+            @click="<?= e($modelVar) ?> = 'list'"
+            class="switch-option text-card"
+            :class="{ 'is-active': <?= e($modelVar) ?> === 'list' }"
+            :aria-pressed="<?= e($modelVar) ?> === 'list'"
+            title="Tampilkan dalam bentuk kartu"
+        >
+            <i class="bi bi-grid-fill text-sm" aria-hidden="true"></i>
+            <span><?= e($cardLabel) ?></span>
+        </button>
+    </div>
     <?php
     return (string) ob_get_clean();
 }

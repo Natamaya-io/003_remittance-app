@@ -232,8 +232,8 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
          class="space-y-4">
 
         <div class="flex items-center justify-end">
-            <!-- Tombol Toggle Tampilan Tabel (UI Kustom) -->
-            <?= render_table_view_toggle('viewMode', ['label' => 'Tampilan Tabel']) ?>
+            <!-- Switch Button Tampilan Antara Tabel dan Kartu (UI Kustom) -->
+            <?= render_table_view_toggle('viewMode') ?>
         </div>
 
         <!-- =========================================================

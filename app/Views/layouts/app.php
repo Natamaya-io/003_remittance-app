@@ -1820,6 +1820,103 @@ $flashes = Flash::all();
             left: 16px;
         }
 
+        /* CUSTOM TABLE & CARD SWITCH BUTTON (UI KUSTOM SWITCH BUTTON TABEL & KARTU) */
+        .custom-table-toggle-btn.custom-switch-between {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            height: 38px;
+            padding: 3px 5px;
+            border-radius: 12px;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+            user-select: none;
+            transform: none !important;
+        }
+
+        .custom-table-toggle-btn.custom-switch-between .switch-option {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            height: 30px;
+            padding: 0 9px;
+            border-radius: 8px;
+            background-color: transparent;
+            border: none;
+            color: #6b7280;
+            font-family: var(--font-heading);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.15s ease, background-color 0.15s ease;
+            white-space: nowrap;
+            transform: none !important;
+        }
+
+        .custom-table-toggle-btn.custom-switch-between .switch-option i {
+            font-size: 13.5px;
+            line-height: 1;
+            color: currentColor;
+            transition: color 0.15s ease;
+        }
+
+        .custom-table-toggle-btn.custom-switch-between .switch-option:hover {
+            color: #111827;
+            background-color: #f8fafc;
+        }
+
+        .custom-table-toggle-btn.custom-switch-between .switch-option.is-active {
+            color: #315B8C !important;
+            background-color: #f0f4f9 !important;
+            font-weight: 600 !important;
+        }
+
+        .custom-table-toggle-btn.custom-switch-between .switch-option:focus-visible {
+            outline: 2px solid #315B8C;
+            outline-offset: 1px;
+        }
+
+        .custom-table-toggle-btn.custom-switch-between .custom-toggle-track {
+            position: relative;
+            display: inline-block;
+            width: 36px;
+            height: 20px;
+            border-radius: 9999px;
+            background-color: #315B8C;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background-color 0.2s ease;
+            transform: none !important;
+        }
+
+        .custom-table-toggle-btn.custom-switch-between .custom-toggle-track:focus-visible {
+            outline: 2px solid #315B8C;
+            outline-offset: 2px;
+        }
+
+        .custom-table-toggle-btn.custom-switch-between .custom-toggle-knob {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            border-radius: 9999px;
+            background-color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            transition: left 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .custom-table-toggle-btn.custom-switch-between .custom-toggle-track.is-card .custom-toggle-knob {
+            left: 18px;
+        }
+
+        .custom-table-toggle-btn.custom-switch-between .custom-toggle-track.is-table .custom-toggle-knob {
+            left: 2px;
+        }
+
 
         /* =================================================
            20. SMART TABLE
