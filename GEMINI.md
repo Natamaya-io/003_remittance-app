@@ -1336,17 +1336,19 @@ Untuk formulir autentikasi publik, portal login, atau bidang input yang memerluk
 
 1. **Input Teks Varian Lansia (`.custom-form-input-lg` / `.form-input-lg`):**
    - **Ketinggian:** 50px presisi (`height: 50px; line-height: 50px;`).
-   - **Ukuran Huruf:** 16px Roboto (`font-size: 16px; font-weight: 500;`).
+   - **Ukuran Huruf:** 16px Roboto Normal (`font-size: 16px; font-weight: 400;`).
    - **Radius Sudut:** 11px modular (`border-radius: 11px;`).
-   - **Placeholder Kontras Tinggi:** `#6b7280` (memenuhi standar kontras WCAG AAA untuk lansia).
+   - **Placeholder Kontras Tinggi:** `#6b7280` dengan bobot normal 400 (memenuhi standar kontras WCAG AAA untuk lansia).
    - **Spasi Ikon Besar:** Padding kiri/kanan 48px (`.has-leading-icon` / `.has-trailing-action`), selaras dengan ikon 20px (`text-xl`) di `left-4` / `right-4`.
-2. **Label Form Lansia:**
-   - Tipografi `text-sm sm:text-base font-semibold text-gray-800 mb-1.5` (tegas, kontras tinggi terhadap kanvas putih).
+2. **Label Form Lansia (Bebas Bold):**
+   - Tipografi `text-sm sm:text-base font-normal text-gray-700 mb-1.5` (bebas bold, sangat mudah dibaca, kontras pas terhadap kanvas putih).
 3. **Tombol Aksi Utama Lansia (`.btn-primary-lg` / `.btn-lg.btn-primary`):**
    - **Ketinggian:** 50px presisi (selaras 1:1 dengan input 50px).
-   - **Ukuran Huruf:** 17px DM Sans (`font-size: 17px; font-weight: 600;`).
+   - **Ukuran Huruf:** 17px DM Sans Medium (`font-size: 17px; font-weight: 500;`).
    - **Radius Sudut:** 11px modular.
    - **Hit Target Luas:** Memberikan area sentuh yang mantap bagi pengguna lansia di perangkat mobile maupun desktop.
+4. **Hukum Larangan Huruf Tebal (Non-Bold Discipline pada Login):**
+   - Huruf tebal / bold (`font-weight: 600`, `font-bold`, `font-semibold`) **DIHARAMKAN SECARA MUTLAK pada formulir login**. Huruf tebal menyebabkan penumpukan piksel/tinta digital yang menyulitkan mata lansia dalam membedakan glif karakter. Seluruh teks label dan input wajib `font-weight: 400`, dan tombol aksi `font-weight: 500`.
 
 ---
 

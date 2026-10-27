@@ -77,7 +77,7 @@ declare(strict_types=1);
 
                 <!-- FIELD USERNAME / EMAIL -->
                 <div>
-                    <label for="loginUsername" class="block text-sm sm:text-base font-semibold text-gray-800 mb-1.5 font-sans">
+                    <label for="loginUsername" class="block text-sm sm:text-base font-normal text-gray-700 mb-1.5 font-sans">
                         Username atau Email
                     </label>
                     <div class="relative flex items-center">
@@ -91,14 +91,14 @@ declare(strict_types=1);
                             autocomplete="username"
                             required
                             autofocus
-                            class="custom-form-input custom-form-input-lg has-leading-icon"
+                            class="custom-form-input custom-form-input-lg has-leading-icon font-normal"
                         >
                     </div>
                 </div>
 
                 <!-- FIELD PASSWORD DENGAN VISIBILITY TOGGLE TELANJANG -->
                 <div x-data="{ showPass: false }">
-                    <label for="loginPassword" class="block text-sm sm:text-base font-semibold text-gray-800 mb-1.5 font-sans">
+                    <label for="loginPassword" class="block text-sm sm:text-base font-normal text-gray-700 mb-1.5 font-sans">
                         Password
                     </label>
                     <div class="relative flex items-center">
@@ -111,7 +111,7 @@ declare(strict_types=1);
                             placeholder="Masukkan password akun"
                             autocomplete="current-password"
                             required
-                            class="custom-form-input custom-form-input-lg has-leading-icon has-trailing-action"
+                            class="custom-form-input custom-form-input-lg has-leading-icon has-trailing-action font-normal"
                         >
                         <!-- IKON MATA: TAMPILKAN PASSWORD (SAAT PASSWORD TERSEMBUNYI) -->
                         <i
@@ -142,12 +142,12 @@ declare(strict_types=1);
                     </div>
                 </div>
 
-                <!-- TOMBOL AKSI UTAMA (.btn-primary-lg RESMI GEMINI.MD SECTION 13 & 17.5) -->
+                <!-- TOMBOL AKSI UTAMA (.btn-primary-lg BEBAS BOLD - HIGH READABILITY) -->
                 <div class="pt-2 sm:pt-2.5">
                     <button
                         type="submit"
                         :disabled="loading"
-                        class="btn-primary btn-primary-lg w-full justify-center h-[50px] px-6 font-semibold text-base sm:text-lg leading-none text-white font-cta rounded-[11px] shadow-[inset_0_1px_0_rgba(255,255,255,0.32),inset_0_-1px_0_rgba(0,0,0,0.16),0_1px_2px_rgba(0,0,0,0.55)] [text-shadow:0_1px_1px_rgba(0,0,0,0.2)] hover:brightness-110 active:translate-y-[1px] active:brightness-95 active:shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] disabled:opacity-75 disabled:pointer-events-none"
+                        class="btn-primary btn-primary-lg w-full justify-center h-[50px] px-6 font-medium text-base sm:text-lg leading-none text-white font-cta rounded-[11px] shadow-[inset_0_1px_0_rgba(255,255,255,0.32),inset_0_-1px_0_rgba(0,0,0,0.16),0_1px_2px_rgba(0,0,0,0.55)] [text-shadow:0_1px_1px_rgba(0,0,0,0.2)] hover:brightness-110 active:translate-y-[1px] active:brightness-95 active:shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] disabled:opacity-75 disabled:pointer-events-none"
                         id="submitLoginBtn"
                     >
                         <span x-show="!loading" class="inline-flex items-center gap-2.5">
