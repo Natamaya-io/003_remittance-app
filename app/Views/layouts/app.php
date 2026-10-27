@@ -4751,6 +4751,70 @@ $flashes = Flash::all();
 
 <body class="bg-slate-50 text-gray-800 antialiased font-sans min-h-screen">
 
+    <!-- =========================================================
+         FLOATING TOAST NOTIFICATION STACK (GEMINI.MD SECTION 16)
+         ========================================================= -->
+    <div
+        class="fixed top-5 right-5 z-[9999] w-full max-w-sm sm:max-w-md pointer-events-none space-y-3 px-4 sm:px-0"
+        id="remitToastContainer"
+        x-data="remitToastStack"
+        x-cloak
+    >
+        <template x-for="toast in toasts" :key="toast.id">
+            <div
+                class="toast-item pointer-events-auto rounded-xl border p-4 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.08),0_8px_10px_-6px_rgba(0,0,0,0.04)] transition-all duration-200 ease-out"
+                :class="toastClasses(toast.type)"
+                role="alert"
+                x-show="toast.visible"
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 translate-y-[-8px]"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-150"
+                x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 translate-y-[-8px]"
+                @mouseenter="pauseTimer(toast)"
+                @mouseleave="resumeTimer(toast)"
+            >
+                <div class="flex items-start gap-3">
+                    <!-- Ikon Kustom Telanjang -->
+                    <span class="flex-shrink-0 text-base leading-none pt-0.5">
+                        <i :class="toastIcon(toast.type)"></i>
+                    </span>
+
+                    <!-- Badan Pesan -->
+                    <div class="flex-1 min-w-0">
+                        <strong
+                            x-show="toast.title"
+                            x-text="toast.title"
+                            class="block font-heading font-semibold text-sm leading-tight mb-1"
+                        ></strong>
+                        <div
+                            x-text="toast.message"
+                            class="font-sans text-xs sm:text-sm leading-relaxed break-words"
+                        ></div>
+                    </div>
+
+                    <!-- Tombol Tutup Kustom -->
+                    <button
+                        type="button"
+                        class="flex-shrink-0 p-1 -mr-1 -mt-1 rounded-lg opacity-70 hover:opacity-100 hover:bg-black/5 transition-colors focus:outline-none"
+                        @click="dismiss(toast.id)"
+                        aria-label="Tutup notifikasi"
+                    >
+                        <i class="bi bi-x text-lg leading-none"></i>
+                    </button>
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <!-- BOOTSTRAP DATA FLASH SESSION BACKEND -->
+    <?php if ($flashes !== []): ?>
+        <script type="application/json" id="remit-flashes-data">
+            <?= json_encode($flashes, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT) ?>
+        </script>
+    <?php endif; ?>
+
     <!-- ========== SPA BOTTOM NAVIGATION & FLOATING DOCK ========== -->
     <?php
     require dirname(__DIR__)
@@ -4766,55 +4830,6 @@ $flashes = Flash::all();
     ?>
     <main id="content" class="w-full min-h-screen pb-24 sm:pb-28">
         <div class="<?= $isDashboardPage ? 'px-2 sm:px-3 lg:px-4 py-3 sm:py-4 space-y-3 sm:space-y-4 w-full max-w-none' : 'max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6' ?>">
-
-            <?php foreach ($flashes as $flash): ?>
-                <?php
-                $flashType = trim((string) ($flash['type'] ?? 'info'));
-                $flashMessage = trim((string) ($flash['message'] ?? ''));
-                $alertClass = match($flashType) {
-                    'success' => 'alert-success',
-                    'danger', 'error' => 'alert-danger',
-                    'warning' => 'alert-warning',
-                    default => 'alert-info',
-                };
-                $alertIcon = match($flashType) {
-                    'success' => 'bi-check-circle-fill',
-                    'danger', 'error' => 'bi-x-circle-fill',
-                    'warning' => 'bi-exclamation-triangle-fill',
-                    default => 'bi-info-circle-fill',
-                };
-                ?>
-
-                <?php if ($flashMessage !== ''): ?>
-                    <div
-                        class="alert <?= $alertClass ?> mb-4"
-                        role="alert"
-                        x-data="{ show: true }"
-                        x-show="show"
-                        x-transition:leave="transition ease-in duration-150"
-                        x-transition:leave-start="opacity-100"
-                        x-transition:leave-end="opacity-0"
-                    >
-                        <div class="alert-content">
-                            <span class="alert-icon">
-                                <i class="bi <?= $alertIcon ?>"></i>
-                            </span>
-                            <div class="alert-body">
-                                <div class="alert-message"><?= e($flashMessage) ?></div>
-                            </div>
-                        </div>
-
-                        <button
-                            class="alert-close"
-                            type="button"
-                            @click="show = false"
-                            aria-label="Tutup notifikasi"
-                        >
-                            <i class="bi bi-x text-lg leading-none"></i>
-                        </button>
-                    </div>
-                <?php endif; ?>
-            <?php endforeach; ?>
 
             <?= $content ?>
 

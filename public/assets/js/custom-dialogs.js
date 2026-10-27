@@ -48,6 +48,91 @@ window.RemitDialogs = {
 window.remitConfirm = (msg, opt) => window.RemitDialogs.confirm(msg, opt);
 window.remitAlert = (msg, opt) => window.RemitDialogs.alert(msg, opt);
 
+// =========================================================
+// REMITGO! GLOBAL TOAST SYSTEM (GEMINI.MD SECTION 16)
+// =========================================================
+window.RemitToast = {
+  toasts: [],
+
+  add(options) {
+    if (typeof options === 'string') {
+      options = { message: options };
+    }
+    const id = options.id || ('toast_' + Date.now() + '_' + Math.floor(Math.random() * 1000));
+    const duration = options.duration !== undefined ? options.duration : 5000;
+    const toast = {
+      id: id,
+      title: options.title || '',
+      message: options.message || '',
+      type: options.type || 'info', // 'success' | 'danger' | 'warning' | 'info'
+      duration: duration,
+      remaining: duration,
+      visible: true,
+      timer: null,
+      timerStart: 0
+    };
+
+    this.toasts.push(toast);
+
+    if (duration > 0) {
+      this.startTimer(toast);
+    }
+
+    return id;
+  },
+
+  dismiss(id) {
+    const idx = this.toasts.findIndex(t => t.id === id);
+    if (idx !== -1) {
+      const toast = this.toasts[idx];
+      if (toast.timer) {
+        clearTimeout(toast.timer);
+        toast.timer = null;
+      }
+      toast.visible = false;
+      setTimeout(() => {
+        const removeIdx = this.toasts.findIndex(t => t.id === id);
+        if (removeIdx !== -1) {
+          this.toasts.splice(removeIdx, 1);
+        }
+      }, 200);
+    }
+  },
+
+  startTimer(toast) {
+    toast.timerStart = Date.now();
+    toast.timer = setTimeout(() => {
+      this.dismiss(toast.id);
+    }, toast.remaining);
+  },
+
+  pause(toast) {
+    if (toast.duration <= 0 || !toast.timer) return;
+    clearTimeout(toast.timer);
+    toast.timer = null;
+    const elapsed = Date.now() - toast.timerStart;
+    toast.remaining = Math.max(0, toast.remaining - elapsed);
+  },
+
+  resume(toast) {
+    if (toast.duration <= 0 || toast.remaining <= 0 || toast.timer) return;
+    this.startTimer(toast);
+  }
+};
+
+// Global shorthand: window.remitToast(...)
+window.remitToast = function (message, type = 'info', options = {}) {
+  if (typeof message === 'object') {
+    return window.RemitToast.add(message);
+  }
+  return window.RemitToast.add({ message, type, ...options });
+};
+window.remitToast.success = (msg, opt = {}) => window.remitToast(msg, 'success', opt);
+window.remitToast.error = (msg, opt = {}) => window.remitToast(msg, 'danger', opt);
+window.remitToast.danger = (msg, opt = {}) => window.remitToast(msg, 'danger', opt);
+window.remitToast.warning = (msg, opt = {}) => window.remitToast(msg, 'warning', opt);
+window.remitToast.info = (msg, opt = {}) => window.remitToast(msg, 'info', opt);
+
 // Replace native window.alert with custom alert
 const _originalAlert = window.alert;
 window.alert = function (msg) {
@@ -119,6 +204,53 @@ function initRemitDialogs() {
 
     closeAlert() {
       this.alert.open = false;
+    }
+  }));
+
+  // RemitGo! Floating Toast Stack Component (GEMINI.MD Section 16)
+  window.Alpine.data('remitToastStack', () => ({
+    get toasts() {
+      return window.RemitToast.toasts;
+    },
+
+    dismiss(id) {
+      window.RemitToast.dismiss(id);
+    },
+
+    pauseTimer(toast) {
+      window.RemitToast.pause(toast);
+    },
+
+    resumeTimer(toast) {
+      window.RemitToast.resume(toast);
+    },
+
+    toastClasses(type) {
+      switch (type) {
+        case 'success':
+          return 'toast-success bg-[#ecfdf5] border-[#a7f3d0] text-[#065f46]';
+        case 'danger':
+        case 'error':
+          return 'toast-danger bg-[#fef2f2] border-[#fecaca] text-[#991b1b]';
+        case 'warning':
+          return 'toast-warning bg-[#fffbeb] border-[#fde68a] text-[#92400e]';
+        default:
+          return 'toast-info bg-[#eff6ff] border-[#bfdbfe] text-[#1e40af]';
+      }
+    },
+
+    toastIcon(type) {
+      switch (type) {
+        case 'success':
+          return 'bi-check-circle-fill text-[#059669]';
+        case 'danger':
+        case 'error':
+          return 'bi-x-circle-fill text-[#dc2626]';
+        case 'warning':
+          return 'bi-exclamation-triangle-fill text-[#d97706]';
+        default:
+          return 'bi-info-circle-fill text-[#315B8C]';
+      }
     }
   }));
 
@@ -241,4 +373,36 @@ function initRemitDialogs() {
 document.addEventListener('alpine:init', initRemitDialogs);
 if (window.Alpine) {
   initRemitDialogs();
+}
+
+// Auto-bootstrap backend flash session messages into floating toasts (GEMINI.MD Section 16.5 Poin 3)
+function bootstrapBackendFlashes() {
+  const flashDataEl = document.getElementById('remit-flashes-data');
+  if (!flashDataEl) return;
+
+  try {
+    const raw = flashDataEl.textContent || flashDataEl.innerText || '[]';
+    const flashes = JSON.parse(raw.trim());
+    if (Array.isArray(flashes)) {
+      flashes.forEach(flash => {
+        const type = flash.type || 'info';
+        const message = flash.message || '';
+        if (message.trim()) {
+          window.RemitToast.add({
+            type: type,
+            message: message,
+            duration: 5000
+          });
+        }
+      });
+    }
+  } catch (err) {
+    console.warn('Failed to parse backend flash messages:', err);
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootstrapBackendFlashes);
+} else {
+  bootstrapBackendFlashes();
 }

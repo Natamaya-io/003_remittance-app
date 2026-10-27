@@ -450,6 +450,43 @@
   }
 
   /* =========================================================
+     GLOBAL CUSTOM TOAST NOTIFICATION STYLES (GEMINI.MD SECTION 16)
+     ========================================================= */
+  .toast-item {
+    pointer-events: auto;
+    border-radius: 0.75rem;
+    border-width: 1px;
+    border-style: solid;
+    padding: 1rem;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  }
+
+  .toast-success {
+    background-color: #ecfdf5 !important;
+    border-color: #a7f3d0 !important;
+    color: #065f46 !important;
+  }
+
+  .toast-danger,
+  .toast-error {
+    background-color: #fef2f2 !important;
+    border-color: #fecaca !important;
+    color: #991b1b !important;
+  }
+
+  .toast-warning {
+    background-color: #fffbeb !important;
+    border-color: #fde68a !important;
+    color: #92400e !important;
+  }
+
+  .toast-info {
+    background-color: #eff6ff !important;
+    border-color: #bfdbfe !important;
+    color: #1e40af !important;
+  }
+
+  /* =========================================================
      GLOBAL CUSTOM UI: TOOLTIP SYSTEM (HOVER-ONLY LAW)
      ========================================================= */
   .hs-tooltip {
