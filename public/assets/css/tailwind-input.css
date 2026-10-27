@@ -44,6 +44,46 @@
     color: #111827;
   }
 
+  /* =========================================================
+     HUKUM MUTLAK: SISTEM SCROLLBAR KUSTOM GLOBAL (GEMINI.MD SECTION 15)
+     ========================================================= */
+
+  /* 1. Standar W3C / Firefox Gecko */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+  }
+
+  /* 2. WebKit & Chromium (Chrome, Edge, Safari, Opera, Brave, WebView) */
+  ::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    background-clip: padding-box;
+    transition: background-color 0.2s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #315B8C;
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+    background-color: #24466c;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
   /* Reset global: hilangkan garis bawah default browser pada seluruh tag link <a> */
   a {
     text-decoration: none;
@@ -2206,4 +2246,19 @@
       grid-template-columns: 1fr;
     }
   }
+}
+
+/* =========================================================
+   UTILITY KELAS SCROLLBAR KUSTOM (GEMINI.MD SECTION 15)
+   ========================================================= */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+.scrollbar-gutter-stable {
+  scrollbar-gutter: stable;
 }

@@ -23,6 +23,7 @@
    - **Bebas Transform (Zero-Transform State):** State `:hover`, `:active`, dan `:focus` DILARANG menggunakan efek `transform: translateY(...)`, `scale(...)`, atau pergeseran posisi liar, KECUALI tactile micro-press `translateY(1px)` khusus pada tombol utama (`.btn-primary`) dan tombol aksi resmi sesuai spesifikasi fisika AI global (lihat Bagian 13 untuk aturan terkunci lengkap). Animasi transisi hanya boleh memanipulasi `opacity`, `background-color`, `border-color`, dan `box-shadow`.
    - **Peniadaan Deskripsi Statis & Tooltip Mutlak (Universal Description-to-Tooltip Discipline):** Seluruh deskripsi, keterangan panduan, catatan bantuan, dan subjudul fungsional pada panel, header, card, tabel, maupun formulir **DILARANG KERAS** dirender sebagai teks atau paragraf statis (`<p>`, `<small>`, `.description`). Seluruh deskripsi **MUTLAK WAJIB** dikonversi menjadi tooltip on-demand berbasis hover pada ikon info `(i)` (lihat Bagian 12 untuk aturan terkunci lengkap).
    - **Peniadaan Wrapper Ikon & Monokrom Mutlak (Universal Naked Monochrome Icon Discipline):** Seluruh ikon antarmuka di seluruh aplikasi **MUTLAK DILARANG** menggunakan wrapper/wadah pembungkus dekoratif berlatar warna dan **MUTLAK HANYA DIPERBOLEHKAN BERWARNA HITAM ATAU PUTIH**. Ikon wajib berdiri telanjang berdampingan langsung dengan konten tanpa pembungkus buatan (lihat Bagian 14 untuk aturan terkunci lengkap).
+   - **Scrollbar Kustom Global Mutlak (Universal Custom Scrollbar Law):** Seluruh scrollbar browser bawaan sistem operasi (native Windows/macOS/Linux) yang tebal, kaku, dan abu-abu semen kotak **DIHARAMKAN SECARA MUTLAK**. Seluruh antarmuka (window viewport `html`, `body`, modal, popover, dropdown, hingga tabel scroll horizontal) **MUTLAK WAJIB** menggunakan sistem scrollbar kustom global ramping (7px), sudut membulat penuh (*capsule thumb*), track transparan, dengan warna thumb netral `#cbd5e1` dan interaksi hover solid *Deep Brand Blue* (`#315B8C`) (lihat Bagian 15 untuk aturan terkunci lengkap).
 
 ---
 
@@ -908,3 +909,90 @@ Tombol sekunder dan pendukung berbagi geometri yang selaras:
   1. Mengaudit seluruh tag `<i>` atau `<svg>` di berkas terkait.
   2. Memusnahkan tag wrapper pembungkusnya (seperti `.dashboard-kpi-icon`, `.dashboard-quick-icon`, `.icon-wrap`, dsb).
   3. Memastikan warna ikon murni hitam pada elemen terang atau putih pada elemen gelap.
+
+---
+
+## 15. Aturan Terkunci: Sistem Scrollbar Kustom Global (Universal Custom Scrollbar Law)
+
+> **STATUS ATURAN: TERKUNCI MUTLAK & HUKUM WAJIB (STRICT COMPLIANCE & NON-NEGOTIABLE)**  
+> Penggunaan scrollbar native bawaan browser atau sistem operasi yang tebal, kaku, abu-abu semen, dan bersudut tajam merusak kesatuan estetika arsitektur Gamified Asphalt RemitGo!.  
+> Oleh karena itu, seluruh aplikasi **`remittance.raxbyte.com`** **MUTLAK WAJIB** beroperasi di bawah konstitusi **Sistem Scrollbar Kustom Global** yang terintegrasi secara universal lintas browser (WebKit, Chromium, Gecko/Firefox) dan seluruh kontainer scrollable (`html`, `body`, modal dialog, popover pencarian, dropdown, drawer, serta kontainer tabel `overflow-x-auto`).
+
+### 15.1. Geometri & Fisika UI Scrollbar Terkunci
+
+| Parameter | Spesifikasi Resmi | Keterangan & Nilai CSS |
+| :--- | :--- | :--- |
+| **Lebar & Tinggi Scrollbar** | Ramping & Proporsional | `width: 7px; height: 7px;` (WebKit) / `scrollbar-width: thin;` (Firefox) |
+| **Bentuk Thumb (Pegangan)** | Capsule / Membulat Penuh | `border-radius: 9999px;` (Full Pill Radius) |
+| **Background Track (Lintasan)** | Transparan Murni | `background: transparent;` (Menyatu tanpa garis batas kaku) |
+| **Warna Normal Thumb** | Muted Asphalt Slate | `#cbd5e1` (`slate-300`), kontras lembut di atas base `#F5F2F2` |
+| **Warna Hover Thumb** | Deep Brand Blue (Master #3) | `#315B8C` (`primary-brand-blue`), umpan balik interaktif berwibawa |
+| **Warna Active (Dragging)** | Deep Asphalt Navy | `#24466c`, status interaktif saat di-drag pengguna |
+| **Breathing Padding** | Floating Pill Thumb | `border: 1px solid transparent; background-clip: padding-box;` |
+| **Sudut (Corner)** | Transparan Murni | `::-webkit-scrollbar-corner { background: transparent; }` |
+| **Stabilisasi Gutter** | Anti-Layout Shift | `scrollbar-gutter: stable;` pada container viewport dan modal |
+
+### 15.2. Spesifikasi Implementasi CSS Terkunci
+
+Konfigurasi berikut terkunci secara global di `@layer base` dalam `public/assets/css/tailwind-input.css` dan dikompilasi ke `tailwind.css`:
+
+```css
+/* =========================================================
+   UNIVERSAL CUSTOM SCROLLBAR SPECIFICATION (GEMINI.MD - HUKUM MUTLAK)
+   ========================================================= */
+
+/* 1. Standar W3C / Firefox Gecko */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
+/* 2. WebKit & Chromium (Chrome, Edge, Safari, Opera, Brave, WebView) */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background-clip: padding-box;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #315B8C;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: #24466c;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* 3. Utility Kelas Opsional: Scrollbar Tersembunyi (No Scrollbar) */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+}
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* 4. Utility Kelas: Stabilisasi Gutter Layout */
+.scrollbar-gutter-stable {
+  scrollbar-gutter: stable;
+}
+```
+
+### 15.3. Larangan Mutlak & Kepatuhan Anti-Slop
+1. **Dilarang Keras Menggunakan Scrollbar Native:** Dilarang menimpa selektor global dengan scrollbar bawaan sistem operasi yang tebal (> 10px) atau kaku kotak (persegi).
+2. **Dilarang Keras Menggunakan Warna Alien:** Warna track dilarang berwarna abu-abu pekat atau gradien. Warna thumb saat hover WAJIB menggunakan warna solid master `#315B8C`.
+3. **Pemberlakuan Universal:** Aturan ini berlaku otomatis pada seluruh kontainer tanpa perlu menambahkan kelas utilitas khusus di HTML, menjamin konsistensi 100% pada tabel lebar, modal, drawer, dan dropdown.
