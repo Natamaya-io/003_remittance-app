@@ -1648,6 +1648,78 @@ $flashes = Flash::all();
                 !important;
         }
 
+        /* CUSTOM TABLE TOGGLE BUTTON (UI KUSTOM TOMBOL TOGGLE TABEL) */
+        .custom-table-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            height: 38px;
+            padding: 0 14px;
+            border-radius: 12px;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            color: #4b5563;
+            font-family: var(--font-heading);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+            transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+            transform: none !important;
+        }
+
+        .custom-table-toggle-btn:hover {
+            background-color: #f9fafb;
+            border-color: #d1d5db;
+            color: #111827;
+        }
+
+        .custom-table-toggle-btn.is-active {
+            background-color: #eff6ff;
+            border-color: #bfdbfe;
+            color: #1d4ed8;
+        }
+
+        .custom-table-toggle-btn:focus-visible {
+            outline: none;
+            border-color: #315b8c;
+            box-shadow: 0 0 0 3px rgba(49, 91, 140, 0.18);
+        }
+
+        .custom-toggle-track {
+            position: relative;
+            display: inline-block;
+            width: 32px;
+            height: 18px;
+            border-radius: 9999px;
+            background-color: #d1d5db;
+            transition: background-color 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .custom-table-toggle-btn.is-active .custom-toggle-track,
+        .custom-toggle-track.is-active {
+            background-color: #315B8C;
+        }
+
+        .custom-toggle-knob {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 14px;
+            height: 14px;
+            border-radius: 9999px;
+            background-color: #ffffff;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+            transition: left 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .custom-table-toggle-btn.is-active .custom-toggle-knob,
+        .custom-toggle-track.is-active .custom-toggle-knob {
+            left: 16px;
+        }
+
 
         /* =================================================
            20. SMART TABLE

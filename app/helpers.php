@@ -756,5 +756,48 @@ function render_tooltip(string $text, string $slot, array $options = []): string
     return (string) ob_get_clean();
 }
 
+/**
+ * Render Tombol Toggle Tampilan Tabel (UI Kustom - Anti-Dropdown & Anti-Segment-Group)
+ *
+ * Mengubah opsi tampilan tabel menjadi tombol toggle interaktif non-native:
+ * - Menggunakan Alpine.js reactive state ($modelVar)
+ * - Switch track & knob UI kustom (zero-transform, transisi left murni)
+ * - Skema warna solid Deep Brand Blue (#315B8C) & Asphalt Base (#F5F2F2)
+ * - Aksesibilitas WCAG (role="switch", :aria-checked)
+ *
+ * @param string $modelVar Variabel model Alpine (default: 'viewMode')
+ * @param array{
+ *   label?: string,
+ *   class?: string
+ * } $options
+ */
+function render_table_view_toggle(string $modelVar = 'viewMode', array $options = []): string
+{
+    $label = (string) ($options['label'] ?? 'Tampilan Tabel');
+    $wrapperClass = (string) ($options['class'] ?? '');
+
+    ob_start();
+    ?>
+    <button
+        type="button"
+        role="switch"
+        :aria-checked="<?= e($modelVar) ?> === 'table'"
+        @click="<?= e($modelVar) ?> = <?= e($modelVar) ?> === 'table' ? 'list' : 'table'"
+        class="custom-table-toggle-btn <?= e($wrapperClass) ?>"
+        :class="{ 'is-active': <?= e($modelVar) ?> === 'table' }"
+        aria-label="Toggle <?= e($label) ?>"
+        title="Klik untuk beralih antara tampilan tabel dan kartu"
+    >
+        <i class="bi bi-table text-sm"></i>
+        <span><?= e($label) ?></span>
+        <span class="custom-toggle-track" :class="{ 'is-active': <?= e($modelVar) ?> === 'table' }">
+            <span class="custom-toggle-knob"></span>
+        </span>
+    </button>
+    <?php
+    return (string) ob_get_clean();
+}
+
+
 
 

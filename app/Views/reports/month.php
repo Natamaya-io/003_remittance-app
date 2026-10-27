@@ -240,48 +240,8 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
             </div>
 
             <div class="flex items-center gap-2">
-                <!-- Custom Alpine.js Dropdown -->
-                <div class="relative inline-flex" x-data="{ openOptions: false }" @click.outside="openOptions = false">
-                    <button
-                        type="button"
-                        @click="openOptions = !openOptions"
-                        class="dropdown-toggle"
-                        :aria-expanded="openOptions.toString()"
-                        aria-label="Menu Opsi Tampilan"
-                    >
-                        <i class="bi bi-sliders"></i>
-                        <span>Tampilan</span>
-                        <span class="text-gray-300 font-normal">·</span>
-                        <span class="text-[11px] text-gray-500 font-medium capitalize" x-text="viewMode === 'table' ? 'Tabel' : 'Kartu'"></span>
-                        <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': openOptions }"></i>
-                    </button>
-
-                    <div
-                        x-show="openOptions"
-                        x-cloak
-                        x-transition:leave="transition ease-in duration-100"
-                        x-transition:leave-start="opacity-100"
-                        x-transition:leave-end="opacity-0"
-                        class="dropdown-menu min-w-44 start-auto end-0 top-full mt-1.5 z-50 bg-white"
-                        style="display: none;"
-                    >
-                        <span class="dropdown-header">Mode Tampilan</span>
-                        <button type="button" @click="viewMode = 'table'; openOptions = false" class="dropdown-item justify-between" :class="viewMode === 'table' ? 'active font-semibold' : ''">
-                            <span class="flex items-center gap-x-2.5">
-                                <i class="bi bi-table text-blue-600"></i>
-                                Tampilan Tabel
-                            </span>
-                            <i x-show="viewMode === 'table'" class="bi bi-check2 text-blue-600 text-sm"></i>
-                        </button>
-                        <button type="button" @click="viewMode = 'list'; openOptions = false" class="dropdown-item justify-between" :class="viewMode === 'list' ? 'active font-semibold' : ''">
-                            <span class="flex items-center gap-x-2.5">
-                                <i class="bi bi-grid text-gray-500"></i>
-                                Tampilan Kartu
-                            </span>
-                            <i x-show="viewMode === 'list'" class="bi bi-check2 text-blue-600 text-sm"></i>
-                        </button>
-                    </div>
-                </div>
+                <!-- Tombol Toggle Tampilan Tabel (UI Kustom) -->
+                <?= render_table_view_toggle('viewMode', ['label' => 'Tampilan Tabel']) ?>
             </div>
         </div>
 
