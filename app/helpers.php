@@ -757,11 +757,11 @@ function render_tooltip(string $text, string $slot, array $options = []): string
 }
 
 /**
- * Render Toggle Tampilan Teks Antara Tabel dan Kartu (UI Kustom)
+ * Render Toggle Tampilan Antara Tabel dan Kartu (UI Kustom)
  *
- * Menampilkan teks Tabel dan Kartu tanpa tombol toggle:
+ * Menampilkan opsi Tabel (dengan ikon tabel) dan Kartu (dengan ikon kartu):
  * - Menggunakan Alpine.js reactive state ($modelVar)
- * - Hanya menampilkan teks Tabel dan Kartu murni (tanpa tombol toggle/switch knob)
+ * - Ikon tabel (bi-table) dan ikon kartu (bi-grid-fill) berdiri telanjang berdampingan dengan label
  * - Skema warna solid Deep Brand Blue (#315B8C) & Asphalt Base (#F5F2F2)
  * - Zero-transform, bebas pergeseran liar
  * - Aksesibilitas WCAG (role="group", :aria-pressed)
@@ -795,6 +795,7 @@ function render_table_view_toggle(string $modelVar = 'viewMode', array $options 
             :aria-pressed="<?= e($modelVar) ?> === 'table'"
             title="Tampilkan dalam bentuk tabel"
         >
+            <i class="bi bi-table text-sm" aria-hidden="true"></i>
             <span><?= e($tableLabel) ?></span>
         </button>
 
@@ -806,6 +807,7 @@ function render_table_view_toggle(string $modelVar = 'viewMode', array $options 
             :aria-pressed="<?= e($modelVar) ?> === 'list'"
             title="Tampilkan dalam bentuk kartu"
         >
+            <i class="bi bi-grid-fill text-sm" aria-hidden="true"></i>
             <span><?= e($cardLabel) ?></span>
         </button>
     </div>
