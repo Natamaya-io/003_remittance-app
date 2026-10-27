@@ -34,6 +34,16 @@ declare(strict_types=1);
                 height="2528"
             >
         </picture>
+
+        <!-- PEMISAH BERGELOMBANG DESKTOP (VERTIKAL DI TEPI KANAN ART) -->
+        <svg class="hidden lg:block absolute inset-y-0 -right-[1px] h-full w-14 lg:w-16 xl:w-20 2xl:w-24 pointer-events-none z-10 text-white" viewBox="0 0 100 1000" preserveAspectRatio="none" aria-hidden="true">
+            <path fill="currentColor" d="M 100 0 L 100 1000 L 40 1000 C 15 900, 80 850, 45 750 C 10 650, 75 550, 35 450 C 5 350, 70 250, 40 150 C 15 80, 60 40, 30 0 Z"></path>
+        </svg>
+
+        <!-- PEMISAH BERGELOMBANG MOBILE (HORIZONTAL DI TEPI BAWAH ART) -->
+        <svg class="block lg:hidden absolute -bottom-[1px] inset-x-0 w-full h-6 sm:h-8 pointer-events-none z-10 text-white" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+            <path fill="currentColor" d="M 0 120 L 1200 120 L 1200 45 C 1050 85, 900 15, 750 50 C 600 85, 450 15, 300 50 C 150 85, 50 20, 0 45 Z"></path>
+        </svg>
     </div>
 
     <!-- KOLOM KANAN: WORKSPACE FORMULIR MASUK (FIT VIEWPORT NON-SCROLLABLE) -->
