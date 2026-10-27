@@ -47,7 +47,7 @@ declare(strict_types=1);
                     Username atau Email
                 </label>
                 <div class="relative flex items-center">
-                    <i class="bi bi-person absolute left-3.5 text-gray-400 pointer-events-none text-base"></i>
+                    <i class="bi bi-person absolute left-3 text-gray-400 pointer-events-none text-base"></i>
                     <input
                         id="loginUsername"
                         type="text"
@@ -57,7 +57,7 @@ declare(strict_types=1);
                         autocomplete="username"
                         required
                         autofocus
-                        class="w-full h-11 pl-10 pr-4 text-sm text-gray-900 bg-white border border-gray-300 rounded-xl focus:outline-none focus:border-[#315B8C] focus:ring-2 focus:ring-[#315B8C]/15 transition-colors placeholder:text-gray-400 font-sans"
+                        class="custom-form-input has-leading-icon"
                     >
                 </div>
             </div>
@@ -68,7 +68,7 @@ declare(strict_types=1);
                     Password
                 </label>
                 <div class="relative flex items-center">
-                    <i class="bi bi-lock absolute left-3.5 text-gray-400 pointer-events-none text-base"></i>
+                    <i class="bi bi-lock absolute left-3 text-gray-400 pointer-events-none text-base"></i>
                     <input
                         :type="showPass ? 'text' : 'password'"
                         type="password"
@@ -77,12 +77,12 @@ declare(strict_types=1);
                         placeholder="Masukkan password akun"
                         autocomplete="current-password"
                         required
-                        class="w-full h-11 pl-10 pr-11 text-sm text-gray-900 bg-white border border-gray-300 rounded-xl focus:outline-none focus:border-[#315B8C] focus:ring-2 focus:ring-[#315B8C]/15 transition-colors placeholder:text-gray-400 font-sans"
+                        class="custom-form-input has-leading-icon has-trailing-action"
                     >
                     <button
                         type="button"
                         @click="showPass = !showPass"
-                        class="absolute right-3 p-1.5 text-gray-400 hover:text-gray-700 transition-colors focus:outline-none"
+                        class="absolute right-2.5 p-1 text-gray-400 hover:text-gray-700 transition-colors focus:outline-none"
                         :aria-label="showPass ? 'Sembunyikan password' : 'Tampilkan password'"
                     >
                         <i :class="showPass ? 'bi bi-eye-slash' : 'bi bi-eye'" class="bi bi-eye text-base"></i>

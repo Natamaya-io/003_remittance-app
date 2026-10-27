@@ -25,6 +25,7 @@
    - **Peniadaan Wrapper Ikon & Monokrom Mutlak (Universal Naked Monochrome Icon Discipline):** Seluruh ikon antarmuka di seluruh aplikasi **MUTLAK DILARANG** menggunakan wrapper/wadah pembungkus dekoratif berlatar warna dan **MUTLAK HANYA DIPERBOLEHKAN BERWARNA HITAM ATAU PUTIH**. Ikon wajib berdiri telanjang berdampingan langsung dengan konten tanpa pembungkus buatan (lihat Bagian 14 untuk aturan terkunci lengkap).
    - **Scrollbar Kustom Global Mutlak (Universal Custom Scrollbar Law):** Seluruh scrollbar browser bawaan sistem operasi (native Windows/macOS/Linux) yang tebal, kaku, dan abu-abu semen kotak **DIHARAMKAN SECARA MUTLAK**. Seluruh antarmuka (window viewport `html`, `body`, modal, popover, dropdown, hingga tabel scroll horizontal) **MUTLAK WAJIB** menggunakan sistem scrollbar kustom global ramping (7px), sudut membulat penuh (*capsule thumb*), track transparan, dengan warna thumb netral `#cbd5e1` dan interaksi hover solid *Deep Brand Blue* (`#315B8C`) (lihat Bagian 15 untuk aturan terkunci lengkap).
    - **Sistem Popup Notifikasi Toast Kustom Mutlak (Universal Custom Toast Notification Law):** Seluruh notifikasi popup, pesan umpan balik tindakan, konfirmasi aksi, maupun peringatan sistem **MUTLAK HARUS MENGGUNAKAN TOAST DENGAN UI KUSTOM TANPA STYLE BAWAAN BROWSER**. Penggunaan notifikasi browser native (seperti alert dialog abu-abu OS, Web Notification bubble bawaan sistem operasi, atau `window.alert()` / `window.confirm()`) **DIHARAMKAN SECARA MUTLAK**. Toast beroperasi secara mengambang (*floating viewport stack*), sudut membulat elegan (`rounded-xl` / `rounded-2xl`), border solid 1px, soft elevation, 4 warna solid varian status resmi, tombol tutup dismissible kustom, auto-dismiss dengan timer pause saat hover, dan transisi Alpine.js halus tanpa efek bounce atau layout shift (lihat Bagian 16 untuk aturan terkunci lengkap).
+   - **Sistem Form Input Teks Kustom Mutlak (Universal Custom Form Input Law):** Seluruh elemen input form teks (`<input type="text">`, `type="password"`, `type="email"`, dsb.) **MUTLAK WAJIB** menggunakan kelas terpusat `.custom-form-input` dengan ketinggian presisi 40px (selaras 1:1 dengan `.btn-primary` dan `.custom-search-input`), sudut membulat modular `rounded-[9px]`, latar permukaan well `#F5F2F2` dengan bayangan inset mikro, batas kontur `#d1d5db`, transisi fokus bersih ke putih dengan border solid `#315B8C` (*Deep Brand Blue*), serta jarak ikon kiri rapat alami (38px padding kiri, celah 8-10px) (lihat Bagian 17 untuk aturan terkunci lengkap).
 
 ---
 
@@ -1141,3 +1142,135 @@ Setiap elemen toast wajib mengimplementasikan struktur hierarki berikut:
 2. **Dilarang Keras Efek Bounce/Scale Liar:** Transisi toast dilarang menggunakan `scale-95`, `scale-105`, atau translasi jarak jauh (> 10px). Transisi masuk/keluar wajib murni opasitas dan micro-shift `translate-y-[-8px]`.
 3. **Dilarang Keras Menggunakan Warna Gradien atau Efek Kaca:** Background toast wajib solid murni sesuai 4 varian resmi tabel 16.3.
 4. **Dilarang Keras Tombol Tutup Native Browser:** Tombol dismiss wajib menggunakan Bootstrap Icons `<i class="bi bi-x"></i>` dengan styling kustom, bukan kontrol silang native OS.
+
+---
+
+## 17. Aturan Terkunci: Sistem Form Input Teks Kustom Global (Universal Custom Form Input Law)
+
+> **STATUS ATURAN: TERKUNCI MUTLAK & HUKUM WAJIB (STRICT COMPLIANCE & NON-NEGOTIABLE)**  
+> Penggunaan input form teks generik yang tidak proporsional, tinggi kembung (*bloated*), celah spasi ikon yang renggang, atau berpenampilan putih polos tanpa kedalaman karakter **DIHARAMKAN SECARA MUTLAK**.  
+> Seluruh elemen input form teks (`<input type="text">`, `type="password"`, `type="email"`, `type="tel"`, dsb.) di seluruh aplikasi RemitGo! **MUTLAK WAJIB** menggunakan kelas terpusat `.custom-form-input` dengan geometri, elevasi, dan fisika UI yang selaras dengan sistem desain **Gamified Asphalt**.
+
+### 17.1. Geometri & Fisika UI Form Input Terkunci
+
+| Parameter | Spesifikasi Resmi | Nilai & Kode CSS | Alasan Arsitektural |
+| :--- | :--- | :--- | :--- |
+| **Ketinggian (Height)** | 40px Presisi | `height: 40px; line-height: 40px;` | Selaras modular 1:1 dengan tombol aksi `.btn-primary` (40px) dan `.custom-search-input` (40px) |
+| **Bentuk & Radius** | Rounded 9px Modular | `border-radius: 9px;` | Simetri geometri dengan radius 9px pada tombol utama `.btn-primary` |
+| **Latar Normal (Surface Well)**| Asphalt Off-White Base | `background-color: #F5F2F2;` | Memberi efek "wadah/well" fisik yang berbobot di atas card putih |
+| **Bayangan Normal** | Inset Shadow Mikro | `box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);` | Efek kedalaman cekungan taktil alami |
+| **Batas Kontur (Border)** | Border Solid Netral | `border: 1px solid #d1d5db;` | Kontur batas tegas dan rapi |
+| **Tipografi & Teks** | Roboto Normal 14px | `font-family: var(--font-sans); font-size: 14px;` | Kontras tinggi, mudah dibaca |
+| **Warna Placeholder** | Muted Slate Gray | `color: #9ca3af; font-weight: 400;` | Teks petunjuk netral kontras sedang |
+| **Interaksi Hover** | Border Kontras Sedang | `border-color: #9ca3af;` | Umpan balik halus saat kursor melintas |
+| **Interaksi Fokus (Focus)**| Clean White + Deep Blue Halo | `background-color: #ffffff; border-color: #315B8C; box-shadow: 0 0 0 3px rgba(49, 91, 140, 0.15);` | Kontras aktif seketika saat diketik, menggunakan warna brand master #315B8C |
+| **Spasi Ikon Kiri** | Celah Rapat Alami | `left: 12px; padding-left: 38px;` | Celah antara ikon dan teks hanya 8px-10px (anti-jurang kosong) |
+| **Spasi Tombol Kanan** | Aksi Kanan Aman | `right: 10px; padding-right: 38px;` | Teks tidak menabrak tombol toggle visibility password |
+
+### 17.2. Spesifikasi Implementasi CSS Terkunci
+
+Didefinisikan secara resmi di `@layer components` dalam `public/assets/css/tailwind-input.css` dan dikompilasi ke `tailwind.css`:
+
+```css
+/* =========================================================
+   GAMIFIED ASPHALT LOCKED FORM INPUT (.custom-form-input)
+   GEMINI.MD SECTION 17 - HUKUM MUTLAK
+   ========================================================= */
+.custom-form-input {
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 0 14px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 40px;
+  color: #111827;
+  background-color: #F5F2F2;
+  border: 1px solid #d1d5db;
+  border-radius: 9px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+  outline: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  transform: none !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.custom-form-input::placeholder {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+.custom-form-input:hover {
+  border-color: #9ca3af;
+}
+
+.custom-form-input:focus {
+  background-color: #ffffff;
+  border-color: #315B8C;
+  box-shadow: 0 0 0 3px rgba(49, 91, 140, 0.15), inset 0 1px 1px rgba(0, 0, 0, 0.02);
+}
+
+/* Modifier: Field dengan Ikon Kiri */
+.custom-form-input.has-leading-icon {
+  padding-left: 38px;
+}
+
+/* Modifier: Field dengan Aksi/Toggle Kanan */
+.custom-form-input.has-trailing-action {
+  padding-right: 38px;
+}
+```
+
+### 17.3. Contoh Penggunaan Baku di File Template View
+
+```html
+<!-- 1. Input Standar Tanpa Ikon -->
+<input
+    type="text"
+    name="subject"
+    placeholder="Masukkan subjek laporan"
+    class="custom-form-input"
+    required
+>
+
+<!-- 2. Input dengan Ikon Kiri (Leading Icon) -->
+<div class="relative flex items-center">
+    <i class="bi bi-person absolute left-3 text-gray-400 pointer-events-none text-base"></i>
+    <input
+        type="text"
+        name="login"
+        placeholder="Masukkan username atau email"
+        class="custom-form-input has-leading-icon"
+        required
+    >
+</div>
+
+<!-- 3. Input Password dengan Visibility Toggle Kanan -->
+<div class="relative flex items-center" x-data="{ showPass: false }">
+    <i class="bi bi-lock absolute left-3 text-gray-400 pointer-events-none text-base"></i>
+    <input
+        :type="showPass ? 'text' : 'password'"
+        type="password"
+        name="password"
+        placeholder="Masukkan password akun"
+        class="custom-form-input has-leading-icon has-trailing-action"
+        required
+    >
+    <button
+        type="button"
+        @click="showPass = !showPass"
+        class="absolute right-2.5 p-1 text-gray-400 hover:text-gray-700 transition-colors focus:outline-none"
+        :aria-label="showPass ? 'Sembunyikan password' : 'Tampilkan password'"
+    >
+        <i :class="showPass ? 'bi bi-eye-slash' : 'bi bi-eye'" class="bi bi-eye text-base"></i>
+    </button>
+</div>
+```
+
+### 17.4. Larangan Mutlak & Kepatuhan Anti-Slop Form Input
+1. **Dilarang Keras Ketinggian Non-Standar:** Dilarang menggunakan utilitas ketinggian liar seperti `h-11`, `h-12`, atau `h-14` yang membengkak di bawah root scaling 20px desktop. Tinggi wajib 40px (`.custom-form-input`).
+2. **Dilarang Keras Celah Ikon Renggang:** Padding teks kiri jika ada ikon dilarang melebihi 40px (`pl-10` = 50px diharamkan). Wajib 38px (`has-leading-icon`) agar teks dan ikon berjarak rapat dan harmonis.
+3. **Dilarang Keras Tampilan Datar Putih di Atas Putih:** Input di atas kartu putih wajib memiliki latar cekungan `#F5F2F2` dengan bayangan inset mikro.
+4. **Dilarang Keras Warna Alien:** Border fokus dilarang menggunakan warna ungu, pink, atau hijau. Wajib menggunakan warna master `#315B8C` (*Deep Brand Blue*).

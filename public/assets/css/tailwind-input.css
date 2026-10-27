@@ -359,6 +359,56 @@
   }
 
   /* =========================================================
+     GAMIFIED ASPHALT LOCKED FORM INPUT (.custom-form-input)
+     GEMINI.MD SECTION 17 - HUKUM MUTLAK
+     ========================================================= */
+  .custom-form-input {
+    display: block;
+    width: 100%;
+    height: 40px;
+    padding: 0 14px;
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 40px;
+    color: #111827;
+    background-color: #F5F2F2;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+    outline: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    transform: none !important;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .custom-form-input::placeholder {
+    color: #9ca3af;
+    font-weight: 400;
+  }
+
+  .custom-form-input:hover {
+    border-color: #9ca3af;
+  }
+
+  .custom-form-input:focus {
+    background-color: #ffffff;
+    border-color: #315B8C;
+    box-shadow: 0 0 0 3px rgba(49, 91, 140, 0.15), inset 0 1px 1px rgba(0, 0, 0, 0.02);
+  }
+
+  /* When having leading icon */
+  .custom-form-input.has-leading-icon {
+    padding-left: 38px;
+  }
+
+  /* When having trailing toggle or action */
+  .custom-form-input.has-trailing-action {
+    padding-right: 38px;
+  }
+
+  /* =========================================================
      GLOBAL CUSTOM UI: TOOLTIP SYSTEM (HOVER-ONLY LAW)
      ========================================================= */
   .hs-tooltip {
