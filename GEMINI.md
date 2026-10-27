@@ -24,6 +24,7 @@
    - **Peniadaan Deskripsi Statis & Tooltip Mutlak (Universal Description-to-Tooltip Discipline):** Seluruh deskripsi, keterangan panduan, catatan bantuan, dan subjudul fungsional pada panel, header, card, tabel, maupun formulir **DILARANG KERAS** dirender sebagai teks atau paragraf statis (`<p>`, `<small>`, `.description`). Seluruh deskripsi **MUTLAK WAJIB** dikonversi menjadi tooltip on-demand berbasis hover pada ikon info `(i)` (lihat Bagian 12 untuk aturan terkunci lengkap).
    - **Peniadaan Wrapper Ikon & Monokrom Mutlak (Universal Naked Monochrome Icon Discipline):** Seluruh ikon antarmuka di seluruh aplikasi **MUTLAK DILARANG** menggunakan wrapper/wadah pembungkus dekoratif berlatar warna dan **MUTLAK HANYA DIPERBOLEHKAN BERWARNA HITAM ATAU PUTIH**. Ikon wajib berdiri telanjang berdampingan langsung dengan konten tanpa pembungkus buatan (lihat Bagian 14 untuk aturan terkunci lengkap).
    - **Scrollbar Kustom Global Mutlak (Universal Custom Scrollbar Law):** Seluruh scrollbar browser bawaan sistem operasi (native Windows/macOS/Linux) yang tebal, kaku, dan abu-abu semen kotak **DIHARAMKAN SECARA MUTLAK**. Seluruh antarmuka (window viewport `html`, `body`, modal, popover, dropdown, hingga tabel scroll horizontal) **MUTLAK WAJIB** menggunakan sistem scrollbar kustom global ramping (7px), sudut membulat penuh (*capsule thumb*), track transparan, dengan warna thumb netral `#cbd5e1` dan interaksi hover solid *Deep Brand Blue* (`#315B8C`) (lihat Bagian 15 untuk aturan terkunci lengkap).
+   - **Sistem Popup Notifikasi Toast Kustom Mutlak (Universal Custom Toast Notification Law):** Seluruh notifikasi popup, pesan umpan balik tindakan, konfirmasi aksi, maupun peringatan sistem **MUTLAK HARUS MENGGUNAKAN TOAST DENGAN UI KUSTOM TANPA STYLE BAWAAN BROWSER**. Penggunaan notifikasi browser native (seperti alert dialog abu-abu OS, Web Notification bubble bawaan sistem operasi, atau `window.alert()` / `window.confirm()`) **DIHARAMKAN SECARA MUTLAK**. Toast beroperasi secara mengambang (*floating viewport stack*), sudut membulat elegan (`rounded-xl` / `rounded-2xl`), border solid 1px, soft elevation, 4 warna solid varian status resmi, tombol tutup dismissible kustom, auto-dismiss dengan timer pause saat hover, dan transisi Alpine.js halus tanpa efek bounce atau layout shift (lihat Bagian 16 untuk aturan terkunci lengkap).
 
 ---
 
@@ -80,10 +81,11 @@ Setiap blok alert wajib mengikuti struktur hierarki berikut:
 1. **Transisi Bersih:** Transisi Alpine.js `x-transition:leave` HANYA memanipulasi `opacity`. Dilarang keras menyertakan `scale-95` atau translasi yang menyebabkan efek zoom/lompatan layout.
 2. **Ikon Dinamis:** Setiap jenis alert wajib memiliki ikon yang mewakili statusnya secara spesifik (jangan hardcode `bi-info-circle-fill` untuk semua status).
 3. **Elevasi Halus:** Border solid 1px dengan sudut membulat 14px (`rounded-xl` / `.alert`), bayangan mikro `box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04)`.
-4. **Pemusnahan Dialog Native Browser (Anti-window.confirm / Anti-window.alert):**
+4. **Pemusnahan Dialog & Popup Notifikasi Native Browser (Anti-window.confirm / Anti-window.alert / Anti-Native Popup):**
    - Dilarang keras memicu `window.confirm()` atau `window.alert()` browser abu-abu.
    - Semua form yang membutuhkan konfirmasi wajib menggunakan atribut `data-confirm="Pesan konfirmasi..."` yang dicegat otomatis oleh handler global `custom-dialogs.js`.
    - Untuk aksi JavaScript terprogram, wajib menggunakan `await window.remitConfirm(pesan, opsi)` atau `window.remitAlert(pesan, opsi)`.
+   - Seluruh notifikasi popup sistem dan umpan balik aksi wajib menggunakan sistem toast UI kustom mengambang (lihat Bagian 16).
    - Modal konfirmasi dan peringatan dirender terpusat di `app/Views/layouts/app.php` dengan komponen Alpine `remitGlobalDialogs` berdesain Asphalt Gamified (sudut membulat, tombol aksi solid, dan backdrop blur bersih).
 
 ---
@@ -996,3 +998,146 @@ Konfigurasi berikut terkunci secara global di `@layer base` dalam `public/assets
 1. **Dilarang Keras Menggunakan Scrollbar Native:** Dilarang menimpa selektor global dengan scrollbar bawaan sistem operasi yang tebal (> 10px) atau kaku kotak (persegi).
 2. **Dilarang Keras Menggunakan Warna Alien:** Warna track dilarang berwarna abu-abu pekat atau gradien. Warna thumb saat hover WAJIB menggunakan warna solid master `#315B8C`.
 3. **Pemberlakuan Universal:** Aturan ini berlaku otomatis pada seluruh kontainer tanpa perlu menambahkan kelas utilitas khusus di HTML, menjamin konsistensi 100% pada tabel lebar, modal, drawer, dan dropdown.
+
+---
+
+## 16. Aturan Terkunci: Sistem Popup Notifikasi Toast Kustom Global (Universal Custom Toast Notification Law - Anti-Native Browser Popup Law)
+
+> **STATUS ATURAN: TERKUNCI MUTLAK & HUKUM WAJIB (STRICT COMPLIANCE & NON-NEGOTIABLE)**  
+> Seluruh bentuk notifikasi popup, umpan balik tindakan pengguna, konfirmasi aksi berhasil/gagal, peringatan validasi, dan notifikasi sistem **MUTLAK HARUS MENGGUNAKAN TOAST DENGAN UI KUSTOM TANPA STYLE BAWAAN BROWSER**.  
+> Penggunaan dialog notifikasi bawaan browser native (seperti dialog abu-abu `window.alert()`, `window.confirm()`, popup dialog sistem operasi, atau Web Notifications bubble native yang kaku) **DIHARAMKAN SECARA MUTLAK**. Seluruh notifikasi wajib beroperasi di bawah prinsip arsitektur Gamified Asphalt RemitGo!.
+
+### 16.1. Prinsip Mutlak & Pemusnahan Notifikasi Native Browser (Anti-Native Browser Popup Discipline)
+1. **Pemusnahan Total Style Bawaan Browser:**
+   - Dilarang keras memicu `window.alert()`, `window.confirm()`, atau dialog modal native browser lainnya yang menghentikan thread eksekusi JavaScript (blocking UI) dan merusak estetika antarmuka.
+   - Panggilan JavaScript `window.alert(msg)` secara global dicegat dan dialihkan secara otomatis ke sistem toast/modal kustom melalui `public/assets/js/custom-dialogs.js`.
+2. **Non-Intrusive Floating Experience:**
+   - Toast mengambang di atas kanvas kerja tanpa merusak alur tata letak dokumen (*zero document layout shift*).
+   - Pengguna tetap dapat melanjutkan pekerjaan operasional, membaca data tabel, atau mengetik pada formulir saat toast sedang tampil.
+
+### 16.2. Geometri, Elevasi & Tata Letak Floating Viewport Stack
+1. **Posisi & Penataan Tumpukan (Floating Viewport Stack):**
+   - **Desktop & Tablet (`sm:` dan ke atas):** Menempati sudut kanan atas layar (`fixed top-5 right-5 z-[9999]`), terisolasi dari bilah navigasi bawah (*SPA Bottom Navigation Dock*).
+   - **Mobile (`< sm`):** Menempati area atas horizontal penuh dengan padding aman (`fixed top-4 inset-x-4 z-[9999]`).
+   - Tumpukan toast tersusun secara vertikal dengan celah teratur `space-y-3` (`gap-3`).
+2. **Geometri & Fisika Kartu Toast:**
+   - **Radius Membulat Halus:** Sudut wajib membulat elegan `rounded-xl` (12px / 15px pada root 20px) hingga `rounded-2xl`. Sudut tajam kotak kaku **DIHARAMKAN SECARA MUTLAK**.
+   - **Lebar Kontainer:** Lebar maksimal `max-w-md w-full` (atau `min-w-[320px]`).
+   - **Border Solid 1px:** Border presisi mengelilingi seluruh kontur toast dengan warna serasi varian status.
+   - **Elevasi Halus (Soft Elevation):** Menggunakan bayangan halus `box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04)`. Dilarang keras menggunakan glow neon semu, drop-shadow hitam pekat, atau efek kaca blur yang mengaburkan teks (*zero-glassmorphism*).
+
+### 16.3. Standar 4 Varian Warna Solid & Tipografi Toast
+
+Seluruh varian toast wajib mematuhi **Hukum Skema Warna Solid Murni (Bagian 11)** tanpa gradien:
+
+| Varian | CSS Class | Background | Border | Teks Konten | Ikon Resmi |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Success Toast** | `.toast-success` | `#ecfdf5` (`emerald-50`) | `#a7f3d0` (`emerald-200`) | `#065f46` (`emerald-900`) | `<i class="bi bi-check-circle-fill"></i>` (`#059669`) |
+| **Danger / Error Toast** | `.toast-danger`, `.toast-error` | `#fef2f2` (`red-50`) | `#fecaca` (`red-200`) | `#991b1b` (`red-900`) | `<i class="bi bi-x-circle-fill"></i>` (`#dc2626`) |
+| **Warning Toast** | `.toast-warning` | `#fffbeb` (`amber-50`) | `#fde68a` (`amber-200`) | `#92400e` (`amber-900`) | `<i class="bi bi-exclamation-triangle-fill"></i>` (`#d97706`) |
+| **Info Toast** | `.toast-info` | `#eff6ff` (`blue-50`) | `#bfdbfe` (`blue-200`) | `#1e40af` (`blue-900`) | `<i class="bi bi-info-circle-fill"></i>` (`#315B8C`) |
+
+- **Tipografi Terkunci:**
+  - Judul toast (opsional): Font **DM Sans** (`font-heading font-semibold text-sm`).
+  - Pesan toast: Font **Roboto** (`font-sans text-xs sm:text-sm`).
+  - Diet Bold: Maksimum penekanan adalah `font-weight: 600`. Dilarang menggunakan font ekstra tebal (800/900).
+- **Universal Naked Monochrome Icon:**
+  - Ikon diletakkan di sisi kiri berdampingan langsung dengan teks tanpa dibungkus kotak/lingkaran warna tambahan (mematuhi Bagian 14).
+
+### 16.4. Anatomi DOM Toast Kustom Terkunci (Alpine.js)
+
+Setiap elemen toast wajib mengimplementasikan struktur hierarki berikut:
+
+```html
+<!-- KONTINER UTAMA TUMPUKAN TOAST (DI LAYOUT APP & GUEST) -->
+<div
+    class="fixed top-5 right-5 z-[9999] w-full max-w-sm sm:max-w-md pointer-events-none space-y-3 px-4 sm:px-0"
+    id="remitToastContainer"
+    x-data="remitToastStack"
+>
+    <template x-for="toast in toasts" :key="toast.id">
+        <div
+            class="pointer-events-auto rounded-xl border p-4 shadow-[0_10px_25px_-5px_rgba(0,0,0,0.08),0_8px_10px_-6px_rgba(0,0,0,0.04)] transition-all duration-200 ease-out"
+            :class="toastClasses(toast.type)"
+            role="alert"
+            x-show="toast.visible"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 translate-y-[-8px]"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 translate-y-[-8px]"
+            @mouseenter="pauseTimer(toast)"
+            @mouseleave="resumeTimer(toast)"
+        >
+            <div class="flex items-start gap-3">
+                <!-- Ikon Kustom Telanjang -->
+                <span class="flex-shrink-0 text-base leading-none pt-0.5">
+                    <i :class="toastIcon(toast.type)"></i>
+                </span>
+
+                <!-- Badan Pesan -->
+                <div class="flex-1 min-w-0">
+                    <strong
+                        x-show="toast.title"
+                        x-text="toast.title"
+                        class="block font-heading font-semibold text-sm leading-tight mb-1"
+                    ></strong>
+                    <div
+                        x-text="toast.message"
+                        class="font-sans text-xs sm:text-sm leading-relaxed break-words"
+                    ></div>
+                </div>
+
+                <!-- Tombol Tutup Kustom (Bebas Style Native Browser) -->
+                <button
+                    type="button"
+                    class="flex-shrink-0 p-1 -mr-1 -mt-1 rounded-lg opacity-70 hover:opacity-100 hover:bg-black/5 transition-colors focus:outline-none"
+                    @click="dismiss(toast.id)"
+                    aria-label="Tutup notifikasi"
+                >
+                    <i class="bi bi-x text-lg leading-none"></i>
+                </button>
+            </div>
+        </div>
+    </template>
+</div>
+```
+
+### 16.5. Kontrak API JavaScript Terprogram (`window.remitToast`) & Integrasi Flash Backend
+
+1. **Shorthand JavaScript Global Terprogram:**
+   Seluruh modul script aplikasi dapat memicu notifikasi toast kustom seketika tanpa dialog browser:
+   ```javascript
+   // Format umum
+   window.remitToast(message, type = 'info', options = {});
+
+   // Shorthand varian status
+   window.remitToast.success('Laporan batch harian berhasil disimpan.');
+   window.remitToast.error('Gagal memperbarui status transaksi: koneksi terputus.');
+   window.remitToast.warning('Saldo rekening payer mendekati batas minimum.');
+   window.remitToast.info('Proses rekonsiliasi sedang berlangsung di latar belakang.');
+
+   // Opsi lengkap
+   window.remitToast({
+       title: 'Sinkronisasi Selesai',
+       message: 'Sebanyak 1.420 data transaksi telah disinkronkan.',
+       type: 'success',
+       duration: 5000 // milidetik (0 untuk persisten sampai ditutup)
+   });
+   ```
+
+2. **Perilaku Pengatur Waktu (Timer & Auto-Dismiss):**
+   - Durasi default adalah **5000ms (5 detik)**.
+   - **Pause on Hover:** Timer otomatis dijeda (*paused*) saat pengguna mengarahkan kursor ke atas toast agar teks panjang sempat terbaca tanpa terburu-buru hilang.
+   - **Resume on Leave:** Timer melanjutkan hitungan mundur saat kursor meninggalkan area toast.
+
+3. **Integrasi Flash Session Backend (PHP Framework):**
+   - Pesan flash dari session backend (`Flash::all()`) otomatis dikonversi menjadi entri toast kustom saat view selesai dimuat (`DOMContentLoaded`).
+   - Tidak ada lagi kotak flash statis yang membuang ruang vertikal kanvas kerja utama.
+
+### 16.6. Larangan Mutlak & Kepatuhan Anti-Slop Toast
+1. **Dilarang Keras Menggunakan Dialog Native:** Pemanggilan `window.alert()`, `window.confirm()`, atau notification bubble OS native dilarang secara absolut.
+2. **Dilarang Keras Efek Bounce/Scale Liar:** Transisi toast dilarang menggunakan `scale-95`, `scale-105`, atau translasi jarak jauh (> 10px). Transisi masuk/keluar wajib murni opasitas dan micro-shift `translate-y-[-8px]`.
+3. **Dilarang Keras Menggunakan Warna Gradien atau Efek Kaca:** Background toast wajib solid murni sesuai 4 varian resmi tabel 16.3.
+4. **Dilarang Keras Tombol Tutup Native Browser:** Tombol dismiss wajib menggunakan Bootstrap Icons `<i class="bi bi-x"></i>` dengan styling kustom, bukan kontrol silang native OS.
