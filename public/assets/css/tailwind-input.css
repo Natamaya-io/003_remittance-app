@@ -313,6 +313,17 @@
     gap: 6px !important;
   }
 
+  /* Large Primary Button for High Accessibility & Elderly Users (GEMINI.MD SECTION 13 & 17.5) */
+  .btn-primary-lg,
+  .btn-lg.btn-primary {
+    height: 50px !important;
+    padding: 0 20px !important;
+    font-size: 17px !important;
+    font-weight: 600 !important;
+    border-radius: 11px !important;
+    gap: 10px !important;
+  }
+
   /* Secondary & Light Buttons */
   .btn-secondary,
   .btn-light,
@@ -406,6 +417,36 @@
   /* When having trailing toggle or action */
   .custom-form-input.has-trailing-action {
     padding-right: 38px;
+  }
+
+  /* =========================================================
+     VARIAN FORM INPUT LANSIA / AKSESIBILITAS TINGGI (LARGE)
+     GEMINI.MD SECTION 17.5 - STANDAR RAMAH LANSIA (SENIOR/ELDERLY)
+     ========================================================= */
+  .custom-form-input-lg,
+  .custom-form-input.form-input-lg {
+    height: 50px !important;
+    line-height: 50px !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    padding: 0 16px !important;
+    border-radius: 11px !important;
+  }
+
+  .custom-form-input-lg::placeholder,
+  .custom-form-input.form-input-lg::placeholder {
+    font-size: 15px !important;
+    color: #6b7280 !important;
+  }
+
+  .custom-form-input-lg.has-leading-icon,
+  .custom-form-input.form-input-lg.has-leading-icon {
+    padding-left: 48px !important;
+  }
+
+  .custom-form-input-lg.has-trailing-action,
+  .custom-form-input.form-input-lg.has-trailing-action {
+    padding-right: 48px !important;
   }
 
   /* =========================================================

@@ -1325,10 +1325,28 @@ Didefinisikan secara resmi di `@layer components` dalam `public/assets/css/tailw
 ```
 
 ### 17.4. Larangan Mutlak & Kepatuhan Anti-Slop Form Input
-1. **Dilarang Keras Ketinggian Non-Standar:** Dilarang menggunakan utilitas ketinggian liar seperti `h-11`, `h-12`, atau `h-14` yang membengkak di bawah root scaling 20px desktop. Tinggi wajib 40px (`.custom-form-input`).
-2. **Dilarang Keras Celah Ikon Renggang:** Padding teks kiri jika ada ikon dilarang melebihi 40px (`pl-10` = 50px diharamkan). Wajib 38px (`has-leading-icon`) agar teks dan ikon berjarak rapat dan harmonis.
+1. **Dilarang Keras Ketinggian Non-Standar:** Dilarang menggunakan utilitas ketinggian liar seperti `h-11`, `h-12`, atau `h-14` yang membengkak di bawah root scaling 20px desktop. Tinggi standar wajib 40px (`.custom-form-input`) atau 50px untuk varian lansia (`.custom-form-input-lg`).
+2. **Dilarang Keras Celah Ikon Renggang:** Padding teks kiri jika ada ikon dilarang melebihi 40px untuk input 40px atau 48px untuk input 50px. Wajib menggunakan modifier `.has-leading-icon` agar teks dan ikon berjarak rapat dan harmonis.
 3. **Dilarang Keras Tampilan Datar Putih di Atas Putih:** Input di atas kartu putih wajib memiliki latar cekungan `#F5F2F2` dengan bayangan inset mikro.
 4. **Dilarang Keras Warna Alien:** Border fokus dilarang menggunakan warna ungu, pink, atau hijau. Wajib menggunakan warna master `#315B8C` (*Deep Brand Blue*).
+
+### 17.5. Standar Varian Form Aksesibilitas Tinggi & Ramah Lansia (Senior & High-Accessibility Law)
+
+Untuk formulir autentikasi publik, portal login, atau bidang input yang memerlukan keterbacaan tinggi (*high legibility*) bagi pengguna lanjut usia (lansia), aplikasi menyediakan varian resmi terstandarisasi di `@layer components`:
+
+1. **Input Teks Varian Lansia (`.custom-form-input-lg` / `.form-input-lg`):**
+   - **Ketinggian:** 50px presisi (`height: 50px; line-height: 50px;`).
+   - **Ukuran Huruf:** 16px Roboto (`font-size: 16px; font-weight: 500;`).
+   - **Radius Sudut:** 11px modular (`border-radius: 11px;`).
+   - **Placeholder Kontras Tinggi:** `#6b7280` (memenuhi standar kontras WCAG AAA untuk lansia).
+   - **Spasi Ikon Besar:** Padding kiri/kanan 48px (`.has-leading-icon` / `.has-trailing-action`), selaras dengan ikon 20px (`text-xl`) di `left-4` / `right-4`.
+2. **Label Form Lansia:**
+   - Tipografi `text-sm sm:text-base font-semibold text-gray-800 mb-1.5` (tegas, kontras tinggi terhadap kanvas putih).
+3. **Tombol Aksi Utama Lansia (`.btn-primary-lg` / `.btn-lg.btn-primary`):**
+   - **Ketinggian:** 50px presisi (selaras 1:1 dengan input 50px).
+   - **Ukuran Huruf:** 17px DM Sans (`font-size: 17px; font-weight: 600;`).
+   - **Radius Sudut:** 11px modular.
+   - **Hit Target Luas:** Memberikan area sentuh yang mantap bagi pengguna lansia di perangkat mobile maupun desktop.
 
 ---
 

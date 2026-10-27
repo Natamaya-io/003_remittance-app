@@ -46,9 +46,9 @@ declare(strict_types=1);
         </svg>
     </div>
 
-    <!-- KOLOM KANAN: WORKSPACE FORMULIR MASUK (FIT VIEWPORT NON-SCROLLABLE) -->
+    <!-- KOLOM KANAN: WORKSPACE FORMULIR MASUK (FIT VIEWPORT NON-SCROLLABLE & HIGH ACCESSIBILITY) -->
     <div class="w-full lg:w-1/2 h-full lg:h-screen max-h-screen flex flex-col justify-center items-center p-4 sm:p-6 lg:p-8 bg-white overflow-hidden flex-1">
-        <div class="max-w-[380px] sm:max-w-[400px] w-full mx-auto my-auto space-y-4 sm:space-y-5">
+        <div class="max-w-[420px] sm:max-w-[460px] w-full mx-auto my-auto space-y-5 sm:space-y-6">
 
             <!-- BRANDING LOGO RESMI (REMITGO!) -->
             <div class="flex flex-col items-center justify-center text-center">
@@ -56,7 +56,7 @@ declare(strict_types=1);
                     <img
                         src="<?= e(url('/remitgo.png')) ?>"
                         alt="RemitGo!"
-                        class="h-10 sm:h-12 w-auto max-w-[180px] sm:max-w-[200px] object-contain select-none"
+                        class="h-12 sm:h-14 lg:h-16 w-auto max-w-[200px] sm:max-w-[240px] object-contain select-none"
                         loading="eager"
                         width="1720"
                         height="744"
@@ -65,11 +65,11 @@ declare(strict_types=1);
                 </h1>
             </div>
 
-            <!-- FORMULIR MASUK -->
+            <!-- FORMULIR MASUK (RAMAH LANSIA / HIGH ACCESSIBILITY) -->
             <form
                 method="post"
                 action="<?= e(url('/login')) ?>"
-                class="space-y-3.5 sm:space-y-4"
+                class="space-y-4 sm:space-y-5"
                 x-data="{ loading: false }"
                 @submit="loading = true"
             >
@@ -77,11 +77,11 @@ declare(strict_types=1);
 
                 <!-- FIELD USERNAME / EMAIL -->
                 <div>
-                    <label for="loginUsername" class="block text-xs font-semibold text-gray-700 mb-1 font-sans">
+                    <label for="loginUsername" class="block text-sm sm:text-base font-semibold text-gray-800 mb-1.5 font-sans">
                         Username atau Email
                     </label>
                     <div class="relative flex items-center">
-                        <i class="bi bi-person absolute left-3 text-gray-400 pointer-events-none text-base"></i>
+                        <i class="bi bi-person absolute left-4 text-gray-400 pointer-events-none text-xl"></i>
                         <input
                             id="loginUsername"
                             type="text"
@@ -91,18 +91,18 @@ declare(strict_types=1);
                             autocomplete="username"
                             required
                             autofocus
-                            class="custom-form-input has-leading-icon"
+                            class="custom-form-input custom-form-input-lg has-leading-icon"
                         >
                     </div>
                 </div>
 
                 <!-- FIELD PASSWORD DENGAN VISIBILITY TOGGLE TELANJANG -->
                 <div x-data="{ showPass: false }">
-                    <label for="loginPassword" class="block text-xs font-semibold text-gray-700 mb-1 font-sans">
+                    <label for="loginPassword" class="block text-sm sm:text-base font-semibold text-gray-800 mb-1.5 font-sans">
                         Password
                     </label>
                     <div class="relative flex items-center">
-                        <i class="bi bi-lock absolute left-3 text-gray-400 pointer-events-none text-base"></i>
+                        <i class="bi bi-lock absolute left-4 text-gray-400 pointer-events-none text-xl"></i>
                         <input
                             :type="showPass ? 'text' : 'password'"
                             type="password"
@@ -111,7 +111,7 @@ declare(strict_types=1);
                             placeholder="Masukkan password akun"
                             autocomplete="current-password"
                             required
-                            class="custom-form-input has-leading-icon has-trailing-action"
+                            class="custom-form-input custom-form-input-lg has-leading-icon has-trailing-action"
                         >
                         <!-- IKON MATA: TAMPILKAN PASSWORD (SAAT PASSWORD TERSEMBUNYI) -->
                         <i
@@ -121,7 +121,7 @@ declare(strict_types=1);
                             @keydown.space.prevent="showPass = true"
                             role="button"
                             tabindex="0"
-                            class="bi bi-eye absolute right-3 text-gray-400 hover:text-gray-700 cursor-pointer text-base select-none leading-none focus:outline-none transition-colors"
+                            class="bi bi-eye absolute right-4 text-gray-400 hover:text-gray-700 cursor-pointer text-xl select-none leading-none focus:outline-none transition-colors p-1"
                             aria-label="Tampilkan password"
                             title="Tampilkan password"
                         ></i>
@@ -135,27 +135,27 @@ declare(strict_types=1);
                             @keydown.space.prevent="showPass = false"
                             role="button"
                             tabindex="0"
-                            class="bi bi-eye-slash absolute right-3 text-gray-400 hover:text-gray-700 cursor-pointer text-base select-none leading-none focus:outline-none transition-colors"
+                            class="bi bi-eye-slash absolute right-4 text-gray-400 hover:text-gray-700 cursor-pointer text-xl select-none leading-none focus:outline-none transition-colors p-1"
                             aria-label="Sembunyikan password"
                             title="Sembunyikan password"
                         ></i>
                     </div>
                 </div>
 
-                <!-- TOMBOL AKSI UTAMA (.btn-primary RESMI GEMINI.MD SECTION 13 & GLOBAL AI SPEC) -->
-                <div class="pt-1.5 sm:pt-2">
+                <!-- TOMBOL AKSI UTAMA (.btn-primary-lg RESMI GEMINI.MD SECTION 13 & 17.5) -->
+                <div class="pt-2 sm:pt-2.5">
                     <button
                         type="submit"
                         :disabled="loading"
-                        class="btn-primary w-full justify-center h-10 px-4 font-medium text-[15px] leading-none text-white font-cta rounded-[9px] shadow-[inset_0_1px_0_rgba(255,255,255,0.32),inset_0_-1px_0_rgba(0,0,0,0.16),0_1px_2px_rgba(0,0,0,0.55)] [text-shadow:0_1px_1px_rgba(0,0,0,0.2)] hover:brightness-110 active:translate-y-[1px] active:brightness-95 active:shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] disabled:opacity-75 disabled:pointer-events-none"
+                        class="btn-primary btn-primary-lg w-full justify-center h-[50px] px-6 font-semibold text-base sm:text-lg leading-none text-white font-cta rounded-[11px] shadow-[inset_0_1px_0_rgba(255,255,255,0.32),inset_0_-1px_0_rgba(0,0,0,0.16),0_1px_2px_rgba(0,0,0,0.55)] [text-shadow:0_1px_1px_rgba(0,0,0,0.2)] hover:brightness-110 active:translate-y-[1px] active:brightness-95 active:shadow-[inset_0_1px_2px_rgba(0,0,0,0.35)] disabled:opacity-75 disabled:pointer-events-none"
                         id="submitLoginBtn"
                     >
-                        <span x-show="!loading" class="inline-flex items-center gap-2">
+                        <span x-show="!loading" class="inline-flex items-center gap-2.5">
                             <span>Masuk ke Dashboard</span>
-                            <i class="bi bi-arrow-right"></i>
+                            <i class="bi bi-arrow-right text-lg sm:text-xl"></i>
                         </span>
-                        <span x-show="loading" x-cloak class="inline-flex items-center gap-2">
-                            <i class="bi bi-arrow-repeat animate-spin"></i>
+                        <span x-show="loading" x-cloak class="inline-flex items-center gap-2.5">
+                            <i class="bi bi-arrow-repeat animate-spin text-lg sm:text-xl"></i>
                             <span>Memproses...</span>
                         </span>
                     </button>
