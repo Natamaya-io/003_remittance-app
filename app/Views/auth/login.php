@@ -54,7 +54,7 @@ declare(strict_types=1);
             <div class="flex flex-col items-center justify-center text-center">
                 <h1 class="m-0 leading-none inline-flex items-center justify-center">
                     <img
-                        src="<?= e(url('/remitgo.png')) ?>"
+                        src="<?= e(url('/remitgo.png?v=20261027')) ?>"
                         alt="RemitGo!"
                         class="h-12 sm:h-14 lg:h-16 w-auto max-w-[200px] sm:max-w-[240px] object-contain select-none"
                         loading="eager"

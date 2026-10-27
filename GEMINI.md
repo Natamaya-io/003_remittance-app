@@ -19,6 +19,12 @@
    - Branding Resmi: **RemitGo!**
    - Stack Dasar: **PHP 8.2+**, **MariaDB**, **TailwindCSS (v3.4+)**, **Preline UI (v2.7+)**, **Alpine.js**, dan **Bootstrap Icons**.
    - **Hukum Amnesti Proyek Lama:** Proyek ini beroperasi di atas stack warisan yang telah teruji stabil. DILARANG MEROMBAK struktur ini ke stack proyek baru (seperti Rust, Axum, SolidJS, atau PostgreSQL) kecuali ada instruksi eksplisit.
+   - **Spesifikasi Aset Logo Resmi RemitGo! (`public/remitgo.png` & `public/assets/img/remitgo.png`):**
+     - Format: PNG transparan (TrueColorAlpha, 1720x744).
+     - Tipografi Teks "Remit": **MUTLAK WAJIB BERWARNA ORANYE SOLID (`#F2765E` - Vibrant Coral Accent)**. DILARANG KERAS menggunakan warna putih atau biru pada segmen teks "Remit" karena menyebabkan teks hilang di atas kanvas putih formulir login.
+     - Tipografi Teks "Go!": Solid Brand Blue (`#2482FF` / `#315B8C`).
+     - Karakter Maskot: Mempertahankan kombinasi Deep Blue (`#0065F8`), Asphalt Dark (`#383838`), dan sorot mata putih (`#FFFFFF`).
+     - **Larangan Checkout Aset Sembarangan:** Agen AI MUTLAK DILARANG menjalankan `git checkout` atau `git restore` pada file logo tanpa analisis komprehensif, untuk mencegah pemulihan ke versi lama yang salah.
 2. **Hukum Mutlak Antislop (Gamified Asphalt UI):**
    - **Tipografi:** Wajib menggunakan **DM Sans** (Headings, Tombol/CTA) dan **Roboto** (Body text, data tabel, metadata).
    - **Skala Visual 125% Terstandarisasi W3C (Native 125% Root REM Scaling Law):** Seluruh antarmuka aplikasi beroperasi dengan skala kenyamanan visual 125% murni berbasis standar W3C (`html { font-size: 20px; }` pada layar desktop $\ge 1024\text{px}$, `18px` pada tablet, dan `16px` pada mobile). Properti CSS non-standar `zoom: 1.25;` **DIHARAMKAN SECARA MUTLAK** demi menjamin akurasi 100% sistem koordinat JavaScript (Popper.js, Chart.js, modal backdrop, scrollbar) serta keseragaman ukuran seluruh halaman antarmuka.
