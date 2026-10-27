@@ -52,13 +52,13 @@ $activeAdvancedFilters = array_filter(
         <button
             type="button"
             @click="openFilterModal = true"
-            class="py-2 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg border border-gray-200 bg-white text-gray-700 shadow-2xs hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-colors cursor-pointer select-none shrink-0"
+            class="btn btn-primary"
             aria-label="Buka Filter Lanjutan"
         >
-            <i class="bi bi-sliders text-sm text-gray-500"></i>
+            <i class="bi bi-sliders text-sm"></i>
             <span>Filter</span>
             <?php if (!empty($activeAdvancedFilters)): ?>
-                <span class="inline-flex items-center justify-center size-4 text-[10px] font-bold text-white bg-blue-600 rounded-full">
+                <span class="inline-flex items-center justify-center min-w-4.5 h-4.5 px-1.5 text-[11px] font-bold text-[#315B8C] bg-white rounded-full leading-none shadow-xs">
                     <?= count($activeAdvancedFilters) ?>
                 </span>
             <?php endif; ?>
