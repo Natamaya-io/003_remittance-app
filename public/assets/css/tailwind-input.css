@@ -1908,8 +1908,7 @@
   .dashboard-quick-panel,
   .dashboard-kpi-row,
   .dashboard-analytics-grid,
-  .fx-modern-board,
-  .dashboard-recent-filter-wrap {
+  .fx-modern-board {
     width: 100% !important;
     max-width: none !important;
     box-sizing: border-box !important;
