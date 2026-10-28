@@ -87,19 +87,6 @@ $activeFilterSummary = implode(' · ', $filterDescs);
             'query' => (string) ($filters['q'] ?? ''),
         ]) ?>
 
-        <?php if (!empty($activePeriodFilters)): ?>
-            <!-- ACTIVE FILTER CAPSULE CHIP (ZERO LAYOUT SHIFT & INSTANT RESET) -->
-            <a
-                href="<?= e(url('/reports')) ?>"
-                class="inline-flex items-center gap-1.5 h-10 px-3 text-xs font-medium text-[#315B8C] bg-[#eff6ff] border border-[#bfdbfe] rounded-xl hover:bg-red-50 hover:text-red-700 hover:border-red-200 transition-colors shadow-xs"
-                title="Hapus filter periode <?= e($activeFilterSummary) ?>"
-            >
-                <i class="bi bi-funnel-fill text-xs text-[#315B8C]"></i>
-                <span><?= e($activeFilterSummary) ?></span>
-                <i class="bi bi-x-lg text-[10px] ml-0.5 text-gray-400"></i>
-            </a>
-        <?php endif; ?>
-
         <!-- Tombol Filter Modal (Disamping Upload Excel) -->
         <button
             type="button"
