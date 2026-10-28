@@ -751,6 +751,46 @@
     opacity: 1;
   }
 
+  /* =========================================================
+     GAMIFIED ASPHALT LOCKED TOAST CLOSE BUTTON (.toast-close)
+     GEMINI.MD SECTION 16 & SECTION 18
+     ========================================================= */
+  .toast-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    margin-top: -3px;
+    margin-right: -3px;
+    border-radius: 8px;
+    border: none;
+    background: transparent;
+    color: inherit;
+    opacity: 0.65;
+    cursor: pointer;
+    transition: opacity 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+    transform: none !important;
+  }
+
+  .toast-close:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.08);
+    transform: none !important;
+  }
+
+  .toast-close:active {
+    background-color: rgba(0, 0, 0, 0.14);
+    transform: translateY(1px) !important;
+  }
+
+  .toast-close:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 1px;
+    opacity: 1;
+  }
+
   /* Varian Solid: Success */
   .alert-success {
     background-color: #ecfdf5 !important;

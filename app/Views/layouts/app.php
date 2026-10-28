@@ -4794,14 +4794,15 @@ $flashes = Flash::all();
                         ></div>
                     </div>
 
-                    <!-- Tombol Tutup Kustom -->
+                    <!-- Tombol Tutup Kustom (.toast-close) -->
                     <button
                         type="button"
-                        class="flex-shrink-0 p-1 -mr-1 -mt-1 rounded-lg opacity-70 hover:opacity-100 hover:bg-black/5 transition-colors focus:outline-none"
+                        class="toast-close"
                         @click="dismiss(toast.id)"
                         aria-label="Tutup notifikasi"
+                        title="Tutup notifikasi"
                     >
-                        <i class="bi bi-x text-lg leading-none"></i>
+                        <i class="bi bi-x-lg text-xs leading-none"></i>
                     </button>
                 </div>
             </div>

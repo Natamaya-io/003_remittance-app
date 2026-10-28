@@ -1088,6 +1088,11 @@ Seluruh varian toast wajib mematuhi **Hukum Skema Warna Solid Murni (Bagian 11)*
   - Diet Bold: Maksimum penekanan adalah `font-weight: 600`. Dilarang menggunakan font ekstra tebal (800/900).
 - **Universal Naked Monochrome Icon:**
   - Ikon diletakkan di sisi kiri berdampingan langsung dengan teks tanpa dibungkus kotak/lingkaran warna tambahan (mematuhi Bagian 14).
+- **Spesifikasi Tombol Tutup Kustom Terkunci (`.toast-close`):**
+  - Tombol tutup toast **MUTLAK WAJIB** menggunakan kelas terpusat `.toast-close` di `@layer components` (dilarang keras menggunakan rangkaian utilitas ad-hoc sementara / placeholder mematuhi Bagian 18).
+  - Geometri: Kotak presisi $28\times 28\text{px}$, radius modular 8px, margin kompensasi `-3px` atas dan kanan untuk alignment presisi.
+  - Ikon: Wajib menggunakan ikon tebal terstandarisasi `<i class="bi bi-x-lg text-xs leading-none"></i>` (dilarang menggunakan glyph matematika tipis `bi-x`).
+  - Interaksi Fisika: Opacity netral `0.65`, hover `opacity: 1` dengan latar `rgba(0, 0, 0, 0.08)`, tactile active micro-press `translateY(1px)` dengan latar `rgba(0, 0, 0, 0.14)`, serta focus-visible ring `2px solid currentColor`.
 
 ### 16.4. Anatomi DOM Toast Kustom Terkunci (Alpine.js)
 
@@ -1134,14 +1139,15 @@ Setiap elemen toast wajib mengimplementasikan struktur hierarki berikut:
                     ></div>
                 </div>
 
-                <!-- Tombol Tutup Kustom (Bebas Style Native Browser) -->
+                <!-- Tombol Tutup Kustom (.toast-close - Bebas Placeholder & Bebas Style Native Browser) -->
                 <button
                     type="button"
-                    class="flex-shrink-0 p-1 -mr-1 -mt-1 rounded-lg opacity-70 hover:opacity-100 hover:bg-black/5 transition-colors focus:outline-none"
+                    class="toast-close"
                     @click="dismiss(toast.id)"
                     aria-label="Tutup notifikasi"
+                    title="Tutup notifikasi"
                 >
-                    <i class="bi bi-x text-lg leading-none"></i>
+                    <i class="bi bi-x-lg text-xs leading-none"></i>
                 </button>
             </div>
         </div>

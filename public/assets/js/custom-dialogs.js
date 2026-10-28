@@ -53,14 +53,23 @@ window.remitAlert = (msg, opt) => window.RemitDialogs.alert(msg, opt);
 // =========================================================
 window.RemitToast = {
   toasts: [],
+  _isReactive: false,
+
+  _ensureReactive() {
+    if (window.Alpine && !this._isReactive) {
+      this.toasts = window.Alpine.reactive(this.toasts || []);
+      this._isReactive = true;
+    }
+  },
 
   add(options) {
+    this._ensureReactive();
     if (typeof options === 'string') {
       options = { message: options };
     }
     const id = options.id || ('toast_' + Date.now() + '_' + Math.floor(Math.random() * 1000));
     const duration = options.duration !== undefined ? options.duration : 5000;
-    const toast = {
+    const rawToast = {
       id: id,
       title: options.title || '',
       message: options.message || '',
@@ -71,6 +80,7 @@ window.RemitToast = {
       timer: null,
       timerStart: 0
     };
+    const toast = (window.Alpine && window.Alpine.reactive) ? window.Alpine.reactive(rawToast) : rawToast;
 
     this.toasts.push(toast);
 
@@ -95,7 +105,7 @@ window.RemitToast = {
         if (removeIdx !== -1) {
           this.toasts.splice(removeIdx, 1);
         }
-      }, 200);
+      }, 150);
     }
   },
 
@@ -181,6 +191,10 @@ window.openSearchModal = function () {
 // Alpine data bindings
 function initRemitDialogs() {
   if (!window.Alpine) return;
+
+  if (window.RemitToast && typeof window.RemitToast._ensureReactive === 'function') {
+    window.RemitToast._ensureReactive();
+  }
 
   window.Alpine.data('remitGlobalDialogs', () => ({
     get confirm() {
