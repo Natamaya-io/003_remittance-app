@@ -1778,6 +1778,7 @@
 
   /* =========================================================
      SPA BOTTOM NAVIGATION & FLOATING DOCK ARCHITECTURE
+     GEMINI.MD SECTION 5.1 & SECTION 18 - KUSTOM UI KOMPREHENSIF
      ========================================================= */
   .spa-dock-tab {
     display: inline-flex;
@@ -1799,9 +1800,19 @@
     transform: none !important;
   }
 
+  .spa-dock-tab i {
+    font-size: 15px;
+    color: #9ca3af;
+    transition: color 0.15s ease;
+  }
+
   .spa-dock-tab:hover {
     color: #111827;
     background-color: #f3f4f6;
+  }
+
+  .spa-dock-tab:hover i {
+    color: #111827;
   }
 
   .spa-dock-tab.is-active,
@@ -1810,6 +1821,121 @@
     background-color: #eff6ff;
     border-color: #bfdbfe;
     font-weight: 600;
+  }
+
+  .spa-dock-tab.is-active i,
+  .spa-dock-tab[aria-current="page"] i {
+    color: #315B8C !important;
+  }
+
+  /* Pill Profil Pengguna Desktop Dock (.spa-dock-user) */
+  .spa-dock-user {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 38px;
+    padding: 0 12px 0 6px;
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 500;
+    color: #413333;
+    background-color: #F5F2F2;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+    transform: none !important;
+  }
+
+  .spa-dock-user:hover {
+    background-color: #ffffff;
+    border-color: #9ca3af;
+    color: #111827;
+  }
+
+  .spa-dock-user:active {
+    transform: translateY(1px) !important;
+    background-color: #e5e7eb;
+  }
+
+  .spa-dock-user:focus-visible {
+    outline: 2px solid #315B8C;
+    outline-offset: 2px;
+  }
+
+  .spa-dock-user.is-active {
+    background-color: #eff6ff;
+    border-color: #bfdbfe;
+    color: #315B8C;
+    font-weight: 600;
+  }
+
+  /* Avatar Profil Pengguna (.spa-avatar) */
+  .spa-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    min-height: 26px;
+    font-family: var(--font-heading);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    color: #ffffff;
+    background-color: #315B8C;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0;
+    user-select: none;
+  }
+
+  .spa-avatar-sm {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    min-height: 22px;
+    font-size: 10px;
+    border-radius: 6px;
+  }
+
+  .spa-avatar-lg {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    font-size: 15px;
+    border-radius: 10px;
+  }
+
+  /* Kartu Profil Pengguna Mobile Drawer (.spa-user-card) */
+  .spa-user-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+    background-color: #F5F2F2;
+    border: 1px solid #d1d5db;
+    border-radius: 14px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Popover Navigasi Upward (.spa-dock-popover) */
+  .spa-dock-popover {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 16px;
+    box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.18);
+    padding: 8px;
+    z-index: 50;
   }
 
   .spa-mobile-tab {
@@ -1830,6 +1956,11 @@
     transform: none !important;
   }
 
+  .spa-mobile-tab i {
+    font-size: 18px;
+    transition: color 0.15s ease;
+  }
+
   .spa-mobile-tab:hover,
   .spa-mobile-tab:active {
     color: #111827;
@@ -1839,6 +1970,11 @@
   .spa-mobile-tab[aria-current="page"] {
     color: #315B8C;
     font-weight: 600;
+  }
+
+  .spa-mobile-tab.is-active i,
+  .spa-mobile-tab[aria-current="page"] i {
+    color: #315B8C !important;
   }
 
   /* =========================================================

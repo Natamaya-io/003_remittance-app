@@ -1325,6 +1325,115 @@ $flashes = Flash::all();
             outline-offset: 2px !important;
         }
 
+        /* =================================================
+           16.6. SPA BOTTOM NAVIGATION & AKUN (.spa-dock-user, .spa-avatar)
+        ================================================= */
+        .spa-dock-user {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 8px !important;
+            height: 38px !important;
+            padding: 0 12px 0 6px !important;
+            font-family: var(--font-heading) !important;
+            font-size: 13px !important;
+            font-weight: 500 !important;
+            color: #413333 !important;
+            background-color: #F5F2F2 !important;
+            border: 1px solid #d1d5db !important;
+            border-radius: 12px !important;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+            cursor: pointer !important;
+            user-select: none !important;
+            text-decoration: none !important;
+            flex-shrink: 0 !important;
+            transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease !important;
+            transform: none !important;
+        }
+
+        .spa-dock-user:hover {
+            background-color: #ffffff !important;
+            border-color: #9ca3af !important;
+            color: #111827 !important;
+        }
+
+        .spa-dock-user:active {
+            transform: translateY(1px) !important;
+            background-color: #e5e7eb !important;
+        }
+
+        .spa-dock-user:focus-visible {
+            outline: 2px solid #315B8C !important;
+            outline-offset: 2px !important;
+        }
+
+        .spa-dock-user.is-active {
+            background-color: #eff6ff !important;
+            border-color: #bfdbfe !important;
+            color: #315B8C !important;
+            font-weight: 600 !important;
+        }
+
+        .spa-avatar {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 26px !important;
+            height: 26px !important;
+            min-width: 26px !important;
+            min-height: 26px !important;
+            font-family: var(--font-heading) !important;
+            font-size: 11px !important;
+            font-weight: 600 !important;
+            line-height: 1 !important;
+            color: #ffffff !important;
+            background-color: #315B8C !important;
+            border-radius: 8px !important;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+            flex-shrink: 0 !important;
+            user-select: none !important;
+        }
+
+        .spa-avatar-sm {
+            width: 22px !important;
+            height: 22px !important;
+            min-width: 22px !important;
+            min-height: 22px !important;
+            font-size: 10px !important;
+            border-radius: 6px !important;
+        }
+
+        .spa-avatar-lg {
+            width: 40px !important;
+            height: 40px !important;
+            min-width: 40px !important;
+            min-height: 40px !important;
+            font-size: 15px !important;
+            border-radius: 10px !important;
+        }
+
+        .spa-user-card {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 12px !important;
+            padding: 12px 14px !important;
+            background-color: #F5F2F2 !important;
+            border: 1px solid #d1d5db !important;
+            border-radius: 14px !important;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .spa-dock-popover {
+            position: absolute !important;
+            bottom: calc(100% + 12px) !important;
+            background-color: #ffffff !important;
+            border: 1px solid #d1d5db !important;
+            border-radius: 16px !important;
+            box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.18) !important;
+            padding: 8px !important;
+            z-index: 50 !important;
+        }
+
         .dashboard-small-link {
             color:
                 #315B8C

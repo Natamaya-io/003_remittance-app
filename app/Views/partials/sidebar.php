@@ -86,7 +86,7 @@ $userRoleName = trim(
         <?= $isDashboard ? 'aria-current="page"' : '' ?>
         title="Dashboard"
     >
-        <i class="bi bi-grid-1x2-fill <?= $isDashboard ? 'text-blue-600' : 'text-gray-400' ?>"></i>
+        <i class="bi bi-grid-1x2-fill"></i>
         <span>Dashboard</span>
     </a>
 
@@ -97,7 +97,7 @@ $userRoleName = trim(
             <?= $isTransactions ? 'aria-current="page"' : '' ?>
             title="Transaksi"
         >
-            <i class="bi bi-arrow-left-right <?= $isTransactions ? 'text-blue-600' : 'text-gray-400' ?>"></i>
+            <i class="bi bi-arrow-left-right"></i>
             <span>Transaksi</span>
         </a>
     <?php endif; ?>
@@ -109,7 +109,7 @@ $userRoleName = trim(
             <?= $isReports ? 'aria-current="page"' : '' ?>
             title="Laporan"
         >
-            <i class="bi bi-file-earmark-bar-graph <?= $isReports ? 'text-blue-600' : 'text-gray-400' ?>"></i>
+            <i class="bi bi-file-earmark-bar-graph"></i>
             <span>Laporan</span>
         </a>
     <?php endif; ?>
@@ -124,7 +124,7 @@ $userRoleName = trim(
             aria-haspopup="true"
             title="Menu Lainnya"
         >
-            <i class="bi bi-grid-3x3-gap-fill <?= $isMoreActive ? 'text-blue-600' : 'text-gray-400' ?>"></i>
+            <i class="bi bi-grid-3x3-gap-fill"></i>
             <span>Lainnya</span>
             <i class="bi bi-chevron-up text-[10px] text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': openMore }"></i>
         </button>
@@ -138,32 +138,32 @@ $userRoleName = trim(
             x-transition:leave-start="opacity-100 translate-y-0"
             x-transition:leave-end="opacity-0 translate-y-2"
             x-cloak
-            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-72 max-h-[75vh] overflow-y-auto bg-white rounded-2xl border border-gray-200 shadow-[0_16px_40px_-8px_rgba(0,0,0,0.18)] p-2 z-50 divide-y divide-gray-100"
+            class="spa-dock-popover left-1/2 -translate-x-1/2 w-72 max-h-[75vh] overflow-y-auto divide-y divide-gray-100"
         >
             <!-- Operasional -->
             <div class="py-1">
                 <span class="dropdown-header">Operasional</span>
                 <?php if (can('payer_account.view')): ?>
-                    <a href="<?= url('/payer-accounts') ?>" class="dropdown-item flex items-center gap-2.5 py-1.5 px-3 rounded-xl text-xs <?= $isPayerAccounts ? 'active font-semibold text-blue-700 bg-blue-50' : 'text-gray-700 hover:bg-gray-100' ?>">
-                        <i class="bi bi-bank <?= $isPayerAccounts ? 'text-blue-600' : 'text-gray-400' ?>"></i>
+                    <a href="<?= url('/payer-accounts') ?>" class="dropdown-item <?= $isPayerAccounts ? 'active' : '' ?>">
+                        <i class="bi bi-bank"></i>
                         <span>Rekening Payer</span>
                     </a>
                 <?php endif; ?>
                 <?php if (can('company.view')): ?>
-                    <a href="<?= url('/companies') ?>" class="dropdown-item flex items-center gap-2.5 py-1.5 px-3 rounded-xl text-xs <?= $isCompanies ? 'active font-semibold text-blue-700 bg-blue-50' : 'text-gray-700 hover:bg-gray-100' ?>">
-                        <i class="bi bi-buildings <?= $isCompanies ? 'text-blue-600' : 'text-gray-400' ?>"></i>
+                    <a href="<?= url('/companies') ?>" class="dropdown-item <?= $isCompanies ? 'active' : '' ?>">
+                        <i class="bi bi-buildings"></i>
                         <span>Data PT</span>
                     </a>
                 <?php endif; ?>
                 <?php if (can('complaint.view')): ?>
-                    <a href="<?= url('/complaints') ?>" class="dropdown-item flex items-center gap-2.5 py-1.5 px-3 rounded-xl text-xs <?= $isComplaints ? 'active font-semibold text-blue-700 bg-blue-50' : 'text-gray-700 hover:bg-gray-100' ?>">
-                        <i class="bi bi-headset <?= $isComplaints ? 'text-blue-600' : 'text-gray-400' ?>"></i>
+                    <a href="<?= url('/complaints') ?>" class="dropdown-item <?= $isComplaints ? 'active' : '' ?>">
+                        <i class="bi bi-headset"></i>
                         <span>Complain</span>
                     </a>
                 <?php endif; ?>
                 <?php if (can('invoice.view')): ?>
-                    <a href="<?= url('/invoices') ?>" class="dropdown-item flex items-center gap-2.5 py-1.5 px-3 rounded-xl text-xs <?= $isInvoices ? 'active font-semibold text-blue-700 bg-blue-50' : 'text-gray-700 hover:bg-gray-100' ?>">
-                        <i class="bi bi-receipt <?= $isInvoices ? 'text-blue-600' : 'text-gray-400' ?>"></i>
+                    <a href="<?= url('/invoices') ?>" class="dropdown-item <?= $isInvoices ? 'active' : '' ?>">
+                        <i class="bi bi-receipt"></i>
                         <span>Invoice</span>
                     </a>
                 <?php endif; ?>
@@ -174,14 +174,14 @@ $userRoleName = trim(
                 <div class="py-1">
                     <span class="dropdown-header">Dokumen &amp; Analitik</span>
                     <?php if ($canOpenDocuments): ?>
-                        <a href="<?= url('/documents') ?>" class="dropdown-item flex items-center gap-2.5 py-1.5 px-3 rounded-xl text-xs <?= $isDocuments ? 'active font-semibold text-blue-700 bg-blue-50' : 'text-gray-700 hover:bg-gray-100' ?>">
-                            <i class="bi bi-folder2-open <?= $isDocuments ? 'text-blue-600' : 'text-gray-400' ?>"></i>
+                        <a href="<?= url('/documents') ?>" class="dropdown-item <?= $isDocuments ? 'active' : '' ?>">
+                            <i class="bi bi-folder2-open"></i>
                             <span>Dokumen &amp; Template</span>
                         </a>
                     <?php endif; ?>
                     <?php if (can('analysis.view')): ?>
-                        <a href="<?= url('/analysis') ?>" class="dropdown-item flex items-center gap-2.5 py-1.5 px-3 rounded-xl text-xs <?= $isAnalysis ? 'active font-semibold text-blue-700 bg-blue-50' : 'text-gray-700 hover:bg-gray-100' ?>">
-                            <i class="bi bi-diagram-3 <?= $isAnalysis ? 'text-blue-600' : 'text-gray-400' ?>"></i>
+                        <a href="<?= url('/analysis') ?>" class="dropdown-item <?= $isAnalysis ? 'active' : '' ?>">
+                            <i class="bi bi-diagram-3"></i>
                             <span>Entropy–TOPSIS</span>
                         </a>
                     <?php endif; ?>
@@ -193,14 +193,14 @@ $userRoleName = trim(
                 <div class="py-1">
                     <span class="dropdown-header">Administrasi</span>
                     <?php if (can('user.manage')): ?>
-                        <a href="<?= url('/users') ?>" class="dropdown-item flex items-center gap-2.5 py-1.5 px-3 rounded-xl text-xs <?= $isUsers ? 'active font-semibold text-blue-700 bg-blue-50' : 'text-gray-700 hover:bg-gray-100' ?>">
-                            <i class="bi bi-people <?= $isUsers ? 'text-blue-600' : 'text-gray-400' ?>"></i>
+                        <a href="<?= url('/users') ?>" class="dropdown-item <?= $isUsers ? 'active' : '' ?>">
+                            <i class="bi bi-people"></i>
                             <span>User &amp; Role</span>
                         </a>
                     <?php endif; ?>
                     <?php if (can('audit.view')): ?>
-                        <a href="<?= url('/audit') ?>" class="dropdown-item flex items-center gap-2.5 py-1.5 px-3 rounded-xl text-xs <?= $isAudit ? 'active font-semibold text-blue-700 bg-blue-50' : 'text-gray-700 hover:bg-gray-100' ?>">
-                            <i class="bi bi-shield-check <?= $isAudit ? 'text-blue-600' : 'text-gray-400' ?>"></i>
+                        <a href="<?= url('/audit') ?>" class="dropdown-item <?= $isAudit ? 'active' : '' ?>">
+                            <i class="bi bi-shield-check"></i>
                             <span>Audit Log</span>
                         </a>
                     <?php endif; ?>
@@ -216,15 +216,15 @@ $userRoleName = trim(
         <button
             type="button"
             @click="openProfile = !openProfile; openMore = false"
-            class="inline-flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-gray-50 border border-gray-200/80 text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors cursor-pointer shrink-0"
+            class="spa-dock-user <?= $isProfile ? 'is-active' : '' ?>"
             :aria-expanded="openProfile"
             aria-haspopup="true"
             title="<?= e($userName) ?> (<?= e($userRoleName) ?>)"
         >
-            <div class="size-6 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-[11px] shrink-0">
+            <div class="spa-avatar">
                 <?= e($userInitial) ?>
             </div>
-            <span class="text-xs font-semibold text-gray-800 max-w-[100px] truncate"><?= e($userName) ?></span>
+            <span class="text-xs font-semibold max-w-[100px] truncate"><?= e($userName) ?></span>
             <i class="bi bi-chevron-up text-[10px] text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': openProfile }"></i>
         </button>
 
@@ -238,14 +238,14 @@ $userRoleName = trim(
             x-transition:leave-start="opacity-100 translate-y-0"
             x-transition:leave-end="opacity-0 translate-y-2"
             x-cloak
-            class="absolute bottom-full right-0 mb-3 w-64 bg-white rounded-2xl border border-gray-200 shadow-[0_16px_40px_-8px_rgba(0,0,0,0.18)] p-2 z-50"
+            class="spa-dock-popover right-0 w-64"
         >
             <div class="px-3 py-2.5 border-b border-gray-100 mb-1">
-                <p class="text-xs font-bold text-gray-900 truncate"><?= e($userName) ?></p>
+                <p class="text-xs font-semibold text-gray-900 truncate"><?= e($userName) ?></p>
                 <p class="text-[11px] text-gray-500 font-medium truncate"><?= e($userRoleName) ?></p>
             </div>
-            <a href="<?= url('/profile') ?>" class="dropdown-item flex items-center gap-2 py-2 px-3 rounded-xl text-xs font-medium text-gray-700 hover:bg-gray-100 transition-colors">
-                <i class="bi bi-person text-base text-gray-400"></i>
+            <a href="<?= url('/profile') ?>" class="dropdown-item">
+                <i class="bi bi-person text-base"></i>
                 <span>Pengaturan Akun</span>
             </a>
             <div class="dropdown-divider my-1"></div>
@@ -253,10 +253,10 @@ $userRoleName = trim(
                 <?= csrf_field() ?>
                 <button
                     type="submit"
-                    class="w-full flex items-center gap-2 py-2 px-3 rounded-xl text-xs font-medium text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors text-left border-none bg-transparent cursor-pointer"
+                    class="dropdown-item danger w-full text-left cursor-pointer border-none bg-transparent"
                     data-no-loading="1"
                 >
-                    <i class="bi bi-box-arrow-right text-base text-red-500"></i>
+                    <i class="bi bi-box-arrow-right text-base"></i>
                     <span>Keluar Sistem</span>
                 </button>
             </form>
@@ -326,10 +326,11 @@ $userRoleName = trim(
         <!-- Akun / Profil -->
         <a
             href="<?= url('/profile') ?>"
-            class="spa-mobile-tab <?= $isProfile ? 'is-active text-blue-600' : 'text-gray-600' ?>"
+            class="spa-mobile-tab <?= $isProfile ? 'is-active' : '' ?>"
             <?= $isProfile ? 'aria-current="page"' : '' ?>
+            title="Pengaturan Akun"
         >
-            <div class="size-5 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-[9px]">
+            <div class="spa-avatar spa-avatar-sm">
                 <?= e($userInitial) ?>
             </div>
             <span class="text-[10px] font-medium leading-none">Akun</span>
@@ -367,7 +368,7 @@ $userRoleName = trim(
             x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="translate-y-0"
             x-transition:leave-end="translate-y-full"
-            class="fixed bottom-0 inset-x-0 max-h-[85vh] bg-white rounded-t-3xl shadow-2xl border-t border-gray-200/80 flex flex-col overflow-hidden"
+            class="fixed bottom-0 inset-x-0 max-h-[85vh] bg-white rounded-t-3xl shadow-2xl border-t border-gray-200 flex flex-col overflow-hidden"
         >
             <!-- Handle & Header -->
             <div class="pt-3 pb-2.5 px-5 flex flex-col items-center border-b border-gray-100">
@@ -392,13 +393,13 @@ $userRoleName = trim(
             <!-- Content Area -->
             <div class="p-4 overflow-y-auto space-y-4 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))]">
                 <!-- User Profile Card -->
-                <div class="flex items-center justify-between p-3 rounded-2xl bg-gray-50 border border-gray-200/80">
+                <div class="spa-user-card">
                     <div class="flex items-center gap-3 min-w-0">
-                        <div class="size-10 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-xs shrink-0">
+                        <div class="spa-avatar spa-avatar-lg">
                             <?= e($userInitial) ?>
                         </div>
                         <div class="min-w-0">
-                            <p class="text-xs font-bold text-gray-900 truncate leading-tight"><?= e($userName) ?></p>
+                            <p class="text-xs font-semibold text-gray-900 truncate leading-tight"><?= e($userName) ?></p>
                             <p class="text-[11px] text-gray-500 font-medium truncate"><?= e($userRoleName) ?></p>
                         </div>
                     </div>
@@ -406,12 +407,12 @@ $userRoleName = trim(
                         <?= csrf_field() ?>
                         <button
                             type="submit"
-                            class="size-9 inline-flex items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-500 shadow-xs hover:bg-red-50 hover:text-red-600 hover:border-red-200 focus:outline-none transition-colors"
-                            title="Keluar"
+                            class="btn-action-icon btn-action-icon-danger"
+                            title="Keluar sistem"
                             aria-label="Keluar sistem"
                             data-no-loading="1"
                         >
-                            <i class="bi bi-box-arrow-right text-base leading-none"></i>
+                            <i class="bi bi-box-arrow-right"></i>
                         </button>
                     </form>
                 </div>
