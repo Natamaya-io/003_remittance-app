@@ -60,12 +60,7 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
             Daftar Tanggal
         </a>
 
-        <div class="flex items-center gap-2">
-            <a class="py-2 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="<?= e(url('/reports/date/' . $date . '/export')) ?>">
-                <i class="bi bi-file-earmark-excel text-emerald-600"></i>
-                Export Semua
-            </a>
-
+        <div class="flex items-center gap-2 flex-wrap">
             <?= render_reports_search_bar([
                 'action' => url('/reports/search'),
                 'placeholder' => 'Cari transaksi...',
@@ -87,6 +82,12 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                     <span class="btn-filter-badge" aria-label="<?= $activeFiltersCount ?> filter aktif"><?= $activeFiltersCount ?></span>
                 <?php endif; ?>
             </button>
+
+            <!-- Tombol Export Semua (Selaras dengan Tombol Upload Excel) -->
+            <a class="btn-primary" href="<?= e(url('/reports/date/' . $date . '/export')) ?>">
+                <i class="bi bi-file-earmark-excel text-sm"></i>
+                <span>Export Semua</span>
+            </a>
 
             <?php if (can('report.manage')): ?>
                 <a class="btn-primary" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
