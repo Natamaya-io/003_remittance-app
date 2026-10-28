@@ -577,7 +577,7 @@ if ($previewId > 0) {
             }
             .toolbar a,
             .toolbar button {
-                background: linear-gradient(135deg,#7444dc,#eb4f7b);
+                background: #315B8C;
                 color: #fff;
                 border: none;
                 border-radius: 8px;
@@ -669,7 +669,7 @@ if ($previewId > 0) {
                 text-align: left;
             }
             .grey-head {
-                background: linear-gradient(135deg,#7444dc,#eb4f7b);
+                background: #315B8C;
                 color: #fff;
             }
             .light-row {
@@ -1053,16 +1053,16 @@ $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 <link rel="stylesheet" href="<?= inv_escape(asset('css/app.css')) ?>">
     <style>
         :root {
-            --inv-purple: #8b5cf6;
-            --inv-purple-dark: #6842a5;
-            --inv-pink: #ec4899;
-            --inv-soft-purple: #f4eaff;
-            --inv-soft-pink: #fff0f7;
-            --inv-bg: #fcf8fd;
+            --inv-purple: #315B8C;
+            --inv-purple-dark: #24466c;
+            --inv-pink: #F2765E;
+            --inv-soft-purple: #eff6ff;
+            --inv-soft-pink: #fff5f3;
+            --inv-bg: #F5F2F2;
             --inv-card: #ffffff;
-            --inv-border: #eadcf0;
-            --inv-text: #4f365d;
-            --inv-muted: #867589;
+            --inv-border: #e5e7eb;
+            --inv-text: #111827;
+            --inv-muted: #6b7280;
             --inv-danger: #c53b5c;
         }
 
@@ -1404,7 +1404,7 @@ body.invoice-template-page .header a {
 
 body.invoice-template-page .btn-primary,
 body.invoice-template-page button.btn-primary {
-    background:linear-gradient(135deg,#8b5cf6,#ec4899) !important;
+    background:#315B8C !important;
     color:#ffffff !important;
 }
 

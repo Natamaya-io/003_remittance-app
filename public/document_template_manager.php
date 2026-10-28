@@ -1846,7 +1846,7 @@ label{color:#624276!important;}
 
 input,select,textarea{border:1px solid #dfcbea!important;border-radius:12px!important;color:#55366d!important;}
 
-.button{background:linear-gradient(135deg,#8b5cf6,#ec4899)!important;color:#fff!important;border-radius:12px!important;}
+.button{background:#315B8C!important;color:#fff!important;border-radius:9px!important;}
 
 .button.secondary{background:#f3e7ff!important;color:#68428a!important;}
 
@@ -1867,9 +1867,9 @@ body.module-page{background:#fff7fc!important;color:#51365f!important;}
 .card{background:#fff!important;border:1px solid #eadcf0!important;border-radius:20px!important;}
 input,select,textarea{background:#fff!important;border:1px solid #dfcbea!important;color:#55366d!important;}
 .button,button.button,a.button,body .button{
-background:linear-gradient(135deg,#8b5cf6,#ec4899)!important;
-color:#fff!important;border:none!important;border-radius:12px!important;
-box-shadow:0 8px 18px rgba(139,92,246,.25)!important;
+background:#315B8C!important;
+color:#fff!important;border:none!important;border-radius:9px!important;
+box-shadow:0 1px 2px rgba(0,0,0,.15)!important;
 }
 .button.secondary,button.button.secondary,a.button.secondary{
 background:#f3e7ff!important;color:#68428a!important;box-shadow:none!important;border:1px solid #dfc8ed!important;

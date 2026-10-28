@@ -455,106 +455,41 @@ $flashes = Flash::all();
         ================================================= */
 
         .nav-label {
-
-            color:
-                #a477a2
-                !important;
-
-            font-weight:
-                700
-                !important;
-
-            letter-spacing:
-                .13em;
+            color: #6b7280 !important;
+            font-weight: 700 !important;
+            letter-spacing: .13em;
         }
-
 
         .nav-item {
-
-            color:
-                #5f4c65
-                !important;
-
-            font-family:
-                var(--font-app)
-                !important;
-
-            font-weight:
-                650
-                !important;
-
-            letter-spacing:
-                -.01em;
+            color: #4b5563 !important;
+            font-family: var(--font-sans) !important;
+            font-weight: 500 !important;
+            letter-spacing: -.01em;
         }
-
 
         .nav-item i {
-
-            color:
-                #9160ba
-                !important;
+            color: #9ca3af !important;
         }
-
 
         .nav-item:hover {
-
-            color:
-                #6b32c9
-                !important;
-
-            background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    .76
-                )
-                !important;
+            color: #111827 !important;
+            background: #f3f4f6 !important;
         }
 
-
         .nav-item.active {
-
-            color:
-                #1d4ed8
-                !important;
-
-            font-weight:
-                600
-                !important;
-
-            background:
-                #eff6ff
-                !important;
-
-            box-shadow:
-                none
-                !important;
+            color: #315B8C !important;
+            font-weight: 600 !important;
+            background: #eff6ff !important;
+            box-shadow: none !important;
         }
 
         .nav-item.active i {
-
-            color:
-                #7440db
-                !important;
+            color: #315B8C !important;
         }
 
-
         .nav-item.active::after {
-
-            background:
-                #ef408e
-                !important;
-
-            box-shadow:
-                0 0 12px
-                rgba(
-                    239,
-                    64,
-                    142,
-                    .48
-                )
-                !important;
+            background: #315B8C !important;
+            box-shadow: none !important;
         }
 
 
@@ -815,40 +750,27 @@ $flashes = Flash::all();
 
 
         .dropdown-item:hover {
-
-            color:
-                #6530c0
-                !important;
-
-            background:
-                #faeff9
-                !important;
+            color: #111827 !important;
+            background: #f3f4f6 !important;
         }
-
 
         .dropdown-item.danger {
-
-            color:
-                #d1436a
-                !important;
+            color: #dc2626 !important;
         }
 
+        .dropdown-item.danger:hover {
+            color: #b91c1c !important;
+            background: #fef2f2 !important;
+        }
 
         .dropdown-divider {
-
-            background:
-                #f0e5ef
-                !important;
+            background: #e5e7eb !important;
         }
-
 
         .topbar
         .dropdown-menu
         div[style*="border-bottom"] {
-
-            border-bottom-color:
-                #f0e5ef
-                !important;
+            border-bottom-color: #e5e7eb !important;
         }
 
 

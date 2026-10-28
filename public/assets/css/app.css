@@ -72,7 +72,7 @@ body.app-body{
 .app-main{margin-left:244px}.brand{height:72px;padding:0 18px;gap:11px}.brand-mark{width:39px;height:39px;border-radius:12px;font-size:18px}.brand strong{font-size:16px}.brand small{font-size:8px}.sidebar-nav{padding:13px 11px}.nav-item{gap:11px;padding:10px 12px;margin-bottom:4px;border-radius:12px;font-size:11px}.nav-item i{width:20px;font-size:17px}.nav-label{padding:13px 11px 6px;font-size:8px}.sidebar-footer{padding:13px 17px}.sidebar-footer small{font-size:9px}
 .sidebar .nav-item.active{color:#1d4ed8!important;background:#eff6ff!important;box-shadow:none!important;transform:none!important}
 .sidebar .nav-item.active::before{content:"";position:absolute;top:8px;bottom:8px;left:-1px;width:4px;border-radius:0 999px 999px 0;background:#2563eb}
-.sidebar .nav-item.active i,.sidebar .nav-item.active span{color:#0b3157!important}.sidebar .nav-item.active i{background:#eaf4ff;border-radius:8px}.sidebar .nav-item.active::after{right:12px;width:6px;height:6px;background:#ec4899;box-shadow:0 0 0 4px rgba(56,189,248,.12)}
+.sidebar .nav-item.active i,.sidebar .nav-item.active span{color:#0b3157!important}.sidebar .nav-item.active i{background:#eaf4ff;border-radius:8px}.sidebar .nav-item.active::after{right:12px;width:6px;height:6px;background:#315B8C;box-shadow:none}
 .topbar{height:72px;padding:0 22px;background:rgba(255,255,255,.91);border-bottom-color:#dce6ef}.topbar-title h1{font-size:20px}.topbar-title p{font-size:9px;margin-top:3px}.topbar-actions{gap:10px}.connection-pill{padding:7px 10px;font-size:9px}.user-menu{padding:6px 9px 6px 7px;border-radius:12px;font-size:11px}.avatar-sm{width:34px;height:34px;border-radius:10px}.content-wrap{padding:18px 22px 34px}
 
 /* Dashboard compact */

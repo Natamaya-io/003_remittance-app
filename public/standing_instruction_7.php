@@ -924,7 +924,7 @@ body {
     border-radius: 7px;
     padding: 10px 16px;
     margin: 0 5px;
-    background: linear-gradient(135deg,#7444dc,#eb4f7b);
+    background: #315B8C;
     color: #fff;
     font: inherit;
     font-weight: 700;
