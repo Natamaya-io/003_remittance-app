@@ -316,8 +316,8 @@ Setiap halaman di dalam aplikasi remittance beroperasi di bawah prinsip **Pure N
    - Tombol navigasi/aksi halaman (seperti *Kembali*, *Daftar Bulan*, *Export Semua*, *Complain Baru*, *Tambah PT*) diletakkan pada bilah aksi independen yang rata kanan (`flex items-center justify-end gap-2 mb-4` / `.page-actions`) atau dilebur langsung ke bilah pencarian/filter.
    - Tombol utama tidak boleh membungkus diri dalam card heading besar berwarna yang membuang ruang layar.
 3. **Filter Modal On-Demand (Bilah Aksi Terintegrasi):**
-   - Filter lanjutan pada halaman laporan tingkat tahunan (`/reports`) maupun tingkat bulanan (`/reports/month/{month}`) diintegrasikan ke dalam tombol aksi ramping `[Filter]` di samping `[Upload Excel]`, memicu dialog modal filter (`openFilterModal`) saat ditekan dengan badge notifikasi aktif `.btn-filter-badge`.
-   - Peniadaan total card filter tebal terbuka atau accordion dari aliran kanvas utama halaman, menjamin densitas informasi optimal dan tata letak berwibawa (*Pure Naked Architecture*). Setiap halaman mempertahankan fungsi filternya masing-masing (periode tahun/bulan di `/reports`, serta tim/tanggal/status kirim di `/reports/month/{month}`).
+   - Filter lanjutan pada seluruh tingkatan hierarki laporan (`/reports`, `/reports/month/{month}`, dan `/reports/date/{date}`) diintegrasikan ke dalam tombol aksi ramping `[Filter]` di samping `[Upload Excel]`, memicu dialog modal filter (`openFilterModal`) saat ditekan dengan badge notifikasi aktif `.btn-filter-badge`.
+   - Peniadaan total card filter tebal terbuka atau accordion dari aliran kanvas utama halaman, menjamin densitas informasi optimal dan tata letak berwibawa (*Pure Naked Architecture*). Setiap halaman mempertahankan fungsi filternya masing-masing secara spesifik (periode tahun/bulan di `/reports`, tim/tanggal/status kirim di `/reports/month/{month}`, serta tim/status kirim/hasil transaksi di `/reports/date/{date}`).
 
 ---
 
