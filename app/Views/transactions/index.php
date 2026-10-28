@@ -11,36 +11,18 @@ $bniBatches = (int) ($bniBatches ?? 0);
         <article class="bank-choice-card bri bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
             <div>
                 <img src="<?= e(url('/bri-logo.svg')) ?>" alt="Bank BRI" class="h-12 w-auto max-w-[140px] mb-4 object-contain select-none">
-                <div class="bank-choice-copy" x-data="{ showInfo: false }">
-                    <span class="bank-choice-kicker text-xs font-semibold text-blue-600 tracking-wide uppercase">BANK BRI</span>
-                    <div class="flex items-center gap-2 mt-1 mb-2">
-                        <h3 class="text-lg font-semibold font-heading text-gray-900 m-0">Transaksi BRI</h3>
-                        <button
-                            type="button"
-                            @click="showInfo = !showInfo"
-                            class="info-toggle-btn"
-                            :class="{ 'is-active': showInfo }"
-                            :aria-expanded="showInfo.toString()"
-                            aria-label="Tampilkan info BRI"
-                            title="Informasi bantuan"
-                        >
-                            <i class="bi bi-info-circle text-xs leading-none"></i>
-                        </button>
-                    </div>
-                    <div
-                        x-show="showInfo"
-                        x-cloak
-                        x-transition:enter="transition ease-out duration-150"
-                        x-transition:enter-start="opacity-0"
-                        x-transition:enter-end="opacity-100"
-                        x-transition:leave="transition ease-in duration-100"
-                        x-transition:leave-start="opacity-100"
-                        x-transition:leave-end="opacity-0"
-                        class="text-xs text-gray-600 leading-relaxed mb-3 p-2.5 rounded-xl bg-blue-50/50 border border-blue-100 flex items-start gap-1.5"
-                        style="display: none;"
-                    >
-                        <i class="bi bi-info-circle text-[11px] text-blue-500 mt-0.5 shrink-0" aria-hidden="true"></i>
-                        <span>Input data transaksi, bentuk tabel batch, bersihkan tanda baca otomatis, lalu ekspor Excel final.</span>
+                <div class="bank-choice-copy">
+                    <span class="bank-choice-kicker text-xs font-semibold tracking-wide uppercase">BANK BRI</span>
+                    <div class="mt-1 mb-3">
+                        <?= render_heading_with_info(
+                            'Transaksi BRI',
+                            'Input data transaksi, bentuk tabel batch, bersihkan tanda baca otomatis, lalu ekspor Excel final.',
+                            [
+                                'titleTag'     => 'h3',
+                                'titleClass'   => 'text-lg font-semibold font-heading text-gray-900 m-0',
+                                'wrapperClass' => 'inline-flex items-center gap-1.5',
+                            ]
+                        ) ?>
                     </div>
                 </div>
                 <div class="bank-flow-mini flex flex-wrap gap-2 text-xs text-gray-500 mb-6">
@@ -69,36 +51,18 @@ $bniBatches = (int) ($bniBatches ?? 0);
         <article class="bank-choice-card bni bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
             <div>
                 <img src="<?= e(url('/bni-logo.svg')) ?>" alt="Bank BNI" class="h-12 w-auto max-w-[140px] mb-4 object-contain select-none">
-                <div class="bank-choice-copy" x-data="{ showInfo: false }">
-                    <span class="bank-choice-kicker text-xs font-semibold text-emerald-600 tracking-wide uppercase">BANK BNI</span>
-                    <div class="flex items-center gap-2 mt-1 mb-2">
-                        <h3 class="text-lg font-semibold font-heading text-gray-900 m-0">Transaksi BNI</h3>
-                        <button
-                            type="button"
-                            @click="showInfo = !showInfo"
-                            class="info-toggle-btn"
-                            :class="{ 'is-active': showInfo }"
-                            :aria-expanded="showInfo.toString()"
-                            aria-label="Tampilkan info BNI"
-                            title="Informasi bantuan"
-                        >
-                            <i class="bi bi-info-circle text-xs leading-none"></i>
-                        </button>
-                    </div>
-                    <div
-                        x-show="showInfo"
-                        x-cloak
-                        x-transition:enter="transition ease-out duration-150"
-                        x-transition:enter-start="opacity-0"
-                        x-transition:enter-end="opacity-100"
-                        x-transition:leave="transition ease-in duration-100"
-                        x-transition:leave-start="opacity-100"
-                        x-transition:leave-end="opacity-0"
-                        class="text-xs text-gray-600 leading-relaxed mb-3 p-2.5 rounded-xl bg-emerald-50/50 border border-emerald-100 flex items-start gap-1.5"
-                        style="display: none;"
-                    >
-                        <i class="bi bi-info-circle text-[11px] text-emerald-500 mt-0.5 shrink-0" aria-hidden="true"></i>
-                        <span>Copy paste tabel Excel, bentuk data formulir Kiriman Uang BNI, lalu cetak PDF/preview.</span>
+                <div class="bank-choice-copy">
+                    <span class="bank-choice-kicker text-xs font-semibold tracking-wide uppercase">BANK BNI</span>
+                    <div class="mt-1 mb-3">
+                        <?= render_heading_with_info(
+                            'Transaksi BNI',
+                            'Copy paste tabel Excel, bentuk data formulir Kiriman Uang BNI, lalu cetak PDF/preview.',
+                            [
+                                'titleTag'     => 'h3',
+                                'titleClass'   => 'text-lg font-semibold font-heading text-gray-900 m-0',
+                                'wrapperClass' => 'inline-flex items-center gap-1.5',
+                            ]
+                        ) ?>
                     </div>
                 </div>
                 <div class="bank-flow-mini two flex flex-wrap gap-2 text-xs text-gray-500 mb-6">
