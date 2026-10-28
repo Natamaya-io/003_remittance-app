@@ -64,6 +64,15 @@ $activePeriodFilters = array_filter(
     ],
     static fn($val): bool => trim((string) $val) !== ''
 );
+
+$filterDescs = [];
+if ($selectedMonth !== '' && isset($monthsList[$selectedMonth])) {
+    $filterDescs[] = 'Bulan ' . $monthsList[$selectedMonth];
+}
+if ($selectedYear !== '') {
+    $filterDescs[] = 'Tahun ' . $selectedYear;
+}
+$activeFilterSummary = implode(' · ', $filterDescs);
 ?>
 
 <div class="max-w-7xl mx-auto space-y-6" x-data="{ openFilterModal: false }" x-effect="if (openFilterModal) $nextTick(() => { window.HSStaticMethods && window.HSStaticMethods.autoInit(); })">
@@ -71,12 +80,25 @@ $activePeriodFilters = array_filter(
     <!-- =========================================================
          PAGE ACTIONS (PURE NAKED ARCHITECTURE)
          ========================================================= -->
-    <div class="flex items-center justify-end gap-2">
+    <div class="flex items-center justify-end gap-2 flex-wrap">
         <?= render_reports_search_bar([
             'action' => url('/reports/search'),
             'placeholder' => 'Cari transaksi...',
             'query' => (string) ($filters['q'] ?? ''),
         ]) ?>
+
+        <?php if (!empty($activePeriodFilters)): ?>
+            <!-- ACTIVE FILTER CAPSULE CHIP (ZERO LAYOUT SHIFT & INSTANT RESET) -->
+            <a
+                href="<?= e(url('/reports')) ?>"
+                class="inline-flex items-center gap-1.5 h-10 px-3 text-xs font-medium text-[#315B8C] bg-[#eff6ff] border border-[#bfdbfe] rounded-xl hover:bg-red-50 hover:text-red-700 hover:border-red-200 transition-colors shadow-xs"
+                title="Hapus filter periode <?= e($activeFilterSummary) ?>"
+            >
+                <i class="bi bi-funnel-fill text-xs text-[#315B8C]"></i>
+                <span><?= e($activeFilterSummary) ?></span>
+                <i class="bi bi-x-lg text-[10px] ml-0.5 text-gray-400"></i>
+            </a>
+        <?php endif; ?>
 
         <!-- Tombol Filter Modal (Disamping Upload Excel) -->
         <button
@@ -329,47 +351,17 @@ $activePeriodFilters = array_filter(
     </template>
 
     <?php if (!empty($activePeriodFilters)): ?>
-        <!-- ALERT STATUS: FILTER PERIODE AKTIF -->
-        <div
-            class="alert alert-info"
-            role="alert"
-            x-data="{ show: true }"
-            x-show="show"
-            x-transition:leave="transition ease-in duration-150"
-            x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0"
-        >
-            <div class="alert-content">
-                <span class="alert-icon">
-                    <i class="bi bi-info-circle-fill"></i>
-                </span>
-                <div class="alert-body">
-                    <strong class="alert-title">Filter Periode Aktif</strong>
-                    <div class="alert-message">
-                        <?php
-                        $filterDescs = [];
-                        if ($selectedMonth !== '' && isset($monthsList[$selectedMonth])) {
-                            $filterDescs[] = 'Bulan ' . $monthsList[$selectedMonth];
-                        }
-                        if ($selectedYear !== '') {
-                            $filterDescs[] = 'Tahun ' . $selectedYear;
-                        }
-                        ?>
-                        Menampilkan data periode <?= e(implode(' · ', $filterDescs)) ?>.
-                        <a href="<?= e(url('/reports')) ?>" class="underline font-semibold ml-1 hover:text-blue-900">Reset Filter</a>
-                    </div>
-                </div>
-            </div>
-            <button
-                class="alert-close"
-                type="button"
-                @click="show = false"
-                aria-label="Tutup notifikasi"
-                title="Tutup notifikasi"
-            >
-                <i class="bi bi-x-lg text-xs leading-none"></i>
-            </button>
-        </div>
+        <!-- FLOATING TOAST NOTIFICATION (GEMINI.MD SECTION 16 - ZERO LAYOUT SHIFT) -->
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.remitToast && typeof window.remitToast.info === 'function') {
+                window.remitToast.info('Menampilkan data periode: <?= e(addslashes($activeFilterSummary)) ?>', {
+                    title: 'Filter Periode Aktif',
+                    duration: 5000
+                });
+            }
+        });
+        </script>
     <?php endif; ?>
 
     <!-- =========================================================
