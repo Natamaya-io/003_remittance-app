@@ -64,7 +64,14 @@ $batch = is_array($batch ?? null) ? $batch : [];
                     </div>
 
                     <div class="sm:col-span-2">
-                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">File sumber</label>
+                        <div class="flex items-center gap-1.5 mb-1.5">
+                            <label class="block text-xs font-semibold text-gray-700">File sumber</label>
+                            <?= render_tooltip(
+                                'Untuk mengganti berkas Excel transaksi, hapus report lama dan upload file baru dengan tanggal yang sama.',
+                                '<span class="info-toggle-btn cursor-help" aria-label="Info pergantian berkas"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
+                                ['placement' => 'top']
+                            ) ?>
+                        </div>
                         <input class="custom-form-input opacity-60 cursor-not-allowed" value="<?= e($batch['source_filename'] ?? '') ?>" disabled>
                     </div>
                 </div>
@@ -88,7 +95,7 @@ $batch = is_array($batch ?? null) ? $batch : [];
                     <i class="bi bi-info-circle text-gray-800"></i>
                     Informasi Report
                 </h3>
-                <dl class="divide-y divide-gray-100 text-xs mb-6">
+                <dl class="divide-y divide-gray-100 text-xs">
                     <div class="py-2.5 flex justify-between items-center"><dt class="text-gray-500 font-medium">Batch ID</dt><dd class="font-bold text-gray-900 font-mono">#<?= (int) ($batch['id'] ?? 0) ?></dd></div>
                     <div class="py-2.5 flex justify-between items-center"><dt class="text-gray-500 font-medium">Total Baris</dt><dd class="font-bold text-gray-900 font-mono"><?= number_format((int) ($batch['total_rows'] ?? 0), 0, ',', '.') ?></dd></div>
                     <div class="py-2.5 flex justify-between items-center"><dt class="text-gray-500 font-medium">Terkirim</dt><dd class="font-bold text-emerald-600 font-mono"><?= number_format((int) ($batch['sent_rows'] ?? 0), 0, ',', '.') ?></dd></div>
@@ -96,19 +103,19 @@ $batch = is_array($batch ?? null) ? $batch : [];
                     <div class="py-2.5 flex justify-between items-center"><dt class="text-gray-500 font-medium">Dibuat</dt><dd class="text-gray-700"><?= e(format_datetime($batch['created_at'] ?? null)) ?></dd></div>
                     <div class="py-2.5 flex justify-between items-center"><dt class="text-gray-500 font-medium">Diperbarui</dt><dd class="text-gray-700"><?= e(format_datetime($batch['updated_at'] ?? null)) ?></dd></div>
                 </dl>
-                <div class="alert alert-warning" role="alert">
-                    <div class="alert-content">
-                        <span class="alert-icon">
-                            <i class="bi bi-exclamation-triangle-fill"></i>
-                        </span>
-                        <div class="alert-body">
-                            <strong class="alert-title">Pergantian Berkas</strong>
-                            <div class="alert-message">Untuk mengganti berkas Excel transaksi, hapus report lama dan upload file baru dengan tanggal yang sama.</div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </aside>
     </div>
 
+    <!-- FLOATING TOAST NOTIFICATION (GEMINI.MD SECTION 16 - ZERO LAYOUT SHIFT) -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.remitToast && typeof window.remitToast.warning === 'function') {
+            window.remitToast.warning('Untuk mengganti berkas Excel transaksi, hapus report lama dan upload file baru dengan tanggal yang sama.', {
+                title: 'Pergantian Berkas',
+                duration: 6000
+            });
+        }
+    });
+    </script>
 </div>
