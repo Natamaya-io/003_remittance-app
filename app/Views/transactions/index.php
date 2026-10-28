@@ -10,9 +10,7 @@ $bniBatches = (int) ($bniBatches ?? 0);
     <section class="bank-choice-grid grid grid-cols-1 md:grid-cols-2 gap-6">
         <article class="bank-choice-card bri bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
             <div>
-                <div class="bank-choice-icon w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center p-2 mb-4">
-                    <img src="<?= e(url('/bri-logo.svg')) ?>" alt="Bank BRI" class="w-full h-full object-contain">
-                </div>
+                <img src="<?= e(url('/bri-logo.svg')) ?>" alt="Bank BRI" class="h-12 w-auto max-w-[140px] mb-4 object-contain select-none">
                 <div class="bank-choice-copy" x-data="{ showInfo: false }">
                     <span class="bank-choice-kicker text-xs font-semibold text-blue-600 tracking-wide uppercase">BANK BRI</span>
                     <div class="flex items-center gap-2 mt-1 mb-2">
@@ -70,9 +68,7 @@ $bniBatches = (int) ($bniBatches ?? 0);
 
         <article class="bank-choice-card bni bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
             <div>
-                <div class="bank-choice-icon w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center p-2 mb-4">
-                    <img src="<?= e(url('/bni-logo.svg')) ?>" alt="Bank BNI" class="w-full h-full object-contain">
-                </div>
+                <img src="<?= e(url('/bni-logo.svg')) ?>" alt="Bank BNI" class="h-12 w-auto max-w-[140px] mb-4 object-contain select-none">
                 <div class="bank-choice-copy" x-data="{ showInfo: false }">
                     <span class="bank-choice-kicker text-xs font-semibold text-emerald-600 tracking-wide uppercase">BANK BNI</span>
                     <div class="flex items-center gap-2 mt-1 mb-2">
