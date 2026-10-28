@@ -55,6 +55,10 @@ $flashes = Flash::all();
         <?= e($appName) ?>
     </title>
 
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+
     <!-- =====================================================
          GOOGLE FONTS: DM SANS (HEADINGS/CTA) & ROBOTO (BODY)
     ====================================================== -->

@@ -1730,6 +1730,38 @@
   }
 
   /* =========================================================
+     ANTI-GLITCH REPORT VIEW SYSTEM (ZERO FOUC / ZERO CLS)
+     ========================================================= */
+  html:not(.report-view-list) [data-report-view="list"] {
+    display: none !important;
+  }
+
+  html.report-view-list [data-report-view="table"] {
+    display: none !important;
+  }
+
+  html.report-view-list [data-report-view="list"] {
+    display: grid !important;
+  }
+
+  /* Pre-hydration sync for text toggle button */
+  html.report-view-list .custom-text-toggle .text-table {
+    background-color: transparent !important;
+    color: #4b5563 !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    font-weight: 500 !important;
+  }
+
+  html.report-view-list .custom-text-toggle .text-card {
+    background-color: #315B8C !important;
+    color: #ffffff !important;
+    border-color: #315B8C !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08) !important;
+    font-weight: 600 !important;
+  }
+
+  /* =========================================================
      GLOBAL CUSTOM UI: ON-DEMAND TOGGLEABLE INFORMATION (ANTI-SLOP)
      ========================================================= */
   .info-toggle-btn {

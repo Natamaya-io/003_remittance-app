@@ -352,8 +352,16 @@ $activeFilterSummary = implode(' · ', $filterDescs);
     <!-- =========================================================
          TOOLBAR MODE TAMPILAN: TABEL VS KARTU (ALPINE.JS)
          ========================================================= -->
-    <div x-data="{ viewMode: localStorage.getItem('remitgo_report_view_mode') || 'table' }"
-         x-init="$watch('viewMode', val => localStorage.setItem('remitgo_report_view_mode', val))"
+    <script>
+    (function() {
+        try {
+            var m = localStorage.getItem('remitgo_report_view_mode') || 'table';
+            document.documentElement.classList.toggle('report-view-list', m === 'list');
+        } catch (e) {}
+    })();
+    </script>
+    <div x-data="{ viewMode: (function() { try { return localStorage.getItem('remitgo_report_view_mode') || 'table'; } catch(e) { return 'table'; } })() }"
+         x-init="$watch('viewMode', val => { document.documentElement.classList.toggle('report-view-list', val === 'list'); try { localStorage.setItem('remitgo_report_view_mode', val); } catch(e){} })"
          class="space-y-4">
 
         <div class="flex items-center justify-end">
@@ -364,7 +372,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
         <!-- =========================================================
              1. TAMPILAN TABEL ZEBRA (PRELINE UI + NAKED ZEBRA TABLE)
              ========================================================= -->
-        <div x-show="viewMode === 'table'" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
+        <div data-report-view="table" x-show="viewMode === 'table'">
             <div class="overflow-x-auto border border-gray-200 rounded-2xl bg-white shadow-xs">
                 <table class="min-w-full text-start">
                     <thead class="bg-gray-50/75 border-b border-gray-200">
@@ -477,7 +485,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
         <!-- =========================================================
              2. TAMPILAN LIST CARDS (PRELINE RESPONSIVE CARDS)
              ========================================================= -->
-        <div x-show="viewMode === 'list'" x-transition:enter="transition ease-out duration-150" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div data-report-view="list" x-show="viewMode === 'list'" x-cloak class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             <?php foreach ($months as $month): ?>
                 <?php
                 if (!is_array($month)) continue;

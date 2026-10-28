@@ -803,7 +803,7 @@ function render_table_view_toggle(string $modelVar = 'viewMode', array $options 
         <button
             type="button"
             @click="<?= e($modelVar) ?> = 'table'"
-            class="text-toggle-option text-table switch-option"
+            class="text-toggle-option text-table switch-option is-active"
             :class="{ 'is-active': <?= e($modelVar) ?> === 'table' }"
             :aria-pressed="<?= e($modelVar) ?> === 'table'"
             title="Tampilkan dalam bentuk tabel"
