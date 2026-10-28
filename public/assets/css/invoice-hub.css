@@ -11,7 +11,7 @@
 .invoice-template-type-card{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:13px;min-height:92px;padding:16px;border:1px solid #eaddeb;border-radius:18px;background:linear-gradient(180deg,#fff 0%,#fffafd 100%);text-decoration:none;color:#51385c;transition:.18s ease}
 .invoice-template-type-card:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(101,59,116,.08);border-color:#ddc9ea;color:#51385c}
 .invoice-template-icon{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;font-size:1.15rem}
-.invoice-template-icon.purple{background:#f1e7ff;color:#7647d8}.invoice-template-icon.pink{background:#ffe6f0;color:#df457d}.invoice-template-icon.lilac{background:#f5efff;color:#9363dc}
+.invoice-template-icon.purple{background:#eff6ff;color:#315B8C}.invoice-template-icon.pink{background:#fff5f3;color:#F2765E}.invoice-template-icon.lilac{background:#F5F2F2;color:#413333}
 .invoice-template-type-copy{display:flex;flex-direction:column;min-width:0}.invoice-template-type-copy strong{font-size:.98rem}.invoice-template-type-copy small{margin-top:3px;color:#88748e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .invoice-template-count{min-width:34px;height:34px;display:grid;place-items:center;border-radius:12px;background:#faf2ff;color:#7545c4;font-weight:850}
 .invoice-template-latest{padding-top:18px;border-top:1px solid #f0e6f3}

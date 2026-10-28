@@ -41,7 +41,7 @@ $flashes = Flash::all();
 
     <meta
         name="theme-color"
-        content="#f5dff3"
+        content="#F5F2F2"
     >
 
     <meta
@@ -154,31 +154,31 @@ $flashes = Flash::all();
                 #ff9d3f;
 
             --red:
-                #eb4f7b;
+                #dc2626;
 
             --purple:
-                #9b4cdd;
+                #315B8C;
 
             --teal:
                 #27b9ac;
 
             --bg:
-                #fbf6fb;
+                #F5F2F2;
 
             --surface:
                 #ffffff;
 
             --surface-soft:
-                #fff9fc;
+                #ffffff;
 
             --text:
-                #51385c;
+                #111827;
 
             --muted:
-                #847488;
+                #6b7280;
 
             --border:
-                #eaddeb;
+                #e5e7eb;
 
             --shadow:
                 0 14px 38px
@@ -1185,24 +1185,23 @@ $flashes = Flash::all();
                 !important;
 
             background:
-                #eb4f7b
+                #dc2626
+                !important;
+
+            border:
+                1px solid #b91c1c
                 !important;
 
             text-shadow:
-                0 1px 2px
-                rgba(
-                    92,
-                    25,
-                    49,
-                    .18
-                );
+                none
+                !important;
         }
 
 
         .btn-outline-primary {
 
             color:
-                #7139d0
+                #315B8C
                 !important;
 
             background:
@@ -1210,7 +1209,7 @@ $flashes = Flash::all();
                 !important;
 
             border-color:
-                #c9a9df
+                #bfdbfe
                 !important;
         }
 
@@ -1218,7 +1217,7 @@ $flashes = Flash::all();
         .btn-outline-danger {
 
             color:
-                #d3446b
+                #dc2626
                 !important;
 
             background:
@@ -1226,7 +1225,7 @@ $flashes = Flash::all();
                 !important;
 
             border-color:
-                #efb9c8
+                #fca5a5
                 !important;
         }
 
@@ -1234,15 +1233,15 @@ $flashes = Flash::all();
         .icon-btn {
 
             color:
-                #713bc8
+                #413333
                 !important;
 
             background:
-                #fbf5fc
+                #F5F2F2
                 !important;
 
             border-color:
-                #e5d6e6
+                #d1d5db
                 !important;
         }
 

@@ -1251,12 +1251,7 @@ $filters = array_replace(
 
 
 .payer-summary-card.pink {
-    background:
-        linear-gradient(
-            135deg,
-            #e8418a,
-            #d649a4
-        );
+    background: #F2765E;
 }
 
 
@@ -1962,9 +1957,9 @@ $filters = array_replace(
 
 
 .payer-detail-icon.pink {
-    color: #ca3d80;
+    color: #F2765E;
 
-    background: #ffe7f2;
+    background: #fff5f3;
 }
 
 

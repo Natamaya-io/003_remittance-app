@@ -1526,14 +1526,7 @@ $outputCount =
 
 
 .job-stat-card.pink {
-
-    background:
-
-        linear-gradient(
-            135deg,
-            #eb408b,
-            #d6469f
-        );
+    background: #F2765E;
 }
 
 
