@@ -13,7 +13,7 @@ $bniBatches = (int) ($bniBatches ?? 0);
                 <img src="<?= e(url('/bri-logo.svg')) ?>" alt="Bank BRI" class="h-12 w-auto max-w-[140px] mb-4 object-contain select-none">
                 <div class="bank-choice-copy">
                     <span class="bank-choice-kicker text-xs font-semibold tracking-wide uppercase">BANK BRI</span>
-                    <div class="mt-1 mb-3">
+                    <div class="mt-1 mb-6">
                         <?= render_heading_with_info(
                             'Transaksi BRI',
                             'Input data transaksi, bentuk tabel batch, bersihkan tanda baca otomatis, lalu ekspor Excel final.',
@@ -24,12 +24,6 @@ $bniBatches = (int) ($bniBatches ?? 0);
                             ]
                         ) ?>
                     </div>
-                </div>
-                <div class="bank-flow-mini flex flex-wrap gap-2 text-xs text-gray-500 mb-6">
-                    <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-lg bg-gray-100 font-medium"><b>1</b> Input</span>
-                    <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-lg bg-gray-100 font-medium"><b>2</b> Bentuk tabel</span>
-                    <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-lg bg-gray-100 font-medium"><b>3</b> Hapus tanda baca</span>
-                    <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-lg bg-gray-100 font-medium"><b>4</b> Download Excel</span>
                 </div>
             </div>
             <div class="bank-choice-footer pt-4 border-t border-gray-100 flex items-center justify-between gap-3 mt-auto">
