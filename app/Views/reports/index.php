@@ -352,7 +352,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
     <!-- =========================================================
          TOOLBAR MODE TAMPILAN: TABEL VS KARTU (ALPINE.JS)
          ========================================================= -->
-    <script>
+    <script hidden>
     (function() {
         try {
             var m = localStorage.getItem('remitgo_report_view_mode') || 'table';

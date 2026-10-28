@@ -57,6 +57,7 @@ $flashes = Flash::all();
 
     <style>
         [x-cloak] { display: none !important; }
+        html { scrollbar-gutter: stable; }
     </style>
 
     <!-- =====================================================
