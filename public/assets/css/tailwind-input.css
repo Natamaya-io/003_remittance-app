@@ -405,6 +405,48 @@
   }
 
   /* =========================================================
+     HUKUM KUSTOM UI BADGE NOTIFIKASI AKTIF PADA TOMBOL (.btn-filter-badge)
+     GEMINI.MD SECTION 13.4 & SECTION 18 - HUKUM MUTLAK ANTI-PLACEHOLDER
+     ========================================================= */
+  .btn-filter-badge,
+  .btn-counter-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    min-width: 20px;
+    padding: 0 5px;
+    font-family: var(--font-cta, 'Inter', 'DM Sans', system-ui, sans-serif);
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+    color: #ffffff;
+    background-color: #F2765E; /* Vibrant Coral Accent (Tabel 11.1 - Penanda Fokus & Notif Aktif) */
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 9999px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    text-align: center;
+    font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+    user-select: none;
+    pointer-events: none;
+    transform: none !important;
+  }
+
+  /* Varian Kontras Bersih Putih (.btn-filter-badge-white) */
+  .btn-filter-badge.variant-white,
+  .btn-filter-badge-white {
+    color: #315B8C !important;
+    background-color: #ffffff !important;
+    border: 1px solid rgba(255, 255, 255, 0.85) !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15) !important;
+    text-shadow: none !important;
+  }
+
+  /* =========================================================
      GAMIFIED ASPHALT LOCKED FORM INPUT (.custom-form-input)
      GEMINI.MD SECTION 17 - HUKUM MUTLAK
      ========================================================= */

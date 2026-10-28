@@ -111,9 +111,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
             <i class="bi bi-sliders text-sm"></i>
             <span>Filter</span>
             <?php if (!empty($activePeriodFilters)): ?>
-                <span class="inline-flex items-center justify-center min-w-4.5 h-4.5 px-1.5 text-[11px] font-bold text-[#315B8C] bg-white rounded-full leading-none shadow-xs tabular-nums">
-                    <?= count($activePeriodFilters) ?>
-                </span>
+                <span class="btn-filter-badge" aria-label="<?= count($activePeriodFilters) ?> filter aktif"><?= count($activePeriodFilters) ?></span>
             <?php endif; ?>
         </button>
 

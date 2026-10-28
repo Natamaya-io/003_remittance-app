@@ -851,6 +851,37 @@ Tombol sekunder dan pendukung berbagi geometri yang selaras:
 - Hover: Background `#f9fafb`, border `#9ca3af`.
 - Active: `transform: translateY(1px) !important; background: #f3f4f6; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);`.
 
+### 13.4. Spesifikasi Badge Notifikasi & Penghitung Aktif pada Tombol (.btn-filter-badge / .btn-counter-badge)
+
+> **STATUS ATURAN: TERKUNCI MUTLAK & HUKUM WAJIB (STRICT COMPLIANCE & NON-NEGOTIABLE)**  
+> Seluruh badge notifikasi aktif, penghitung filter, atau indikator status di dalam tombol aksi (khususnya tombol `.btn-primary` seperti tombol Filter di `/reports`) **MUTLAK WAJIB** menggunakan kelas terpusat `.btn-filter-badge` di `@layer components`.  
+> Penggunaan kode utilitas ad-hoc sementara seperti string atomik instan (misal `min-w-4.5 h-4.5`, `px-1.5`, `text-[11px] font-bold`) **DIHARAMKAN SECARA MUTLAK (BAGIAN 18)**.
+
+1. **Proporsi Geometri & Imunitas Skala 125% W3C:**
+   - **Tinggi Terkunci:** Presisi `20px` (`height: 20px;`) — tepat 50% dari ketinggian tombol 40px (`.btn-primary`).
+   - **Lebar Minimum:** Presisi `20px` (`min-width: 20px;`) — menjamin angka 1 digit membentuk lingkaran sempurna $20\times 20\text{px}$.
+   - **Padding Horizontal:** Presisi `0 5px` — otomatis bertransformasi menjadi kapsul proporsional saat memuat 2 digit atau lebih tanpa distorsi.
+   - **Radius Membulat Penuh:** `border-radius: 9999px;` (lingkaran / kapsul penuh murni).
+   - **Pusat Sumbu Simetris:** `display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; line-height: 1;`.
+2. **Tipografi & Diet Bold:**
+   - Font family: `var(--font-cta, 'Inter', 'DM Sans', system-ui, sans-serif)`.
+   - Ukuran & Ketebalan: `11px` dengan `font-weight: 600` (diet bold, dilarang font 800/900).
+   - Tabular Nums: `font-feature-settings: "tnum"; font-variant-numeric: tabular-nums;` untuk memastikan angka berjarak simetris.
+3. **Skema Warna Solid Kunci (Bagian 11 - Tabel 11.1):**
+   - **Varian Primer (Vibrant Coral `#F2765E`):** Warna default resmi badge notifikasi aktif RemitGo!.
+     - Latar: `#F2765E` (Solid Vibrant Coral Accent - Aksen Kinetik & Penanda Fokus).
+     - Teks: `#ffffff` (Solid Clean White).
+     - Kontur Border: `1px solid rgba(255, 255, 255, 0.45)` (memisahkan badge secara tegas dari latar biru tombol).
+     - Bayangan: `box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);`.
+     - Text Shadow: `0 1px 1px rgba(0, 0, 0, 0.2);`.
+   - **Varian Bersih Putih (`.variant-white` / `.btn-filter-badge-white`):**
+     - Latar: `#ffffff`.
+     - Teks: `#315B8C` (Deep Brand Blue).
+     - Kontur Border: `1px solid rgba(255, 255, 255, 0.85)`.
+     - Bayangan: `0 1px 2px rgba(0, 0, 0, 0.15)`.
+     - Text Shadow: `none !important`.
+4. **Bebas Transform:** State hover/active tombol tidak memicu zoom atau pergeseran posisi pada badge (`transform: none !important;`).
+
 ---
 
 ## 14. Aturan Terkunci: Sistem Ikon Global & Universal (Universal Naked Monochrome Icon Law)
@@ -1405,7 +1436,7 @@ Setiap kali elemen antarmuka dirombak, dimodernisasi, atau dibersihkan, hasilnya
 
 ### 18.3. Protokol Eksekusi Perombakan Elemen UI (Element Overhaul Workflow)
 Setiap agen AI yang diperintahkan merombak atau memperbaiki antarmuka wajib menempuh 3 langkah protokol ini secara berurutan:
-1. **Langkah 1 (Audit Spesifikasi Terkunci):** Periksa apakah elemen yang akan dirombak sudah memiliki kelas baku di `GEMINI.md` (Tombol di Bagian 13, Input Form di Bagian 17, Search Bar di Bagian 6, Datepicker di Bagian 3, Dropdown di Bagian 4, Toast di Bagian 16, Alert di Bagian 2).
+1. **Langkah 1 (Audit Spesifikasi Terkunci):** Periksa apakah elemen yang akan dirombak sudah memiliki kelas baku di `GEMINI.md` (Tombol & Badge Notifikasi di Bagian 13, Input Form di Bagian 17, Search Bar di Bagian 6, Datepicker di Bagian 3, Dropdown di Bagian 4, Toast di Bagian 16, Alert di Bagian 2).
 2. **Langkah 2 (Implementasi Kustom Komprehensif):**
    - Jika kelas baku sudah ada: Terapkan kelas resmi tersebut secara murni (misal: `<input class="custom-form-input has-leading-icon">`).
    - Jika kelas baku belum ada: Rancang kelas komponen kustom komprehensif baru di `public/assets/css/tailwind-input.css` di bawah `@layer components`, lakukan kompilasi aset dengan `npm run build:css`, dan bukukan aturannya ke dalam `GEMINI.md`. Dilarang meninggalkan string utilitas ad-hoc di markup.
