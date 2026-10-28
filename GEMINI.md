@@ -882,6 +882,31 @@ Tombol sekunder dan pendukung berbagi geometri yang selaras:
      - Text Shadow: `none !important`.
 4. **Bebas Transform:** State hover/active tombol tidak memicu zoom atau pergeseran posisi pada badge (`transform: none !important;`).
 
+### 13.5. Spesifikasi Tombol Aksi Ikon Tabel & Kartu (.btn-action-icon)
+
+> **STATUS ATURAN: TERKUNCI MUTLAK & HUKUM WAJIB (STRICT COMPLIANCE & NON-NEGOTIABLE)**  
+> Seluruh tombol aksi ikon pada baris tabel transaksi, tabel laporan, kartu mobile, maupun daftar batch (seperti tombol Export Excel baris, Edit Metadata, dan Hapus Batch) **MUTLAK WAJIB** menggunakan kelas terpusat `.btn-action-icon` di `@layer components`.  
+> Penggunaan kode utilitas atomik ad-hoc sementara seperti `size-7 ...` atau `size-8 ...` dengan rangkaian kelas Tailwind instan **DIHARAMKAN SECARA MUTLAK (BAGIAN 18)**.
+
+1. **Simetri Modular 1:1 dengan `.btn-primary-sm`:**
+   - **Dimensi Terkunci:** Presisi $32\times 32\text{px}$ (`height: 32px; width: 32px; min-width: 32px; min-height: 32px; padding: 0;`).
+   - **Radius Kelengkungan:** `border-radius: 7px;` — selaras sempurna 1:1 dengan tombol primer kompak `.btn-primary-sm`.
+   - **Pusat Sumbu:** `display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; line-height: 1;`.
+   - **Ukuran Ikon:** `14px` (`font-size: 14px;`) tanpa pembungkus buatan.
+2. **Permukaan Taktil & Fisika Gamified Asphalt:**
+   - **Latar & Kontur:** Background solid `#ffffff`, border solid `1px solid #d1d5db`, bayangan mikro `box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04)`.
+   - **Warna Ikon Netral:** `#413333` (Deep Asphalt Brown). DILARANG menggunakan warna alien seperti `text-emerald-600` (Bagian 14).
+   - **Hover State:** Background `#F5F2F2` (Asphalt Off-White Base), border `#9ca3af`, ikon `#111827`.
+   - **Active State (Tactile Micro-press):** `transform: translateY(1px) !important; background: #e5e7eb; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);`.
+   - **Focus State:** `outline: 2px solid #315B8C; outline-offset: 2px;`.
+3. **Varian Destruktif Bahaya (.btn-action-icon-danger):**
+   - Khusus aksi berbahaya seperti "Hapus Batch" / "Hapus Item".
+   - Warna teks & ikon: `#dc2626` (Danger Red).
+   - Kontur border: `1px solid #fecaca`.
+   - Hover: Background `#fef2f2`, border `#fca5a5`, teks `#b91c1c`.
+   - Active: `transform: translateY(1px) !important; background: #fee2e2; box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12);`.
+   - Focus: `outline: 2px solid #ef4444; outline-offset: 2px;`.
+
 ---
 
 ## 14. Aturan Terkunci: Sistem Ikon Global & Universal (Universal Naked Monochrome Icon Law)

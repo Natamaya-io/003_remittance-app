@@ -446,7 +446,7 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                                 <td class="py-4 px-5 whitespace-nowrap">
                                     <div>
                                         <strong class="text-sm font-semibold text-gray-900 block truncate max-w-xs" title="<?= e($batch['source_filename']) ?>">
-                                            <i class="bi bi-file-earmark-excel text-emerald-600 me-1"></i>
+                                            <i class="bi bi-file-earmark-excel me-1"></i>
                                             <?= e($batch['source_filename']) ?>
                                         </strong>
                                         <span class="text-xs text-gray-500 block truncate max-w-xs mt-0.5">
@@ -485,14 +485,14 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                                             <i class="bi bi-table"></i>
                                             <span>Buka</span>
                                         </a>
-                                        <?= render_tooltip('Export Excel', '<a class="size-7 inline-flex justify-center items-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="' . e(url('/reports/' . $batch['id'] . '/export')) . '"><i class="bi bi-file-earmark-excel text-emerald-600"></i></a>') ?>
+                                        <?= render_tooltip('Export Excel', '<a class="btn-action-icon" href="' . e(url('/reports/' . $batch['id'] . '/export')) . '" aria-label="Export Excel Batch #' . (int) $batch['id'] . '"><i class="bi bi-file-earmark-excel"></i></a>') ?>
                                         <?php if (can('report.manage')): ?>
-                                            <?= render_tooltip('Edit Metadata', '<a class="size-7 inline-flex justify-center items-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="' . e(url('/reports/' . $batch['id'] . '/edit')) . '"><i class="bi bi-pencil"></i></a>') ?>
+                                            <?= render_tooltip('Edit Metadata', '<a class="btn-action-icon" href="' . e(url('/reports/' . $batch['id'] . '/edit')) . '" aria-label="Edit Metadata Batch #' . (int) $batch['id'] . '"><i class="bi bi-pencil"></i></a>') ?>
                                             <form class="inline-block m-0" method="post" action="<?= e(url('/reports/' . $batch['id'])) ?>" data-confirm="Hapus report ini beserta seluruh barisnya?">
                                                 <?= csrf_field() ?>
                                                 <?= method_field('DELETE') ?>
                                                 <input type="hidden" name="return_to" value="<?= e($returnPath) ?>">
-                                                <?= render_tooltip('Hapus Batch', '<button class="size-7 inline-flex justify-center items-center rounded-lg border border-red-200 bg-white text-red-600 shadow-xs hover:bg-red-50 hover:border-red-300 focus:outline-none focus:bg-red-50 transition-colors" type="submit"><i class="bi bi-trash"></i></button>') ?>
+                                                <?= render_tooltip('Hapus Batch', '<button class="btn-action-icon btn-action-icon-danger" type="submit" aria-label="Hapus Batch #' . (int) $batch['id'] . '"><i class="bi bi-trash"></i></button>') ?>
                                             </form>
                                         <?php endif; ?>
                                     </div>
@@ -586,14 +586,14 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                     <!-- Card Footer Actions -->
                     <div class="pt-3 border-t border-gray-100 flex items-center justify-between gap-2">
                         <div class="flex items-center gap-1.5">
-                            <?= render_tooltip('Export Excel', '<a class="size-8 inline-flex justify-center items-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="' . e(url('/reports/' . $batch['id'] . '/export')) . '"><i class="bi bi-file-earmark-excel text-emerald-600"></i></a>') ?>
+                            <?= render_tooltip('Export Excel', '<a class="btn-action-icon" href="' . e(url('/reports/' . $batch['id'] . '/export')) . '" aria-label="Export Excel Batch #' . (int) $batch['id'] . '"><i class="bi bi-file-earmark-excel"></i></a>') ?>
                             <?php if (can('report.manage')): ?>
-                                <?= render_tooltip('Edit Metadata', '<a class="size-8 inline-flex justify-center items-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="' . e(url('/reports/' . $batch['id'] . '/edit')) . '"><i class="bi bi-pencil"></i></a>') ?>
+                                <?= render_tooltip('Edit Metadata', '<a class="btn-action-icon" href="' . e(url('/reports/' . $batch['id'] . '/edit')) . '" aria-label="Edit Metadata Batch #' . (int) $batch['id'] . '"><i class="bi bi-pencil"></i></a>') ?>
                                 <form class="inline-block m-0" method="post" action="<?= e(url('/reports/' . $batch['id'])) ?>" data-confirm="Hapus report ini beserta seluruh barisnya?">
                                     <?= csrf_field() ?>
                                     <?= method_field('DELETE') ?>
                                     <input type="hidden" name="return_to" value="<?= e($returnPath) ?>">
-                                    <?= render_tooltip('Hapus Batch', '<button class="size-8 inline-flex justify-center items-center rounded-lg border border-red-200 bg-white text-red-600 shadow-xs hover:bg-red-50 hover:border-red-300 focus:outline-none focus:bg-red-50 transition-colors" type="submit"><i class="bi bi-trash"></i></button>') ?>
+                                    <?= render_tooltip('Hapus Batch', '<button class="btn-action-icon btn-action-icon-danger" type="submit" aria-label="Hapus Batch #' . (int) $batch['id'] . '"><i class="bi bi-trash"></i></button>') ?>
                                 </form>
                             <?php endif; ?>
                         </div>

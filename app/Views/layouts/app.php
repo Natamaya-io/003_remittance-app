@@ -1246,6 +1246,85 @@ $flashes = Flash::all();
                 !important;
         }
 
+        /* =================================================
+           16.5. TOMBOL AKSI IKON TABEL & KARTU (.btn-action-icon)
+        ================================================= */
+        .btn-action-icon,
+        .action-icon-btn {
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            height: 32px !important;
+            width: 32px !important;
+            min-width: 32px !important;
+            min-height: 32px !important;
+            padding: 0 !important;
+            font-size: 14px !important;
+            line-height: 1 !important;
+            color: #413333 !important;
+            background: #ffffff !important;
+            border: 1px solid #d1d5db !important;
+            border-radius: 7px !important;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important;
+            cursor: pointer !important;
+            user-select: none !important;
+            text-decoration: none !important;
+            box-sizing: border-box !important;
+            transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease, color 0.15s ease !important;
+        }
+
+        .btn-action-icon:hover,
+        .action-icon-btn:hover {
+            background-color: #F5F2F2 !important;
+            border-color: #9ca3af !important;
+            color: #111827 !important;
+        }
+
+        .btn-action-icon:active,
+        .action-icon-btn:active {
+            transform: translateY(1px) !important;
+            background-color: #e5e7eb !important;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08) !important;
+        }
+
+        .btn-action-icon:focus-visible,
+        .action-icon-btn:focus-visible {
+            outline: 2px solid #315B8C !important;
+            outline-offset: 2px !important;
+        }
+
+        /* Varian Danger Destruktif (.btn-action-icon-danger) */
+        .btn-action-icon-danger,
+        .btn-action-icon.danger,
+        .action-icon-btn.text-red-600 {
+            color: #dc2626 !important;
+            border-color: #fecaca !important;
+            background: #ffffff !important;
+        }
+
+        .btn-action-icon-danger:hover,
+        .btn-action-icon.danger:hover,
+        .action-icon-btn.text-red-600:hover {
+            background-color: #fef2f2 !important;
+            border-color: #fca5a5 !important;
+            color: #b91c1c !important;
+        }
+
+        .btn-action-icon-danger:active,
+        .btn-action-icon.danger:active,
+        .action-icon-btn.text-red-600:active {
+            transform: translateY(1px) !important;
+            background-color: #fee2e2 !important;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12) !important;
+        }
+
+        .btn-action-icon-danger:focus-visible,
+        .btn-action-icon.danger:focus-visible,
+        .action-icon-btn.text-red-600:focus-visible {
+            outline: 2px solid #ef4444 !important;
+            outline-offset: 2px !important;
+        }
+
         .dashboard-small-link {
             color:
                 #315B8C
