@@ -34,7 +34,7 @@
    - **Peniadaan Deskripsi Statis & Tooltip Mutlak (Universal Description-to-Tooltip Discipline):** Seluruh deskripsi, keterangan panduan, catatan bantuan, dan subjudul fungsional pada panel, header, card, tabel, maupun formulir **DILARANG KERAS** dirender sebagai teks atau paragraf statis (`<p>`, `<small>`, `.description`). Seluruh deskripsi **MUTLAK WAJIB** dikonversi menjadi tooltip on-demand berbasis hover pada ikon info `(i)` (lihat Bagian 12 untuk aturan terkunci lengkap).
    - **Peniadaan Wrapper Ikon & Monokrom Mutlak (Universal Naked Monochrome Icon Discipline):** Seluruh ikon antarmuka di seluruh aplikasi **MUTLAK DILARANG** menggunakan wrapper/wadah pembungkus dekoratif berlatar warna dan **MUTLAK HANYA DIPERBOLEHKAN BERWARNA HITAM ATAU PUTIH**. Ikon wajib berdiri telanjang berdampingan langsung dengan konten tanpa pembungkus buatan (lihat Bagian 14 untuk aturan terkunci lengkap).
    - **Scrollbar Kustom Global Mutlak (Universal Custom Scrollbar Law):** Seluruh scrollbar browser bawaan sistem operasi (native Windows/macOS/Linux) yang tebal, kaku, dan abu-abu semen kotak **DIHARAMKAN SECARA MUTLAK**. Seluruh antarmuka (window viewport `html`, `body`, modal, popover, dropdown, hingga tabel scroll horizontal) **MUTLAK WAJIB** menggunakan sistem scrollbar kustom global ramping (7px), sudut membulat penuh (*capsule thumb*), track transparan, dengan warna thumb netral `#cbd5e1` dan interaksi hover solid *Deep Brand Blue* (`#315B8C`) (lihat Bagian 15 untuk aturan terkunci lengkap).
-   - **Sistem Popup Notifikasi Toast Kustom Mutlak (Universal Custom Toast Notification Law):** Seluruh notifikasi popup, pesan umpan balik tindakan, konfirmasi aksi, maupun peringatan sistem **MUTLAK HARUS MENGGUNAKAN TOAST DENGAN UI KUSTOM TANPA STYLE BAWAAN BROWSER**. Penggunaan notifikasi browser native (seperti alert dialog abu-abu OS, Web Notification bubble bawaan sistem operasi, atau `window.alert()` / `window.confirm()`) **DIHARAMKAN SECARA MUTLAK**. Toast beroperasi secara mengambang (*floating viewport stack*), sudut membulat elegan (`rounded-xl` / `rounded-2xl`), border solid 1px, soft elevation, 4 warna solid varian status resmi, tombol tutup dismissible kustom, auto-dismiss dengan timer pause saat hover, dan transisi Alpine.js halus tanpa efek bounce atau layout shift (lihat Bagian 16 untuk aturan terkunci lengkap).
+   - **Sistem Popup Notifikasi Toast Kustom Mutlak (Universal Custom Toast Notification Law):** Seluruh notifikasi popup, pesan umpan balik tindakan, konfirmasi aksi, maupun peringatan sistem **MUTLAK HARUS MENGGUNAKAN TOAST DENGAN UI KUSTOM TANPA STYLE BAWAAN BROWSER**. Penggunaan notifikasi browser native (seperti alert dialog abu-abu OS, Web Notification bubble bawaan sistem operasi, atau `window.alert()` / `window.confirm()`) **DIHARAMKAN SECARA MUTLAK**. Toast beroperasi secara mengambang di area bawah layar (*bottom floating viewport stack* - sudut kanan bawah pada desktop `sm:bottom-6 sm:right-6` dan di atas bilah tab pada mobile `bottom-20 inset-x-4`), sudut membulat elegan (`rounded-xl` / `rounded-2xl`), border solid 1px, soft elevation, 4 warna solid varian status resmi, tombol tutup dismissible kustom, auto-dismiss dengan timer pause saat hover, dan transisi Alpine.js halus tanpa efek bounce atau layout shift (lihat Bagian 16 untuk aturan terkunci lengkap).
    - **Sistem Form Input Teks Kustom Mutlak (Universal Custom Form Input Law):** Seluruh elemen input form teks (`<input type="text">`, `type="password"`, `type="email"`, dsb.) **MUTLAK WAJIB** menggunakan kelas terpusat `.custom-form-input` dengan ketinggian presisi 40px (selaras 1:1 dengan `.btn-primary` dan `.custom-search-input`), sudut membulat modular `rounded-[9px]`, latar permukaan well `#F5F2F2` dengan bayangan inset mikro, batas kontur `#d1d5db`, transisi fokus bersih ke putih dengan border solid `#315B8C` (*Deep Brand Blue*), serta jarak ikon kiri rapat alami (38px padding kiri, celah 8-10px) (lihat Bagian 17 untuk aturan terkunci lengkap).
    - **Anti-Kode Utilitas Ad-Hoc Sementara & Wajib Kustom UI Komprehensif (Zero Quick Placeholder Law):** DILARANG KERAS menggunakan rangkaian kelas utilitas tambal sulam instan (*ad-hoc quick placeholder*) saat merombak antarmuka. Setiap perombakan elemen UI MUTLAK WAJIB langsung mengimplementasikan Kustom UI Komprehensif dengan geometri modular terstandarisasi (misal tinggi 40px, radius 9px, surface depth #F5F2F2, spasi rapat), terintegrasi ke sistem komponen global, dan tahan terhadap penskalaan visual root 20px (lihat Bagian 18 untuk aturan terkunci lengkap).
    - **Arsitektur Halaman Login Split-Screen & Ramah Lansia (Universal Split Login & Senior Accessibility Law):** Halaman login beroperasi dengan tata letak split-screen 50/50 full-screen non-scrollable, pemisah bergelombang organik dinamis, logo resmi RemitGo! (teks "Remit" oranye solid `#F2765E`), skala elemen lansia 50px presisi (`.custom-form-input-lg` & `.btn-primary-lg`), bebas font-bold, dan ikon mata password telanjang murni tanpa wrapper (lihat Bagian 19 untuk aturan terkunci lengkap).
@@ -1061,11 +1061,12 @@ Konfigurasi berikut terkunci secara global di `@layer base` dalam `public/assets
    - Toast mengambang di atas kanvas kerja tanpa merusak alur tata letak dokumen (*zero document layout shift*).
    - Pengguna tetap dapat melanjutkan pekerjaan operasional, membaca data tabel, atau mengetik pada formulir saat toast sedang tampil.
 
-### 16.2. Geometri, Elevasi & Tata Letak Floating Viewport Stack
-1. **Posisi & Penataan Tumpukan (Floating Viewport Stack):**
-   - **Desktop & Tablet (`sm:` dan ke atas):** Menempati sudut kanan atas layar (`fixed top-5 right-5 z-[9999]`), terisolasi dari bilah navigasi bawah (*SPA Bottom Navigation Dock*).
-   - **Mobile (`< sm`):** Menempati area atas horizontal penuh dengan padding aman (`fixed top-4 inset-x-4 z-[9999]`).
-   - Tumpukan toast tersusun secara vertikal dengan celah teratur `space-y-3` (`gap-3`).
+### 16.2. Geometri, Elevasi & Tata Letak Floating Viewport Stack (Hukum Penempatan Bawah Mutlak)
+1. **Posisi Bawah Terkunci Mutlak & Penataan Tumpukan (Bottom Floating Viewport Stack Law):**
+   - **Hukum Penempatan Bawah Mutlak (Universal Bottom Placement Law):** Seluruh notifikasi toast di seluruh aplikasi **MUTLAK WAJIB DILETAKKAN DI BAWAH VIEWPORT** (`fixed bottom-...`). Penempatan toast di bagian atas layar (`top-...`) **DIHARAMKAN SECARA MUTLAK** karena berbenturan dengan hierarki visual header, search bar, filter formulir, serta mengganggu alur pandang alami pengguna.
+   - **Desktop & Tablet (`sm:` dan ke atas):** Menempati sudut kanan bawah layar (`fixed sm:bottom-6 sm:right-6 sm:left-auto z-[9999]`). Posisi ini memberikan ruang lega dan selaras berdampingan tanpa bertabrakan dengan *SPA Bottom Navigation Dock* yang berada di tengah bawah (`fixed bottom-5 left-1/2 -translate-x-1/2 z-40`).
+   - **Mobile (`< sm`):** Menempati area bawah horizontal penuh dengan jarak aman di atas bilah tab navigasi mobile (`fixed bottom-20 inset-x-4 z-[9999] w-auto`). Jarak `bottom-20` (80px) menjamin toast tidak pernah menutupi atau tertutup oleh bilah tab navigasi bawah (*Fixed Bottom Tab Bar*).
+   - **Tumpukan Vertikal:** Tumpukan toast tersusun rapi secara vertikal dengan celah teratur `space-y-3` (`gap-3`), dengan toast terbaru bertumpuk ke atas secara teratur.
 2. **Geometri & Fisika Kartu Toast:**
    - **Radius Membulat Halus:** Sudut wajib membulat elegan `rounded-xl` (12px / 15px pada root 20px) hingga `rounded-2xl`. Sudut tajam kotak kaku **DIHARAMKAN SECARA MUTLAK**.
    - **Lebar Kontainer:** Lebar maksimal `max-w-md w-full` (atau `min-w-[320px]`).
@@ -1100,9 +1101,9 @@ Seluruh varian toast wajib mematuhi **Hukum Skema Warna Solid Murni (Bagian 11)*
 Setiap elemen toast wajib mengimplementasikan struktur hierarki berikut:
 
 ```html
-<!-- KONTINER UTAMA TUMPUKAN TOAST (DI LAYOUT APP & GUEST) -->
+<!-- KONTINER UTAMA TUMPUKAN TOAST (DI LAYOUT APP & GUEST - PENEMPATAN BAWAH TERKUNCI) -->
 <div
-    class="fixed top-5 right-5 z-[9999] w-full max-w-sm sm:max-w-md pointer-events-none space-y-3 px-4 sm:px-0"
+    class="fixed bottom-20 sm:bottom-6 right-0 sm:right-6 left-0 sm:left-auto z-[9999] w-full sm:max-w-md pointer-events-none space-y-3 px-4 sm:px-0"
     id="remitToastContainer"
     x-data="remitToastStack"
 >
@@ -1113,11 +1114,11 @@ Setiap elemen toast wajib mengimplementasikan struktur hierarki berikut:
             role="alert"
             x-show="toast.visible"
             x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="opacity-0 translate-y-[-8px]"
+            x-transition:enter-start="opacity-0 translate-y-[8px]"
             x-transition:enter-end="opacity-100 translate-y-0"
             x-transition:leave="transition ease-in duration-150"
             x-transition:leave-start="opacity-100 translate-y-0"
-            x-transition:leave-end="opacity-0 translate-y-[-8px]"
+            x-transition:leave-end="opacity-0 translate-y-[8px]"
             @mouseenter="pauseTimer(toast)"
             @mouseleave="resumeTimer(toast)"
         >
@@ -1190,9 +1191,9 @@ Setiap elemen toast wajib mengimplementasikan struktur hierarki berikut:
 
 ### 16.6. Larangan Mutlak & Kepatuhan Anti-Slop Toast
 1. **Dilarang Keras Menggunakan Dialog Native:** Pemanggilan `window.alert()`, `window.confirm()`, atau notification bubble OS native dilarang secara absolut.
-2. **Dilarang Keras Efek Bounce/Scale Liar:** Transisi toast dilarang menggunakan `scale-95`, `scale-105`, atau translasi jarak jauh (> 10px). Transisi masuk/keluar wajib murni opasitas dan micro-shift `translate-y-[-8px]`.
+2. **Dilarang Keras Efek Bounce/Scale Liar:** Transisi toast dilarang menggunakan `scale-95`, `scale-105`, atau translasi jarak jauh (> 10px). Transisi masuk/keluar wajib murni opasitas dan micro-shift halus dari bawah `translate-y-[8px]`.
 3. **Dilarang Keras Menggunakan Warna Gradien atau Efek Kaca:** Background toast wajib solid murni sesuai 4 varian resmi tabel 16.3.
-4. **Dilarang Keras Tombol Tutup Native Browser:** Tombol dismiss wajib menggunakan Bootstrap Icons `<i class="bi bi-x"></i>` dengan styling kustom, bukan kontrol silang native OS.
+4. **Dilarang Keras Tombol Tutup Native Browser:** Tombol dismiss wajib menggunakan kelas terpusat `.toast-close` dengan Bootstrap Icons `<i class="bi bi-x-lg text-xs leading-none"></i>` (Bagian 20), bukan kontrol silang native OS atau glif kurus.
 
 ---
 
@@ -1630,7 +1631,7 @@ Berdasarkan demografi pengguna operasional perbankan yang mencakup usia lanjut, 
    - DILARANG menampilkan kotak alert statis di atas atau di bawah formulir login yang menyebabkan pergeseran layout (*layout shift*) atau memicu munculnya scrollbar vertikal.
 2. **Integrasi Floating Toast Global:**
    - Seluruh pesan galat autentikasi (seperti "Kredensial tidak valid" atau "Sesi Anda telah berakhir") wajib dikonversi menjadi popup notifikasi **Toast Kustom Mengambang** (`window.RemitToast` / `remitToastStack`).
-   - Toast mengambang di pojok kanan atas (`fixed top-5 right-5 z-[9999] pointer-events-none`), memiliki transisi halus, border solid 1px, bayangan lembut, tombol tutup kustom, dan penghitung waktu auto-dismiss tanpa mengganggu posisi formulir kerja.
+   - Toast mengambang di area bawah layar (`fixed bottom-20 sm:bottom-6 right-0 sm:right-6 left-0 sm:left-auto z-[9999] pointer-events-none`), memiliki transisi halus dari arah bawah (`translate-y-[8px]`), border solid 1px, bayangan lembut, tombol tutup kustom, dan penghitung waktu auto-dismiss tanpa mengganggu posisi formulir kerja.
 
 ---
 
@@ -1814,7 +1815,7 @@ Sebelum menyerahkan tugas atau melakukan commit pada kode yang menyentuh `/login
 - [ ] Apakah ikon mata password berdiri telanjang murni sebagai tag `<i>` semantik tanpa wrapper `<button>` atau `<span>`?
 - [ ] Apakah fungsi toggle password bekerja dua arah (`bi-eye` untuk tampilkan, `bi-eye-slash` untuk sembunyikan) dengan aksesibilitas keyboard lengkap?
 - [ ] Apakah halaman bersih dari badge keamanan palsu, lencana seremonial, teks deskripsi statis, dan footer copyright?
-- [ ] Apakah notifikasi flash sesi menggunakan sistem toast mengambang bebas layout shift?
+- [ ] Apakah notifikasi flash sesi menggunakan sistem toast mengambang di area bawah viewport bebas layout shift?
 
 ---
 

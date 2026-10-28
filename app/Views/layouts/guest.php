@@ -130,7 +130,7 @@ $flashes = Flash::all();
          FLOATING TOAST NOTIFICATION STACK (GEMINI.MD SECTION 16)
          ========================================================= -->
     <div
-        class="fixed top-5 right-5 z-[9999] w-full max-w-sm sm:max-w-md pointer-events-none space-y-3 px-4 sm:px-0"
+        class="fixed bottom-20 sm:bottom-6 right-0 sm:right-6 left-0 sm:left-auto z-[9999] w-full sm:max-w-md pointer-events-none space-y-3 px-4 sm:px-0"
         id="remitToastContainer"
         x-data="remitToastStack"
         x-cloak
@@ -142,11 +142,11 @@ $flashes = Flash::all();
                 role="alert"
                 x-show="toast.visible"
                 x-transition:enter="transition ease-out duration-200"
-                x-transition:enter-start="opacity-0 translate-y-[-8px]"
+                x-transition:enter-start="opacity-0 translate-y-[8px]"
                 x-transition:enter-end="opacity-100 translate-y-0"
                 x-transition:leave="transition ease-in duration-150"
                 x-transition:leave-start="opacity-100 translate-y-0"
-                x-transition:leave-end="opacity-0 translate-y-[-8px]"
+                x-transition:leave-end="opacity-0 translate-y-[8px]"
                 @mouseenter="pauseTimer(toast)"
                 @mouseleave="resumeTimer(toast)"
             >
