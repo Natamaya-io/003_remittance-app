@@ -2,9 +2,32 @@
 <?php require __DIR__ . '/_nav.php'; ?>
 <div class="spk-section"><div class="spk-section-head"><div x-data="{ showInfo: false }"><div class="d-inline-flex align-items-center gap-2"><h3 class="m-0">Tambah Sub Kriteria</h3><button type="button" @click="showInfo = !showInfo" class="info-toggle-btn" :class="{ 'is-active': showInfo }" :aria-expanded="showInfo.toString()" aria-label="Tampilkan info sub kriteria" title="Informasi bantuan"><i class="bi bi-info-circle text-xs leading-none"></i></button></div><div x-show="showInfo" x-cloak x-transition class="spk-muted mt-1" style="display: none;">Contoh: “Sangat Baik” = 5.</div></div></div>
 <form method="post" action="<?=url('/analysis/subcriteria/save')?>"><?=csrf_field()?>
-<div class="spk-form-row cols-3"><div><label class="form-label">Kriteria</label><select class="form-select" name="criterion_id" required><?php foreach($criteria as $c):?><option value="<?=(int)$c['id']?>"><?=e($c['code'].' - '.$c['name'])?></option><?php endforeach;?></select></div><div><label class="form-label">Nama Sub Kriteria</label><input class="form-control" name="name" required></div><div><label class="form-label">Nilai</label><input class="form-control" type="number" step="0.000001" min="0" name="value" required></div></div><input type="hidden" name="sort_order" value="99"><button class="btn btn-primary mt-3">Simpan</button></form></div>
+<div class="spk-form-row cols-3 flex flex-wrap gap-3">
+    <div class="flex-1 min-w-[200px]">
+        <label class="block text-xs font-semibold text-gray-700 mb-1">Kriteria</label>
+        <select class="custom-form-select" name="criterion_id" required>
+            <?php foreach($criteria as $c):?>
+                <option value="<?=(int)$c['id']?>"><?=e($c['code'].' - '.$c['name'])?></option>
+            <?php endforeach;?>
+        </select>
+    </div>
+    <div class="flex-1 min-w-[200px]">
+        <label class="block text-xs font-semibold text-gray-700 mb-1">Nama Sub Kriteria</label>
+        <input class="custom-form-input" name="name" required>
+    </div>
+    <div class="flex-1 min-w-[150px]">
+        <label class="block text-xs font-semibold text-gray-700 mb-1">Nilai</label>
+        <input class="custom-form-input" type="number" step="0.000001" min="0" name="value" required>
+    </div>
+</div>
+<input type="hidden" name="sort_order" value="99">
+<button class="btn-primary mt-3" type="submit">
+    <i class="bi bi-floppy"></i>
+    <span>Simpan</span>
+</button>
+</form></div>
 <?php foreach($criteria as $c): ?><div class="spk-section"><div class="spk-section-head"><div><h3><?=e($c['name'])?> (<?=e($c['code'])?>)</h3><div class="spk-muted"><?=strtoupper(e($c['criterion_type']))?></div></div></div>
 <div class="table-responsive"><table class="spk-table"><thead><tr><th>No</th><th>Nama Sub Kriteria</th><th>Nilai</th><th>Aksi</th></tr></thead><tbody>
-<?php foreach(($grouped[(int)$c['id']]??[]) as $i=>$s):?><tr><td><?=$i+1?></td><td><?=e($s['name'])?></td><td class="num"><?=number_format((float)$s['value'],4,',','.')?></td><td><form method="post" action="<?=url('/analysis/subcriteria/'.(int)$s['id'].'/delete')?>" data-confirm="Hapus sub kriteria?"><?=csrf_field()?><button class="btn btn-sm btn-outline-danger">Hapus</button></form></td></tr><?php endforeach;?>
+<?php foreach(($grouped[(int)$c['id']]??[]) as $i=>$s):?><tr><td><?=$i+1?></td><td><?=e($s['name'])?></td><td class="num"><?=number_format((float)$s['value'],4,',','.')?></td><td><form method="post" action="<?=url('/analysis/subcriteria/'.(int)$s['id'].'/delete')?>" data-confirm="Hapus sub kriteria?"><?=csrf_field()?><button class="action-icon-btn text-red-600" type="submit" title="Hapus"><i class="bi bi-trash"></i></button></form></td></tr><?php endforeach;?>
 <?php if(empty($grouped[(int)$c['id']])):?><tr><td colspan="4" class="spk-muted">Belum ada sub kriteria.</td></tr><?php endif;?></tbody></table></div></div><?php endforeach;?>
 </div>

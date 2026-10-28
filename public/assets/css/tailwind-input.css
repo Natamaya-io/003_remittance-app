@@ -491,9 +491,10 @@
   }
 
   /* =========================================================
-     GAMIFIED ASPHALT LOCKED FORM SELECT (.custom-select, .form-select)
+     GAMIFIED ASPHALT LOCKED FORM SELECT (.custom-select, .custom-form-select, .form-select)
      ========================================================= */
   .custom-select,
+  .custom-form-select,
   .form-select,
   select.custom-form-input {
     display: block;
@@ -521,12 +522,14 @@
   }
 
   .custom-select:hover,
+  .custom-form-select:hover,
   .form-select:hover,
   select.custom-form-input:hover {
     border-color: #9ca3af;
   }
 
   .custom-select:focus,
+  .custom-form-select:focus,
   .form-select:focus,
   select.custom-form-input:focus {
     background-color: #ffffff;

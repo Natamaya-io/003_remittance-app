@@ -44,7 +44,7 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
             ]) ?>
 
             <?php if (can('report.manage')): ?>
-                <a class="btn btn-primary" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
+                <a class="btn-primary" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
                     <i class="bi bi-cloud-arrow-up text-sm"></i>
                     Upload Excel
                 </a>
@@ -179,12 +179,12 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
             </div>
 
             <div class="flex items-center gap-2">
-                <a class="py-1.5 px-3 inline-flex justify-center items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors flex-1" href="<?= e(url('/reports/month/' . $month)) ?>">
-                    Reset
+                <a class="btn-secondary flex-1" href="<?= e(url('/reports/month/' . $month)) ?>">
+                    <span>Reset</span>
                 </a>
-                <button class="btn btn-primary py-1.5 px-3.5 inline-flex justify-center items-center gap-x-1.5 text-xs font-semibold rounded-lg focus:outline-none flex-1" type="submit">
+                <button class="btn-primary flex-1" type="submit">
                     <i class="bi bi-funnel"></i>
-                    Filter
+                    <span>Filter</span>
                 </button>
             </div>
         </form>
@@ -319,8 +319,8 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                                     <?= e(format_datetime($lastUpload)) ?>
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap text-end">
-                                    <a class="btn btn-primary btn-primary-sm" href="<?= e(url($dateUrl)) ?>">
-                                        Buka Tim
+                                    <a class="btn-primary btn-primary-sm" href="<?= e(url($dateUrl)) ?>">
+                                        <span>Buka Tim</span>
                                         <i class="bi bi-arrow-right"></i>
                                     </a>
                                 </td>
@@ -434,8 +434,8 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                         <span class="text-[11px] text-gray-500 truncate tabular-nums">
                             Upload: <?= e(format_datetime($lastUpload)) ?>
                         </span>
-                        <a class="btn btn-primary btn-primary-sm" href="<?= e(url($dateUrl)) ?>">
-                            Buka Tim
+                        <a class="btn-primary btn-primary-sm" href="<?= e(url($dateUrl)) ?>">
+                            <span>Buka Tim</span>
                             <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
@@ -445,12 +445,11 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
             <?php if ($dates === []): ?>
                 <div class="col-span-full bg-white border border-gray-200 rounded-2xl p-12 text-center shadow-xs">
                     <i class="bi bi-calendar-x text-3xl text-gray-400 block mb-3"></i>
-                    <h3 class="text-base font-semibold font-heading text-gray-800 mb-1">Belum ada report pada bulan ini</h3>
-                    <p class="text-xs text-gray-500 mb-4">Upload berkas Excel untuk membentuk daftar tanggal transaksi otomatis.</p>
+                    <h3 class="text-base font-semibold font-heading text-gray-800 mb-4">Belum ada report pada bulan ini</h3>
                     <?php if (can('report.manage')): ?>
-                        <a class="btn btn-primary py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg focus:outline-none" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
+                        <a class="btn-primary" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
                             <i class="bi bi-cloud-arrow-up text-sm"></i>
-                            Upload Excel
+                            <span>Upload Excel</span>
                         </a>
                     <?php endif; ?>
                 </div>

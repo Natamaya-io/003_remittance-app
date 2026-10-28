@@ -3,7 +3,12 @@
 <div class="spk-section">
     <div class="spk-section-head">
         <div x-data="{ showInfo: false }"><div class="d-inline-flex align-items-center gap-2"><h3 class="m-0">Matriks C1-C6</h3><button type="button" @click="showInfo = !showInfo" class="info-toggle-btn" :class="{ 'is-active': showInfo }" :aria-expanded="showInfo.toString()" aria-label="Tampilkan info periode" title="Informasi bantuan"><i class="bi bi-info-circle text-xs leading-none"></i></button></div><div x-show="showInfo" x-cloak x-transition class="spk-muted mt-1" style="display: none;">P1: 1 September-31 Oktober 2024 · P2: 1 November-31 Desember 2024.</div></div>
-        <form method="post" action="<?=url('/analysis/assessment/reset')?>" data-confirm="Kembalikan semua nilai ke otomatis dari Report 2024 + Actual?"><?=csrf_field()?><button class="btn btn-light">Reset ke Otomatis</button></form>
+        <form method="post" action="<?=url('/analysis/assessment/reset')?>" data-confirm="Kembalikan semua nilai ke otomatis dari Report 2024 + Actual?">
+            <?=csrf_field()?>
+            <button class="btn-secondary" type="submit">
+                <span>Reset ke Otomatis</span>
+            </button>
+        </form>
     </div>
 
     <div class="table-responsive"><table class="spk-table"><thead><tr><th>Alternatif</th><?php foreach($criteria as $c):?><th><?=e($c['code'])?><div class="spk-muted">Benefit</div></th><?php endforeach;?></tr></thead><tbody>
@@ -21,7 +26,7 @@
         $p2 = $detail['p2'] ?? [];
     ?>
     <details class="mb-3">
-        <summary class="btn btn-light w-100 text-start"><strong><?=e($a['name'])?></strong></summary>
+        <summary class="btn-secondary w-full text-start"><strong><?=e($a['name'])?></strong></summary>
         <div class="table-responsive mt-2"><table class="spk-table"><thead><tr><th>Periode</th><th>Transaksi</th><th>Hari Aktif</th><th>Tx/Hari</th><th>Negara</th><th>Bank/SWIFT</th><th>Mata Uang</th><th>Refund</th></tr></thead><tbody>
         <tr><td><strong>P1</strong></td><td class="num"><?=number_format((int)($p1['transactions']??0),0,',','.')?></td><td class="num"><?=number_format((int)($p1['active_days']??0),0,',','.')?></td><td class="num"><?=number_format((float)($p1['transactions_per_active_day']??0),6,',','.')?></td><td class="num"><?=(int)($p1['countries']??0)?></td><td class="num"><?=(int)($p1['bank_swift']??0)?></td><td class="num"><?=(int)($p1['currencies']??0)?></td><td class="num"><?=(int)($p1['refunds']??0)?></td></tr>
         <tr><td><strong>P2</strong></td><td class="num"><?=number_format((int)($p2['transactions']??0),0,',','.')?></td><td class="num"><?=number_format((int)($p2['active_days']??0),0,',','.')?></td><td class="num"><?=number_format((float)($p2['transactions_per_active_day']??0),6,',','.')?></td><td class="num"><?=(int)($p2['countries']??0)?></td><td class="num"><?=(int)($p2['bank_swift']??0)?></td><td class="num"><?=(int)($p2['currencies']??0)?></td><td class="num"><?=(int)($p2['refunds']??0)?></td></tr>

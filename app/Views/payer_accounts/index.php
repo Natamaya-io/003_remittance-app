@@ -110,14 +110,13 @@ $filters = array_replace(
 
         <div class="d-flex justify-content-end mb-4">
             <a
-                class="btn btn-primary payer-add-button"
+                class="btn-primary"
                 href="<?= url(
                     '/payer-accounts/create'
                 ) ?>"
             >
                 <i class="bi bi-plus-lg"></i>
-
-                Tambah Rekening
+                <span>Tambah Rekening</span>
             </a>
         </div>
 
@@ -328,7 +327,7 @@ $filters = array_replace(
                 </span>
 
                 <select
-                    class="form-select"
+                    class="custom-form-select"
                     name="company_id"
                 >
 
@@ -383,7 +382,7 @@ $filters = array_replace(
                 </span>
 
                 <select
-                    class="form-select"
+                    class="custom-form-select"
                     name="status"
                 >
 
@@ -423,22 +422,21 @@ $filters = array_replace(
             <div class="payer-filter-actions">
 
                 <button
-                    class="btn btn-primary"
+                    class="btn-primary"
                     type="submit"
                 >
                     <i class="bi bi-funnel"></i>
-
-                    Terapkan
+                    <span>Terapkan</span>
                 </button>
 
 
                 <a
-                    class="btn btn-light"
+                    class="btn-secondary"
                     href="<?= url(
                         '/payer-accounts'
                     ) ?>"
                 >
-                    Reset
+                    <span>Reset</span>
                 </a>
 
             </div>
@@ -1018,14 +1016,13 @@ $filters = array_replace(
                 ): ?>
 
                     <a
-                        class="btn btn-primary"
+                        class="btn-primary"
                         href="<?= url(
                             '/payer-accounts/create'
                         ) ?>"
                     >
                         <i class="bi bi-plus-lg"></i>
-
-                        Tambah Rekening
+                        <span>Tambah Rekening</span>
                     </a>
 
                 <?php endif; ?>
@@ -1083,9 +1080,9 @@ $filters = array_replace(
 
 
                     <a
-                        class="btn btn-sm <?= $i === $page
-                            ? 'btn-primary'
-                            : 'btn-light' ?>"
+                        class="<?= $i === $page
+                            ? 'btn-primary btn-primary-sm'
+                            : 'btn-secondary !h-8 !px-3 text-xs' ?>"
                         href="?<?= e(
                             http_build_query(
                                 array_merge(

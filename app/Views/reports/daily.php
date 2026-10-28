@@ -22,17 +22,17 @@ $print = (bool) ($print ?? false);
          ========================================================= -->
     <div class="flex flex-wrap items-center justify-end gap-2">
         <?php if (can('transaction.manage')): ?>
-            <a href="<?= url('/report_paste_import.php') ?>" class="btn btn-primary py-2 px-3.5 text-xs font-medium rounded-lg inline-flex items-center gap-1.5">
+            <a href="<?= url('/report_paste_import.php') ?>" class="btn-primary">
                 <i class="bi bi-clipboard-data"></i>
-                Paste dari Excel
+                <span>Paste dari Excel</span>
             </a>
-            <a href="<?= url('/transactions/import') ?>" class="py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs inline-flex items-center gap-1.5 transition-colors">
+            <a href="<?= url('/transactions/import') ?>" class="btn-secondary">
                 <i class="bi bi-file-earmark-excel"></i>
-                Import XLSX/CSV
+                <span>Import XLSX/CSV</span>
             </a>
-            <a href="<?= url('/transactions/create') ?>" class="py-2 px-3 text-xs font-medium rounded-lg border border-blue-200 bg-blue-50 text-blue-700 hover:bg-blue-100 shadow-xs inline-flex items-center gap-1.5 transition-colors">
+            <a href="<?= url('/transactions/create') ?>" class="btn-secondary">
                 <i class="bi bi-plus-lg"></i>
-                Input Manual
+                <span>Input Manual</span>
             </a>
         <?php endif; ?>
     </div>
@@ -114,9 +114,9 @@ $print = (bool) ($print ?? false);
                 </div>
             </div>
             <div class="md:col-span-5 flex flex-wrap items-center gap-2">
-                <button class="btn btn-primary py-2 px-3.5 text-xs font-medium rounded-lg inline-flex items-center gap-1.5" type="submit">
+                <button class="btn-primary" type="submit">
                     <i class="bi bi-funnel"></i>
-                    Terapkan
+                    <span>Terapkan</span>
                 </button>
                 <a class="datepicker-preset-btn <?= $date === date('Y-m-d') ? 'active' : '' ?>" href="<?= url('/reports/daily') ?>">
                     Hari Ini

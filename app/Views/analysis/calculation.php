@@ -42,6 +42,20 @@ $topsis = $calculation['topsis'];
 <h3 class="mt-4 mb-2">4-6. Jarak, Kedekatan Relatif dan Ranking</h3><div class="spk-formula mb-2">Vi = D- / (D+ + D-). Nilai Vi terbesar menjadi ranking terbaik.</div>
 <div class="table-responsive"><table class="spk-table"><thead><tr><th>Alternatif</th><th>D+</th><th>D-</th><th>Nilai V</th><th>Ranking</th></tr></thead><tbody>
 <?php foreach($alternatives as $i=>$a):?><tr><td><strong><?=e($a['name'])?></strong></td><td class="num"><?=number_format((float)$topsis['distance_positive'][$i],12,',','.')?></td><td class="num"><?=number_format((float)$topsis['distance_negative'][$i],12,',','.')?></td><td class="num"><strong><?=number_format((float)$topsis['preferences'][$i],12,',','.')?></strong></td><td class="num">#<?=(int)$topsis['ranks'][$i]?></td></tr><?php endforeach;?></tbody></table></div>
-<form method="post" action="<?=url('/analysis/calculation/save')?>" class="mt-4"><?=csrf_field()?><div class="spk-form-row cols-2"><div><label class="form-label">Nama Hasil</label><input class="form-control" name="name" value="Analisis Entropy-TOPSIS <?=date('d-m-Y H:i')?>"></div><div class="d-flex align-items-end"><button class="btn btn-primary btn-lg"><i class="bi bi-save me-1"></i>Simpan ke Hasil Akhir</button></div></div></form>
+<form method="post" action="<?=url('/analysis/calculation/save')?>" class="mt-4">
+    <?=csrf_field()?>
+    <div class="spk-form-row cols-2 flex items-end gap-3">
+        <div class="flex-1">
+            <label class="block text-xs font-semibold text-gray-700 mb-1">Nama Hasil</label>
+            <input class="custom-form-input" name="name" value="Analisis Entropy-TOPSIS <?=date('d-m-Y H:i')?>">
+        </div>
+        <div>
+            <button class="btn-primary" type="submit">
+                <i class="bi bi-floppy"></i>
+                <span>Simpan ke Hasil Akhir</span>
+            </button>
+        </div>
+    </div>
+</form>
 </div>
 </div>

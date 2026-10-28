@@ -215,16 +215,16 @@ $outputCount =
         <div class="job-header-actions">
 
             <a
-                class="btn btn-light"
+                class="btn-secondary"
                 href="<?= url('/transactions/bri') ?>"
             >
                 <i class="bi bi-arrow-left"></i>
-                Input Baru
+                <span>Input Baru</span>
             </a>
 
 
             <a
-                class="btn btn-light"
+                class="btn-secondary"
                 href="<?= url(
                     '/transactions/jobs/' .
                     $jobId .
@@ -232,7 +232,7 @@ $outputCount =
                 ) ?>"
             >
                 <i class="bi bi-file-earmark-excel"></i>
-                Tahap 2 XLSX
+                <span>Tahap 2 XLSX</span>
             </a>
 
 
@@ -765,7 +765,7 @@ $outputCount =
 
 
                 <a
-                    class="btn btn-light btn-sm"
+                    class="btn-secondary !h-8 !px-3 text-xs"
                     href="<?= url(
                         '/transactions/jobs/' .
                         $jobId .
@@ -773,7 +773,7 @@ $outputCount =
                     ) ?>"
                 >
                     <i class="bi bi-download"></i>
-                    XLSX
+                    <span>XLSX</span>
                 </a>
 
             </div>

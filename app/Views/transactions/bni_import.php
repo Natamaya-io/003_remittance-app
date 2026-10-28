@@ -38,7 +38,10 @@ $columns = [
 ?>
 <div class="bni-import-page">
     <div class="page-actions d-flex justify-content-end mb-4">
-        <a class="btn btn-light" href="<?= url('/transactions') ?>"><i class="bi bi-arrow-left me-1"></i> Pilihan Bank</a>
+        <a class="btn-secondary" href="<?= url('/transactions') ?>">
+            <i class="bi bi-arrow-left"></i>
+            <span>Pilihan Bank</span>
+        </a>
     </div>
 
     <section class="bank-workflow-card bni-flow">
@@ -56,12 +59,15 @@ $columns = [
             <div>
                 <h3>1. Copy Paste Excel</h3>
                 <p>Copy tabel dari Excel lalu paste ke kotak di bawah. Baris pertama boleh berupa header.</p>
-                <textarea id="bniPaste" class="form-control bni-paste" placeholder="Paste data Excel di sini..."></textarea>
+                <textarea id="bniPaste" class="custom-form-textarea bni-paste" placeholder="Paste data Excel di sini..."></textarea>
                 <div class="bni-source-actions">
-                    <button type="button" class="btn btn-primary" id="buildBniTable">
-                        <i class="bi bi-table me-1"></i> Bentuk Tabel
+                    <button type="button" class="btn-primary" id="buildBniTable">
+                        <i class="bi bi-table"></i>
+                        <span>Bentuk Tabel</span>
                     </button>
-                    <button type="button" class="btn btn-light" id="clearBniPaste">Bersihkan</button>
+                    <button type="button" class="btn-secondary" id="clearBniPaste">
+                        <span>Bersihkan</span>
+                    </button>
                 </div>
             </div>
             <div class="bni-reference-card">
@@ -92,7 +98,7 @@ $columns = [
             </div>
             <label class="bni-batch-name">
                 <span>Nama Batch</span>
-                <input class="form-control" name="batch_name" value="BNI <?= date('d-m-Y H.i') ?>">
+                <input class="custom-form-input" name="batch_name" value="BNI <?= date('d-m-Y H.i') ?>">
             </label>
         </div>
 
@@ -108,7 +114,10 @@ $columns = [
         </div>
         <div class="bni-save-actions">
             <span id="bniRowCount">0 baris</span>
-            <button class="btn btn-primary" type="submit"><i class="bi bi-save me-1"></i> Simpan & Buat Form BNI</button>
+            <button class="btn-primary" type="submit">
+                <i class="bi bi-floppy"></i>
+                <span>Simpan & Buat Form BNI</span>
+            </button>
         </div>
     </form>
 
@@ -127,11 +136,11 @@ $columns = [
                             <td><?= e((string) ($batch['creator_name'] ?? '-')) ?></td>
                             <td><?= !empty($batch['created_at']) ? e(date('d/m/Y H:i', strtotime((string) $batch['created_at']))) : '-' ?></td>
                             <td class="text-end">
-                                <a class="btn btn-sm btn-light" href="<?= url('/transactions/bni/batches/' . (int) $batch['id']) ?>"><i class="bi bi-eye"></i></a>
+                                <a class="action-icon-btn" href="<?= url('/transactions/bni/batches/' . (int) $batch['id']) ?>" title="Lihat"><i class="bi bi-eye"></i></a>
                                 <?php if (can('transaction.manage')): ?>
                                     <form class="d-inline" method="post" action="<?= url('/transactions/bni/batches/' . (int) $batch['id']) ?>" data-confirm="Hapus batch BNI ini?">
                                         <?= csrf_field() . method_field('DELETE') ?>
-                                        <button class="btn btn-sm btn-light text-danger" type="submit"><i class="bi bi-trash"></i></button>
+                                        <button class="action-icon-btn text-red-600" type="submit" title="Hapus"><i class="bi bi-trash"></i></button>
                                     </form>
                                 <?php endif; ?>
                             </td>
@@ -192,7 +201,10 @@ $columns = [
 
     function parse() {
         const raw = paste.value.trim();
-        if (!raw) { alert('Paste data Excel terlebih dahulu.'); return; }
+        if (!raw) {
+            window.RemitToast?.error('Paste data Excel terlebih dahulu.');
+            return;
+        }
         const lines = raw.split(/\r?\n/).filter(line => line.trim() !== '');
         if (!lines.length) return;
         const matrix = lines.map(line => line.split('\t'));
@@ -213,7 +225,10 @@ $columns = [
             return row;
         }).filter(row => Object.values(row).some(v => String(v).trim() !== ''));
 
-        if (!rows.length) { alert('Tidak ada baris data yang terbaca.'); return; }
+        if (!rows.length) {
+            window.RemitToast?.error('Tidak ada baris data yang terbaca.');
+            return;
+        }
         jsonField.value = JSON.stringify(rows);
         body.innerHTML = rows.map((r, i) => `<tr>
             <td>${i+1}</td><td>${esc(r.transaction_date)}</td><td>${esc(r.beneficiary_name)}</td>

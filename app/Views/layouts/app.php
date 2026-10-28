@@ -4879,14 +4879,14 @@ $flashes = Flash::all();
             <div class="flex items-center justify-end gap-2 pt-3 border-t border-gray-100">
                 <button
                     type="button"
-                    class="py-2 px-3.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors"
+                    class="btn-secondary"
                     @click="onCancel()"
                     x-text="confirm.cancelText"
                 ></button>
                 <button
                     type="button"
-                    class="btn-primary py-2 px-4 text-xs font-semibold rounded-lg text-white"
-                    :class="confirm.isDanger ? 'bg-red-600 border-red-700 hover:bg-red-700' : ''"
+                    class="btn-primary"
+                    :class="confirm.isDanger ? 'btn-danger' : ''"
                     @click="onConfirm()"
                     x-text="confirm.confirmText"
                 ></button>
@@ -4931,7 +4931,7 @@ $flashes = Flash::all();
             <div class="flex items-center justify-end pt-3 border-t border-gray-100">
                 <button
                     type="button"
-                    class="btn-primary py-2 px-4 text-xs font-semibold rounded-lg text-white"
+                    class="btn-primary"
                     @click="closeAlert()"
                     x-text="alert.buttonText"
                 ></button>

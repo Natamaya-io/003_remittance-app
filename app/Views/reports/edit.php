@@ -17,9 +17,9 @@ $batch = is_array($batch ?? null) ? $batch : [];
          PAGE ACTIONS
          ========================================================= -->
     <div class="flex items-center justify-end">
-        <a class="py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-colors" href="<?= url('/reports/' . $batch['id']) ?>">
+        <a class="btn-secondary" href="<?= url('/reports/' . $batch['id']) ?>">
             <i class="bi bi-arrow-left"></i>
-            Kembali
+            <span>Kembali</span>
         </a>
     </div>
 
@@ -33,7 +33,7 @@ $batch = is_array($batch ?? null) ? $batch : [];
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                     <div class="sm:col-span-2">
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama report *</label>
-                        <input class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" name="name" required value="<?= e($batch['name'] ?? '') ?>">
+                        <input class="custom-form-input" name="name" required value="<?= e($batch['name'] ?? '') ?>">
                     </div>
 
                     <div>
@@ -42,34 +42,40 @@ $batch = is_array($batch ?? null) ? $batch : [];
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Tanggal report</label>
+                        <div class="flex items-center gap-1.5 mb-1.5">
+                            <label class="block text-xs font-semibold text-gray-700">Tanggal report</label>
+                            <?= render_tooltip(
+                                'Tanggal harus berada pada bulan report yang dipilih.',
+                                '<span class="info-toggle-btn cursor-help" aria-label="Info tanggal report"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
+                                ['placement' => 'top']
+                            ) ?>
+                        </div>
                         <?= render_datepicker('report_date', (string) ($batch['report_date'] ?? ''), ['placeholder' => 'Pilih tanggal']) ?>
-                        <span class="text-[11px] text-gray-400 mt-1 block">Tanggal harus berada pada bulan report yang dipilih.</span>
                     </div>
 
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama tim</label>
-                        <input class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" name="team_name" value="<?= e($batch['team_name'] ?? '') ?>" placeholder="Contoh: PARK, GOSYEN, EKAWIRA">
+                        <input class="custom-form-input" name="team_name" value="<?= e($batch['team_name'] ?? '') ?>" placeholder="Contoh: PARK, GOSYEN, EKAWIRA">
                     </div>
 
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama klien</label>
-                        <input class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" name="client_name" value="<?= e($batch['client_name'] ?? '') ?>">
+                        <input class="custom-form-input" name="client_name" value="<?= e($batch['client_name'] ?? '') ?>">
                     </div>
 
                     <div class="sm:col-span-2">
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">File sumber</label>
-                        <input class="py-2 px-3 block w-full border border-gray-200 bg-gray-50 rounded-xl text-xs text-gray-500 cursor-not-allowed" value="<?= e($batch['source_filename'] ?? '') ?>" disabled>
+                        <input class="custom-form-input opacity-60 cursor-not-allowed" value="<?= e($batch['source_filename'] ?? '') ?>" disabled>
                     </div>
                 </div>
 
                 <div class="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
-                    <a class="py-2 px-3.5 inline-flex items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors focus:outline-hidden focus:bg-gray-50" href="<?= url('/reports/' . $batch['id']) ?>">
+                    <a class="btn-secondary" href="<?= url('/reports/' . $batch['id']) ?>">
                         Batal
                     </a>
-                    <button class="btn-primary py-2 px-4 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg shadow-xs focus:outline-hidden" type="submit">
-                        <i class="bi bi-save"></i>
-                        Simpan Perubahan
+                    <button class="btn-primary" type="submit">
+                        <i class="bi bi-floppy"></i>
+                        <span>Simpan Perubahan</span>
                     </button>
                 </div>
             </form>
@@ -78,8 +84,8 @@ $batch = is_array($batch ?? null) ? $batch : [];
         <!-- ASIDE INFO CARD -->
         <aside class="bg-white border border-gray-200 rounded-2xl p-6 shadow-xs flex flex-col justify-between">
             <div>
-                <h3 class="text-base font-bold text-gray-900 mb-4 pb-2 border-b border-gray-100 flex items-center gap-2">
-                    <i class="bi bi-info-circle text-blue-600"></i>
+                <h3 class="text-base font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-100 flex items-center gap-2">
+                    <i class="bi bi-info-circle text-gray-800"></i>
                     Informasi Report
                 </h3>
                 <dl class="divide-y divide-gray-100 text-xs mb-6">

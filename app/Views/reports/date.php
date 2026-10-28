@@ -50,9 +50,9 @@ $returnPath = '/reports/date/' . $date;
             ]) ?>
 
             <?php if (can('report.manage')): ?>
-                <a class="btn btn-primary" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
+                <a class="btn-primary" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
                     <i class="bi bi-cloud-arrow-up text-sm"></i>
-                    Upload Excel
+                    <span>Upload Excel</span>
                 </a>
             <?php endif; ?>
         </div>
@@ -243,12 +243,12 @@ $returnPath = '/reports/date/' . $date;
             </div>
 
             <div class="flex items-center gap-2">
-                <a class="py-1.5 px-3 inline-flex justify-center items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors flex-1" href="<?= e(url('/reports/date/' . $date)) ?>">
-                    Reset
+                <a class="btn-secondary flex-1" href="<?= e(url('/reports/date/' . $date)) ?>">
+                    <span>Reset</span>
                 </a>
-                <button class="btn btn-primary py-1.5 px-3.5 inline-flex justify-center items-center gap-x-1.5 text-xs font-semibold rounded-lg focus:outline-none flex-1" type="submit">
+                <button class="btn-primary flex-1" type="submit">
                     <i class="bi bi-funnel"></i>
-                    Filter
+                    <span>Filter</span>
                 </button>
             </div>
         </form>
@@ -376,9 +376,9 @@ $returnPath = '/reports/date/' . $date;
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap text-end">
                                     <div class="inline-flex items-center gap-1.5 justify-end">
-                                        <a class="btn btn-primary btn-primary-sm" href="<?= e(url('/reports/' . $batch['id'])) ?>">
+                                        <a class="btn-primary btn-primary-sm" href="<?= e(url('/reports/' . $batch['id'])) ?>">
                                             <i class="bi bi-table"></i>
-                                            Buka
+                                            <span>Buka</span>
                                         </a>
                                         <?= render_tooltip('Export Excel', '<a class="size-7 inline-flex justify-center items-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none focus:bg-gray-50 transition-colors" href="' . e(url('/reports/' . $batch['id'] . '/export')) . '"><i class="bi bi-file-earmark-excel text-emerald-600"></i></a>') ?>
                                         <?php if (can('report.manage')): ?>
@@ -493,9 +493,9 @@ $returnPath = '/reports/date/' . $date;
                             <?php endif; ?>
                         </div>
 
-                        <a class="btn btn-primary btn-primary-sm" href="<?= e(url('/reports/' . $batch['id'])) ?>">
+                        <a class="btn-primary btn-primary-sm" href="<?= e(url('/reports/' . $batch['id'])) ?>">
                             <i class="bi bi-table"></i>
-                            Buka Report
+                            <span>Buka Report</span>
                         </a>
                     </div>
                 </article>
@@ -504,12 +504,11 @@ $returnPath = '/reports/date/' . $date;
             <?php if ($batches === []): ?>
                 <div class="col-span-full bg-white border border-gray-200 rounded-2xl p-12 text-center shadow-xs">
                     <i class="bi bi-file-earmark-x text-3xl text-gray-400 block mb-3"></i>
-                    <h3 class="text-base font-semibold font-heading text-gray-800 mb-1">Tidak ada report tim</h3>
-                    <p class="text-xs text-gray-500 mb-4">Belum ada berkas pada tanggal ini atau data tidak cocok dengan filter yang dipilih.</p>
+                    <h3 class="text-base font-semibold font-heading text-gray-800 mb-4">Tidak ada report tim</h3>
                     <?php if (can('report.manage')): ?>
-                        <a class="btn btn-primary py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg focus:outline-none" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
+                        <a class="btn-primary" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
                             <i class="bi bi-cloud-arrow-up text-sm"></i>
-                            Tambah Excel
+                            <span>Tambah Excel</span>
                         </a>
                     <?php endif; ?>
                 </div>

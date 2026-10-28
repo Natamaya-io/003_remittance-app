@@ -62,14 +62,14 @@
                 <?= csrf_field() ?>
                 <div class="mb-3">
                     <label class="form-label">Jenis sumber</label>
-                    <select class="form-select" name="source_type" required>
+                    <select class="custom-form-select" name="source_type" required>
                         <option value="">Pilih sumber</option>
                         <?php foreach ($sourceTypes as $key => $label): ?><option value="<?= e($key) ?>"><?= e($label) ?></option><?php endforeach; ?>
                     </select>
                 </div>
-                <div class="mb-3"><label class="form-label">Nama sumber</label><input class="form-control" name="source_name" placeholder="Opsional"></div>
-                <div class="mb-3"><label class="form-label">File Excel</label><input class="form-control" type="file" name="analysis_file" accept=".xlsx,.xls,.csv" required></div>
-                <button class="btn btn-primary"><i class="bi bi-cloud-arrow-up me-1"></i>Import dan Bangun Penilaian</button>
+                <div class="mb-3"><label class="form-label">Nama sumber</label><input class="custom-form-input" name="source_name" placeholder="Opsional"></div>
+                <div class="mb-3"><label class="form-label">File Excel</label><input class="custom-form-input" type="file" name="analysis_file" accept=".xlsx,.xls,.csv" required></div>
+                <button class="btn-primary" type="submit"><i class="bi bi-cloud-arrow-up"></i><span>Import dan Bangun Penilaian</span></button>
             </form>
         </div>
     </div>
@@ -78,7 +78,10 @@
 <div class="spk-section">
     <div class="spk-section-head">
         <div x-data="{ showInfo: false }"><div class="d-inline-flex align-items-center gap-2"><h3 class="m-0">Alur Metode</h3><button type="button" @click="showInfo = !showInfo" class="info-toggle-btn" :class="{ 'is-active': showInfo }" :aria-expanded="showInfo.toString()" aria-label="Tampilkan info alur" title="Informasi bantuan"><i class="bi bi-info-circle text-xs leading-none"></i></button></div><div x-show="showInfo" x-cloak x-transition class="spk-muted mt-1" style="display: none;">Entropy dan TOPSIS mengikuti prosedur pada modul PDF yang digunakan sebagai rujukan metode.</div></div>
-        <a class="btn btn-primary" href="<?= url('/analysis/calculation') ?>"><i class="bi bi-play-fill me-1"></i>Lihat Perhitungan</a>
+        <a class="btn-primary" href="<?= url('/analysis/calculation') ?>">
+            <i class="bi bi-play-fill"></i>
+            <span>Lihat Perhitungan</span>
+        </a>
     </div>
     <div class="spk-formula mb-3"><strong>Pembentukan matriks:</strong> Report 2024 + Actual -> P1/P2 -> C1-C6 -> Matriks X</div>
     <div class="spk-formula mb-3"><strong>Entropy:</strong> Benefit Kij = Xij / max(Xj) -> aij = Kij / Sum(Kij) -> Ej -> Dj = 1 - Ej -> Wj</div>
@@ -87,7 +90,7 @@
 
 <?php if ($latestResults): ?>
 <div class="spk-section">
-    <div class="spk-section-head"><div><h3>Hasil Terakhir</h3><div class="spk-muted"><?= e($latestRun['name'] ?? '') ?> · <?= e(format_datetime($latestRun['created_at'] ?? null)) ?></div></div><a class="btn btn-light" href="<?= url('/analysis/results/' . (int) $latestRun['id']) ?>">Detail</a></div>
+    <div class="spk-section-head"><div><h3>Hasil Terakhir</h3><div class="spk-muted"><?= e($latestRun['name'] ?? '') ?> · <?= e(format_datetime($latestRun['created_at'] ?? null)) ?></div></div><a class="btn-secondary" href="<?= url('/analysis/results/' . (int) $latestRun['id']) ?>"><span>Detail</span></a></div>
     <div class="spk-rank-grid">
         <?php foreach (array_slice($latestResults,0,4) as $row): ?>
         <div class="spk-rank-card"><div class="rank">#<?= (int) $row['rank_position'] ?></div><strong><?= e($row['alternative_name']) ?></strong><small>V = <?= number_format((float) $row['preference_value'],12,',','.') ?></small></div>

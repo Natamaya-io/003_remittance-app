@@ -115,24 +115,24 @@ $filters = array_replace(
             <div class="trx-list-actions">
 
                 <a
-                    class="btn btn-light"
+                    class="btn-secondary"
                     href="<?= url(
                         '/transactions/bri'
                     ) ?>"
                 >
                     <i class="bi bi-file-earmark-arrow-up"></i>
-                    Import Template
+                    <span>Import Template</span>
                 </a>
 
 
                 <a
-                    class="btn btn-primary"
+                    class="btn-primary"
                     href="<?= url(
                         '/transactions/create'
                     ) ?>"
                 >
                     <i class="bi bi-plus-lg"></i>
-                    Input Manual
+                    <span>Input Manual</span>
                 </a>
 
             </div>
@@ -166,7 +166,7 @@ $filters = array_replace(
                 </span>
 
                 <select
-                    class="form-select"
+                    class="custom-form-select"
                     name="company_id"
                 >
 
@@ -220,7 +220,7 @@ $filters = array_replace(
                 </span>
 
                 <select
-                    class="form-select"
+                    class="custom-form-select"
                     name="job_id"
                 >
 
@@ -274,7 +274,7 @@ $filters = array_replace(
                 </span>
 
                 <select
-                    class="form-select"
+                    class="custom-form-select"
                     name="status"
                 >
 
@@ -346,19 +346,19 @@ $filters = array_replace(
             <div class="trx-filter-actions">
 
                 <button
-                    class="btn btn-primary"
+                    class="btn-primary"
                     type="submit"
                 >
-                    Terapkan
+                    <span>Terapkan</span>
                 </button>
 
                 <a
-                    class="btn btn-light"
+                    class="btn-secondary"
                     href="<?= url(
                         '/transactions'
                     ) ?>"
                 >
-                    Reset
+                    <span>Reset</span>
                 </a>
 
             </div>
@@ -799,9 +799,9 @@ $filters = array_replace(
                 ): ?>
 
                     <a
-                        class="btn btn-sm <?= $i === $page
-                            ? 'btn-primary'
-                            : 'btn-light' ?>"
+                        class="<?= $i === $page
+                            ? 'btn-primary btn-primary-sm'
+                            : 'btn-secondary !h-8 !px-3 text-xs' ?>"
                         href="?<?= e(
                             http_build_query(
                                 array_merge(

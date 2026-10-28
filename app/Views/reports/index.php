@@ -82,7 +82,7 @@ $activePeriodFilters = array_filter(
         <button
             type="button"
             @click="openFilterModal = true"
-            class="btn btn-primary"
+            class="btn-primary"
             aria-label="Buka Filter Periode Laporan"
             title="Filter berdasarkan bulan dan tahun"
         >
@@ -96,7 +96,7 @@ $activePeriodFilters = array_filter(
         </button>
 
         <?php if (can('report.manage')): ?>
-            <a class="btn btn-primary" href="<?= e(url('/reports/create')) ?>">
+            <a class="btn-primary" href="<?= e(url('/reports/create')) ?>">
                 <i class="bi bi-cloud-arrow-up text-sm"></i>
                 Upload Excel
             </a>
@@ -146,12 +146,14 @@ $activePeriodFilters = array_filter(
                     <!-- Modal Header -->
                     <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-white">
                         <div class="flex items-center gap-2.5">
-                            <span class="size-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-sm shrink-0">
-                                <i class="bi bi-calendar3"></i>
-                            </span>
-                            <div>
-                                <strong id="modal-filter-title" class="text-sm font-bold text-gray-900 block">Filter Periode Laporan</strong>
-                                <span class="text-xs text-gray-500 block">Saring data laporan berdasarkan bulan dan tahun.</span>
+                            <i class="bi bi-calendar3 text-gray-800 text-lg"></i>
+                            <div class="flex items-center gap-1.5">
+                                <strong id="modal-filter-title" class="text-sm font-semibold text-gray-900 block">Filter Periode Laporan</strong>
+                                <?= render_tooltip(
+                                    'Saring data laporan berdasarkan bulan dan tahun.',
+                                    '<span class="info-toggle-btn cursor-help" aria-label="Info filter periode"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
+                                    ['placement' => 'top']
+                                ) ?>
                             </div>
                         </div>
                         <button
@@ -306,16 +308,16 @@ $activePeriodFilters = array_filter(
                                 <button
                                     type="button"
                                     @click="openFilterModal = false"
-                                    class="py-2 px-3.5 inline-flex justify-center items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none transition-colors cursor-pointer"
+                                    class="btn-secondary"
                                 >
-                                    Batal
+                                    <span>Batal</span>
                                 </button>
                                 <button
-                                    class="btn btn-primary py-2 px-4 inline-flex justify-center items-center gap-x-1.5 text-xs font-semibold rounded-lg focus:outline-none"
+                                    class="btn-primary"
                                     type="submit"
                                 >
                                     <i class="bi bi-funnel"></i>
-                                    Terapkan Filter
+                                    <span>Terapkan Filter</span>
                                 </button>
                             </div>
                         </div>
@@ -469,8 +471,8 @@ $activePeriodFilters = array_filter(
                                     <?= e(format_datetime($lastUpload)) ?>
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap text-end">
-                                    <a class="btn btn-primary btn-primary-sm" href="<?= e(url($monthUrl)) ?>">
-                                        Buka Bulan
+                                    <a class="btn-primary btn-primary-sm" href="<?= e(url($monthUrl)) ?>">
+                                        <span>Buka Bulan</span>
                                         <i class="bi bi-arrow-right"></i>
                                     </a>
                                 </td>
@@ -589,8 +591,8 @@ $activePeriodFilters = array_filter(
                         <span class="text-[11px] text-gray-500 truncate tabular-nums">
                             Upload: <?= e(format_datetime($lastUpload)) ?>
                         </span>
-                        <a class="btn btn-primary btn-primary-sm" href="<?= e(url($monthUrl)) ?>">
-                            Buka Bulan
+                        <a class="btn-primary btn-primary-sm" href="<?= e(url($monthUrl)) ?>">
+                            <span>Buka Bulan</span>
                             <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
@@ -600,12 +602,11 @@ $activePeriodFilters = array_filter(
             <?php if ($months === []): ?>
                 <div class="col-span-full bg-white border border-gray-200 rounded-2xl p-12 text-center shadow-xs">
                     <i class="bi bi-calendar-x text-3xl text-gray-400 block mb-3"></i>
-                    <h3 class="text-base font-semibold font-heading text-gray-800 mb-1">Tidak ada bulan yang cocok</h3>
-                    <p class="text-xs text-gray-500 mb-4">Ubah filter atau upload report baru untuk mulai mengisi data.</p>
+                    <h3 class="text-base font-semibold font-heading text-gray-800 mb-4">Tidak ada bulan yang cocok</h3>
                     <?php if (can('report.manage')): ?>
-                        <a class="btn btn-primary py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-semibold rounded-lg focus:outline-none" href="<?= e(url('/reports/create')) ?>">
+                        <a class="btn-primary" href="<?= e(url('/reports/create')) ?>">
                             <i class="bi bi-cloud-arrow-up text-sm"></i>
-                            Upload Report
+                            <span>Upload Report</span>
                         </a>
                     <?php endif; ?>
                 </div>

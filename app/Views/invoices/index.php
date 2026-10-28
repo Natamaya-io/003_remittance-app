@@ -55,11 +55,11 @@ $templateColorClass = static fn (string $type): string => match ($type) {
 <?php if (can('invoice.manage')): ?>
     <div class="page-actions d-flex justify-content-end mb-4">
         <a
-            class="btn btn-primary"
+            class="btn-primary"
             href="<?= url('/invoice_templates.php') ?>"
         >
-            <i class="bi bi-layout-text-window me-1"></i>
-            Kelola Template
+            <i class="bi bi-layout-text-window"></i>
+            <span>Kelola Template</span>
         </a>
     </div>
 <?php endif; ?>
@@ -322,7 +322,7 @@ $templateColorClass = static fn (string $type): string => match ($type) {
                                     "
                                 >
                                     <a
-                                        class="btn btn-sm btn-light"
+                                        class="action-icon-btn"
                                         title="Preview"
                                         href="<?= url(
                                             '/invoice_templates.php'
@@ -335,7 +335,7 @@ $templateColorClass = static fn (string $type): string => match ($type) {
 
                                     <?php if (can('invoice.manage')): ?>
                                         <a
-                                            class="btn btn-sm btn-light"
+                                            class="action-icon-btn"
                                             title="Edit"
                                             href="<?= url(
                                                 '/invoice_templates.php'

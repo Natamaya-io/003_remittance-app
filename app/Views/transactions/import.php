@@ -275,11 +275,11 @@ $manualColumns = [
 
     <div class="page-actions d-flex justify-content-end mb-4">
         <a
-            class="btn btn-light"
+            class="btn-secondary"
             href="<?= url('/transactions') ?>"
         >
-            <i class="bi bi-arrow-left me-1"></i>
-            Pilihan Bank
+            <i class="bi bi-arrow-left"></i>
+            <span>Pilihan Bank</span>
         </a>
     </div>
 
@@ -335,7 +335,7 @@ $manualColumns = [
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="job_name"
                         placeholder="Contoh: TRANSAKSI 11 AGUSTUS 2026"
                     >
@@ -350,7 +350,7 @@ $manualColumns = [
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         type="email"
                         name="output_email"
                         value="remit.service09@gmail.com"
@@ -371,7 +371,7 @@ $manualColumns = [
                         </span>
 
                         <select
-                            class="form-select"
+                            class="custom-form-select"
                             name="team_no"
                         >
 
@@ -574,21 +574,21 @@ $manualColumns = [
                         </span>
 
                         <button
-                            class="btn btn-light btn-sm"
+                            class="btn-secondary !h-8 !px-3 text-xs"
                             type="button"
                             id="addManualRows"
                         >
                             <i class="bi bi-plus-lg"></i>
-                            10 baris
+                            <span>10 baris</span>
                         </button>
 
                         <button
-                            class="btn btn-light btn-sm"
+                            class="btn-secondary !h-8 !px-3 text-xs"
                             type="button"
                             id="clearManualGrid"
                         >
                             <i class="bi bi-eraser"></i>
-                            Bersihkan
+                            <span>Bersihkan</span>
                         </button>
 
                     </div>
@@ -3412,12 +3412,9 @@ td[data-key="payer_country"] .payer-master-select {
                 ) {
                     event.preventDefault();
 
-
-                    alert(
-                        'Spreadsheet masih kosong.'
-                    );
-
-
+                    if (window.RemitToast) {
+                        window.RemitToast.error('Spreadsheet masih kosong.');
+                    }
                     return;
                 }
 
@@ -3430,12 +3427,9 @@ td[data-key="payer_country"] .payer-master-select {
                 ) {
                     event.preventDefault();
 
-
-                    alert(
-                        'Pilih file transaksi terlebih dahulu.'
-                    );
-
-
+                    if (window.RemitToast) {
+                        window.RemitToast.error('Pilih file transaksi terlebih dahulu.');
+                    }
                     return;
                 }
 

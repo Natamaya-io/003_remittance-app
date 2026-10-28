@@ -92,7 +92,7 @@ $action =
 
     <div class="page-actions d-flex justify-content-end mb-4">
         <a
-            class="btn btn-light"
+            class="btn-secondary"
             href="<?= url('/transactions') ?>"
         >
             <i class="bi bi-arrow-left me-1"></i>
@@ -159,7 +159,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="sequence_no"
                         value="<?= e(
                             (string) (
@@ -181,7 +181,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="reference_no"
                         value="<?= e(
                             (string) (
@@ -203,7 +203,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="invoice_no"
                         value="<?= e(
                             (string) (
@@ -225,7 +225,7 @@ $action =
                     </span>
 
                     <select
-                        class="form-select"
+                        class="custom-form-select"
                         name="team_no"
                     >
 
@@ -264,7 +264,7 @@ $action =
                     </span>
 
                     <select
-                        class="form-select"
+                        class="custom-form-select"
                         name="status"
                     >
 
@@ -336,7 +336,7 @@ $action =
                     </span>
 
                     <select
-                        class="form-select"
+                        class="custom-form-select"
                         name="payer_company_id"
                         id="payerCompany"
                         required
@@ -395,7 +395,7 @@ $action =
                     </span>
 
                     <select
-                        class="form-select"
+                        class="custom-form-select"
                         name="payer_account_id"
                         id="payerAccountMaster"
                     >
@@ -509,7 +509,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="payer_account"
                         id="payerAccount"
                         value="<?= e(
@@ -532,7 +532,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="payer_bank"
                         id="payerBank"
                         value="<?= e(
@@ -555,7 +555,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="payer_address"
                         id="payerAddress"
                         value="<?= e(
@@ -578,7 +578,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="payer_city"
                         id="payerCity"
                         value="<?= e(
@@ -601,7 +601,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="payer_country"
                         id="payerCountry"
                         value="<?= e(
@@ -624,7 +624,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         type="email"
                         name="payer_email"
                         id="payerEmail"
@@ -677,7 +677,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="beneficiary_name"
                         value="<?= e(
                             (string) (
@@ -699,7 +699,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="beneficiary_account"
                         value="<?= e(
                             (string) (
@@ -721,7 +721,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="beneficiary_bank"
                         value="<?= e(
                             (string) (
@@ -743,7 +743,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="beneficiary_bank_location"
                         value="<?= e(
                             (string) (
@@ -765,7 +765,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="beneficiary_address"
                         value="<?= e(
                             (string) (
@@ -787,7 +787,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="beneficiary_city"
                         value="<?= e(
                             (string) (
@@ -809,7 +809,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="beneficiary_country"
                         value="<?= e(
                             (string) (
@@ -831,7 +831,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="swift"
                         value="<?= e(
                             (string) (
@@ -882,7 +882,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="amount"
                         required
                         value="<?= e(
@@ -905,7 +905,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="currency"
                         required
                         maxlength="3"
@@ -929,7 +929,7 @@ $action =
                     </span>
 
                     <input
-                        class="form-control"
+                        class="custom-form-input"
                         name="payment_details"
                         value="<?= e(
                             (string) (
@@ -951,7 +951,7 @@ $action =
                     </span>
 
                     <textarea
-                        class="form-control"
+                        class="custom-form-textarea"
                         name="notes"
                         rows="3"
                     ><?= e(
@@ -973,7 +973,7 @@ $action =
         <footer class="trx-edit-actions">
 
             <a
-                class="btn btn-light"
+                class="btn-secondary"
                 href="<?= url('/transactions') ?>"
             >
                 Batal
@@ -981,7 +981,7 @@ $action =
 
 
             <button
-                class="btn btn-primary"
+                class="btn-primary"
                 type="submit"
             >
                 <i class="bi bi-check-lg"></i>

@@ -911,22 +911,22 @@ $fxBoardFile =
 
         <div x-data="{ search: '', status: 'all' }" class="dashboard-recent-filter-wrap">
 
-        <div class="flex flex-wrap items-center justify-between gap-2 p-3 bg-[#f8fafc] border border-b-0 border-[#e2e8f0] rounded-t-xl">
+        <div class="flex flex-wrap items-center justify-between gap-2 p-3 bg-[#F5F2F2] border border-b-0 border-[#e2e8f0] rounded-t-xl">
             <div class="relative flex-1 min-w-[220px] max-w-md">
                 <input
                     type="text"
                     x-model="search"
                     placeholder="Cari transaksi (referensi, PT, penerima)..."
-                    class="py-1.5 px-3 ps-8 block w-full border border-[#e2e8f0] bg-white rounded-lg text-xs text-gray-900 placeholder:text-gray-400 focus:border-[#315B8C] focus:ring-[#315B8C]"
+                    class="custom-search-input w-full"
                 >
-                <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-2.5 text-gray-500">
+                <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none ps-3 text-gray-500">
                     <i class="bi bi-search text-xs"></i>
                 </div>
                 <button
                     type="button"
                     x-show="search.length > 0"
                     @click="search = ''"
-                    class="absolute inset-y-0 end-0 flex items-center pe-2.5 text-gray-500 hover:text-black"
+                    class="absolute inset-y-0 end-0 flex items-center pe-3 text-gray-500 hover:text-black cursor-pointer"
                     style="display: none;"
                 >
                     <i class="bi bi-x-circle text-xs"></i>
@@ -938,31 +938,31 @@ $fxBoardFile =
                     type="button"
                     @click="status = 'all'"
                     :class="status === 'all' ? 'bg-[#315B8C] text-white border-[#315B8C]' : 'bg-white text-gray-700 border-[#e2e8f0] hover:bg-[#eff6ff] hover:text-[#315B8C]'"
-                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border border-[#e2e8f0] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
+                    class="h-10 px-3 inline-flex items-center text-xs font-medium border border-[#e2e8f0] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none cursor-pointer"
                 >
                     Semua
                 </button>
                 <button
                     type="button"
                     @click="status = 'success'"
-                    :class="status === 'success' ? 'bg-emerald-600 text-white' : 'bg-white text-gray-700 hover:bg-[#eff6ff] hover:text-[#315B8C]'"
-                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-[#e2e8f0] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
+                    :class="status === 'success' ? 'bg-emerald-600 text-white border-emerald-600' : 'bg-white text-gray-700 hover:bg-[#eff6ff] hover:text-[#315B8C]'"
+                    class="h-10 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-[#e2e8f0] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none cursor-pointer"
                 >
                     Sukses
                 </button>
                 <button
                     type="button"
                     @click="status = 'pending'"
-                    :class="status === 'pending' ? 'bg-amber-500 text-white' : 'bg-white text-gray-700 hover:bg-[#eff6ff] hover:text-[#315B8C]'"
-                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-[#e2e8f0] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
+                    :class="status === 'pending' ? 'bg-amber-500 text-white border-amber-500' : 'bg-white text-gray-700 hover:bg-[#eff6ff] hover:text-[#315B8C]'"
+                    class="h-10 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-[#e2e8f0] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none cursor-pointer"
                 >
                     Pending
                 </button>
                 <button
                     type="button"
                     @click="status = 'refund'"
-                    :class="status === 'refund' ? 'bg-rose-600 text-white' : 'bg-white text-gray-700 hover:bg-[#eff6ff] hover:text-[#315B8C]'"
-                    class="py-1.5 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-[#e2e8f0] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none"
+                    :class="status === 'refund' ? 'bg-[#dc2626] text-white border-[#dc2626]' : 'bg-white text-gray-700 hover:bg-[#eff6ff] hover:text-[#315B8C]'"
+                    class="h-10 px-3 inline-flex items-center text-xs font-medium border-t border-b border-e border-[#e2e8f0] first:rounded-s-lg last:rounded-e-lg focus:z-10 focus:outline-none cursor-pointer"
                 >
                     Refund
                 </button>

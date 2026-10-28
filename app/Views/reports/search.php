@@ -253,12 +253,12 @@ $queryText = (string) ($filters['q'] ?? '');
             </div>
 
             <div class="sm:col-span-2 flex items-end gap-2 pt-1">
-                <button class="btn-primary py-2 px-5 inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg shadow-xs focus:outline-hidden" type="submit">
+                <button class="btn-primary" type="submit">
                     <i class="bi bi-search"></i>
-                    Cari Data
+                    <span>Cari Data</span>
                 </button>
-                <a class="py-2 px-3.5 inline-flex items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors focus:outline-hidden focus:bg-gray-50" href="<?= e(url('/reports/search')) ?>">
-                    Reset
+                <a class="btn-secondary" href="<?= e(url('/reports/search')) ?>">
+                    <span>Reset</span>
                 </a>
             </div>
         </form>
@@ -347,12 +347,12 @@ $queryText = (string) ($filters['q'] ?? '');
                     </div>
 
                     <div class="flex items-center gap-2 pt-2 border-t border-gray-200">
-                        <a class="btn-primary py-1.5 px-3 flex-1 justify-center inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg shadow-xs focus:outline-hidden" href="<?= e(url('/reports/' . $batch['id'] . '?q=' . urlencode($queryText))) ?>">
-                            Buka Report
+                        <a class="btn-primary flex-1 justify-center" href="<?= e(url('/reports/' . $batch['id'] . '?q=' . urlencode($queryText))) ?>">
+                            <span>Buka Report</span>
                         </a>
                         <?php $batchDateLink = !empty($batch['effective_date']) ? url('/reports/date/' . $batch['effective_date']) : url('/reports'); ?>
-                        <a class="py-1.5 px-3 inline-flex items-center justify-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors focus:outline-hidden focus:bg-gray-50" href="<?= e($batchDateLink) ?>">
-                            Lihat Tanggal
+                        <a class="btn-secondary flex-1 justify-center" href="<?= e($batchDateLink) ?>">
+                            <span>Lihat Tanggal</span>
                         </a>
                     </div>
                 </article>
@@ -362,7 +362,7 @@ $queryText = (string) ($filters['q'] ?? '');
                 <div class="col-span-full py-10 text-center text-gray-400">
                     <i class="bi bi-file-earmark-x text-3xl block mb-2 text-gray-300"></i>
                     <h3 class="text-sm font-semibold font-heading text-gray-700">Tidak ada report yang cocok</h3>
-                    <p class="text-xs text-gray-400 mt-0.5">Coba gunakan kata kunci atau rentang tanggal lain.</p>
+                </div>
                 </div>
             <?php endif; ?>
         </div>

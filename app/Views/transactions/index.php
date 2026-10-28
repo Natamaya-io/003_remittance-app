@@ -55,10 +55,13 @@ $bniBatches = (int) ($bniBatches ?? 0);
             <div class="bank-choice-footer pt-4 border-t border-gray-100 flex items-center justify-between gap-3 mt-auto">
                 <span class="bank-choice-count text-xs text-gray-500"><strong class="font-semibold text-gray-800 tabular-nums"><?= $briJobs ?></strong> batch tersimpan</span>
                 <div class="bank-choice-actions flex items-center gap-2">
-                    <a class="btn btn-light py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-700" href="<?= url('/transactions/bri/history') ?>">Riwayat</a>
+                    <a class="btn-secondary" href="<?= url('/transactions/bri/history') ?>">
+                        <span>Riwayat</span>
+                    </a>
                     <?php if (can('transaction.manage')): ?>
-                        <a class="btn btn-primary py-2 px-3.5 text-xs font-medium rounded-lg" href="<?= url('/transactions/bri') ?>">
-                            <i class="bi bi-file-earmark-arrow-up me-1"></i> Import Template
+                        <a class="btn-primary" href="<?= url('/transactions/bri') ?>">
+                            <i class="bi bi-file-earmark-arrow-up"></i>
+                            <span>Import Template</span>
                         </a>
                     <?php endif; ?>
                 </div>
@@ -110,11 +113,14 @@ $bniBatches = (int) ($bniBatches ?? 0);
             <div class="bank-choice-footer pt-4 border-t border-gray-100 flex items-center justify-between gap-3 mt-auto">
                 <span class="bank-choice-count text-xs text-gray-500"><strong class="font-semibold text-gray-800 tabular-nums"><?= $bniBatches ?></strong> batch tersimpan</span>
                 <?php if (can('transaction.manage')): ?>
-                    <a class="btn btn-primary py-2 px-3.5 text-xs font-medium rounded-lg" href="<?= url('/transactions/bni') ?>">
-                        <i class="bi bi-file-earmark-arrow-up me-1"></i> Import Template
+                    <a class="btn-primary" href="<?= url('/transactions/bni') ?>">
+                        <i class="bi bi-file-earmark-arrow-up"></i>
+                        <span>Import Template</span>
                     </a>
                 <?php else: ?>
-                    <a class="btn btn-light py-2 px-3 text-xs font-medium rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-700" href="<?= url('/transactions/bni') ?>">Lihat BNI</a>
+                    <a class="btn-secondary" href="<?= url('/transactions/bni') ?>">
+                        <span>Lihat BNI</span>
+                    </a>
                 <?php endif; ?>
             </div>
         </article>

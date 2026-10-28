@@ -141,9 +141,9 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                 </div>
             </div>
 
-            <a class="btn-primary py-2 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg shadow-xs focus:outline-hidden" href="<?= e(url('/reports/' . $batch['id'] . '/export')) ?>">
+            <a class="btn-primary" href="<?= e(url('/reports/' . $batch['id'] . '/export')) ?>">
                 <i class="bi bi-download"></i>
-                Download Excel
+                <span>Download Excel</span>
             </a>
         </div>
     </div>
@@ -365,12 +365,12 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
             </div>
 
             <div class="flex items-center justify-end gap-2 pt-2 border-t border-gray-100">
-                <a class="py-1.5 px-3 inline-flex items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors focus:outline-hidden focus:bg-gray-50" href="<?= e(url('/reports/' . $batch['id'])) ?>">
-                    Reset
+                <a class="btn-secondary" href="<?= e(url('/reports/' . $batch['id'])) ?>">
+                    <span>Reset</span>
                 </a>
-                <button class="btn-primary py-1.5 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg shadow-xs focus:outline-hidden" type="submit">
+                <button class="btn-primary" type="submit">
                     <i class="bi bi-funnel"></i>
-                    Terapkan Filter
+                    <span>Terapkan Filter</span>
                 </button>
             </div>
         </form>
@@ -597,25 +597,25 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                     </div>
 
                     <div class="flex items-center gap-2 flex-wrap">
-                        <select class="py-1.5 px-2.5 rounded-lg text-xs bg-gray-800 text-white border border-gray-600 focus:border-blue-400 focus:outline-none" name="delivery_status">
+                        <select class="h-9 px-3 rounded-lg text-xs bg-gray-800 text-white border border-gray-600 focus:border-[#315B8C] focus:outline-none" name="delivery_status">
                             <option value="">Status Kirim...</option>
                             <option value="PENDING">Belum Terkirim</option>
                             <option value="SENT">Terkirim</option>
                         </select>
 
-                        <select class="py-1.5 px-2.5 rounded-lg text-xs bg-gray-800 text-white border border-gray-600 focus:border-blue-400 focus:outline-none" name="result_status">
+                        <select class="h-9 px-3 rounded-lg text-xs bg-gray-800 text-white border border-gray-600 focus:border-[#315B8C] focus:outline-none" name="result_status">
                             <option value="">Hasil...</option>
                             <option value="PENDING">Pending</option>
                             <option value="SUCCESS">Success</option>
                             <option value="FAILED">Failed</option>
                         </select>
 
-                        <button class="btn-primary py-1.5 px-3.5 inline-flex items-center gap-x-1.5 text-xs font-semibold rounded-lg shadow-xs focus:outline-hidden" type="submit">
-                            Terapkan
+                        <button class="btn-primary" type="submit">
+                            <span>Terapkan</span>
                         </button>
 
-                        <button type="button" @click="toggleAll(false)" class="py-1.5 px-2.5 inline-flex items-center text-xs font-medium rounded-lg text-gray-300 hover:text-white hover:bg-gray-700/80 transition-colors focus:outline-hidden">
-                            Batal
+                        <button type="button" @click="toggleAll(false)" class="btn-secondary !bg-gray-800 !text-gray-200 !border-gray-600 hover:!bg-gray-700">
+                            <span>Batal</span>
                         </button>
                     </div>
                 </form>
@@ -646,7 +646,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                 <!-- Modal Header -->
                 <div class="flex items-center justify-between pb-3 border-b border-gray-100">
                     <div>
-                        <h3 class="text-sm font-bold text-gray-900">Ubah Status Transaksi #<span x-text="activeRow.order"></span></h3>
+                        <h3 class="text-sm font-semibold text-gray-900">Ubah Status Transaksi #<span x-text="activeRow.order"></span></h3>
                         <p class="text-xs text-gray-500 mt-0.5 truncate max-w-xs" x-text="activeRow.beneficiary"></p>
                     </div>
                     <button type="button" @click="editModalOpen = false" class="size-8 inline-flex justify-center items-center text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors focus:outline-hidden focus:bg-gray-100">
@@ -662,7 +662,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                     </div>
                     <div class="flex justify-between text-gray-500">
                         <span>Nominal:</span>
-                        <strong class="text-blue-700 font-bold font-mono" x-text="activeRow.amount"></strong>
+                        <strong class="text-[#315B8C] font-semibold font-mono" x-text="activeRow.amount"></strong>
                     </div>
                 </div>
 
@@ -673,7 +673,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
 
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1">Status Kirim</label>
-                        <select class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs bg-white" name="delivery_status" x-model="activeRow.delivery">
+                        <select class="custom-form-select" name="delivery_status" x-model="activeRow.delivery">
                             <option value="PENDING">Belum Terkirim</option>
                             <option value="SENT">Terkirim</option>
                         </select>
@@ -681,7 +681,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
 
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1">Hasil Transaksi</label>
-                        <select class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs bg-white" name="result_status" x-model="activeRow.result">
+                        <select class="custom-form-select" name="result_status" x-model="activeRow.result">
                             <option value="PENDING">Pending</option>
                             <option value="SUCCESS">Success</option>
                             <option value="FAILED">Failed</option>
@@ -690,15 +690,15 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
 
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1">Catatan Operasional</label>
-                        <textarea class="py-2 px-3 block w-full border border-gray-300 rounded-xl text-xs focus:border-blue-500 focus:ring-blue-500 shadow-xs" name="notes" rows="2" x-model="activeRow.notes" placeholder="Catatan opsional..."></textarea>
+                        <textarea class="custom-form-textarea" name="notes" rows="2" x-model="activeRow.notes" placeholder="Catatan opsional..."></textarea>
                     </div>
 
                     <div class="flex items-center justify-end gap-2 pt-2 border-t border-gray-100">
-                        <button type="button" @click="editModalOpen = false" class="py-2 px-3.5 inline-flex items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors focus:outline-hidden focus:bg-gray-50">
-                            Batal
+                        <button type="button" @click="editModalOpen = false" class="btn-secondary">
+                            <span>Batal</span>
                         </button>
-                        <button type="submit" class="btn-primary py-2 px-4 inline-flex items-center justify-center text-xs font-semibold rounded-lg shadow-xs focus:outline-hidden">
-                            Simpan Perubahan
+                        <button type="submit" class="btn-primary">
+                            <span>Simpan Perubahan</span>
                         </button>
                     </div>
                 </form>

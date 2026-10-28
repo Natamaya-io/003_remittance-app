@@ -6,8 +6,13 @@ $rows = is_array($rows ?? null) ? $rows : [];
 ?>
 <div class="bni-batch-page">
     <div class="page-actions d-flex justify-content-end gap-2 flex-wrap mb-4">
-        <a class="btn btn-light" href="<?= url('/transactions/bni') ?>"><i class="bi bi-arrow-left me-1"></i> Input BNI</a>
-        <a class="btn btn-light" href="<?= url('/transactions') ?>">Pilihan Bank</a>
+        <a class="btn-secondary" href="<?= url('/transactions/bni') ?>">
+            <i class="bi bi-arrow-left"></i>
+            <span>Input BNI</span>
+        </a>
+        <a class="btn-secondary" href="<?= url('/transactions') ?>">
+            <span>Pilihan Bank</span>
+        </a>
     </div>
     <section class="panel-card">
         <div class="table-responsive">
@@ -24,7 +29,7 @@ $rows = is_array($rows ?? null) ? $rows : [];
                         <td><?= e((string) ($data['remitter_name'] ?? '-')) ?></td>
                         <td><?= e((string) ($data['currency'] ?? '-')) ?></td>
                         <td><?= number_format((float) ($data['amount'] ?? 0),2,',','.') ?></td>
-                        <td class="text-end"><a class="btn btn-sm btn-primary" href="<?= url('/transactions/bni/rows/' . (int) $row['id'] . '/print') ?>"><i class="bi bi-printer me-1"></i> Preview / Cetak</a></td>
+                        <td class="text-end"><a class="btn-primary btn-primary-sm" href="<?= url('/transactions/bni/rows/' . (int) $row['id'] . '/print') ?>"><i class="bi bi-printer"></i><span>Preview / Cetak</span></a></td>
                     </tr>
                 <?php endforeach; ?>
                 <?php if ($rows===[]): ?><tr><td colspan="9" class="empty-state">Batch tidak memiliki data.</td></tr><?php endif; ?>
