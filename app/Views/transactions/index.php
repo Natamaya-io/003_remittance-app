@@ -47,7 +47,7 @@ $bniBatches = (int) ($bniBatches ?? 0);
                 <img src="<?= e(url('/bni-logo.svg')) ?>" alt="Bank BNI" class="h-12 w-auto max-w-[140px] mb-4 object-contain select-none">
                 <div class="bank-choice-copy">
                     <span class="bank-choice-kicker text-xs font-semibold tracking-wide uppercase">BANK BNI</span>
-                    <div class="mt-1 mb-3">
+                    <div class="mt-1 mb-6">
                         <?= render_heading_with_info(
                             'Transaksi BNI',
                             'Copy paste tabel Excel, bentuk data formulir Kiriman Uang BNI, lalu cetak PDF/preview.',
@@ -58,10 +58,6 @@ $bniBatches = (int) ($bniBatches ?? 0);
                             ]
                         ) ?>
                     </div>
-                </div>
-                <div class="bank-flow-mini two flex flex-wrap gap-2 text-xs text-gray-500 mb-6">
-                    <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-lg bg-gray-100 font-medium"><b>1</b> Copy Paste Excel</span>
-                    <span class="inline-flex items-center gap-1.5 py-1 px-2.5 rounded-lg bg-gray-100 font-medium"><b>2</b> Form BNI & Cetak</span>
                 </div>
             </div>
             <div class="bank-choice-footer pt-4 border-t border-gray-100 flex items-center justify-between gap-3 mt-auto">
