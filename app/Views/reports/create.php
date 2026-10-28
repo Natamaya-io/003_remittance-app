@@ -74,7 +74,14 @@ $defaultReportName = 'LAPORAN - ' . ($monthNames[$monthNumber] ?? strtoupper(dat
 
                 <!-- ALPINE DRAG & DROP FILE ZONE -->
                 <div class="mb-6">
-                    <label class="block text-xs font-semibold text-gray-700 mb-1.5">Berkas Excel (XLSX / CSV) *</label>
+                    <div class="flex items-center gap-1.5 mb-1.5">
+                        <label class="block text-xs font-semibold text-gray-700">Berkas Excel (XLSX / CSV) *</label>
+                        <?= render_tooltip(
+                            'Header berkas wajib mencakup Bill To, Beneficiary Name, Amounts, dan Currency.',
+                            '<span class="info-toggle-btn cursor-help" aria-label="Info format kolom berkas"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
+                            ['placement' => 'top']
+                        ) ?>
+                    </div>
                     <div
                         class="relative border-2 border-dashed rounded-2xl p-8 text-center transition-all cursor-pointer"
                         :class="dragging ? 'border-[#315B8C] bg-blue-50/50' : 'border-gray-300 bg-[#F5F2F2]/50 hover:bg-[#F5F2F2] hover:border-gray-400'"
@@ -176,18 +183,6 @@ $defaultReportName = 'LAPORAN - ' . ($monthNames[$monthNumber] ?? strtoupper(dat
                         </div>
                     </li>
                 </ol>
-
-                <div class="alert alert-info mb-4" role="alert">
-                    <div class="alert-content">
-                        <span class="alert-icon">
-                            <i class="bi bi-info-circle-fill"></i>
-                        </span>
-                        <div class="alert-body">
-                            <strong class="alert-title">Format Kolom Berkas</strong>
-                            <div class="alert-message">Header berkas wajib mencakup <b>Bill To</b>, <b>Beneficiary Name</b>, <b>Amounts</b>, dan <b>Currency</b>.</div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <a class="btn-secondary w-full" href="<?= asset('templates/report-import-template.csv') ?>" download>
@@ -197,4 +192,15 @@ $defaultReportName = 'LAPORAN - ' . ($monthNames[$monthNumber] ?? strtoupper(dat
         </aside>
     </div>
 
+    <!-- FLOATING TOAST NOTIFICATION (GEMINI.MD SECTION 16 - ZERO LAYOUT SHIFT) -->
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.remitToast && typeof window.remitToast.info === 'function') {
+            window.remitToast.info('Header berkas wajib mencakup Bill To, Beneficiary Name, Amounts, dan Currency.', {
+                title: 'Format Kolom Berkas',
+                duration: 6000
+            });
+        }
+    });
+    </script>
 </div>
