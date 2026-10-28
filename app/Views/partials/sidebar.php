@@ -380,10 +380,11 @@ $userRoleName = trim(
                     <button
                         type="button"
                         @click="openMobileSheet = false"
-                        class="size-8 inline-flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200"
+                        class="modal-close"
                         aria-label="Tutup menu"
+                        title="Tutup menu"
                     >
-                        <i class="bi bi-x text-lg"></i>
+                        <i class="bi bi-x-lg text-xs leading-none"></i>
                     </button>
                 </div>
             </div>

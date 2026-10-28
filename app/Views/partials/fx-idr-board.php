@@ -1833,11 +1833,10 @@ $quotesCsv =
                 class="fx-detail-close"
                 type="button"
                 data-fx-close
-                aria-label="Tutup"
+                aria-label="Tutup detail kurs"
+                title="Tutup detail kurs"
             >
-
-                ×
-
+                <i class="bi bi-x-lg text-xs leading-none"></i>
             </button>
 
 

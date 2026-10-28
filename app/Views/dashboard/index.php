@@ -925,11 +925,13 @@ $fxBoardFile =
                 <button
                     type="button"
                     x-show="search.length > 0"
+                    x-cloak
                     @click="search = ''"
-                    class="absolute inset-y-0 end-0 flex items-center pe-3 text-gray-500 hover:text-black cursor-pointer"
-                    style="display: none;"
+                    class="search-clear-btn"
+                    aria-label="Bersihkan pencarian"
+                    title="Bersihkan pencarian"
                 >
-                    <i class="bi bi-x-circle text-xs"></i>
+                    <i class="bi bi-x-circle-fill text-xs leading-none"></i>
                 </button>
             </div>
 

@@ -78,14 +78,15 @@ Setiap blok alert wajib mengikuti struktur hierarki berikut:
         </div>
     </div>
 
-    <!-- Tombol Tutup (Dismissible) -->
+    <!-- Tombol Tutup (.alert-close) -->
     <button
         class="alert-close"
         type="button"
         @click="show = false"
         aria-label="Tutup notifikasi"
+        title="Tutup notifikasi"
     >
-        <i class="bi bi-x text-lg leading-none"></i>
+        <i class="bi bi-x-lg text-xs leading-none"></i>
     </button>
 </div>
 ```
@@ -1814,4 +1815,26 @@ Sebelum menyerahkan tugas atau melakukan commit pada kode yang menyentuh `/login
 - [ ] Apakah fungsi toggle password bekerja dua arah (`bi-eye` untuk tampilkan, `bi-eye-slash` untuk sembunyikan) dengan aksesibilitas keyboard lengkap?
 - [ ] Apakah halaman bersih dari badge keamanan palsu, lencana seremonial, teks deskripsi statis, dan footer copyright?
 - [ ] Apakah notifikasi flash sesi menggunakan sistem toast mengambang bebas layout shift?
+
+---
+
+## 20. Aturan Terkunci: Sistem Tombol X Penutup & Pembersih Global (Universal Dismiss, Close & Clear Button Discipline)
+
+Seluruh tombol berbasis tanda silang / penutup (Tombol "X") di seluruh aplikasi RemitGo! **MUTLAK WAJIB** menggunakan sistem komponen terstandarisasi di `@layer components`, bebas dari glif matematika kurus `bi-x`, bebas dari karakter mentah teks Unicode `×`, dan bebas dari rangkaian utilitas ad-hoc sementara (*zero-placeholder*).
+
+### 20.1. Matriks Standar 5 Komponen Tombol X
+
+| Komponen | CSS Class | Target Penggunaan | Geometri & Hit-Target | Ikon Resmi | Interaksi Fisika Taktil |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Toast Close** | `.toast-close` | Popup toast notifikasi (`#remitToastContainer`) | $28\times 28\text{px}$, radius 8px, margin `-3px` | `<i class="bi bi-x-lg text-xs leading-none"></i>` | Hover `opacity: 1`, bg `rgba(0,0,0,0.08)`, Active: `translateY(1px)`, bg `rgba(0,0,0,0.14)` |
+| **Alert Close** | `.alert-close` | Banner notifikasi inline (`.alert`) | $26\times 26\text{px}$, radius 8px, margin `-2px -4px` | `<i class="bi bi-x-lg text-xs leading-none"></i>` | Hover `opacity: 1`, bg `rgba(0,0,0,0.06)`, Active: `translateY(1px)`, bg `rgba(0,0,0,0.12)` |
+| **Modal Close** | `.modal-close` | Modal dialog, popup filter, drawer / mobile sheet | $32\times 32\text{px}$, radius 8px | `<i class="bi bi-x-lg text-xs leading-none"></i>` | Hover color `#111827`, bg `#f3f4f6`, Active: `translateY(1px)`, bg `#e5e7eb` |
+| **Search Clear** | `.search-clear-btn` | Input search bar (dashboard & laporan) | $22\times 22\text{px}$, lingkaran penuh (`rounded-full`) | `<i class="bi bi-x-circle-fill text-xs leading-none"></i>` | Hover color `#ef4444`, bg `#fee2e2`, Active: `translateY(1px)`, bg `#fecaca` |
+| **FX Detail Close** | `.fx-detail-close` | Modal popover detail kurs IDR | Radius 10px, sudut kanan atas modal | `<i class="bi bi-x-lg text-xs leading-none"></i>` | Hover Zero-Transform (DILARANG rotate/scale), Active: `translateY(1px)` |
+
+### 20.2. Hukum Larangan Glif Draf & Efek Liar
+1. **Pemusnahan Glif Tipis `bi-x`:** Dilarang keras menggunakan `<i class="bi bi-x"></i>` karena merupakan glif matematika tipis yang terlihat pudar pada resolusi tinggi. Seluruh tombol penutup aksi wajib menggunakan `<i class="bi bi-x-lg text-xs leading-none"></i>`.
+2. **Pemusnahan Karakter Mentah `×`:** Dilarang menulis teks huruf Unicode `×` di dalam HTML tanpa tag ikon `<i>`.
+3. **Pemusnahan Efek Transformasi Liar:** Dilarang menggunakan `transform: rotate(...)` atau `scale(...)` pada state hover tombol penutup mana pun (mematuhi Bagian 1.2 dan Bagian 13).
+4. **Kewajiban Aksesibilitas Lengkap:** Seluruh tombol penutup wajib menyertakan atribut `aria-label="Tutup..."` dan `title="Tutup..."`.
 

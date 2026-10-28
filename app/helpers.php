@@ -558,8 +558,9 @@ function render_reports_search_bar(array $options = []): string
                     @click="query = ''; $refs.searchInput.focus()"
                     class="search-clear-btn"
                     aria-label="Hapus pencarian"
+                    title="Hapus pencarian"
                 >
-                    <i class="bi bi-x-circle-fill text-xs text-gray-400 hover:text-gray-600"></i>
+                    <i class="bi bi-x-circle-fill text-xs leading-none"></i>
                 </button>
 
                 <!-- Keyboard shortcut hint (/) saat kosong -->

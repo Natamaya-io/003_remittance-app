@@ -173,8 +173,9 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                 type="button"
                 @click="show = false"
                 aria-label="Tutup notifikasi"
+                title="Tutup notifikasi"
             >
-                <i class="bi bi-x text-lg leading-none"></i>
+                <i class="bi bi-x-lg text-xs leading-none"></i>
             </button>
         </div>
     <?php endif; ?>
@@ -649,8 +650,14 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                         <h3 class="text-sm font-semibold text-gray-900">Ubah Status Transaksi #<span x-text="activeRow.order"></span></h3>
                         <p class="text-xs text-gray-500 mt-0.5 truncate max-w-xs" x-text="activeRow.beneficiary"></p>
                     </div>
-                    <button type="button" @click="editModalOpen = false" class="size-8 inline-flex justify-center items-center text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors focus:outline-hidden focus:bg-gray-100">
-                        <i class="bi bi-x-lg text-sm"></i>
+                    <button
+                        type="button"
+                        @click="editModalOpen = false"
+                        class="modal-close"
+                        aria-label="Tutup modal"
+                        title="Tutup modal"
+                    >
+                        <i class="bi bi-x-lg text-xs leading-none"></i>
                     </button>
                 </div>
 

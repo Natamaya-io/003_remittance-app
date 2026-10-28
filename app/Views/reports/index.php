@@ -159,10 +159,11 @@ $activePeriodFilters = array_filter(
                         <button
                             type="button"
                             @click="openFilterModal = false"
-                            class="size-8 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-100 flex items-center justify-center transition-colors cursor-pointer"
+                            class="modal-close"
                             aria-label="Tutup modal"
+                            title="Tutup modal"
                         >
-                            <i class="bi bi-x-lg text-xs"></i>
+                            <i class="bi bi-x-lg text-xs leading-none"></i>
                         </button>
                     </div>
 
@@ -364,8 +365,9 @@ $activePeriodFilters = array_filter(
                 type="button"
                 @click="show = false"
                 aria-label="Tutup notifikasi"
+                title="Tutup notifikasi"
             >
-                <i class="bi bi-x text-lg leading-none"></i>
+                <i class="bi bi-x-lg text-xs leading-none"></i>
             </button>
         </div>
     <?php endif; ?>

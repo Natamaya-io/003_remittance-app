@@ -218,8 +218,9 @@ $monthLabel = ($monthNames[$monthNum] ?? $month) . ' ' . $yearNum;
                 type="button"
                 @click="show = false"
                 aria-label="Tutup notifikasi"
+                title="Tutup notifikasi"
             >
-                <i class="bi bi-x text-lg leading-none"></i>
+                <i class="bi bi-x-lg text-xs leading-none"></i>
             </button>
         </div>
     <?php endif; ?>

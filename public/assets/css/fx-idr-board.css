@@ -2134,15 +2134,23 @@ body.fx-modal-open {
 
 
 .fx-detail-close:hover {
-    transform:
-        rotate(5deg)
-        scale(1.05);
+    transform: none !important;
 
     background:
         #fff1f2 !important;
 
     color:
         #dc2626 !important;
+}
+
+.fx-detail-close:active {
+    transform: translateY(1px) !important;
+
+    background:
+        #fee2e2 !important;
+
+    color:
+        #b91c1c !important;
 }
 
 
