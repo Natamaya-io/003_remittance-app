@@ -759,7 +759,7 @@ function render_tooltip(string $text, string $slot, array $options = []): string
     <div class="<?= e($wrapperClass) ?>" data-hs-tooltip-options='<?= e($tooltipOptions) ?>'>
         <?= $slot ?>
         <span
-            class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-[70] py-1.5 px-3 bg-gray-900 text-white text-xs font-medium rounded-xl shadow-lg border border-gray-800/80 pointer-events-none <?= e($layoutClass) ?> <?= e($contentClass) ?>"
+            class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible opacity-0 transition-opacity inline-block absolute invisible z-[100000] py-1.5 px-3 bg-gray-900 text-white text-xs font-medium rounded-xl shadow-lg border border-gray-800/80 pointer-events-none <?= e($layoutClass) ?> <?= e($contentClass) ?>"
             role="tooltip"
         >
             <?= e($text) ?>

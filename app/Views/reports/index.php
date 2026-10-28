@@ -66,7 +66,7 @@ $activePeriodFilters = array_filter(
 );
 ?>
 
-<div class="max-w-7xl mx-auto space-y-6" x-data="{ openFilterModal: false }">
+<div class="max-w-7xl mx-auto space-y-6" x-data="{ openFilterModal: false }" x-effect="if (openFilterModal) $nextTick(() => { window.HSStaticMethods && window.HSStaticMethods.autoInit(); })">
 
     <!-- =========================================================
          PAGE ACTIONS (PURE NAKED ARCHITECTURE)
@@ -151,8 +151,8 @@ $activePeriodFilters = array_filter(
                                 <strong id="modal-filter-title" class="text-sm font-semibold text-gray-900 block">Filter Periode Laporan</strong>
                                 <?= render_tooltip(
                                     'Saring data laporan berdasarkan bulan dan tahun.',
-                                    '<span class="info-toggle-btn cursor-help" aria-label="Info filter periode"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
-                                    ['placement' => 'top']
+                                    '<span class="hs-tooltip-toggle info-toggle-btn cursor-help" aria-label="Info filter periode"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
+                                    ['placement' => 'top', 'contentClass' => 'z-[100000]']
                                 ) ?>
                             </div>
                         </div>
