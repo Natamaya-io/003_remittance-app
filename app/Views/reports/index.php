@@ -134,7 +134,7 @@ $activePeriodFilters = array_filter(
             <!-- 2. Modal Positioning Container (Terpusat Vertikal & Horizontal) -->
             <div class="min-h-full flex items-center justify-center p-4 relative z-10 pointer-events-none">
                 <div
-                    class="bg-white rounded-2xl max-w-xl w-full shadow-2xl border border-gray-200 overflow-hidden text-left relative my-8 pointer-events-auto"
+                    class="bg-white rounded-2xl max-w-xl w-full shadow-2xl border border-gray-200 text-left relative my-8 pointer-events-auto"
                     x-show="openFilterModal"
                     x-transition:enter="transition ease-out duration-150"
                     x-transition:enter-start="opacity-0"
@@ -144,7 +144,7 @@ $activePeriodFilters = array_filter(
                     x-transition:leave-end="opacity-0"
                 >
                     <!-- Modal Header -->
-                    <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-white">
+                    <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-white rounded-t-2xl">
                         <div class="flex items-center gap-2.5">
                             <i class="bi bi-calendar3 text-gray-800 text-lg"></i>
                             <div class="flex items-center gap-1.5">
@@ -183,7 +183,7 @@ $activePeriodFilters = array_filter(
                                     $currMonthLabel = $monthsList[$selectedMonth];
                                 }
                                 ?>
-                                <div class="custom-select-root relative" x-data="{ open: false, selected: '<?= e(addslashes($selectedMonth)) ?>', label: '<?= e(addslashes($currMonthLabel)) ?>' }" @click.outside="open = false">
+                                <div class="custom-select-root relative" :class="{ 'z-30': open }" x-data="{ open: false, selected: '<?= e(addslashes($selectedMonth)) ?>', label: '<?= e(addslashes($currMonthLabel)) ?>' }" @click.outside="open = false">
                                     <input type="hidden" name="month" :value="selected">
                                     <button
                                         type="button"
@@ -242,7 +242,7 @@ $activePeriodFilters = array_filter(
                                 <?php
                                 $currYearLabel = $selectedYear !== '' ? $selectedYear : 'Semua tahun';
                                 ?>
-                                <div class="custom-select-root relative" x-data="{ open: false, selected: '<?= e(addslashes($selectedYear)) ?>', label: '<?= e(addslashes($currYearLabel)) ?>' }" @click.outside="open = false">
+                                <div class="custom-select-root relative" :class="{ 'z-20': open }" x-data="{ open: false, selected: '<?= e(addslashes($selectedYear)) ?>', label: '<?= e(addslashes($currYearLabel)) ?>' }" @click.outside="open = false">
                                     <input type="hidden" name="year" :value="selected">
                                     <button
                                         type="button"
@@ -297,7 +297,7 @@ $activePeriodFilters = array_filter(
                         </div>
 
                         <!-- Modal Footer -->
-                        <div class="px-5 py-3.5 bg-gray-50/70 border-t border-gray-100 flex items-center justify-between gap-3">
+                        <div class="px-5 py-3.5 bg-gray-50/70 border-t border-gray-100 flex items-center justify-between gap-3 rounded-b-2xl">
                             <a
                                 class="py-2 px-3.5 inline-flex justify-center items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none transition-colors"
                                 href="<?= e(url('/reports')) ?>"
