@@ -24,11 +24,11 @@ if ($appName === '') {
 }
 
 $flashes = Flash::all();
-
+$reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode() : 'table';
 ?>
 <!doctype html>
 
-<html lang="id">
+<html lang="id" class="<?= $reportViewMode === 'list' ? 'report-view-list' : '' ?>">
 
 <head>
 
@@ -59,6 +59,18 @@ $flashes = Flash::all();
         [x-cloak] { display: none !important; }
         html { scrollbar-gutter: stable; }
     </style>
+
+    <script>
+    (function() {
+        try {
+            var m = localStorage.getItem('remitgo_report_view_mode');
+            if (m && !document.cookie.includes('remitgo_report_view_mode=')) {
+                document.cookie = 'remitgo_report_view_mode=' + m + '; path=/; max-age=31536000; SameSite=Lax';
+                document.documentElement.classList.toggle('report-view-list', m === 'list');
+            }
+        } catch(e) {}
+    })();
+    </script>
 
     <!-- =====================================================
          GOOGLE FONTS: DM SANS (HEADINGS/CTA) & ROBOTO (BODY)

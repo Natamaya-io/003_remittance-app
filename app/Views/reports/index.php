@@ -352,27 +352,38 @@ $activeFilterSummary = implode(' · ', $filterDescs);
     <!-- =========================================================
          TOOLBAR MODE TAMPILAN: TABEL VS KARTU (ALPINE.JS)
          ========================================================= -->
-    <script hidden>
-    (function() {
-        try {
-            var m = localStorage.getItem('remitgo_report_view_mode') || 'table';
-            document.documentElement.classList.toggle('report-view-list', m === 'list');
-        } catch (e) {}
-    })();
-    </script>
-    <div x-data="{ viewMode: (function() { try { return localStorage.getItem('remitgo_report_view_mode') || 'table'; } catch(e) { return 'table'; } })() }"
-         x-init="$watch('viewMode', val => { document.documentElement.classList.toggle('report-view-list', val === 'list'); try { localStorage.setItem('remitgo_report_view_mode', val); } catch(e){} })"
+    <?php
+    $currentViewMode = get_report_view_mode();
+    ?>
+    <div x-data="{ viewMode: '<?= e($currentViewMode) ?>' }"
+         x-init="
+             try {
+                 const local = localStorage.getItem('remitgo_report_view_mode');
+                 if (local && local !== viewMode && (local === 'table' || local === 'list')) {
+                     viewMode = local;
+                     document.cookie = 'remitgo_report_view_mode=' + local + '; path=/; max-age=31536000; SameSite=Lax';
+                     document.documentElement.classList.toggle('report-view-list', local === 'list');
+                 }
+             } catch(e){}
+             $watch('viewMode', val => {
+                 document.documentElement.classList.toggle('report-view-list', val === 'list');
+                 try {
+                     localStorage.setItem('remitgo_report_view_mode', val);
+                     document.cookie = 'remitgo_report_view_mode=' + val + '; path=/; max-age=31536000; SameSite=Lax';
+                 } catch(e){}
+             })
+         "
          class="space-y-4">
 
         <div class="flex items-center justify-end">
             <!-- Toggle Tampilan Teks Antara Tabel dan Kartu (UI Kustom) -->
-            <?= render_table_view_toggle('viewMode') ?>
+            <?= render_table_view_toggle('viewMode', ['current' => $currentViewMode]) ?>
         </div>
 
         <!-- =========================================================
              1. TAMPILAN TABEL ZEBRA (PRELINE UI + NAKED ZEBRA TABLE)
              ========================================================= -->
-        <div data-report-view="table" x-show="viewMode === 'table'">
+        <div data-report-view="table" x-show="viewMode === 'table'" <?= $currentViewMode !== 'table' ? 'style="display: none;" x-cloak' : '' ?>>
             <div class="overflow-x-auto border border-gray-200 rounded-2xl bg-white shadow-xs">
                 <table class="min-w-full text-start">
                     <thead class="bg-gray-50/75 border-b border-gray-200">
@@ -485,7 +496,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
         <!-- =========================================================
              2. TAMPILAN LIST CARDS (PRELINE RESPONSIVE CARDS)
              ========================================================= -->
-        <div data-report-view="list" x-show="viewMode === 'list'" x-cloak class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div data-report-view="list" x-show="viewMode === 'list'" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" <?= $currentViewMode !== 'list' ? 'style="display: none;" x-cloak' : '' ?>>
             <?php foreach ($months as $month): ?>
                 <?php
                 if (!is_array($month)) continue;

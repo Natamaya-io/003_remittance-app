@@ -1746,15 +1746,15 @@
   }
 
   /* Pre-hydration sync for text toggle button */
-  html.report-view-list .custom-text-toggle .text-table {
+  html.report-view-list .custom-table-toggle-btn.custom-text-toggle .text-toggle-option.text-table {
     background-color: transparent !important;
-    color: #4b5563 !important;
+    color: #413333 !important;
     border-color: transparent !important;
     box-shadow: none !important;
     font-weight: 500 !important;
   }
 
-  html.report-view-list .custom-text-toggle .text-card {
+  html.report-view-list .custom-table-toggle-btn.custom-text-toggle .text-toggle-option.text-card {
     background-color: #315B8C !important;
     color: #ffffff !important;
     border-color: #315B8C !important;

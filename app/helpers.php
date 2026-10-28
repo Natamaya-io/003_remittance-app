@@ -787,11 +787,38 @@ function render_tooltip(string $text, string $slot, array $options = []): string
  *   class?: string
  * } $options
  */
+/**
+ * Ambil preferensi mode tampilan laporan (tabel vs kartu) dari Cookie browser
+ */
+function get_report_view_mode(): string
+{
+    $mode = (string) ($_COOKIE['remitgo_report_view_mode'] ?? 'table');
+    return in_array($mode, ['table', 'list'], true) ? $mode : 'table';
+}
+
+/**
+ * Render Toggle Tampilan Antara Tabel dan Kartu (UI Kustom)
+ *
+ * Menampilkan opsi Tabel (dengan ikon tabel) dan Kartu (dengan ikon kartu):
+ * - Status aktif solid #315B8C (Deep Brand Blue) dengan teks putih
+ * - Status non-aktif abu-abu transparan dengan hover lembut
+ * - Aksesibilitas WCAG (role="group", :aria-pressed)
+ *
+ * @param string $modelVar Variabel model Alpine (default: 'viewMode')
+ * @param array{
+ *   table_label?: string,
+ *   card_label?: string,
+ *   label?: string,
+ *   class?: string,
+ *   current?: string
+ * } $options
+ */
 function render_table_view_toggle(string $modelVar = 'viewMode', array $options = []): string
 {
     $tableLabel = (string) ($options['table_label'] ?? 'Tabel');
     $cardLabel = (string) ($options['card_label'] ?? 'Kartu');
     $wrapperClass = (string) ($options['class'] ?? '');
+    $currentMode = (string) ($options['current'] ?? get_report_view_mode());
 
     ob_start();
     ?>
@@ -803,7 +830,7 @@ function render_table_view_toggle(string $modelVar = 'viewMode', array $options 
         <button
             type="button"
             @click="<?= e($modelVar) ?> = 'table'"
-            class="text-toggle-option text-table switch-option is-active"
+            class="text-toggle-option text-table switch-option <?= $currentMode === 'table' ? 'is-active' : '' ?>"
             :class="{ 'is-active': <?= e($modelVar) ?> === 'table' }"
             :aria-pressed="<?= e($modelVar) ?> === 'table'"
             title="Tampilkan dalam bentuk tabel"
@@ -815,7 +842,7 @@ function render_table_view_toggle(string $modelVar = 'viewMode', array $options 
         <button
             type="button"
             @click="<?= e($modelVar) ?> = 'list'"
-            class="text-toggle-option text-card switch-option"
+            class="text-toggle-option text-card switch-option <?= $currentMode === 'list' ? 'is-active' : '' ?>"
             :class="{ 'is-active': <?= e($modelVar) ?> === 'list' }"
             :aria-pressed="<?= e($modelVar) ?> === 'list'"
             title="Tampilkan dalam bentuk kartu"
