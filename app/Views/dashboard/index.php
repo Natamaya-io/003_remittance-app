@@ -919,7 +919,7 @@ $fxBoardFile =
 
             <table
                 class="table modern-table"
-                data-smart-table
+                data-no-smart-table
             >
 
 
