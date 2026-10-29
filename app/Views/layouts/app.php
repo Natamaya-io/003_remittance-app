@@ -4878,6 +4878,25 @@ $reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode
 <body class="bg-slate-50 text-gray-800 antialiased font-sans min-h-screen">
 
     <!-- =========================================================
+         GLOBAL AMBIENT ART BACKGROUND WATERMARK
+         Menghadirkan elemen visual art RemitGo! samar & menyatu di background kanvas
+         #F5F2F2 di semua halaman aplikasi dengan zero-overhead dan zero-interference.
+         ========================================================= -->
+    <div class="global-ambient-art" aria-hidden="true">
+        <picture class="global-ambient-art-picture">
+            <source srcset="<?= e(url('/login_art.avif')) ?>" type="image/avif">
+            <source srcset="<?= e(url('/login_art.webp')) ?>" type="image/webp">
+            <img
+                src="<?= e(url('/login_art.jpeg')) ?>"
+                alt=""
+                class="global-ambient-art-img"
+                loading="lazy"
+                decoding="async"
+            >
+        </picture>
+    </div>
+
+    <!-- =========================================================
          FLOATING TOAST NOTIFICATION STACK (GEMINI.MD SECTION 16)
          ========================================================= -->
     <div
@@ -4955,7 +4974,7 @@ $reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode
     $isDashboardPage = ($pageTitle === 'Dashboard')
         || ($currentUriPath === '/' || $currentUriPath === parse_url(url('/'), PHP_URL_PATH) || $currentUriPath === parse_url(url('/dashboard'), PHP_URL_PATH));
     ?>
-    <main id="content" class="w-full min-h-screen pb-24 sm:pb-28">
+    <main id="content" class="w-full min-h-screen pb-24 sm:pb-28 relative z-10">
         <div class="<?= $isDashboardPage ? 'px-2 sm:px-3 lg:px-4 py-3 sm:py-4 space-y-3 sm:space-y-4 w-full max-w-none' : 'max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6' ?>">
 
             <?= $content ?>

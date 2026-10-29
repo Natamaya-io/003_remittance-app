@@ -37,6 +37,7 @@
    - **Sistem Popup Notifikasi Toast Kustom Mutlak (Universal Custom Toast Notification Law):** Seluruh notifikasi popup, pesan umpan balik tindakan, konfirmasi aksi, maupun peringatan sistem **MUTLAK HARUS MENGGUNAKAN TOAST DENGAN UI KUSTOM TANPA STYLE BAWAAN BROWSER**. Penggunaan notifikasi browser native (seperti alert dialog abu-abu OS, Web Notification bubble bawaan sistem operasi, atau `window.alert()` / `window.confirm()`) **DIHARAMKAN SECARA MUTLAK**. Toast beroperasi secara mengambang di area bawah layar (*bottom floating viewport stack* - sudut kanan bawah pada desktop `sm:bottom-6 sm:right-6` dan di atas bilah tab pada mobile `bottom-20 inset-x-4`), sudut membulat elegan (`rounded-xl` / `rounded-2xl`), border solid 1px, soft elevation, 4 warna solid varian status resmi, tombol tutup dismissible kustom, auto-dismiss dengan timer pause saat hover, dan transisi Alpine.js halus tanpa efek bounce atau layout shift (lihat Bagian 16 untuk aturan terkunci lengkap).
    - **Sistem Form Input Teks Kustom Mutlak (Universal Custom Form Input Law):** Seluruh elemen input form teks (`<input type="text">`, `type="password"`, `type="email"`, dsb.) **MUTLAK WAJIB** menggunakan kelas terpusat `.custom-form-input` dengan ketinggian presisi 40px (selaras 1:1 dengan `.btn-primary` dan `.custom-search-input`), sudut membulat modular `rounded-[9px]`, latar permukaan well `#F5F2F2` dengan bayangan inset mikro, batas kontur `#d1d5db`, transisi fokus bersih ke putih dengan border solid `#315B8C` (*Deep Brand Blue*), serta jarak ikon kiri rapat alami (38px padding kiri, celah 8-10px) (lihat Bagian 17 untuk aturan terkunci lengkap).
    - **Sistem Datepicker Kustom Flat Global Mutlak (Universal Custom Flat Datepicker Law):** Seluruh elemen pemilihan tanggal dan bulan (input trigger maupun interior kalender popover) **MUTLAK DILARANG** menggunakan native browser Shadow DOM, gaya skeuomorphic cekung (*inset shadow*), atau palet abu-abu semen placeholder draf (`#9ca3af`/`#d1d5db` pada teks aktif). Seluruh antarmuka datepicker **MUTLAK WAJIB** menggunakan sistem flat kustom komprehensif: tombol pemicu flat white presisi 40px (`.custom-datepicker-trigger`), popover flat 280px (`.datepicker-popover`), teks tanggal hitam tajam `#111827`, seleksi solid master blue `#315B8C` murni flat tanpa box-shadow/gradient, dan 12 kelas komponen terpusat di `@layer components` (lihat Bagian 3 untuk aturan terkunci lengkap).
+   - **Sistem Elemen Art Background Global (Global Ambient Art Background Law):** Seluruh halaman aplikasi beroperasi dengan latar belakang kanvas `#F5F2F2` yang diperkaya secara elegan oleh elemen visual art RemitGo! samar dan menyatu (`.global-ambient-art`), opasitas halus 3.5%, `mix-blend-mode: multiply`, `pointer-events-none`, GPU-accelerated, dan zero-overhead tanpa mengganggu keterbacaan data finansial (lihat Bagian 21 untuk aturan terkunci lengkap).
    - **Anti-Kode Utilitas Ad-Hoc Sementara & Wajib Kustom UI Komprehensif (Zero Quick Placeholder Law):** DILARANG KERAS menggunakan rangkaian kelas utilitas tambal sulam instan (*ad-hoc quick placeholder*) saat merombak antarmuka. Setiap perombakan elemen UI MUTLAK WAJIB langsung mengimplementasikan Kustom UI Komprehensif dengan geometri modular terstandarisasi (misal tinggi 40px, radius 9px, surface depth #F5F2F2, spasi rapat), terintegrasi ke sistem komponen global, dan tahan terhadap penskalaan visual root 20px (lihat Bagian 18 untuk aturan terkunci lengkap).
    - **Arsitektur Halaman Login Split-Screen & Ramah Lansia (Universal Split Login & Senior Accessibility Law):** Halaman login beroperasi dengan tata letak split-screen 50/50 full-screen non-scrollable, pemisah bergelombang organik dinamis, logo resmi RemitGo! (teks "Remit" oranye solid `#F2765E`), skala elemen lansia 50px presisi (`.custom-form-input-lg` & `.btn-primary-lg`), bebas font-bold, dan ikon mata password telanjang murni tanpa wrapper (lihat Bagian 19 untuk aturan terkunci lengkap).
 
@@ -2073,4 +2074,67 @@ Seluruh tombol berbasis tanda silang / penutup (Tombol "X") di seluruh aplikasi 
 2. **Pemusnahan Karakter Mentah `×`:** Dilarang menulis teks huruf Unicode `×` di dalam HTML tanpa tag ikon `<i>`.
 3. **Pemusnahan Efek Transformasi Liar:** Dilarang menggunakan `transform: rotate(...)` atau `scale(...)` pada state hover tombol penutup mana pun (mematuhi Bagian 1.2 dan Bagian 13).
 4. **Kewajiban Aksesibilitas Lengkap:** Seluruh tombol penutup wajib menyertakan atribut `aria-label="Tutup..."` dan `title="Tutup..."`.
+
+---
+
+## 21. Aturan Terkunci: Sistem Elemen Art Background Global (Global Ambient Art Background Law)
+
+> **STATUS HUKUM: TERKUNCI MUTLAK & STRICT COMPLIANCE (NON-NEGOTIABLE)**  
+> Seluruh antarmuka aplikasi `remittance.raxbyte.com` di semua halaman beroperasi di atas kanvas latar belakang `#F5F2F2` (Asphalt Off-White Base) yang diperkaya oleh elemen visual art RemitGo! samar, elegan, dan menyatu (*subtle ambient blend watermark*). Keberadaan elemen art ini memberikan atmosfer estetika perbankan modern tingkat tinggi tanpa mengorbankan keterbacaan data numerik atau performa rendering sedikit pun.
+
+---
+
+### 21.1. Prinsip Fisika & Geometri Terkunci (.global-ambient-art)
+
+1. **Posisi Viewport Mengambang Tetap (Fixed Viewport Stacking):**
+   - Kontainer elemen art dikunci menggunakan `position: fixed; inset: 0; z-index: 0; overflow: hidden; contain: strict;`.
+   - Posisi tetap (*fixed*) menjamin visual art tidak ikut melompat atau tersentak saat pengguna melakukan scroll pada tabel data yang panjang.
+2. **Nol Interferensi Aksesibilitas (Zero-Interference Guarantee):**
+   - Wajib dilengkapi `pointer-events: none; user-select: none;` dan `aria-hidden="true"`.
+   - Setiap klik mouse, tap layar sentuh, seleksi teks, atau event keyboard akan 100% menembus ke konten halaman di baliknya tanpa hambatan.
+3. **Optimasi Engine & Kompositor GPU (GPU Layer Promotion):**
+   - Menggunakan `transform: translateZ(0)` untuk mempromosikan elemen ke layer kompositor GPU terpisah, mencegah terjadinya *repaint cycle* pada CPU saat halaman di-scroll.
+   - Atribut CSS `contain: strict;` mengisolasi kalkulasi reflow browser secara mandiri.
+4. **Proteksi Cetak (Print Ink Conservation):**
+   - Didukung aturan `@media print { .global-ambient-art { display: none !important; } }` sehingga saat pengguna mencetak faktur (*invoice*), laporan audit, atau tanda terima ke kertas/PDF, elemen watermark background secara otomatis ditiadakan demi penghematan tinta dan kejelasan cetak.
+
+---
+
+### 21.2. Standar Opasitas & Formula Blending Solid
+
+Visual art wajib memenuhi formula optik berikut agar "samar atau blend dengan background":
+
+| Properti CSS | Nilai Standar | Tujuan Estetika & Keamanan Kontras |
+| :--- | :--- | :--- |
+| **Opacity** | `0.035` (3.5%) | Menghasilkan bayangan art yang sangat halus, setara watermark uang kertas resmi. |
+| **Mix-Blend-Mode** | `multiply` | Menyatu murni dengan kanvas `#F5F2F2`. Area terang art menjadi 100% transparan, sedangkan kontur gelap memberi shading asphalt lembut. |
+| **Filter** | `grayscale(15%)` | Menyelaraskan saturasi visual art agar menyatu alami dengan palet 4 warna master proyek. |
+| **Object-Fit** | `cover` | Menjamin visual art mengisi seluruh viewport secara proporsional di berbagai rasio layar (mobile, tablet, desktop ultrawide). |
+| **Object-Position** | `center` | Mempertahankan titik fokal visual art di tengah kanvas. |
+
+---
+
+### 21.3. Struktur DOM Standar & Dukungan Format Multi-Generasi
+
+Elemen art dirender tepat di bawah tag pembuka `<body>` pada seluruh berkas layout utama (`app/Views/layouts/app.php` dan `app/Views/layouts/guest.php`):
+
+```html
+<!-- GLOBAL AMBIENT ART BACKGROUND WATERMARK -->
+<div class="global-ambient-art" aria-hidden="true">
+    <picture class="global-ambient-art-picture">
+        <source srcset="<?= e(url('/login_art.avif')) ?>" type="image/avif">
+        <source srcset="<?= e(url('/login_art.webp')) ?>" type="image/webp">
+        <img
+            src="<?= e(url('/login_art.jpeg')) ?>"
+            alt=""
+            class="global-ambient-art-img"
+            loading="lazy"
+            decoding="async"
+        >
+    </picture>
+</div>
+```
+
+Dan elemen pembungkus konten utama (`<main id="content">`) **MUTLAK WAJIB** memiliki kelas `relative z-10` untuk memastikan kartu data, tabel, dan formulir berada di layer atas secara presisi.
+
 
