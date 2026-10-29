@@ -886,7 +886,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                     <?php if (can('report.manage')): ?>
                         <a class="btn-primary" href="<?= e(url('/reports/create')) ?>">
                             <i class="bi bi-cloud-arrow-up text-sm"></i>
-                            <span>Upload Report</span>
+                            <span>Upload Excel</span>
                         </a>
                     <?php endif; ?>
                 </div>
