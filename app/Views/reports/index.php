@@ -389,6 +389,30 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                     x-transition:leave="transition ease-in duration-100"
                     x-transition:leave-start="opacity-100"
                     x-transition:leave-end="opacity-0"
+                    x-data="{
+                        canScrollLeft: false,
+                        canScrollRight: false,
+                        checkScroll() {
+                            const el = this.$refs.bankSlider;
+                            if (!el) return;
+                            this.canScrollLeft = el.scrollLeft > 4;
+                            this.canScrollRight = Math.ceil(el.scrollLeft + el.clientWidth) < (el.scrollWidth - 4);
+                        },
+                        scrollSlider(dir) {
+                            const el = this.$refs.bankSlider;
+                            if (!el) return;
+                            const firstCard = el.querySelector('.bank-slider-card');
+                            const cardWidth = firstCard ? firstCard.offsetWidth : 280;
+                            const scrollStep = cardWidth + 20;
+                            el.scrollBy({
+                                left: dir === 'left' ? -scrollStep : scrollStep,
+                                behavior: 'smooth'
+                            });
+                            setTimeout(() => this.checkScroll(), 320);
+                        }
+                    }"
+                    x-effect="if (openTransactionModal) { $nextTick(() => { setTimeout(() => checkScroll(), 80); }); }"
+                    @resize.window.debounce.150ms="checkScroll()"
                 >
                     <!-- Modal Header -->
                     <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-white">
@@ -403,64 +427,124 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                                 ) ?>
                             </div>
                         </div>
-                        <button
-                            type="button"
-                            @click="openTransactionModal = false"
-                            class="modal-close"
-                            aria-label="Tutup modal"
-                            title="Tutup modal"
-                        >
-                            <i class="bi bi-x-lg text-xs leading-none"></i>
-                        </button>
+
+                        <div class="flex items-center gap-2">
+                            <!-- Navigasi Tanda Panah Slider Bank (Header Controls) -->
+                            <div class="inline-flex items-center gap-1 p-0.5 rounded-lg border border-gray-200 bg-gray-50/80">
+                                <button
+                                    type="button"
+                                    @click="scrollSlider('left')"
+                                    :disabled="!canScrollLeft"
+                                    class="slider-nav-btn"
+                                    aria-label="Geser pilihan bank ke kiri"
+                                    title="Geser ke kiri"
+                                >
+                                    <i class="bi bi-chevron-left text-xs leading-none"></i>
+                                </button>
+                                <button
+                                    type="button"
+                                    @click="scrollSlider('right')"
+                                    :disabled="!canScrollRight"
+                                    class="slider-nav-btn"
+                                    aria-label="Geser pilihan bank ke kanan"
+                                    title="Geser ke kanan"
+                                >
+                                    <i class="bi bi-chevron-right text-xs leading-none"></i>
+                                </button>
+                            </div>
+
+                            <button
+                                type="button"
+                                @click="openTransactionModal = false"
+                                class="modal-close"
+                                aria-label="Tutup modal"
+                                title="Tutup modal"
+                            >
+                                <i class="bi bi-x-lg text-xs leading-none"></i>
+                            </button>
+                        </div>
                     </div>
 
-                    <!-- Modal Body: Dua Pilihan Bank (BRI & BNI) -->
-                    <div class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-5 bg-gray-50/50">
-                        <!-- KARTU BANK BRI -->
-                        <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-xs hover:border-[#315B8C] transition-all flex flex-col justify-between space-y-4">
-                            <div>
-                                <img src="<?= e(url('/bri-logo.svg')) ?>" alt="Bank BRI" class="h-10 w-auto max-w-[130px] mb-3 object-contain select-none">
-                                <span class="text-[11px] font-semibold tracking-wider text-gray-500 uppercase block">BANK BRI</span>
-                                <h4 class="text-sm font-semibold font-heading text-gray-900 mt-1 mb-1.5">Transaksi BRI</h4>
-                                <p class="text-xs text-gray-600 leading-relaxed font-sans m-0">Input data, bentuk tabel batch, bersihkan tanda baca otomatis, lalu ekspor Excel BRI final.</p>
-                            </div>
-                            <div class="pt-3 border-t border-gray-100 flex items-center justify-between gap-2 mt-auto">
-                                <span class="text-xs text-gray-500 font-sans tabular-nums"><strong class="font-semibold text-gray-800"><?= number_format($briJobs, 0, ',', '.') ?></strong> batch</span>
-                                <div class="flex items-center gap-1.5">
-                                    <a class="py-1.5 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors" href="<?= url('/transactions/bri/history') ?>">
-                                        Riwayat
-                                    </a>
-                                    <?php if (can('transaction.manage')): ?>
-                                        <a class="btn-primary btn-primary-sm" href="<?= url('/transactions/bri') ?>">
-                                            <i class="bi bi-file-earmark-arrow-up text-xs"></i>
-                                            <span>Import</span>
+                    <!-- Modal Body: Opsi Jalur Bank (Slider Carousel Terproteksi) -->
+                    <div class="p-6 bg-gray-50/50 relative">
+                        <!-- Floating Left Arrow -->
+                        <button
+                            type="button"
+                            @click="scrollSlider('left')"
+                            x-show="canScrollLeft"
+                            x-cloak
+                            class="slider-floating-btn slider-floating-left"
+                            aria-label="Geser pilihan bank ke kiri"
+                            title="Geser ke kiri"
+                        >
+                            <i class="bi bi-chevron-left text-xs leading-none"></i>
+                        </button>
+
+                        <!-- Floating Right Arrow -->
+                        <button
+                            type="button"
+                            @click="scrollSlider('right')"
+                            x-show="canScrollRight"
+                            x-cloak
+                            class="slider-floating-btn slider-floating-right"
+                            aria-label="Geser pilihan bank ke kanan"
+                            title="Geser ke kanan"
+                        >
+                            <i class="bi bi-chevron-right text-xs leading-none"></i>
+                        </button>
+
+                        <!-- Slider Track -->
+                        <div
+                            x-ref="bankSlider"
+                            @scroll.passive="checkScroll()"
+                            class="bank-slider-track flex items-stretch gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory py-1 px-1 -my-1 -mx-1 no-scrollbar w-full"
+                        >
+                            <!-- KARTU BANK BRI -->
+                            <div class="bank-slider-card w-[calc(100%-1.5rem)] sm:w-[calc(50%-0.625rem)] min-w-[270px] sm:min-w-[280px] shrink-0 snap-start bg-white border border-gray-200 rounded-xl p-5 shadow-xs hover:border-[#315B8C] transition-all flex flex-col justify-between space-y-4">
+                                <div>
+                                    <img src="<?= e(url('/bri-logo.svg')) ?>" alt="Bank BRI" class="h-10 w-auto max-w-[130px] mb-3 object-contain select-none">
+                                    <span class="text-[11px] font-semibold tracking-wider text-gray-500 uppercase block">BANK BRI</span>
+                                    <h4 class="text-sm font-semibold font-heading text-gray-900 mt-1 mb-1.5">Transaksi BRI</h4>
+                                    <p class="text-xs text-gray-600 leading-relaxed font-sans m-0">Input data, bentuk tabel batch, bersihkan tanda baca otomatis, lalu ekspor Excel BRI final.</p>
+                                </div>
+                                <div class="pt-3 border-t border-gray-100 flex items-center justify-between gap-2 mt-auto">
+                                    <span class="text-xs text-gray-500 font-sans tabular-nums"><strong class="font-semibold text-gray-800"><?= number_format($briJobs, 0, ',', '.') ?></strong> batch</span>
+                                    <div class="flex items-center gap-1.5">
+                                        <a class="py-1.5 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors" href="<?= url('/transactions/bri/history') ?>">
+                                            Riwayat
                                         </a>
-                                    <?php endif; ?>
+                                        <?php if (can('transaction.manage')): ?>
+                                            <a class="btn-primary btn-primary-sm" href="<?= url('/transactions/bri') ?>">
+                                                <i class="bi bi-file-earmark-arrow-up text-xs"></i>
+                                                <span>Import</span>
+                                            </a>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- KARTU BANK BNI -->
-                        <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-xs hover:border-[#315B8C] transition-all flex flex-col justify-between space-y-4">
-                            <div>
-                                <img src="<?= e(url('/bni-logo.svg')) ?>" alt="Bank BNI" class="h-10 w-auto max-w-[130px] mb-3 object-contain select-none">
-                                <span class="text-[11px] font-semibold tracking-wider text-gray-500 uppercase block">BANK BNI</span>
-                                <h4 class="text-sm font-semibold font-heading text-gray-900 mt-1 mb-1.5">Transaksi BNI</h4>
-                                <p class="text-xs text-gray-600 leading-relaxed font-sans m-0">Copy-paste tabel Excel, bentuk data formulir Kiriman Uang BNI, lalu cetak PDF atau preview.</p>
-                            </div>
-                            <div class="pt-3 border-t border-gray-100 flex items-center justify-between gap-2 mt-auto">
-                                <span class="text-xs text-gray-500 font-sans tabular-nums"><strong class="font-semibold text-gray-800"><?= number_format($bniBatches, 0, ',', '.') ?></strong> batch</span>
-                                <div class="flex items-center gap-1.5">
-                                    <?php if (can('transaction.manage')): ?>
-                                        <a class="btn-primary btn-primary-sm" href="<?= url('/transactions/bni') ?>">
-                                            <i class="bi bi-file-earmark-arrow-up text-xs"></i>
-                                            <span>Import</span>
-                                        </a>
-                                    <?php else: ?>
-                                        <a class="py-1.5 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors" href="<?= url('/transactions/bni') ?>">
-                                            Lihat BNI
-                                        </a>
-                                    <?php endif; ?>
+                            <!-- KARTU BANK BNI -->
+                            <div class="bank-slider-card w-[calc(100%-1.5rem)] sm:w-[calc(50%-0.625rem)] min-w-[270px] sm:min-w-[280px] shrink-0 snap-start bg-white border border-gray-200 rounded-xl p-5 shadow-xs hover:border-[#315B8C] transition-all flex flex-col justify-between space-y-4">
+                                <div>
+                                    <img src="<?= e(url('/bni-logo.svg')) ?>" alt="Bank BNI" class="h-10 w-auto max-w-[130px] mb-3 object-contain select-none">
+                                    <span class="text-[11px] font-semibold tracking-wider text-gray-500 uppercase block">BANK BNI</span>
+                                    <h4 class="text-sm font-semibold font-heading text-gray-900 mt-1 mb-1.5">Transaksi BNI</h4>
+                                    <p class="text-xs text-gray-600 leading-relaxed font-sans m-0">Copy-paste tabel Excel, bentuk data formulir Kiriman Uang BNI, lalu cetak PDF atau preview.</p>
+                                </div>
+                                <div class="pt-3 border-t border-gray-100 flex items-center justify-between gap-2 mt-auto">
+                                    <span class="text-xs text-gray-500 font-sans tabular-nums"><strong class="font-semibold text-gray-800"><?= number_format($bniBatches, 0, ',', '.') ?></strong> batch</span>
+                                    <div class="flex items-center gap-1.5">
+                                        <?php if (can('transaction.manage')): ?>
+                                            <a class="btn-primary btn-primary-sm" href="<?= url('/transactions/bni') ?>">
+                                                <i class="bi bi-file-earmark-arrow-up text-xs"></i>
+                                                <span>Import</span>
+                                            </a>
+                                        <?php else: ?>
+                                            <a class="py-1.5 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors" href="<?= url('/transactions/bni') ?>">
+                                                Lihat BNI
+                                            </a>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
                             </div>
                         </div>

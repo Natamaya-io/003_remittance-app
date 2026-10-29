@@ -938,6 +938,104 @@
   }
 
   /* =========================================================
+     GAMIFIED ASPHALT LOCKED CAROUSEL & SLIDER CONTROLS
+     GEMINI.MD SECTION 18 & SECTION 20
+     ========================================================= */
+  .slider-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    color: #4b5563;
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+    transform: none !important;
+    user-select: none;
+  }
+
+  .slider-nav-btn:hover:not(:disabled) {
+    color: #111827;
+    background-color: #ffffff;
+    border-color: #d1d5db;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transform: none !important;
+  }
+
+  .slider-nav-btn:active:not(:disabled) {
+    background-color: #f3f4f6;
+    transform: translateY(1px) !important;
+  }
+
+  .slider-nav-btn:focus-visible {
+    outline: 2px solid #315B8C;
+    outline-offset: 1px;
+  }
+
+  .slider-nav-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    color: #9ca3af;
+    pointer-events: none;
+  }
+
+  .slider-floating-btn {
+    position: absolute;
+    top: 50%;
+    margin-top: -17px;
+    z-index: 20;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 9999px;
+    border: 1px solid #d1d5db;
+    background-color: #ffffff;
+    color: #374151;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+    transform: none !important;
+    user-select: none;
+  }
+
+  .slider-floating-btn:hover:not(:disabled) {
+    background-color: #f9fafb;
+    color: #111827;
+    border-color: #9ca3af;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    transform: none !important;
+  }
+
+  .slider-floating-btn:active:not(:disabled) {
+    background-color: #f3f4f6;
+    transform: translateY(1px) !important;
+  }
+
+  .slider-floating-btn:focus-visible {
+    outline: 2px solid #315B8C;
+    outline-offset: 1px;
+  }
+
+  .slider-floating-btn:disabled {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .slider-floating-left {
+    left: 8px;
+  }
+
+  .slider-floating-right {
+    right: 8px;
+  }
+
+  /* =========================================================
      GAMIFIED ASPHALT LOCKED TOAST CLOSE BUTTON (.toast-close)
      GEMINI.MD SECTION 16 & SECTION 18
      ========================================================= */
