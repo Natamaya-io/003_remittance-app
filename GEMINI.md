@@ -36,6 +36,7 @@
    - **Scrollbar Kustom Global Mutlak (Universal Custom Scrollbar Law):** Seluruh scrollbar browser bawaan sistem operasi (native Windows/macOS/Linux) yang tebal, kaku, dan abu-abu semen kotak **DIHARAMKAN SECARA MUTLAK**. Seluruh antarmuka (window viewport `html`, `body`, modal, popover, dropdown, hingga tabel scroll horizontal) **MUTLAK WAJIB** menggunakan sistem scrollbar kustom global ramping (7px), sudut membulat penuh (*capsule thumb*), track transparan, dengan warna thumb netral `#cbd5e1` dan interaksi hover solid *Deep Brand Blue* (`#315B8C`) (lihat Bagian 15 untuk aturan terkunci lengkap).
    - **Sistem Popup Notifikasi Toast Kustom Mutlak (Universal Custom Toast Notification Law):** Seluruh notifikasi popup, pesan umpan balik tindakan, konfirmasi aksi, maupun peringatan sistem **MUTLAK HARUS MENGGUNAKAN TOAST DENGAN UI KUSTOM TANPA STYLE BAWAAN BROWSER**. Penggunaan notifikasi browser native (seperti alert dialog abu-abu OS, Web Notification bubble bawaan sistem operasi, atau `window.alert()` / `window.confirm()`) **DIHARAMKAN SECARA MUTLAK**. Toast beroperasi secara mengambang di area bawah layar (*bottom floating viewport stack* - sudut kanan bawah pada desktop `sm:bottom-6 sm:right-6` dan di atas bilah tab pada mobile `bottom-20 inset-x-4`), sudut membulat elegan (`rounded-xl` / `rounded-2xl`), border solid 1px, soft elevation, 4 warna solid varian status resmi, tombol tutup dismissible kustom, auto-dismiss dengan timer pause saat hover, dan transisi Alpine.js halus tanpa efek bounce atau layout shift (lihat Bagian 16 untuk aturan terkunci lengkap).
    - **Sistem Form Input Teks Kustom Mutlak (Universal Custom Form Input Law):** Seluruh elemen input form teks (`<input type="text">`, `type="password"`, `type="email"`, dsb.) **MUTLAK WAJIB** menggunakan kelas terpusat `.custom-form-input` dengan ketinggian presisi 40px (selaras 1:1 dengan `.btn-primary` dan `.custom-search-input`), sudut membulat modular `rounded-[9px]`, latar permukaan well `#F5F2F2` dengan bayangan inset mikro, batas kontur `#d1d5db`, transisi fokus bersih ke putih dengan border solid `#315B8C` (*Deep Brand Blue*), serta jarak ikon kiri rapat alami (38px padding kiri, celah 8-10px) (lihat Bagian 17 untuk aturan terkunci lengkap).
+   - **Sistem Datepicker Kustom Flat Global Mutlak (Universal Custom Flat Datepicker Law):** Seluruh elemen pemilihan tanggal dan bulan (input trigger maupun interior kalender popover) **MUTLAK DILARANG** menggunakan native browser Shadow DOM, gaya skeuomorphic cekung (*inset shadow*), atau palet abu-abu semen placeholder draf (`#9ca3af`/`#d1d5db` pada teks aktif). Seluruh antarmuka datepicker **MUTLAK WAJIB** menggunakan sistem flat kustom komprehensif: tombol pemicu flat white presisi 40px (`.custom-datepicker-trigger`), popover flat 280px (`.datepicker-popover`), teks tanggal hitam tajam `#111827`, seleksi solid master blue `#315B8C` murni flat tanpa box-shadow/gradient, dan 12 kelas komponen terpusat di `@layer components` (lihat Bagian 3 untuk aturan terkunci lengkap).
    - **Anti-Kode Utilitas Ad-Hoc Sementara & Wajib Kustom UI Komprehensif (Zero Quick Placeholder Law):** DILARANG KERAS menggunakan rangkaian kelas utilitas tambal sulam instan (*ad-hoc quick placeholder*) saat merombak antarmuka. Setiap perombakan elemen UI MUTLAK WAJIB langsung mengimplementasikan Kustom UI Komprehensif dengan geometri modular terstandarisasi (misal tinggi 40px, radius 9px, surface depth #F5F2F2, spasi rapat), terintegrasi ke sistem komponen global, dan tahan terhadap penskalaan visual root 20px (lihat Bagian 18 untuk aturan terkunci lengkap).
    - **Arsitektur Halaman Login Split-Screen & Ramah Lansia (Universal Split Login & Senior Accessibility Law):** Halaman login beroperasi dengan tata letak split-screen 50/50 full-screen non-scrollable, pemisah bergelombang organik dinamis, logo resmi RemitGo! (teks "Remit" oranye solid `#F2765E`), skala elemen lansia 50px presisi (`.custom-form-input-lg` & `.btn-primary-lg`), bebas font-bold, dan ikon mata password telanjang murni tanpa wrapper (lihat Bagian 19 untuk aturan terkunci lengkap).
 
@@ -104,45 +105,209 @@ Setiap blok alert wajib mengikuti struktur hierarki berikut:
 
 ---
 
-## 3. Aturan Terkunci: Sistem Datepicker Kustom Global (Anti-Native Datepicker Law)
+## 3. Aturan Terkunci: Sistem Datepicker Kustom Global (Universal Custom Flat Datepicker Law)
 
-Penggunaan `<input type="date">` dan `<input type="month">` native browser memicu kalender Shadow DOM sistem operasi yang kaku dan tidak konsisten lintas perangkat. Oleh karena itu, seluruh aplikasi RemitGo! **MUTLAK WAJIB** menggunakan custom datepicker kalender Alpine.js dengan komponen pemicu terstandarisasi **Flat Custom Datepicker (.custom-datepicker-trigger)**.
+> **STATUS HUKUM: TERKUNCI MUTLAK & STRICT COMPLIANCE**  
+> Penggunaan input tanggal native browser (`<input type="date">` dan `<input type="month">`) memicu kalender Shadow DOM sistem operasi yang kaku, tidak konsisten lintas platform, dan merusak tata letak responsif. Oleh karena itu, seluruh aplikasi RemitGo! **MUTLAK WAJIB** menggunakan custom datepicker kalender Alpine.js berbasis **Arsitektur Flat Kustom Komprehensif** baik pada tombol pemicu luar (`.custom-datepicker-trigger`) maupun seluruh interior popover kalender (`.datepicker-popover`).
+> 
+> **PANTANGAN MUTLAK (THE UNBREAKABLE TABOOS):**
+> 1. **Anti-Native Shadow DOM:** DILARANG KERAS merender `<input type="date">` atau `<input type="month">` di seluruh view aplikasi.
+> 2. **Anti-Inset Skeuomorphism:** DILARANG KERAS menerapkan bayangan cekung (`inset shadow`) atau latar semen `#F5F2F2` pada tombol pemicu datepicker yang membuatnya menyerupai input non-aktif/disabled.
+> 3. **Anti-Wireframe Placeholder Gray:** DILARANG KERAS menggunakan warna teks abu-abu pudar (`text-gray-400`, `text-gray-700`, `#9ca3af`) pada angka tanggal normal, header hari, atau tombol aksi di dalam popover.
+> 4. **Anti-Ad-Hoc Utility String:** DILARANG KERAS merangkai utilitas Tailwind inline tanpa kelas komponen terpusat di `@layer components`.
 
-### 3.1. Arsitektur Komponen & Pemicu Terkunci (.custom-datepicker-trigger)
-- **Desain Flat Bersih & Anti-Inset Skeuomorphism:** Tombol pemicu datepicker beroperasi dengan desain flat bersih: latar putih murni (`#ffffff`), border solid netral `1px solid #d1d5db`, dan bayangan luar halus `box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04)`. **DILARANG KERAS** menggunakan bayangan cekung (`inset shadow`) atau latar abu-abu semen yang membuat tombol tampak seperti placeholder kusam atau input disabled.
-- **Geometri Terkunci:** Tinggi presisi **40px (`h-10`)**, radius modular **`rounded-[9px]`**, padding horizontal 12px, font-family **Roboto**, font-size 13.5px, dan line-height 40px.
+---
+
+### 3.1. Spesifikasi Tombol Pemicu Luar (.custom-datepicker-trigger)
+
+Tombol pemicu datepicker bertindak sebagai representasi visual field tanggal pada formulir:
+- **Desain Flat Bersih (Pure Flat White):** Latar putih murni (`#ffffff`), border kontur solid netral `1px solid #d1d5db`, dan bayangan luar mikro `box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04)`.
+- **Geometri Proporsional 40px:** Ketinggian presisi **40px (`h-10`)**, radius modular **`rounded-[9px]`**, padding horizontal 12px, font-family **Roboto**, font-size 13.5px, dan line-height 40px (selaras 1:1 dengan `.btn-primary`, `.custom-form-input`, dan `.custom-search-input`).
 - **State Interaksi:**
-  - **Hover:** Transisi halus ke `background-color: #fafafa; border-color: #9ca3af;`.
-  - **Focus & Buka (Is-Open):** Background putih `#ffffff`, border solid **`#315B8C`** (*Deep Brand Blue*), dan halo aktif `box-shadow: 0 0 0 3px rgba(49, 91, 140, 0.15)`. DILARANG KERAS menggunakan warna biru alien generic Tailwind (`blue-500` / `#3b82f6`).
-- **Tipografi Placeholder & Nilai Terstandarisasi:** Teks placeholder menggunakan kelas `.datepicker-placeholder` dengan warna `#9ca3af` (font-weight 400). Saat tanggal telah terpilih, teks beralih ke `.datepicker-value` dengan warna `#111827` (font-weight 500).
-- **Arsitektur Popover Kalender Flat & Kontras Tinggi (Kustom UI Komprehensif):**
-  - **Kontainer Popover (`.datepicker-popover`):** Background putih `#ffffff`, border solid `1px solid #e5e7eb`, radius 12px, bayangan halus `0 4px 16px -2px rgba(0, 0, 0, 0.08)`, lebar tepat 280px (`max-width: min(280px, calc(100vw - 2rem))`), padding 12px.
-  - **Header Navigasi (`.datepicker-popover-header`, `.datepicker-nav-btn`, `.datepicker-popover-title`):** Judul bulan/tahun DM Sans 13px font-semibold `#111827`, tombol panah minimalis tanpa border `size-7 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md`.
-  - **Header Nama Hari (`.datepicker-days-header`, `.datepicker-day-name`):** Teks abu-abu tegas `text-gray-500` (`#6b7280`), tinggi 26px, font-medium 11px (Anti-Placeholder Gray #9ca3af).
-  - **Tombol Tanggal Normal (`.datepicker-date-btn`):** Flat transparan, teks hitam tajam kontras tinggi `#111827` (`font-medium text-[12.5px]`), hover flat abu-abu halus `#f3f4f6 rounded-lg`. DILARANG menggunakan teks abu-abu pudar atau border wireframe draf.
-  - **Tanggal Terpilih (`.is-selected`):** Solid master **`bg-[#315B8C] text-white font-semibold rounded-lg`** murni flat tanpa box-shadow/gradient.
-  - **Tanggal Hari Ini (`.is-today`):** Flat tint halus `bg-[#eff6ff] text-[#315B8C] font-bold rounded-lg`.
-  - **Tanggal Luar Bulan (`.is-outside`):** Muted flat `#d1d5db` non-interaktif (`pointer-events-none`).
-  - **Grid Bulan (`.datepicker-months-grid`, `.datepicker-month-btn`):** Mode bulan 3-kolom flat dengan hover `#f3f4f6` dan seleksi solid `#315B8C`.
-  - **Aksi Footer (`.datepicker-popover-footer`, `.datepicker-footer-btn`):** Tombol teks flat responsif untuk shortcut "Hari ini" / "Bulan ini" (`.btn-today`: text `#315B8C` hover `#eff6ff`) dan "Hapus" (`.btn-clear`: text `#6b7280` hover `#fef2f2 text-red-600`).
-- **Nilai Form (Persistence):** Nilai tanggal tersimpan murni di dalam `<input type="hidden" :name="name" :value="value">` sehingga pengiriman form (GET dan POST) 100% kompatibel dan identik dengan input native.
+  - **State Normal:** Background `#ffffff`, border `#d1d5db`, teks `#111827`, bayangan `0 1px 2px rgba(0, 0, 0, 0.04)`.
+  - **State Hover:** Transisi halus ke `background-color: #fafafa; border-color: #9ca3af;`.
+  - **State Focus & Terbuka (`.is-open`):** Background `#ffffff`, border solid **`#315B8C`** (*Deep Brand Blue*), halo aktif `box-shadow: 0 0 0 3px rgba(49, 91, 140, 0.15)`. DILARANG menggunakan biru alien Tailwind (`blue-500` / `#3b82f6`).
+  - **Bebas Transform:** Dilarang menggunakan translasi pergeseran atau scale zoom.
+- **Tipografi Placeholder & Nilai Terstandarisasi:**
+  - Nilai kosong (Placeholder): `.datepicker-placeholder` warna `#9ca3af` (font-weight 400).
+  - Nilai terisi: `.datepicker-value` warna `#111827` (font-weight 500).
+- **Indikator Ikon:**
+  - Ikon leading (kiri): `<i class="bi bi-calendar3">` (atau `bi-calendar-month`) warna `#6b7280` / `#9ca3af` font-size 14px.
+  - Ikon trailing (kanan): `<i class="bi bi-chevron-down">` warna `#9ca3af` dengan rotasi 180° otomatis saat popover terbuka (`transform: rotate(180deg) !important; transition: transform 0.2s;`).
 
-### 3.2. Penggunaan via Helper PHP Resmi
-Setiap view yang membutuhkan input tanggal atau bulan **WAJIB** menggunakan helper `render_datepicker()` di `app/helpers.php`:
+---
+
+### 3.2. Spesifikasi Lengkap Interior Popover Kalender (.datepicker-popover)
+
+Seluruh elemen di dalam popover kalender beroperasi secara **Flat Bersih Kontras Tinggi** tanpa elemen skeuomorphic atau warna kusam:
+
+#### 1. Kontainer Popover (`.datepicker-popover`)
+- **Posisi:** Absolute di bawah pemicu (`top: 100%; inset-inline-start: 0; margin-top: 6px;`).
+- **Dimensi:** Lebar tepat **280px** (`width: 280px; max-width: min(280px, calc(100vw - 2rem));`), padding terpadu 12px.
+- **Visual:** Background solid `#ffffff`, border solid `1px solid #e5e7eb`, radius 12px (`rounded-xl`), bayangan halus `box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04)`, `z-index: 50`.
+- **Hukum Isolasi Dropdown:** Terisolasi mandiri dari `.dropdown-menu` untuk menjamin tidak ada benturan min-width atau padding kaku bawaan dropdown menu Preline.
+- **Visibilitas Alpine:** Didukung aturan mutlak `.datepicker-popover[style*="display: none"] { display: none !important; }`.
+
+#### 2. Header Navigasi Popover (`.datepicker-popover-header`)
+- **Layout:** Flexbox horizontal `justify-between items-center`, margin-bottom 8px, padding-bottom 8px, batas hairline bawah `1px solid #f3f4f6`.
+- **Judul Bulan & Tahun (`.datepicker-popover-title`):** Font **DM Sans**, font-size 13px, font-weight 600, warna `#111827`, tracking `-0.01em`.
+- **Tombol Navigasi Panah (`.datepicker-nav-btn`):** Ukuran 28px x 28px, radius 6px, flat transparan tanpa border, teks `#4b5563`, hover flat abu-abu halus `#f3f4f6` dengan teks `#111827`, zero-transform.
+
+#### 3. Header Nama Hari (`.datepicker-days-header`)
+- **Grid Layout:** Grid 7 kolom (`repeat(7, 1fr)`), gap 2px, margin-bottom 4px.
+- **Label Nama Hari (`.datepicker-day-name`):** Tinggi 26px, font Roboto 11px, font-weight 500, warna **`#6b7280`** (`gray-500` tegas). **DILARANG MENGGUNAKAN WARNA PLACEHOLDER `#9ca3af` ATAU ABU-ABU PUDAR**.
+
+#### 4. Kisi Tombol Tanggal (`.datepicker-days-grid` & `.datepicker-date-btn`)
+- **Grid Layout:** Grid 7 kolom (`repeat(7, 1fr)`), gap 2px.
+- **Geometri Sel Tanggal:** Dimensi 32px x 32px (`size-8`), radius 8px (`rounded-lg`), font Roboto 12.5px, font-weight 500.
+- **Status & Warna Sel:**
+  - **Tanggal Normal (Aktif):** Latar transparan, teks hitam tajam **`#111827`**, hover flat halus `#f3f4f6` dengan teks `#111827`. Bebas border dan bebas bayangan.
+  - **Tanggal Terpilih (`.is-selected`):** Blok solid **`#315B8C`** (*Deep Brand Blue*), teks putih `#ffffff`, font-weight 600, **murni flat tanpa box-shadow / tanpa gradient (`box-shadow: none !important;`)**.
+  - **Tanggal Hari Ini (`.is-today`):** Flat tint halus **`#eff6ff`**, teks **`#315B8C`** font-weight 700.
+  - **Tanggal Luar Bulan (`.is-outside` / `:disabled`):** Muted flat **`#d1d5db`**, non-interaktif (`pointer-events-none; cursor: default;`).
+
+#### 5. Kisi Mode Pemilihan Bulan (`.datepicker-months-grid` & `.datepicker-month-btn`)
+- **Grid Layout:** Grid 3 kolom (`repeat(3, 1fr)`), gap 6px.
+- **Tombol Bulan:** Padding vertikal 10px, radius 8px, font Roboto 12.5px, font-weight 500.
+  - **Bulan Normal:** Latar transparan, teks `#111827`, hover flat `#f3f4f6`.
+  - **Bulan Terpilih (`.is-selected`):** Solid **`#315B8C`**, teks putih `#ffffff`, font-weight 600, flat.
+  - **Bulan Berjalan (`.is-current`):** Flat tint halus `#eff6ff`, teks **`#315B8C`** font-weight 700.
+
+#### 6. Footer Aksi Cepat Popover (`.datepicker-popover-footer` & `.datepicker-footer-btn`)
+- **Layout:** Flexbox horizontal `justify-between items-center`, margin-top 8px, padding-top 8px, batas hairline atas `1px solid #f3f4f6`.
+- **Tombol "Hari ini" / "Bulan ini" (`.btn-today`):** Flat action button, font-size 12px, font-weight 600, teks **`#315B8C`**, hover flat tint `#eff6ff` teks `#1e3c5d`.
+- **Tombol "Hapus" (`.btn-clear`):** Flat action button, font-size 12px, font-weight 500, teks **`#6b7280`** (tegas, bukan placeholder gray), hover flat tint `#fef2f2` teks merah `#dc2626`.
+
+---
+
+### 3.3. Inventarisasi 12 Kelas Komponen Terpusat (@layer components)
+
+Seluruh styling datepicker **MUTLAK TERPUSAT** pada file [`public/assets/css/tailwind-input.css`](file:///home/m4yestik/Projects/client/remittance.raxbyte.com/public/assets/css/tailwind-input.css#L1023-L1377):
+
+| Kelas CSS Komponen | Target Elemen DOM | Deskripsi Desain Flat & Geometri Terkunci |
+| :--- | :--- | :--- |
+| `.custom-datepicker-trigger` | `<button>` pemicu formulir | Tinggi 40px, radius 9px, flat white `#ffffff`, border `#d1d5db`, focus halo `#315B8C`. |
+| `.datepicker-placeholder` | `<span>` teks kosong | Warna `#9ca3af`, font-weight 400, font-size 13.5px. |
+| `.datepicker-value` | `<span>` teks tanggal terisi | Warna `#111827`, font-weight 500, font-size 13.5px. |
+| `.datepicker-popover` | `<div>` kontainer popover | Lebar 280px, background `#ffffff`, border `#e5e7eb`, radius 12px, shadow halus `0 4px 16px -2px`. |
+| `.datepicker-popover-header` | `<div>` bilah judul & panah | Flexbox between, border-bottom `#f3f4f6`, padding-bottom 8px. |
+| `.datepicker-popover-title` | `<span>` judul bulan/tahun | DM Sans 13px font-semibold `#111827`, tracking `-0.01em`. |
+| `.datepicker-nav-btn` | `<button>` panah `<` dan `>` | Ukuran 28x28px, flat transparan, hover `#f3f4f6 text-[#111827]`, zero-transform. |
+| `.datepicker-days-header` | `<div>` bilah header hari | Grid 7 kolom, gap 2px, margin-bottom 4px. |
+| `.datepicker-day-name` | `<span>` nama hari (Sen..Min)| Tinggi 26px, Roboto 11px, font-medium, warna tegas `#6b7280` (anti-placeholder). |
+| `.datepicker-days-grid` | `<div>` kisi tanggal | Grid 7 kolom, gap 2px. |
+| `.datepicker-date-btn` | `<button>` sel tanggal (1..31) | Ukuran 32x32px, radius 8px, teks `#111827`, hover `#f3f4f6`. `.is-selected` solid `#315B8C`. |
+| `.datepicker-months-grid` | `<div>` kisi bulan mode month | Grid 3 kolom, gap 6px. |
+| `.datepicker-month-btn` | `<button>` sel bulan (Jan..Des)| Padding 10x4px, radius 8px, teks `#111827`, hover `#f3f4f6`. `.is-selected` solid `#315B8C`. |
+| `.datepicker-popover-footer` | `<div>` bilah aksi cepat | Flexbox between, border-top `#f3f4f6`, padding-top 8px. |
+| `.datepicker-footer-btn` | `<button>` aksi cepat | Teks flat responsif. `.btn-today` (#315B8C) & `.btn-clear` (#6b7280 hover red). |
+
+---
+
+### 3.4. Cetak Biru DOM & Helper PHP Resmi (The Golden Blueprint)
+
+Seluruh pemanggilan input tanggal di dalam view **MUTLAK WAJIB** menggunakan helper `render_datepicker()` di [`app/helpers.php`](file:///home/m4yestik/Projects/client/remittance.raxbyte.com/app/helpers.php):
+
 ```php
-<!-- Mode Tanggal Tunggal -->
+<!-- Mode Tanggal Harian Tunggal (Default) -->
+<?= render_datepicker('report_date', (string) $selectedDate, [
+    'placeholder' => 'Pilih tanggal report',
+    'required'    => true,
+]) ?>
+
+<!-- Mode Filter Periode Tanggal -->
 <?= render_datepicker('date_from', (string) ($filters['date_from'] ?? ''), [
     'placeholder' => 'Pilih tanggal mulai',
-    'required'    => false,
+]) ?>
+<?= render_datepicker('date_to', (string) ($filters['date_to'] ?? ''), [
+    'placeholder' => 'Pilih tanggal akhir',
 ]) ?>
 
 <!-- Mode Bulan & Tahun -->
-<?= render_datepicker('month', (string) ($filters['month'] ?? ''), [
+<?= render_datepicker('month_key', (string) ($filters['month'] ?? ''), [
     'mode'        => 'month',
     'placeholder' => 'Pilih bulan report',
-    'required'    => true,
+    'required'    => false,
 ]) ?>
 ```
+
+#### Anatomi DOM yang Dihasilkan Helper:
+```html
+<div class="custom-datepicker-root relative" x-data="customDatePicker({ name: 'date', value: '2026-10-29', mode: 'date' })" @click.outside="open = false">
+    <!-- Persistence Form Field (GET/POST 100% Kompatibel) -->
+    <input type="hidden" :name="name" :value="value">
+
+    <!-- Tombol Pemicu Flat 40px -->
+    <button type="button" @click="open = !open" class="custom-datepicker-trigger" :class="{ 'is-open': open }" :aria-expanded="open.toString()">
+        <div class="flex items-center gap-2 truncate">
+            <i class="bi bi-calendar3 text-gray-500 text-sm"></i>
+            <span x-text="displayLabel || placeholder" :class="Boolean(value) ? 'datepicker-value' : 'datepicker-placeholder'"></span>
+        </div>
+        <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200 shrink-0 ms-1.5" :class="{ 'rotate-180': open }"></i>
+    </button>
+
+    <!-- Interior Popover Kalender Flat 280px -->
+    <div x-show="open" x-cloak class="datepicker-popover" style="display: none;">
+        <template x-if="mode === 'date'">
+            <div>
+                <!-- Header Navigasi -->
+                <div class="datepicker-popover-header">
+                    <button type="button" @click.stop="prevMonth()" class="datepicker-nav-btn" aria-label="Bulan sebelumnya">
+                        <i class="bi bi-chevron-left"></i>
+                    </button>
+                    <span class="datepicker-popover-title" x-text="currentMonthName + ' ' + viewYear"></span>
+                    <button type="button" @click.stop="nextMonth()" class="datepicker-nav-btn" aria-label="Bulan berikutnya">
+                        <i class="bi bi-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Header Nama Hari -->
+                <div class="datepicker-days-header">
+                    <template x-for="dn in dayNames" :key="dn">
+                        <span class="datepicker-day-name" x-text="dn"></span>
+                    </template>
+                </div>
+
+                <!-- Kisi Tanggal 7-Kolom -->
+                <div class="datepicker-days-grid">
+                    <template x-for="(d, idx) in daysInMonth" :key="idx">
+                        <button
+                            type="button"
+                            @click.stop="d.isCurrentMonth && selectDate(d.dateStr)"
+                            :disabled="!d.isCurrentMonth"
+                            class="datepicker-date-btn"
+                            :class="{
+                                'is-outside': !d.isCurrentMonth,
+                                'is-selected': d.isSelected,
+                                'is-today': d.isToday && !d.isSelected
+                            }"
+                            x-text="d.day"
+                        ></button>
+                    </template>
+                </div>
+
+                <!-- Footer Aksi Cepat -->
+                <div class="datepicker-popover-footer">
+                    <button type="button" @click.stop="setToday()" class="datepicker-footer-btn btn-today">Hari ini</button>
+                    <button type="button" x-show="value" @click.stop="clear()" class="datepicker-footer-btn btn-clear">Hapus</button>
+                </div>
+            </div>
+        </template>
+    </div>
+</div>
+```
+
+---
+
+### 3.5. Daftar 7 Larangan Mutlak Datepicker (The Anti-Patterns Checklist)
+
+1. **Dilarang Native Datepicker Shadow DOM:** Penggunaan tag `<input type="date">` atau `<input type="month">` diharamkan secara mutlak.
+2. **Dilarang Skeuomorphic Inset Shadow:** Dilarang memberi `box-shadow: inset ...` atau latar semen `#F5F2F2` pada tombol pemicu `.custom-datepicker-trigger`.
+3. **Dilarang Warna Abu-Abu Placeholder di Tanggal:** Teks angka tanggal aktif DILARANG menggunakan `text-gray-400`, `text-gray-600`, atau `text-gray-700`. Teks wajib menggunakan warna hitam kontras tinggi **`#111827`**.
+4. **Dilarang Warna Placeholder pada Header Hari & Aksi:** Header hari wajib menggunakan `#6b7280` (`gray-500`) dan tombol aksi Hapus wajib menggunakan `#6b7280` dengan hover merah `#dc2626`. Dilarang hardcode warna `#9ca3af`.
+5. **Dilarang Box-Shadow / Gradient pada Tanggal Terpilih:** State tanggal terpilih (`.is-selected`) wajib murni flat solid `#315B8C` dengan teks putih. Dilarang menambahkan efek glow, bevel, gradient, atau drop shadow.
+6. **Dilarang Rantai Utilitas Ad-Hoc:** Seluruh penataan visual popover kalender wajib merujuk pada kelas komponen resmi di `@layer components` (`.datepicker-popover`, `.datepicker-date-btn`, dll).
+7. **Dilarang Merusak Form Persistence:** Setiap datepicker wajib menyertakan `<input type="hidden" :name="name" :value="value">` agar pengiriman formulir GET/POST tetap 100% kompatibel dengan backend controller.
 
 ---
 
