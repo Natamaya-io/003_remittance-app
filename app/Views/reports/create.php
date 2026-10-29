@@ -184,16 +184,4 @@ $defaultReportName = 'LAPORAN - ' . ($monthNames[$monthNumber] ?? strtoupper(dat
             </a>
         </aside>
     </div>
-
-    <!-- FLOATING TOAST NOTIFICATION (GEMINI.MD SECTION 16 - ZERO LAYOUT SHIFT) -->
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        if (window.remitToast && typeof window.remitToast.info === 'function') {
-            window.remitToast.info('Header berkas wajib mencakup Bill To, Beneficiary Name, Amounts, dan Currency.', {
-                title: 'Format Kolom Berkas',
-                duration: 6000
-            });
-        }
-    });
-    </script>
 </div>
