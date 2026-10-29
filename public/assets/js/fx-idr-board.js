@@ -130,6 +130,57 @@
     type = 'success'
   ) => {
 
+    const validType =
+      [
+        'success',
+        'warning',
+        'danger',
+        'info',
+      ].includes(type)
+        ? type
+        : 'success';
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | STANDAR TOAST GLOBAL REMITGO! (GEMINI.md Bagian 16)
+    |--------------------------------------------------------------------------
+    | Prioritas mutlak: Gunakan window.remitToast agar patuh pada aturan:
+    | 1. Penempatan bawah viewport (fixed bottom-20 sm:bottom-6 sm:right-6)
+    | 2. 4 Varian warna solid resmi (emerald-50, red-50, amber-50, blue-50)
+    | 3. Ikon resmi Bootstrap Icons tanpa wrapper dekoratif (Universal Naked Icon)
+    | 4. Tombol tutup kustom (.toast-close)
+    | 5. Pause saat hover & auto-dismiss 5 detik
+    */
+    if (
+      typeof window.remitToast === 'function'
+    ) {
+
+      window.remitToast({
+        title:
+          String(
+            title || 'Informasi'
+          ),
+
+        message:
+          String(
+            message || ''
+          ),
+
+        type:
+          validType,
+      });
+
+      return;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | FALLBACK DARURAT (Jika window.remitToast belum termuat)
+    |--------------------------------------------------------------------------
+    */
     let stack =
       q(
         '.fx-toast-stack'

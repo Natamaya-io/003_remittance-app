@@ -101,7 +101,7 @@ $reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode
 
     <link
         rel="stylesheet"
-        href="<?= e(asset('css/fx-idr-board.css?v=23.2.0')) ?>"
+        href="<?= e(asset('css/fx-idr-board.css?v=23.3.0')) ?>"
     >
 
 
@@ -5097,7 +5097,7 @@ $reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode
 ========================================================= -->
 
 <script
-    src="<?= e(asset('js/fx-idr-board.js?v=23.1.0')) ?>"
+    src="<?= e(asset('js/fx-idr-board.js?v=23.2.0')) ?>"
     defer
 ></script>
 

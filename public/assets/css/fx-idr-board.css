@@ -1319,8 +1319,8 @@ body.fx-modal-open {
 
     z-index: 11000;
 
-    top: 86px;
-    right: 20px;
+    bottom: 24px;
+    right: 24px;
 
     display: grid;
 
@@ -1638,15 +1638,18 @@ body.fx-modal-open {
 
 
     .fx-toast-stack {
-        top:
-            70px;
+        bottom:
+            80px;
 
         right:
-            8px;
+            16px;
+
+        left:
+            16px;
 
         width:
             calc(
-                100vw - 16px
+                100vw - 32px
             );
     }
 
