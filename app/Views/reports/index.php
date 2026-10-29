@@ -434,53 +434,24 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                 >
                     <!-- Modal Header -->
                     <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-white">
-                        <div class="flex items-center gap-2.5">
-                            <i class="bi bi-arrow-left-right text-gray-800 text-lg"></i>
-                            <div class="flex items-center gap-1.5">
-                                <strong id="modal-transaction-title" class="text-sm sm:text-base font-semibold text-gray-900 block font-heading">Pilih Jalur Transaksi Perbankan</strong>
-                                <?= render_tooltip(
-                                    'Pilih bank koresponden untuk memproses transaksi remitansi.',
-                                    '<span class="hs-tooltip-toggle info-toggle-btn cursor-help" aria-label="Info jalur transaksi"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
-                                    ['placement' => 'top', 'contentClass' => 'z-[100000]']
-                                ) ?>
-                            </div>
+                        <div class="flex items-center gap-1.5">
+                            <strong id="modal-transaction-title" class="text-sm sm:text-base font-semibold text-gray-900 block font-heading">Pilih Jalur Transaksi Perbankan</strong>
+                            <?= render_tooltip(
+                                'Pilih bank koresponden untuk memproses transaksi remitansi.',
+                                '<span class="hs-tooltip-toggle info-toggle-btn cursor-help" aria-label="Info jalur transaksi"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
+                                ['placement' => 'top', 'contentClass' => 'z-[100000]']
+                            ) ?>
                         </div>
 
-                        <div class="flex items-center gap-2">
-                            <!-- Navigasi Tanda Panah Slider Bank (Header Controls) -->
-                            <div class="inline-flex items-center gap-1 p-0.5 rounded-lg border border-gray-200 bg-gray-50/80">
-                                <button
-                                    type="button"
-                                    @click="scrollSlider('left')"
-                                    :disabled="emptyResults"
-                                    class="slider-nav-btn"
-                                    aria-label="Geser pilihan bank ke kiri"
-                                    title="Geser ke kiri"
-                                >
-                                    <i class="bi bi-chevron-left text-xs leading-none"></i>
-                                </button>
-                                <button
-                                    type="button"
-                                    @click="scrollSlider('right')"
-                                    :disabled="emptyResults"
-                                    class="slider-nav-btn"
-                                    aria-label="Geser pilihan bank ke kanan"
-                                    title="Geser ke kanan"
-                                >
-                                    <i class="bi bi-chevron-right text-xs leading-none"></i>
-                                </button>
-                            </div>
-
-                            <button
-                                type="button"
-                                @click="openTransactionModal = false"
-                                class="modal-close"
-                                aria-label="Tutup modal"
-                                title="Tutup modal"
-                            >
-                                <i class="bi bi-x-lg text-xs leading-none"></i>
-                            </button>
-                        </div>
+                        <button
+                            type="button"
+                            @click="openTransactionModal = false"
+                            class="modal-close"
+                            aria-label="Tutup modal"
+                            title="Tutup modal"
+                        >
+                            <i class="bi bi-x-lg text-xs leading-none"></i>
+                        </button>
                     </div>
 
                     <!-- Modal Search Bar (Pencarian Jalur Bank) -->
