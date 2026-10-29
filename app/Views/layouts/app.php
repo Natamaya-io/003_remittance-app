@@ -4983,10 +4983,11 @@ $reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode
 <!-- =========================================================
      GLOBAL CUSTOM DIALOG & MODAL SYSTEM (ANTI-NATIVE BROWSER)
      ========================================================= -->
-<div x-data="remitGlobalDialogs" x-cloak>
+<div x-data="remitGlobalDialogs" x-cloak @keydown.escape.window="if (confirm.open) onCancel(); if (alert.open) closeAlert();">
     <!-- CONFIRM MODAL -->
     <div
         x-show="confirm.open"
+        @click.self="onCancel()"
         class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-xs"
         x-transition:enter="transition ease-out duration-200"
         x-transition:enter-start="opacity-0"
@@ -5000,7 +5001,6 @@ $reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode
     >
         <div
             class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl border border-gray-200"
-            @click.outside="onCancel()"
             x-transition:enter="transition ease-out duration-200"
             x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100"
@@ -5039,6 +5039,7 @@ $reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode
     <!-- ALERT MODAL -->
     <div
         x-show="alert.open"
+        @click.self="closeAlert()"
         class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-xs"
         x-transition:enter="transition ease-out duration-200"
         x-transition:enter-start="opacity-0"
@@ -5052,7 +5053,6 @@ $reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode
     >
         <div
             class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl border border-gray-200"
-            @click.outside="closeAlert()"
             x-transition:enter="transition ease-out duration-200"
             x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100"

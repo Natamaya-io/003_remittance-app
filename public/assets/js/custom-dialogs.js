@@ -23,7 +23,18 @@ window.RemitDialogs = {
     buttonText: 'Mengerti'
   },
 
+  _isReactive: false,
+
+  _ensureReactive() {
+    if (window.Alpine && !this._isReactive) {
+      this.confirmState = window.Alpine.reactive(this.confirmState);
+      this.alertState = window.Alpine.reactive(this.alertState);
+      this._isReactive = true;
+    }
+  },
+
   confirm(message, options = {}) {
+    this._ensureReactive();
     return new Promise((resolve) => {
       this.confirmState.message = message || 'Apakah Anda yakin ingin melanjutkan tindakan ini?';
       this.confirmState.title = options.title || 'Konfirmasi Tindakan';
@@ -36,6 +47,7 @@ window.RemitDialogs = {
   },
 
   alert(message, options = {}) {
+    this._ensureReactive();
     this.alertState.message = message || '';
     this.alertState.title = options.title || 'Pemberitahuan';
     this.alertState.type = options.type || 'info';
@@ -174,7 +186,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (ok) {
       form._remitConfirmed = true;
-      form.submit();
+      if (typeof HTMLFormElement.prototype.submit === 'function') {
+        HTMLFormElement.prototype.submit.call(form);
+      } else {
+        form.submit();
+      }
     }
   }, true);
 });
@@ -191,6 +207,10 @@ window.openSearchModal = function () {
 // Alpine data bindings
 function initRemitDialogs() {
   if (!window.Alpine) return;
+
+  if (window.RemitDialogs && typeof window.RemitDialogs._ensureReactive === 'function') {
+    window.RemitDialogs._ensureReactive();
+  }
 
   if (window.RemitToast && typeof window.RemitToast._ensureReactive === 'function') {
     window.RemitToast._ensureReactive();
