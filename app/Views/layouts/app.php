@@ -4878,22 +4878,18 @@ $reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode
 <body class="bg-slate-50 text-gray-800 antialiased font-sans min-h-screen">
 
     <!-- =========================================================
-         GLOBAL AMBIENT ART BACKGROUND WATERMARK
-         Menghadirkan elemen visual art RemitGo! samar & menyatu di background kanvas
-         #F5F2F2 di semua halaman aplikasi dengan zero-overhead dan zero-interference.
+         GLOBAL AMBIENT CIRCULAR ART BACKGROUND
+         Aset desain lingkaran geometris ringan & dinamis yang samar & menyatu
+         pada background kanvas #F5F2F2 di semua halaman aplikasi.
          ========================================================= -->
     <div class="global-ambient-art" aria-hidden="true">
-        <picture class="global-ambient-art-picture">
-            <source srcset="<?= e(url('/login_art.avif')) ?>" type="image/avif">
-            <source srcset="<?= e(url('/login_art.webp')) ?>" type="image/webp">
-            <img
-                src="<?= e(url('/login_art.jpeg')) ?>"
-                alt=""
-                class="global-ambient-art-img"
-                loading="lazy"
-                decoding="async"
-            >
-        </picture>
+        <img
+            src="<?= e(url('/ambient-circles.svg')) ?>"
+            alt=""
+            class="global-ambient-art-svg select-none pointer-events-none"
+            loading="eager"
+            decoding="async"
+        >
     </div>
 
     <!-- =========================================================

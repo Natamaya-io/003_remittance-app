@@ -2100,38 +2100,33 @@ Seluruh tombol berbasis tanda silang / penutup (Tombol "X") di seluruh aplikasi 
 
 ---
 
-### 21.2. Standar Opasitas & Formula Blending Solid
+### 21.2. Spesifikasi Vektor Geometris Lingkaran (Circular Ambient Vector Asset)
 
-Visual art wajib memenuhi formula optik berikut agar "samar atau blend dengan background":
-
-| Properti CSS | Nilai Standar | Tujuan Estetika & Keamanan Kontras |
-| :--- | :--- | :--- |
-| **Opacity** | `0.035` (3.5%) | Menghasilkan bayangan art yang sangat halus, setara watermark uang kertas resmi. |
-| **Mix-Blend-Mode** | `multiply` | Menyatu murni dengan kanvas `#F5F2F2`. Area terang art menjadi 100% transparan, sedangkan kontur gelap memberi shading asphalt lembut. |
-| **Filter** | `grayscale(15%)` | Menyelaraskan saturasi visual art agar menyatu alami dengan palet 4 warna master proyek. |
-| **Object-Fit** | `cover` | Menjamin visual art mengisi seluruh viewport secara proporsional di berbagai rasio layar (mobile, tablet, desktop ultrawide). |
-| **Object-Position** | `center` | Mempertahankan titik fokal visual art di tengah kanvas. |
+Aset visual art background dikunci menggunakan format vektor murni **`public/ambient-circles.svg`** (`public/assets/img/ambient-circles.svg`):
+- **Komposisi Lingkaran ("Cukup Banyak"):** Terdiri dari lebih dari 120 elemen lingkaran geometris presisi yang mencakup:
+  1. *Concentric Wave Clusters*: Riak gelombang konsentris di sudut kanan-atas (hub perbankan) dan kiri-bawah (jangkar transaksi).
+  2. *Global Financial Orbits*: Cincin-cincin orbit besar melintang yang menghubungkan seluruh bentang kanvas.
+  3. *Nodal Satellite Rings*: Cincin konsentris target pada titik-titik simpul koneksi data.
+  4. *Matrix Dot Grids*: Matriks titik lingkaran halus $5\times 5$ sebagai aksen tekstur digital perbankan modern.
+- **Karakteristik Ultra-Ringan ("Namun Ringan"):** Berukuran hanya ~11 KB (sekitar 2.5 KB terkompresi gzip), membebaskan memori dan bandwidth dari file raster berat (menggantikan file bitmap ~885 KB), serta dirender dengan akselerasi GPU 60 FPS.
+- **Kepatuhan Palet 4 Warna Master:** Menggunakan warna resmi `#315B8C` (Deep Brand Blue), `#F2765E` (Vibrant Coral Accent), dan `#413333` (Deep Asphalt Brown) dengan opasitas stroke halus terkalibrasi (0.06 hingga 0.15), menghasilkan efek samar dan menyatu alami dengan kanvas dasar `#F5F2F2`.
 
 ---
 
-### 21.3. Struktur DOM Standar & Dukungan Format Multi-Generasi
+### 21.3. Struktur DOM Standar
 
 Elemen art dirender tepat di bawah tag pembuka `<body>` pada seluruh berkas layout utama (`app/Views/layouts/app.php` dan `app/Views/layouts/guest.php`):
 
 ```html
-<!-- GLOBAL AMBIENT ART BACKGROUND WATERMARK -->
+<!-- GLOBAL AMBIENT CIRCULAR ART BACKGROUND -->
 <div class="global-ambient-art" aria-hidden="true">
-    <picture class="global-ambient-art-picture">
-        <source srcset="<?= e(url('/login_art.avif')) ?>" type="image/avif">
-        <source srcset="<?= e(url('/login_art.webp')) ?>" type="image/webp">
-        <img
-            src="<?= e(url('/login_art.jpeg')) ?>"
-            alt=""
-            class="global-ambient-art-img"
-            loading="lazy"
-            decoding="async"
-        >
-    </picture>
+    <img
+        src="<?= e(url('/ambient-circles.svg')) ?>"
+        alt=""
+        class="global-ambient-art-svg select-none pointer-events-none"
+        loading="eager"
+        decoding="async"
+    >
 </div>
 ```
 
