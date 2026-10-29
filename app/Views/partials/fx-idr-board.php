@@ -1015,128 +1015,50 @@ $quotesCsv =
 
         <?php if (
             $fxShowActions
+            &&
+            $fxShowSync
+            &&
+            $canRefreshFx
         ): ?>
 
 
             <div class="fx-modern-actions">
 
 
-                <!-- STATUS -->
+                <!-- SINKRON -->
 
-                <span
-                    class="
-                        fx-modern-pill
-                        fx-modern-status-pill
-                    "
+                <form
+                    method="post"
+                    action="<?= e(url('/fx/refresh')) ?>"
+                    data-fx-sync-form
                 >
 
 
-                    <i
-                        class="fx-modern-live-dot"
-                    ></i>
-
-
-                    <span
-                        data-fx-status
-                    >
-
-                        <?= !empty(
-                            $fxData['cached']
-                        )
-                            ? 'Cache BI aktif'
-                            : 'Data BI terbaru' ?>
-
-                    </span>
-
-
-                </span>
-
-
-                <!-- PROVIDER -->
-
-                <span
-                    class="fx-modern-pill"
-                    data-fx-provider
-                >
-
-                    <?= e(
-                        $fxProvider
-                    ) ?>
-
-                </span>
-
-
-                <!-- REFRESH -->
-
-                <?php if (
-                    $fxShowRefresh
-                ): ?>
+                    <?= csrf_field() ?>
 
 
                     <button
-                        class="fx-modern-refresh"
-                        type="button"
-                        data-fx-refresh
-                        aria-label="Perbarui kurs BI"
+                        class="fx-modern-sync"
+                        type="submit"
+                        data-fx-sync
                     >
+
 
                         <i
                             class="
                                 bi
-                                bi-arrow-clockwise
+                                bi-cloud-arrow-up
                             "
                         ></i>
+
+
+                        Sinkron BI
+
 
                     </button>
 
 
-                <?php endif; ?>
-
-
-                <!-- SINKRON -->
-
-                <?php if (
-                    $fxShowSync
-                    &&
-                    $canRefreshFx
-                ): ?>
-
-
-                    <form
-                        method="post"
-                        action="<?= e(url('/fx/refresh')) ?>"
-                        data-fx-sync-form
-                    >
-
-
-                        <?= csrf_field() ?>
-
-
-                        <button
-                            class="fx-modern-sync"
-                            type="submit"
-                            data-fx-sync
-                        >
-
-
-                            <i
-                                class="
-                                    bi
-                                    bi-cloud-arrow-up
-                                "
-                            ></i>
-
-
-                            Sinkron BI
-
-
-                        </button>
-
-
-                    </form>
-
-
-                <?php endif; ?>
+                </form>
 
 
             </div>
