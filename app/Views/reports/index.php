@@ -87,7 +87,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
             'query' => (string) ($filters['q'] ?? ''),
         ]) ?>
 
-        <!-- Tombol Filter Modal (Disamping Upload Excel) -->
+        <!-- Tombol Filter Modal (Disamping Upload Excel & Mulai Transaksi) -->
         <button
             type="button"
             @click="openFilterModal = true"
@@ -102,10 +102,17 @@ $activeFilterSummary = implode(' · ', $filterDescs);
             <?php endif; ?>
         </button>
 
+        <?php if (can('transaction.view') || can('transaction.manage')): ?>
+            <a class="btn-primary" href="<?= e(url('/transactions')) ?>" title="Mulai Transaksi">
+                <i class="bi bi-arrow-left-right text-sm"></i>
+                <span>Mulai Transaksi</span>
+            </a>
+        <?php endif; ?>
+
         <?php if (can('report.manage')): ?>
-            <a class="btn-primary" href="<?= e(url('/reports/create')) ?>">
+            <a class="btn-primary" href="<?= e(url('/reports/create')) ?>" title="Upload Excel">
                 <i class="bi bi-cloud-arrow-up text-sm"></i>
-                Upload Excel
+                <span>Upload Excel</span>
             </a>
         <?php endif; ?>
     </div>
