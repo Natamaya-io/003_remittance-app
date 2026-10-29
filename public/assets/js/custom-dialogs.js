@@ -382,6 +382,30 @@ function initRemitDialogs() {
       this.$refs.searchInput?.form?.submit();
     }
   }));
+
+  // RemitGo! Report View Mode Component (Table vs Card view toggle - GEMINI.MD Section 1.2)
+  window.Alpine.data('remitReportView', (initialMode = 'table') => ({
+    viewMode: initialMode,
+
+    init() {
+      try {
+        const local = localStorage.getItem('remitgo_report_view_mode');
+        if (local && local !== this.viewMode && (local === 'table' || local === 'list')) {
+          this.viewMode = local;
+          document.cookie = 'remitgo_report_view_mode=' + local + '; path=/; max-age=31536000; SameSite=Lax';
+          document.documentElement.classList.toggle('report-view-list', local === 'list');
+        }
+      } catch (e) {}
+
+      this.$watch('viewMode', (val) => {
+        document.documentElement.classList.toggle('report-view-list', val === 'list');
+        try {
+          localStorage.setItem('remitgo_report_view_mode', val);
+          document.cookie = 'remitgo_report_view_mode=' + val + '; path=/; max-age=31536000; SameSite=Lax';
+        } catch (e) {}
+      });
+    }
+  }));
 }
 
 document.addEventListener('alpine:init', initRemitDialogs);

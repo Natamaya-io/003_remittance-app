@@ -336,25 +336,7 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
     <?php
     $currentViewMode = get_report_view_mode();
     ?>
-    <div x-data="{ viewMode: '<?= e($currentViewMode) ?>' }"
-         x-init="
-             try {
-                 const local = localStorage.getItem('remitgo_report_view_mode');
-                 if (local && local !== viewMode && (local === 'table' || local === 'list')) {
-                     viewMode = local;
-                     document.cookie = 'remitgo_report_view_mode=' + local + '; path=/; max-age=31536000; SameSite=Lax';
-                     document.documentElement.classList.toggle('report-view-list', local === 'list');
-                 }
-             } catch(e){}
-             $watch('viewMode', val => {
-                 document.documentElement.classList.toggle('report-view-list', val === 'list');
-                 try {
-                     localStorage.setItem('remitgo_report_view_mode', val);
-                     document.cookie = 'remitgo_report_view_mode=' + val + '; path=/; max-age=31536000; SameSite=Lax';
-                 } catch(e){}
-             })
-         "
-         class="space-y-4">
+    <div x-data="remitReportView('<?= e($currentViewMode) ?>')" class="space-y-4">
 
         <div class="flex items-center justify-end">
             <!-- Toggle Tampilan Teks Antara Tabel dan Kartu (UI Kustom) -->
