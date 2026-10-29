@@ -433,15 +433,17 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                             $skipped = (int) ($batch['skipped_rows'] ?? 0);
                             $progress = $total > 0 ? min(100, (int) round(($sent / $total) * 100)) : 0;
                             ?>
-                            <tr class="even:bg-gray-50/50 [data-no-hover]">
+                            <tr class="even:bg-[#F5F2F2] [data-no-hover]">
                                 <td class="py-4 px-5 whitespace-nowrap">
                                     <div class="space-y-1">
-                                        <span class="inline-flex items-center py-0.5 px-2 rounded-full text-[11px] tabular-nums font-semibold bg-gray-100 text-gray-700">
-                                            Batch #<?= (int) $batch['id'] ?>
-                                        </span>
-                                        <strong class="text-xs font-semibold text-gray-900 block">
-                                            TEAM: <?= e(strtoupper((string) ($batch['effective_team'] ?? 'Tanpa Tim'))) ?>
-                                        </strong>
+                                        <div class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-900 tabular-nums">
+                                            <i class="bi bi-layers text-gray-400" aria-hidden="true"></i>
+                                            <span>Batch #<?= (int) $batch['id'] ?></span>
+                                        </div>
+                                        <div class="flex items-center gap-1.5 text-xs font-medium text-gray-600">
+                                            <i class="bi bi-people text-gray-400" aria-hidden="true"></i>
+                                            <span><?= e(strtoupper((string) ($batch['effective_team'] ?? 'Tanpa Tim'))) ?></span>
+                                        </div>
                                     </div>
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap">
@@ -531,12 +533,15 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                     <div class="space-y-3">
                         <div class="flex items-start justify-between gap-3">
                             <div class="min-w-0">
-                                <div class="flex items-center gap-2 mb-1">
-                                    <span class="inline-flex items-center py-0.5 px-2 rounded-full text-[11px] tabular-nums font-semibold bg-gray-100 text-gray-700">
-                                        Batch #<?= (int) $batch['id'] ?>
+                                <div class="flex items-center gap-2 mb-1.5 flex-wrap">
+                                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-900 tabular-nums">
+                                        <i class="bi bi-layers text-gray-400" aria-hidden="true"></i>
+                                        <span>Batch #<?= (int) $batch['id'] ?></span>
                                     </span>
-                                    <span class="inline-flex items-center py-0.5 px-2.5 rounded-full text-xs font-semibold bg-blue-50 text-blue-800 border border-blue-200">
-                                        <?= e(strtoupper((string) ($batch['effective_team'] ?? 'Tanpa Tim'))) ?>
+                                    <span class="text-xs text-gray-300">·</span>
+                                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-700">
+                                        <i class="bi bi-people text-gray-400" aria-hidden="true"></i>
+                                        <span><?= e(strtoupper((string) ($batch['effective_team'] ?? 'Tanpa Tim'))) ?></span>
                                     </span>
                                 </div>
                                 <strong class="text-sm font-semibold font-heading text-gray-900 block truncate" title="<?= e($batch['source_filename']) ?>">
