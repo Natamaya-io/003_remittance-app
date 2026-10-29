@@ -115,13 +115,16 @@ Penggunaan `<input type="date">` dan `<input type="month">` native browser memic
   - **Hover:** Transisi halus ke `background-color: #fafafa; border-color: #9ca3af;`.
   - **Focus & Buka (Is-Open):** Background putih `#ffffff`, border solid **`#315B8C`** (*Deep Brand Blue*), dan halo aktif `box-shadow: 0 0 0 3px rgba(49, 91, 140, 0.15)`. DILARANG KERAS menggunakan warna biru alien generic Tailwind (`blue-500` / `#3b82f6`).
 - **Tipografi Placeholder & Nilai Terstandarisasi:** Teks placeholder menggunakan kelas `.datepicker-placeholder` dengan warna `#9ca3af` (font-weight 400). Saat tanggal telah terpilih, teks beralih ke `.datepicker-value` dengan warna `#111827` (font-weight 500).
-- **Arsitektur Popover Kalender Flat & Kontras Tinggi:**
-  - Kontainer: Background putih `#ffffff`, border `1px solid #e5e7eb`, radius 12px (`rounded-xl`), bayangan halus `shadow-lg`, padding 14px (`p-3.5`).
-  - Navigasi Bulan/Tahun: Tombol panah flat minimalis `size-7 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded-lg`.
-  - Teks Tanggal Normal: Teks hitam tajam kontras tinggi (`text-gray-900`) dengan hover flat `hover:bg-gray-100`. DILARANG menggunakan teks abu-abu pudar `text-gray-700`.
-  - Tanggal Aktif: Solid master **`bg-[#315B8C] text-white font-semibold`**.
-  - Tanggal Hari Ini: Teks kontras **`text-[#315B8C] font-bold hover:bg-blue-50/60`**.
-  - Aksi Footer: Tombol teks flat responsif untuk shortcut "Hari ini" / "Bulan ini" (`text-[#315B8C] hover:bg-blue-50/60`) dan "Hapus" (`text-gray-400 hover:text-red-600 hover:bg-red-50`).
+- **Arsitektur Popover Kalender Flat & Kontras Tinggi (Kustom UI Komprehensif):**
+  - **Kontainer Popover (`.datepicker-popover`):** Background putih `#ffffff`, border solid `1px solid #e5e7eb`, radius 12px, bayangan halus `0 4px 16px -2px rgba(0, 0, 0, 0.08)`, lebar tepat 280px (`max-width: min(280px, calc(100vw - 2rem))`), padding 12px.
+  - **Header Navigasi (`.datepicker-popover-header`, `.datepicker-nav-btn`, `.datepicker-popover-title`):** Judul bulan/tahun DM Sans 13px font-semibold `#111827`, tombol panah minimalis tanpa border `size-7 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md`.
+  - **Header Nama Hari (`.datepicker-days-header`, `.datepicker-day-name`):** Teks abu-abu tegas `text-gray-500` (`#6b7280`), tinggi 26px, font-medium 11px (Anti-Placeholder Gray #9ca3af).
+  - **Tombol Tanggal Normal (`.datepicker-date-btn`):** Flat transparan, teks hitam tajam kontras tinggi `#111827` (`font-medium text-[12.5px]`), hover flat abu-abu halus `#f3f4f6 rounded-lg`. DILARANG menggunakan teks abu-abu pudar atau border wireframe draf.
+  - **Tanggal Terpilih (`.is-selected`):** Solid master **`bg-[#315B8C] text-white font-semibold rounded-lg`** murni flat tanpa box-shadow/gradient.
+  - **Tanggal Hari Ini (`.is-today`):** Flat tint halus `bg-[#eff6ff] text-[#315B8C] font-bold rounded-lg`.
+  - **Tanggal Luar Bulan (`.is-outside`):** Muted flat `#d1d5db` non-interaktif (`pointer-events-none`).
+  - **Grid Bulan (`.datepicker-months-grid`, `.datepicker-month-btn`):** Mode bulan 3-kolom flat dengan hover `#f3f4f6` dan seleksi solid `#315B8C`.
+  - **Aksi Footer (`.datepicker-popover-footer`, `.datepicker-footer-btn`):** Tombol teks flat responsif untuk shortcut "Hari ini" / "Bulan ini" (`.btn-today`: text `#315B8C` hover `#eff6ff`) dan "Hapus" (`.btn-clear`: text `#6b7280` hover `#fef2f2 text-red-600`).
 - **Nilai Form (Persistence):** Nilai tanggal tersimpan murni di dalam `<input type="hidden" :name="name" :value="value">` sehingga pengiriman form (GET dan POST) 100% kompatibel dan identik dengan input native.
 
 ### 3.2. Penggunaan via Helper PHP Resmi

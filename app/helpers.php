@@ -300,82 +300,81 @@ function render_datepicker(string $name, string $value = '', array $options = []
             x-transition:leave-start="opacity-100"
             x-transition:leave-end="opacity-0"
             :class="{ 'block': open, 'hidden': !open }"
-            class="dropdown-menu absolute start-0 top-full mt-1.5 w-68 bg-white border border-gray-200 rounded-xl p-3.5 shadow-lg z-50"
+            class="datepicker-popover"
             style="display: none;"
         >
             <template x-if="mode === 'date'">
                 <div>
-                    <div class="flex items-center justify-between mb-2.5 pb-2 border-b border-gray-100">
-                        <button type="button" @click.stop="prevMonth()" class="size-7 flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors" aria-label="Bulan sebelumnya">
-                            <i class="bi bi-chevron-left text-xs"></i>
+                    <div class="datepicker-popover-header">
+                        <button type="button" @click.stop="prevMonth()" class="datepicker-nav-btn" aria-label="Bulan sebelumnya">
+                            <i class="bi bi-chevron-left"></i>
                         </button>
-                        <span class="text-xs font-semibold text-gray-900" x-text="currentMonthName + ' ' + viewYear"></span>
-                        <button type="button" @click.stop="nextMonth()" class="size-7 flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors" aria-label="Bulan berikutnya">
-                            <i class="bi bi-chevron-right text-xs"></i>
+                        <span class="datepicker-popover-title" x-text="currentMonthName + ' ' + viewYear"></span>
+                        <button type="button" @click.stop="nextMonth()" class="datepicker-nav-btn" aria-label="Bulan berikutnya">
+                            <i class="bi bi-chevron-right"></i>
                         </button>
                     </div>
 
-                    <div class="grid grid-cols-7 gap-1 text-center mb-1">
+                    <div class="datepicker-days-header">
                         <template x-for="dn in dayNames" :key="dn">
-                            <span class="text-[10.5px] font-medium text-gray-400 py-1" x-text="dn"></span>
+                            <span class="datepicker-day-name" x-text="dn"></span>
                         </template>
                     </div>
 
-                    <div class="grid grid-cols-7 gap-1 text-center">
+                    <div class="datepicker-days-grid">
                         <template x-for="(d, idx) in daysInMonth" :key="idx">
                             <button
                                 type="button"
                                 @click.stop="d.isCurrentMonth && selectDate(d.dateStr)"
                                 :disabled="!d.isCurrentMonth"
-                                class="size-8 mx-auto flex items-center justify-center rounded-lg text-xs font-medium transition-colors"
+                                class="datepicker-date-btn"
                                 :class="{
-                                    'text-gray-300 pointer-events-none': !d.isCurrentMonth,
-                                    'bg-[#315B8C] text-white font-semibold': d.isSelected,
-                                    'text-[#315B8C] font-bold hover:bg-blue-50/60': d.isToday && !d.isSelected,
-                                    'text-gray-900 hover:bg-gray-100': d.isCurrentMonth && !d.isSelected && !d.isToday
+                                    'is-outside': !d.isCurrentMonth,
+                                    'is-selected': d.isSelected,
+                                    'is-today': d.isToday && !d.isSelected
                                 }"
                                 x-text="d.day"
                             ></button>
                         </template>
                     </div>
 
-                    <div class="flex items-center justify-between pt-2.5 mt-2.5 border-t border-gray-100">
-                        <button type="button" @click.stop="setToday()" class="text-xs font-semibold text-[#315B8C] hover:text-[#24466c] py-1 px-1.5 rounded hover:bg-blue-50/60 transition-colors">Hari ini</button>
-                        <button type="button" x-show="value" @click.stop="clear()" class="text-xs font-medium text-gray-400 hover:text-red-600 py-1 px-1.5 rounded hover:bg-red-50 transition-colors">Hapus</button>
+                    <div class="datepicker-popover-footer">
+                        <button type="button" @click.stop="setToday()" class="datepicker-footer-btn btn-today">Hari ini</button>
+                        <button type="button" x-show="value" @click.stop="clear()" class="datepicker-footer-btn btn-clear">Hapus</button>
                     </div>
                 </div>
             </template>
 
             <template x-if="mode === 'month'">
                 <div>
-                    <div class="flex items-center justify-between mb-3 pb-2 border-b border-gray-100">
-                        <button type="button" @click.stop="prevYear()" class="size-7 flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors" aria-label="Tahun sebelumnya">
-                            <i class="bi bi-chevron-left text-xs"></i>
+                    <div class="datepicker-popover-header">
+                        <button type="button" @click.stop="prevYear()" class="datepicker-nav-btn" aria-label="Tahun sebelumnya">
+                            <i class="bi bi-chevron-left"></i>
                         </button>
-                        <span class="text-xs font-semibold text-gray-900" x-text="viewYear"></span>
-                        <button type="button" @click.stop="nextYear()" class="size-7 flex items-center justify-center rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors" aria-label="Tahun berikutnya">
-                            <i class="bi bi-chevron-right text-xs"></i>
+                        <span class="datepicker-popover-title" x-text="viewYear"></span>
+                        <button type="button" @click.stop="nextYear()" class="datepicker-nav-btn" aria-label="Tahun berikutnya">
+                            <i class="bi bi-chevron-right"></i>
                         </button>
                     </div>
 
-                    <div class="grid grid-cols-3 gap-1.5">
+                    <div class="datepicker-months-grid">
                         <template x-for="(mName, mIdx) in monthNames" :key="mIdx">
                             <button
                                 type="button"
                                 @click.stop="selectMonth(mIdx)"
-                                class="py-2.5 px-2 rounded-lg text-xs font-medium text-center transition-colors truncate"
+                                class="datepicker-month-btn"
                                 :class="{
-                                    'bg-[#315B8C] text-white font-semibold': value === (viewYear + '-' + String(mIdx + 1).padStart(2, '0')),
-                                    'text-gray-900 hover:bg-gray-100': value !== (viewYear + '-' + String(mIdx + 1).padStart(2, '0'))
+                                    'is-selected': value === (viewYear + '-' + String(mIdx + 1).padStart(2, '0')),
+                                    'is-current': (new Date().getFullYear() === viewYear && new Date().getMonth() === mIdx) && value !== (viewYear + '-' + String(mIdx + 1).padStart(2, '0'))
                                 }"
                                 x-text="mName"
                             ></button>
                         </template>
                     </div>
 
-                    <div class="flex items-center justify-between pt-2.5 mt-2.5 border-t border-gray-100">
-                        <button type="button" @click.stop="setToday()" class="text-xs font-semibold text-[#315B8C] hover:text-[#24466c] py-1 px-1.5 rounded hover:bg-blue-50/60 transition-colors">Bulan ini</button>
-                        <button type="button" x-show="value" @click.stop="clear()" class="text-xs font-medium text-gray-400 hover:text-red-600 py-1 px-1.5 rounded hover:bg-red-50 transition-colors">Hapus</button>
+                    <div class="datepicker-popover-footer">
+                        <button type="button" @click.stop="setToday()" class="datepicker-footer-btn btn-today">Bulan ini</button>
+                        <button type="button" x-show="value" @click.stop="clear()" class="datepicker-footer-btn btn-clear">Hapus</button>
                     </div>
                 </div>
             </template>

@@ -1151,6 +1151,238 @@
   }
 
   /* =========================================================
+     GLOBAL CUSTOM UI: FLAT DATEPICKER POPOVER & INTERIOR ELEMENTS
+     COMPREHENSIVE FLAT DESIGN SPECIFICATION (GEMINI.MD SECTION 3)
+     ZERO INSET SHADOW, ZERO SKEUOMORPHISM, ZERO GRAY PLACEHOLDER
+     ========================================================= */
+
+  /* 1. Popover Container */
+  .datepicker-popover {
+    display: block;
+    position: absolute;
+    inset-inline-start: 0;
+    top: 100%;
+    margin-top: 6px;
+    width: 280px;
+    max-width: min(280px, calc(100vw - 2rem));
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.08), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+    z-index: 50;
+    transform: none !important;
+  }
+
+  .datepicker-popover[style*="display: none"],
+  .datepicker-popover[style*="display:none"] {
+    display: none !important;
+  }
+
+  /* 2. Popover Header (Month/Year & Prev/Next Navigation) */
+  .datepicker-popover-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+
+  .datepicker-popover-title {
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 600;
+    color: #111827;
+    letter-spacing: -0.01em;
+  }
+
+  .datepicker-nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: #4b5563;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.12s ease, color 0.12s ease;
+    transform: none !important;
+  }
+
+  .datepicker-nav-btn:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+  }
+
+  /* 3. Day of Week Column Headers */
+  .datepicker-days-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .datepicker-day-name {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 26px;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    color: #6b7280;
+    user-select: none;
+  }
+
+  /* 4. Days Grid & Date Buttons (Mode: 'date') */
+  .datepicker-days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    text-align: center;
+  }
+
+  .datepicker-date-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin: 0 auto;
+    border-radius: 8px;
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #111827;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.12s ease, color 0.12s ease;
+    transform: none !important;
+  }
+
+  .datepicker-date-btn:hover:not(:disabled):not(.is-selected) {
+    background-color: #f3f4f6;
+    color: #111827;
+  }
+
+  /* State: Selected Date */
+  .datepicker-date-btn.is-selected {
+    background-color: #315B8C !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    box-shadow: none !important;
+  }
+
+  /* State: Today (Current Date, Unselected) */
+  .datepicker-date-btn.is-today:not(.is-selected) {
+    color: #315B8C !important;
+    font-weight: 700 !important;
+    background-color: #eff6ff;
+  }
+
+  /* State: Inactive (Outside Month / Disabled) */
+  .datepicker-date-btn:disabled,
+  .datepicker-date-btn.is-outside {
+    color: #d1d5db !important;
+    pointer-events: none;
+    cursor: default;
+  }
+
+  /* 5. Month Grid & Month Buttons (Mode: 'month') */
+  .datepicker-months-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+  }
+
+  .datepicker-month-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 4px;
+    border-radius: 8px;
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #111827;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.12s ease, color 0.12s ease;
+    transform: none !important;
+  }
+
+  .datepicker-month-btn:hover:not(.is-selected) {
+    background-color: #f3f4f6;
+    color: #111827;
+  }
+
+  .datepicker-month-btn.is-selected {
+    background-color: #315B8C !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    box-shadow: none !important;
+  }
+
+  .datepicker-month-btn.is-current:not(.is-selected) {
+    color: #315B8C !important;
+    font-weight: 700 !important;
+    background-color: #eff6ff;
+  }
+
+  /* 6. Popover Footer (Quick Actions) */
+  .datepicker-popover-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 8px;
+    margin-top: 8px;
+    border-top: 1px solid #f3f4f6;
+  }
+
+  .datepicker-footer-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: background-color 0.12s ease, color 0.12s ease;
+    transform: none !important;
+  }
+
+  .datepicker-footer-btn.btn-today {
+    color: #315B8C;
+    font-weight: 600;
+  }
+
+  .datepicker-footer-btn.btn-today:hover {
+    background-color: #eff6ff;
+    color: #1e3c5d;
+  }
+
+  .datepicker-footer-btn.btn-clear {
+    color: #6b7280;
+  }
+
+  .datepicker-footer-btn.btn-clear:hover {
+    background-color: #fef2f2;
+    color: #dc2626;
+  }
+
+  /* =========================================================
      GLOBAL CUSTOM UI: SEARCH BAR (ANTI-NATIVE BROWSER SEARCH)
      ========================================================= */
 
