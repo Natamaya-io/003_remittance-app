@@ -71,12 +71,21 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
      }">
 
     <!-- =========================================================
-         PAGE HEADING
+         PAGE HEADING & ACTIONS (PURE NAKED ARCHITECTURE)
          ========================================================= -->
-    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-            <div class="flex items-center gap-2 mb-1.5 flex-wrap">
-                <span class="inline-flex items-center py-0.5 px-2.5 rounded-full text-xs font-bold bg-blue-50 text-blue-800 border border-blue-200">
+            <?= render_heading_with_info(
+                (string) (($batch['name'] ?? '') !== '' ? $batch['name'] : 'Detail Batch Report'),
+                'Detail seluruh baris transaksi dan status pengiriman untuk batch laporan ini.',
+                [
+                    'titleTag'     => 'h1',
+                    'titleClass'   => 'text-xl font-semibold font-heading text-gray-900 m-0',
+                    'wrapperClass' => 'inline-flex items-center gap-2',
+                ]
+            ) ?>
+            <div class="flex items-center gap-2 mt-1.5 flex-wrap">
+                <span class="inline-flex items-center py-0.5 px-2.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-700">
                     <?= e((string) ($batch['month_key'] ?? '')) ?>
                 </span>
                 <span class="inline-flex items-center py-0.5 px-2.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-700">
@@ -90,9 +99,9 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
-            <a class="py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-colors" href="<?= e($dateBackUrl) ?>">
+            <a class="btn-secondary" href="<?= e($dateBackUrl) ?>">
                 <i class="bi bi-arrow-left"></i>
-                Report per Tim
+                <span>Report per Tim</span>
             </a>
 
             <!-- Alpine Dropdown Opsi Batch -->
@@ -123,19 +132,19 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                 >
                     <span class="dropdown-header">Export &amp; Berkas</span>
                     <a class="dropdown-item" href="<?= e(url('/reports/' . $batch['id'] . '/export')) ?>">
-                        <i class="bi bi-file-earmark-excel text-emerald-600"></i>
-                        Download File Excel
+                        <i class="bi bi-file-earmark-excel"></i>
+                        <span>Download File Excel</span>
                     </a>
                     <?php if (can('report.manage')): ?>
                         <div class="dropdown-divider"></div>
                         <span class="dropdown-header">Manajemen</span>
                         <a class="dropdown-item" href="<?= e(url('/reports/' . $batch['id'] . '/edit')) ?>">
-                            <i class="bi bi-pencil text-blue-600"></i>
-                            Edit Metadata Report
+                            <i class="bi bi-pencil"></i>
+                            <span>Edit Metadata Report</span>
                         </a>
                         <a class="dropdown-item" href="<?= e(url('/reports/create?' . http_build_query(['month' => $batch['month_key'] ?? '', 'date' => $batchDate]))) ?>">
-                            <i class="bi bi-cloud-arrow-up text-indigo-600"></i>
-                            Tambah Berkas Excel
+                            <i class="bi bi-cloud-arrow-up"></i>
+                            <span>Tambah Berkas Excel</span>
                         </a>
                     <?php endif; ?>
                 </div>
@@ -164,7 +173,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                     <i class="bi bi-exclamation-triangle-fill"></i>
                 </span>
                 <div class="alert-body">
-                    <strong class="alert-title">Transaksi Pending</strong>
+                    <strong class="alert-title font-semibold">Transaksi Pending</strong>
                     <div class="alert-message">Terdapat <?= number_format($pendingRows, 0, ',', '.') ?> baris transaksi yang belum terkirim (pending) pada berkas report ini.</div>
                 </div>
             </div>
@@ -186,29 +195,29 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-xs">
             <span class="text-xs font-medium text-gray-500 block mb-1">Total Baris</span>
-            <strong class="text-xl font-bold text-gray-900 block font-mono"><?= number_format($totalRows, 0, ',', '.') ?></strong>
+            <strong class="text-xl font-semibold text-gray-900 block font-mono"><?= number_format($totalRows, 0, ',', '.') ?></strong>
         </div>
         <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-xs">
             <span class="text-xs font-medium text-gray-500 block mb-1">Total Nominal</span>
-            <strong class="text-base font-bold text-gray-900 block font-mono truncate" title="<?= number_format($totalAmount, 2, ',', '.') ?>">
+            <strong class="text-base font-semibold text-gray-900 block font-mono truncate" title="<?= number_format($totalAmount, 2, ',', '.') ?>">
                 <?= number_format($totalAmount, 0, ',', '.') ?>
             </strong>
         </div>
-        <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 shadow-xs">
-            <span class="text-xs font-medium text-emerald-700 block mb-1">Sukses</span>
-            <strong class="text-xl font-bold text-emerald-800 block font-mono"><?= number_format($successRows, 0, ',', '.') ?></strong>
+        <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-xs">
+            <span class="text-xs font-medium text-gray-500 block mb-1">Sukses</span>
+            <strong class="text-xl font-semibold text-emerald-700 block font-mono"><?= number_format($successRows, 0, ',', '.') ?></strong>
         </div>
-        <div class="bg-blue-50/60 border border-blue-200 rounded-2xl p-4 shadow-xs">
-            <span class="text-xs font-medium text-blue-700 block mb-1">Terkirim</span>
-            <strong class="text-xl font-bold text-blue-800 block font-mono"><?= number_format($sentRows, 0, ',', '.') ?></strong>
+        <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-xs">
+            <span class="text-xs font-medium text-gray-500 block mb-1">Terkirim</span>
+            <strong class="text-xl font-semibold text-[#315B8C] block font-mono"><?= number_format($sentRows, 0, ',', '.') ?></strong>
         </div>
-        <div class="bg-amber-50/60 border border-amber-200 rounded-2xl p-4 shadow-xs">
-            <span class="text-xs font-medium text-amber-700 block mb-1">Pending</span>
-            <strong class="text-xl font-bold text-amber-800 block font-mono"><?= number_format($pendingRows, 0, ',', '.') ?></strong>
+        <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-xs">
+            <span class="text-xs font-medium text-gray-500 block mb-1">Pending</span>
+            <strong class="text-xl font-semibold text-amber-700 block font-mono"><?= number_format($pendingRows, 0, ',', '.') ?></strong>
         </div>
-        <div class="bg-red-50/60 border border-red-200 rounded-2xl p-4 shadow-xs">
-            <span class="text-xs font-medium text-red-700 block mb-1">Gagal / Retur</span>
-            <strong class="text-xl font-bold text-red-800 block font-mono"><?= number_format($failedRows, 0, ',', '.') ?></strong>
+        <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-xs">
+            <span class="text-xs font-medium text-gray-500 block mb-1">Gagal / Retur</span>
+            <strong class="text-xl font-semibold text-red-700 block font-mono"><?= number_format($failedRows, 0, ',', '.') ?></strong>
         </div>
     </div>
 
@@ -266,7 +275,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                                 @click="selected = ''; label = 'Semua status kirim'; open = false"
                             >
                                 <span>Semua status kirim</span>
-                                <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                                <i x-show="selected === ''" class="bi bi-check2 text-[#315B8C] text-sm ml-auto"></i>
                             </button>
                             <button
                                 type="button"
@@ -275,7 +284,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                                 @click="selected = 'PENDING'; label = 'Belum Terkirim'; open = false"
                             >
                                 <span>Belum Terkirim</span>
-                                <i x-show="selected === 'PENDING'" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                                <i x-show="selected === 'PENDING'" class="bi bi-check2 text-[#315B8C] text-sm ml-auto"></i>
                             </button>
                             <button
                                 type="button"
@@ -284,7 +293,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                                 @click="selected = 'SENT'; label = 'Terkirim'; open = false"
                             >
                                 <span>Terkirim</span>
-                                <i x-show="selected === 'SENT'" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                                <i x-show="selected === 'SENT'" class="bi bi-check2 text-[#315B8C] text-sm ml-auto"></i>
                             </button>
                         </div>
                     </div>
@@ -331,7 +340,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                                 @click="selected = ''; label = 'Semua hasil'; open = false"
                             >
                                 <span>Semua hasil</span>
-                                <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                                <i x-show="selected === ''" class="bi bi-check2 text-[#315B8C] text-sm ml-auto"></i>
                             </button>
                             <button
                                 type="button"
@@ -340,7 +349,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                                 @click="selected = 'PENDING'; label = 'Pending'; open = false"
                             >
                                 <span>Pending</span>
-                                <i x-show="selected === 'PENDING'" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                                <i x-show="selected === 'PENDING'" class="bi bi-check2 text-[#315B8C] text-sm ml-auto"></i>
                             </button>
                             <button
                                 type="button"
@@ -349,7 +358,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                                 @click="selected = 'SUCCESS'; label = 'Success'; open = false"
                             >
                                 <span>Success</span>
-                                <i x-show="selected === 'SUCCESS'" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                                <i x-show="selected === 'SUCCESS'" class="bi bi-check2 text-[#315B8C] text-sm ml-auto"></i>
                             </button>
                             <button
                                 type="button"
@@ -358,7 +367,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                                 @click="selected = 'FAILED'; label = 'Failed'; open = false"
                             >
                                 <span>Failed</span>
-                                <i x-show="selected === 'FAILED'" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                                <i x-show="selected === 'FAILED'" class="bi bi-check2 text-[#315B8C] text-sm ml-auto"></i>
                             </button>
                         </div>
                     </div>
@@ -383,7 +392,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
     <section class="bg-white border border-gray-200 rounded-2xl shadow-xs overflow-hidden">
         <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
             <div>
-                <h3 class="text-sm font-bold text-gray-900"><?= number_format(count($rows), 0, ',', '.') ?> Baris Transaksi</h3>
+                <h3 class="text-sm font-semibold text-gray-900"><?= number_format(count($rows), 0, ',', '.') ?> Baris Transaksi</h3>
             </div>
             <?php if (can('report.manage')): ?>
                 <div class="text-xs text-gray-500">
@@ -398,7 +407,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                     <tr class="text-gray-600 font-semibold font-heading text-[11px] uppercase tracking-wider">
                         <?php if (can('report.manage')): ?>
                             <th class="py-3.5 px-3 w-10 text-center">
-                                <input type="checkbox" :checked="allSelected" @change="toggleAll($el.checked)" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                <input type="checkbox" :checked="allSelected" @change="toggleAll($el.checked)" class="rounded border-gray-300 text-[#315B8C] focus:ring-[#315B8C]">
                             </th>
                         <?php endif; ?>
                         <th class="py-3.5 px-3">TEAM</th>
@@ -464,10 +473,10 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                     $notesStr = (string) ($row['notes'] ?? '');
                     $sourceSheet = (string) ($row['source_sheet'] ?? '-');
                     ?>
-                    <tr class="even:bg-gray-50/80 [data-no-hover]">
+                    <tr class="even:bg-[#F5F2F2] [data-no-hover] group">
                         <?php if (can('report.manage')): ?>
                             <td class="py-3 px-3 text-center">
-                                <input type="checkbox" name="row_ids[]" value="<?= $rowId ?>" form="bulkStatusForm" @change="updateCount()" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                                <input type="checkbox" name="row_ids[]" value="<?= $rowId ?>" form="bulkStatusForm" @change="updateCount()" class="rounded border-gray-300 text-[#315B8C] focus:ring-[#315B8C]">
                             </td>
                         <?php endif; ?>
                         <td class="py-3 px-3 font-semibold text-gray-900 whitespace-nowrap"><?= e($teamLabel) ?></td>
@@ -493,7 +502,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                         <td class="py-3 px-3 whitespace-nowrap"><?= e($bankOfPayer) ?></td>
                         <td class="py-3 px-3 whitespace-nowrap">
                             <?php if ($invoiceLink !== ''): ?>
-                                <a class="text-blue-600 hover:underline inline-flex items-center gap-1" href="<?= e($invoiceLink) ?>" target="_blank" rel="noopener">
+                                <a class="text-[#315B8C] hover:underline inline-flex items-center gap-1" href="<?= e($invoiceLink) ?>" target="_blank" rel="noopener">
                                     <i class="bi bi-box-arrow-up-right"></i> Link
                                 </a>
                             <?php else: ?>
@@ -531,10 +540,10 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                         <td class="py-3 px-3 text-gray-400 whitespace-nowrap"><?= e($sourceSheet) ?></td>
                         
                         <!-- STICKY ACTION COLUMN (ALWAYS PINNED TO THE RIGHT) -->
-                        <td class="py-3 px-4 text-right sticky right-0 bg-white z-10 shadow-[-4px_0_10px_rgba(0,0,0,0.04)] whitespace-nowrap">
+                        <td class="py-3 px-4 text-right sticky right-0 bg-white group-even:bg-[#F5F2F2] z-10 shadow-[-4px_0_10px_rgba(0,0,0,0.04)] whitespace-nowrap">
                             <div class="inline-flex items-center gap-1.5 justify-end">
                                 <?php if (!empty($row['transaction_id'])): ?>
-                                    <?= render_tooltip('Buka Transaksi Sistem', '<a class="p-1 rounded-md text-gray-500 hover:text-blue-600 hover:bg-gray-100" href="' . e(url('/transactions/' . $row['transaction_id'])) . '"><i class="bi bi-link-45deg text-base"></i></a>', ['placement' => 'left']) ?>
+                                    <?= render_tooltip('Buka Transaksi Sistem', '<a class="p-1 rounded-md text-gray-500 hover:text-[#315B8C] hover:bg-gray-100" href="' . e(url('/transactions/' . $row['transaction_id'])) . '"><i class="bi bi-link-45deg text-base"></i></a>', ['placement' => 'left']) ?>
                                 <?php endif; ?>
 
                                 <?php if (can('report.manage')): ?>
@@ -549,10 +558,10 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                                         data-row-result="' . e($resultStatus) . '"
                                         data-row-notes="' . e($notesStr) . '"
                                         @click="openEditFromButton($el)"
-                                        class="py-1 px-2.5 inline-flex items-center gap-x-1 text-xs font-semibold rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors focus:outline-hidden focus:bg-gray-50"
+                                        class="btn-secondary !h-7 !px-2.5 !text-xs inline-flex items-center gap-1"
                                     >
-                                        <i class="bi bi-pencil-square text-blue-600"></i>
-                                        Ubah
+                                        <i class="bi bi-pencil-square"></i>
+                                        <span>Ubah</span>
                                     </button>', ['placement' => 'left']) ?>
                                 <?php endif; ?>
                             </div>
@@ -590,18 +599,18 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                     <input type="hidden" name="return_query" value="<?= e($returnQuery) ?>">
 
                     <div class="flex items-center gap-2">
-                        <span class="size-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xs" x-text="selectedCount">0</span>
+                        <span class="size-6 rounded-full bg-[#315B8C] text-white flex items-center justify-center font-semibold text-xs" x-text="selectedCount">0</span>
                         <span class="font-semibold text-gray-100">baris dipilih</span>
                     </div>
 
                     <div class="flex items-center gap-2 flex-wrap">
-                        <select class="h-9 px-3 rounded-lg text-xs bg-gray-800 text-white border border-gray-600 focus:border-[#315B8C] focus:outline-none" name="delivery_status">
+                        <select class="h-9 px-3 rounded-[9px] text-xs bg-gray-800 text-white border border-gray-600 focus:border-[#315B8C] focus:outline-none" name="delivery_status">
                             <option value="">Status Kirim...</option>
                             <option value="PENDING">Belum Terkirim</option>
                             <option value="SENT">Terkirim</option>
                         </select>
 
-                        <select class="h-9 px-3 rounded-lg text-xs bg-gray-800 text-white border border-gray-600 focus:border-[#315B8C] focus:outline-none" name="result_status">
+                        <select class="h-9 px-3 rounded-[9px] text-xs bg-gray-800 text-white border border-gray-600 focus:border-[#315B8C] focus:outline-none" name="result_status">
                             <option value="">Hasil...</option>
                             <option value="PENDING">Pending</option>
                             <option value="SUCCESS">Success</option>
