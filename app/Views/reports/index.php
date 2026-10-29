@@ -876,7 +876,12 @@ $activeFilterSummary = implode(' · ', $filterDescs);
 
             <?php if ($months === []): ?>
                 <div class="col-span-full bg-white border border-gray-200 rounded-2xl p-12 text-center shadow-xs">
-                    <i class="bi bi-calendar-x text-3xl text-gray-400 block mb-3"></i>
+                    <img
+                        src="<?= e(url('/data_not_found.png')) ?>"
+                        alt="Tidak ada data yang cocok"
+                        class="w-32 sm:w-40 h-auto mx-auto mb-4 object-contain select-none pointer-events-none"
+                        loading="lazy"
+                    >
                     <h3 class="text-base font-semibold font-heading text-gray-800 mb-4">Tidak ada data yang cocok</h3>
                     <?php if (can('report.manage')): ?>
                         <a class="btn-primary" href="<?= e(url('/reports/create')) ?>">
