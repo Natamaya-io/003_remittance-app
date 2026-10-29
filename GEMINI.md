@@ -106,12 +106,16 @@ Setiap blok alert wajib mengikuti struktur hierarki berikut:
 
 ## 3. Aturan Terkunci: Sistem Datepicker Kustom Global (Anti-Native Datepicker Law)
 
-Penggunaan `<input type="date">` dan `<input type="month">` native browser memicu kalender Shadow DOM sistem operasi yang kaku dan tidak konsisten lintas perangkat. Oleh karena itu, seluruh aplikasi RemitGo! **MUTLAK WAJIB** menggunakan custom datepicker kalender Alpine.js.
+Penggunaan `<input type="date">` dan `<input type="month">` native browser memicu kalender Shadow DOM sistem operasi yang kaku dan tidak konsisten lintas perangkat. Oleh karena itu, seluruh aplikasi RemitGo! **MUTLAK WAJIB** menggunakan custom datepicker kalender Alpine.js dengan komponen pemicu terstandarisasi **Gamified Asphalt (.custom-datepicker-trigger)**.
 
-### 3.1. Arsitektur Komponen Datepicker Kustom
-- Nilai tersimpan secara murni di dalam `<input type="hidden" :name="name" :value="value">` sehingga pengiriman form (GET dan POST) 100% kompatibel dan identik dengan input native.
-- Trigger berupa tombol kustom `.form-datepicker` yang menampilkan label tanggal terformat (contoh: `26 Okt 2026` atau `Agustus 2026`) beserta ikon Bootstrap Icons (`bi-calendar3` atau `bi-calendar-month`).
-- Popover kalender kustom (`.dropdown-menu`) menyediakan navigasi bulan/tahun, kisi hari 7 kolom, highlight tanggal aktif, status hari ini, serta shortcut tombol "Hari ini" / "Bulan ini" dan "Hapus".
+### 3.1. Arsitektur Komponen & Pemicu Terkunci (.custom-datepicker-trigger)
+- **Kepatuhan Kustom UI Komprehensif (Bagian 18):** Tombol pemicu datepicker **MUTLAK DILARANG** menggunakan rantai kelas utilitas atomik sementara (*ad-hoc quick placeholder string*). Pemicu wajib menggunakan kelas komponen terpusat `.custom-datepicker-trigger` yang selaras 1:1 dengan `.custom-form-input` (Bagian 17) dan `.btn-primary` (Bagian 13).
+- **Geometri Terkunci:** Tinggi presisi **40px (`h-10`)**, radius modular **`rounded-[9px]`**, padding horizontal 12px, font-family **Roboto**, font-size 14px, dan line-height 40px.
+- **Permukaan Taktil (Surface Well):** Latar normal menggunakan **Asphalt Off-White Base `#F5F2F2`** dengan bayangan cekung mikro `box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04)` dan kontur batas netral `1px solid #d1d5db` (Anti *Flat White-on-White Slop*).
+- **State Fokus & Buka (Focus & Is-Open):** Transisi bersih ke latar putih bersih (`#ffffff`), border solid **`#315B8C`** (*Deep Brand Blue*), dan halo aktif `box-shadow: 0 0 0 3px rgba(49, 91, 140, 0.15)`. DILARANG KERAS menggunakan warna biru alien generic Tailwind (`blue-500` / `#3b82f6`).
+- **Simulasi Placeholder Terstandarisasi:** Teks placeholder menggunakan kelas `.datepicker-placeholder` dengan warna `#9ca3af` (font-weight 400). Saat tanggal telah terpilih, teks beralih ke `.datepicker-value` dengan warna `#111827` (font-weight 500).
+- **Sterilisasi Warna Popover Kalender:** Seluruh tanggal aktif, hari ini, dan tombol shortcut aksi pada popover kalender **MUTLAK MENGGUNAKAN WARNA MASTER `#315B8C`** (*Deep Brand Blue*), dilarang menggunakan warna alien `blue-600` / `#2563eb`.
+- **Nilai Form (Persistence):** Nilai tanggal tersimpan murni di dalam `<input type="hidden" :name="name" :value="value">` sehingga pengiriman form (GET dan POST) 100% kompatibel dan identik dengan input native.
 
 ### 3.2. Penggunaan via Helper PHP Resmi
 Setiap view yang membutuhkan input tanggal atau bulan **WAJIB** menggunakan helper `render_datepicker()` di `app/helpers.php`:

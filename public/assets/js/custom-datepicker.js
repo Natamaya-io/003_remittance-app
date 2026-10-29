@@ -9,7 +9,7 @@ function initCustomDatePicker() {
     name: config.name || 'date',
     value: config.value || '',
     mode: config.mode || 'date', // 'date' | 'month'
-    placeholder: config.placeholder || (config.mode === 'month' ? 'Pilih bulan...' : 'Pilih tanggal...'),
+    placeholder: config.placeholder || (config.mode === 'month' ? 'Pilih bulan' : 'Pilih tanggal'),
     required: Boolean(config.required),
     open: false,
 

@@ -253,7 +253,7 @@ function status_badge(
 function render_datepicker(string $name, string $value = '', array $options = []): string
 {
     $mode = ($options['mode'] ?? 'date') === 'month' ? 'month' : 'date';
-    $placeholder = (string) ($options['placeholder'] ?? ($mode === 'month' ? 'Pilih bulan...' : 'Pilih tanggal...'));
+    $placeholder = (string) ($options['placeholder'] ?? ($mode === 'month' ? 'Pilih bulan' : 'Pilih tanggal'));
     $required = !empty($options['required']);
     $extraClass = (string) ($options['class'] ?? '');
     $id = (string) ($options['id'] ?? ('dp_' . preg_replace('/[^a-zA-Z0-9_]/', '_', $name) . '_' . bin2hex(random_bytes(2))));
@@ -276,15 +276,18 @@ function render_datepicker(string $name, string $value = '', array $options = []
             type="button"
             id="<?= e($id) ?>"
             @click="open = !open"
-            class="form-datepicker flex items-center justify-between w-full text-xs text-start cursor-pointer select-none bg-white border border-gray-300 rounded-xl px-3 py-2 shadow-xs transition-colors focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-            :class="{ 'text-gray-900 font-medium': Boolean(value), 'text-gray-400': !value, 'border-blue-500 ring-1 ring-blue-500': open }"
+            class="custom-datepicker-trigger"
+            :class="{ 'is-open': open }"
             :aria-expanded="open.toString()"
         >
             <div class="flex items-center gap-2 truncate">
-                <i class="bi <?= $iconClass ?> text-gray-400"></i>
-                <span x-text="displayLabel || placeholder"></span>
+                <i class="bi <?= $iconClass ?> text-gray-500 text-sm"></i>
+                <span
+                    x-text="displayLabel || placeholder"
+                    :class="Boolean(value) ? 'datepicker-value' : 'datepicker-placeholder'"
+                ></span>
             </div>
-            <i class="bi bi-chevron-down text-[10px] text-gray-400 transition-transform duration-200 shrink-0 ms-1.5" :class="{ 'rotate-180': open }"></i>
+            <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200 shrink-0 ms-1.5" :class="{ 'rotate-180': open }"></i>
         </button>
 
         <div
@@ -327,8 +330,8 @@ function render_datepicker(string $name, string $value = '', array $options = []
                                 class="size-7 mx-auto flex items-center justify-center rounded-lg text-xs font-medium transition-colors"
                                 :class="{
                                     'text-gray-300 pointer-events-none': !d.isCurrentMonth,
-                                    'bg-blue-600 text-white font-semibold shadow-xs': d.isSelected,
-                                    'text-blue-600 font-bold hover:bg-blue-50': d.isToday && !d.isSelected,
+                                    'bg-[#315B8C] text-white font-semibold shadow-xs': d.isSelected,
+                                    'text-[#315B8C] font-bold hover:bg-blue-50/50': d.isToday && !d.isSelected,
                                     'text-gray-700 hover:bg-gray-100': d.isCurrentMonth && !d.isSelected && !d.isToday
                                 }"
                                 x-text="d.day"
@@ -337,7 +340,7 @@ function render_datepicker(string $name, string $value = '', array $options = []
                     </div>
 
                     <div class="flex items-center justify-between pt-2.5 mt-2.5 border-t border-gray-100">
-                        <button type="button" @click.stop="setToday()" class="text-[11px] font-semibold text-blue-600 hover:text-blue-700">Hari ini</button>
+                        <button type="button" @click.stop="setToday()" class="text-[11px] font-semibold text-[#315B8C] hover:text-[#24466c]">Hari ini</button>
                         <button type="button" x-show="value" @click.stop="clear()" class="text-[11px] text-gray-400 hover:text-red-500">Hapus</button>
                     </div>
                 </div>
@@ -362,7 +365,7 @@ function render_datepicker(string $name, string $value = '', array $options = []
                                 @click.stop="selectMonth(mIdx)"
                                 class="py-2 px-1 rounded-lg text-xs font-medium text-center transition-colors truncate"
                                 :class="{
-                                    'bg-blue-600 text-white font-semibold shadow-xs': value === (viewYear + '-' + String(mIdx + 1).padStart(2, '0')),
+                                    'bg-[#315B8C] text-white font-semibold shadow-xs': value === (viewYear + '-' + String(mIdx + 1).padStart(2, '0')),
                                     'text-gray-700 hover:bg-gray-100': value !== (viewYear + '-' + String(mIdx + 1).padStart(2, '0'))
                                 }"
                                 x-text="mName"
@@ -371,7 +374,7 @@ function render_datepicker(string $name, string $value = '', array $options = []
                     </div>
 
                     <div class="flex items-center justify-between pt-2.5 mt-2.5 border-t border-gray-100">
-                        <button type="button" @click.stop="setToday()" class="text-[11px] font-semibold text-blue-600 hover:text-blue-700">Bulan ini</button>
+                        <button type="button" @click.stop="setToday()" class="text-[11px] font-semibold text-[#315B8C] hover:text-[#24466c]">Bulan ini</button>
                         <button type="button" x-show="value" @click.stop="clear()" class="text-[11px] text-gray-400 hover:text-red-500">Hapus</button>
                     </div>
                 </div>
