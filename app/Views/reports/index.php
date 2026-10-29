@@ -381,7 +381,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
             <!-- 2. Modal Positioning Container (Terpusat Vertikal & Horizontal) -->
             <div class="min-h-full flex items-center justify-center p-4 relative z-10 pointer-events-none">
                 <div
-                    class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-gray-200 text-left relative my-8 pointer-events-auto overflow-hidden"
+                    class="bg-white rounded-2xl max-w-xl w-full shadow-2xl border border-gray-200 text-left relative my-8 pointer-events-auto overflow-hidden"
                     x-show="openTransactionModal"
                     x-transition:enter="transition ease-out duration-150"
                     x-transition:enter-start="opacity-0"
@@ -392,6 +392,8 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                     x-data="{
                         searchQuery: '',
                         emptyResults: false,
+                        canScrollLeft: false,
+                        canScrollRight: false,
                         filterCards() {
                             const el = this.$refs.bankSlider;
                             if (!el) return;
@@ -405,32 +407,50 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                                 if (matches) visibleCount++;
                             });
                             this.emptyResults = visibleCount === 0;
+                            this.checkScroll();
+                        },
+                        checkScroll() {
+                            this.$nextTick(() => {
+                                const el = this.$refs.bankSlider;
+                                if (!el) return;
+                                const maxScroll = el.scrollWidth - el.clientWidth;
+                                if (maxScroll <= 2) {
+                                    this.canScrollLeft = false;
+                                    this.canScrollRight = false;
+                                } else {
+                                    this.canScrollLeft = el.scrollLeft > 4;
+                                    this.canScrollRight = Math.ceil(el.scrollLeft + el.clientWidth) < (el.scrollWidth - 4);
+                                }
+                            });
                         },
                         scrollSlider(dir) {
                             const el = this.$refs.bankSlider;
                             if (!el) return;
                             const cards = Array.from(el.querySelectorAll('.bank-slider-card:not([style*=\'display: none\'])'));
-                            if (cards.length === 0) return;
+                            if (cards.length <= 1) return;
                             const cardWidth = cards[0].offsetWidth + 16;
                             const maxScroll = el.scrollWidth - el.clientWidth;
-                            const currentScroll = el.scrollLeft;
+                            if (maxScroll <= 2) return;
 
+                            const currentScroll = el.scrollLeft;
                             if (dir === 'right') {
-                                if (currentScroll >= maxScroll - 15) {
+                                if (currentScroll >= maxScroll - 10) {
                                     el.scrollTo({ left: 0, behavior: 'smooth' });
                                 } else {
                                     el.scrollBy({ left: cardWidth, behavior: 'smooth' });
                                 }
                             } else {
-                                if (currentScroll <= 15) {
+                                if (currentScroll <= 10) {
                                     el.scrollTo({ left: maxScroll, behavior: 'smooth' });
                                 } else {
                                     el.scrollBy({ left: -cardWidth, behavior: 'smooth' });
                                 }
                             }
+                            setTimeout(() => this.checkScroll(), 320);
                         }
                     }"
-                    x-effect="if (openTransactionModal) { searchQuery = ''; $nextTick(() => { filterCards(); if ($refs.bankSlider) $refs.bankSlider.scrollLeft = 0; }); }"
+                    x-effect="if (openTransactionModal) { searchQuery = ''; $nextTick(() => { filterCards(); if ($refs.bankSlider) $refs.bankSlider.scrollLeft = 0; setTimeout(() => checkScroll(), 80); }); }"
+                    @resize.window.debounce.150ms="checkScroll()"
                 >
                     <!-- Modal Header -->
                     <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-white">
@@ -494,6 +514,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                         <button
                             type="button"
                             @click="scrollSlider('left')"
+                            :disabled="!canScrollLeft || emptyResults"
                             x-show="!emptyResults"
                             class="slider-floating-btn slider-floating-left"
                             aria-label="Geser pilihan bank ke kiri"
@@ -506,6 +527,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                         <button
                             type="button"
                             @click="scrollSlider('right')"
+                            :disabled="!canScrollRight || emptyResults"
                             x-show="!emptyResults"
                             class="slider-floating-btn slider-floating-right"
                             aria-label="Geser pilihan bank ke kanan"
@@ -539,10 +561,11 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                         <div
                             x-show="!emptyResults"
                             x-ref="bankSlider"
+                            @scroll.passive="checkScroll()"
                             class="bank-slider-track flex items-stretch gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory py-1 px-1 -my-1 -mx-1 no-scrollbar w-full"
                         >
                             <!-- KARTU BANK BRI -->
-                            <div class="bank-slider-card w-[260px] sm:w-[275px] min-w-[260px] max-w-[280px] shrink-0 snap-start bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-xs hover:border-[#315B8C] transition-all flex flex-col justify-between space-y-3.5">
+                            <div class="bank-slider-card w-[calc(100%-1.5rem)] sm:w-[calc(50%-0.5rem)] min-w-[250px] sm:min-w-0 shrink-0 snap-start bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-xs hover:border-[#315B8C] transition-all flex flex-col justify-between space-y-3.5">
                                 <div>
                                     <img src="<?= e(url('/bri-logo.svg')) ?>" alt="Bank BRI" class="h-8 sm:h-9 w-auto max-w-[110px] mb-2.5 object-contain select-none">
                                     <span class="text-[10.5px] font-semibold tracking-wider text-gray-500 uppercase block">BANK BRI</span>
@@ -566,7 +589,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                             </div>
 
                             <!-- KARTU BANK BNI -->
-                            <div class="bank-slider-card w-[260px] sm:w-[275px] min-w-[260px] max-w-[280px] shrink-0 snap-start bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-xs hover:border-[#315B8C] transition-all flex flex-col justify-between space-y-3.5">
+                            <div class="bank-slider-card w-[calc(100%-1.5rem)] sm:w-[calc(50%-0.5rem)] min-w-[250px] sm:min-w-0 shrink-0 snap-start bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-xs hover:border-[#315B8C] transition-all flex flex-col justify-between space-y-3.5">
                                 <div>
                                     <img src="<?= e(url('/bni-logo.svg')) ?>" alt="Bank BNI" class="h-8 sm:h-9 w-auto max-w-[110px] mb-2.5 object-contain select-none">
                                     <span class="text-[10.5px] font-semibold tracking-wider text-gray-500 uppercase block">BANK BNI</span>

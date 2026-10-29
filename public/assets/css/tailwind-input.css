@@ -1023,7 +1023,12 @@
   }
 
   .slider-floating-btn:disabled {
-    opacity: 0;
+    opacity: 0.35;
+    cursor: not-allowed;
+    background-color: #f9fafb;
+    border-color: #e5e7eb;
+    color: #9ca3af;
+    box-shadow: none;
     pointer-events: none;
   }
 
