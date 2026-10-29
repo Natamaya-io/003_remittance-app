@@ -94,7 +94,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                 <span class="text-xs text-gray-400">·</span>
                 <span class="text-xs font-semibold text-gray-700"><?= e($teamNameDisplay) ?></span>
                 <span class="text-xs text-gray-400">·</span>
-                <span class="text-xs text-gray-500">Berkas: <span class="font-mono text-gray-700"><?= e((string) ($batch['source_filename'] ?? '')) ?></span></span>
+                <span class="text-xs text-gray-500">Berkas: <span class="font-medium text-gray-700"><?= e((string) ($batch['source_filename'] ?? '')) ?></span></span>
             </div>
         </div>
 
@@ -195,29 +195,29 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-xs">
             <span class="text-xs font-medium text-gray-500 block mb-1">Total Baris</span>
-            <strong class="text-xl font-semibold text-gray-900 block font-mono"><?= number_format($totalRows, 0, ',', '.') ?></strong>
+            <strong class="text-xl font-semibold text-gray-900 block tabular-nums font-heading"><?= number_format($totalRows, 0, ',', '.') ?></strong>
         </div>
         <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-xs">
             <span class="text-xs font-medium text-gray-500 block mb-1">Total Nominal</span>
-            <strong class="text-base font-semibold text-gray-900 block font-mono truncate" title="<?= number_format($totalAmount, 2, ',', '.') ?>">
+            <strong class="text-base font-semibold text-gray-900 block tabular-nums font-heading truncate" title="<?= number_format($totalAmount, 2, ',', '.') ?>">
                 <?= number_format($totalAmount, 0, ',', '.') ?>
             </strong>
         </div>
         <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-xs">
             <span class="text-xs font-medium text-gray-500 block mb-1">Sukses</span>
-            <strong class="text-xl font-semibold text-emerald-700 block font-mono"><?= number_format($successRows, 0, ',', '.') ?></strong>
+            <strong class="text-xl font-semibold text-emerald-700 block tabular-nums font-heading"><?= number_format($successRows, 0, ',', '.') ?></strong>
         </div>
         <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-xs">
             <span class="text-xs font-medium text-gray-500 block mb-1">Terkirim</span>
-            <strong class="text-xl font-semibold text-[#315B8C] block font-mono"><?= number_format($sentRows, 0, ',', '.') ?></strong>
+            <strong class="text-xl font-semibold text-[#315B8C] block tabular-nums font-heading"><?= number_format($sentRows, 0, ',', '.') ?></strong>
         </div>
         <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-xs">
             <span class="text-xs font-medium text-gray-500 block mb-1">Pending</span>
-            <strong class="text-xl font-semibold text-amber-700 block font-mono"><?= number_format($pendingRows, 0, ',', '.') ?></strong>
+            <strong class="text-xl font-semibold text-amber-700 block tabular-nums font-heading"><?= number_format($pendingRows, 0, ',', '.') ?></strong>
         </div>
         <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-xs">
             <span class="text-xs font-medium text-gray-500 block mb-1">Gagal / Retur</span>
-            <strong class="text-xl font-semibold text-red-700 block font-mono"><?= number_format($failedRows, 0, ',', '.') ?></strong>
+            <strong class="text-xl font-semibold text-red-700 block tabular-nums font-heading"><?= number_format($failedRows, 0, ',', '.') ?></strong>
         </div>
     </div>
 
@@ -392,7 +392,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
     <section class="bg-white border border-gray-200 rounded-2xl shadow-xs overflow-hidden">
         <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
             <div>
-                <h3 class="text-sm font-semibold text-gray-900"><?= number_format(count($rows), 0, ',', '.') ?> Baris Transaksi</h3>
+                <h3 class="text-sm font-semibold font-heading text-gray-900"><?= number_format(count($rows), 0, ',', '.') ?> Baris Transaksi</h3>
             </div>
             <?php if (can('report.manage')): ?>
                 <div class="text-xs text-gray-500">
@@ -402,9 +402,9 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
         </div>
 
         <div class="overflow-x-auto">
-            <table class="min-w-full text-left text-xs border-collapse">
+            <table class="min-w-full text-left text-xs border-collapse report-zebra-table">
                 <thead class="bg-gray-50/75 border-b border-gray-200">
-                    <tr class="text-gray-600 font-semibold font-heading text-[11px] uppercase tracking-wider">
+                    <tr class="text-gray-700 font-semibold font-heading text-xs tracking-normal">
                         <?php if (can('report.manage')): ?>
                             <th class="py-3.5 px-3 w-10 text-center">
                                 <input type="checkbox" :checked="allSelected" @change="toggleAll($el.checked)" class="rounded border-gray-300 text-[#315B8C] focus:ring-[#315B8C]">
@@ -604,13 +604,13 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                     </div>
 
                     <div class="flex items-center gap-2 flex-wrap">
-                        <select class="h-9 px-3 rounded-[9px] text-xs bg-gray-800 text-white border border-gray-600 focus:border-[#315B8C] focus:outline-none" name="delivery_status">
+                        <select class="h-9 px-3 rounded-[9px] text-xs font-sans bg-gray-800 text-white border border-gray-600 focus:border-[#315B8C] focus:outline-none" name="delivery_status">
                             <option value="">Status Kirim...</option>
                             <option value="PENDING">Belum Terkirim</option>
                             <option value="SENT">Terkirim</option>
                         </select>
 
-                        <select class="h-9 px-3 rounded-[9px] text-xs bg-gray-800 text-white border border-gray-600 focus:border-[#315B8C] focus:outline-none" name="result_status">
+                        <select class="h-9 px-3 rounded-[9px] text-xs font-sans bg-gray-800 text-white border border-gray-600 focus:border-[#315B8C] focus:outline-none" name="result_status">
                             <option value="">Hasil...</option>
                             <option value="PENDING">Pending</option>
                             <option value="SUCCESS">Success</option>
@@ -653,7 +653,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                 <!-- Modal Header -->
                 <div class="flex items-center justify-between pb-3 border-b border-gray-100">
                     <div>
-                        <h3 class="text-sm font-semibold text-gray-900">Ubah Status Transaksi #<span x-text="activeRow.order"></span></h3>
+                        <h3 class="text-sm font-semibold font-heading text-gray-900">Ubah Status Transaksi #<span x-text="activeRow.order"></span></h3>
                         <p class="text-xs text-gray-500 mt-0.5 truncate max-w-xs" x-text="activeRow.beneficiary"></p>
                     </div>
                     <button
@@ -675,7 +675,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                     </div>
                     <div class="flex justify-between text-gray-500">
                         <span>Nominal:</span>
-                        <strong class="text-[#315B8C] font-semibold font-mono" x-text="activeRow.amount"></strong>
+                        <strong class="text-[#315B8C] font-semibold tabular-nums font-heading" x-text="activeRow.amount"></strong>
                     </div>
                 </div>
 

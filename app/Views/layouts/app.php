@@ -245,26 +245,27 @@ $reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode
         ================================================= */
 
         html {
-            font-size: 16px;
+            font-family: var(--font-app);
+            font-size: 20px;
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
         }
 
-        @media (min-width: 640px) {
+        @media (max-width: 639px) {
             html {
-                font-size: 16.5px;
+                font-size: 16px;
+            }
+        }
+
+        @media (min-width: 640px) and (max-width: 1023px) {
+            html {
+                font-size: 18px;
             }
         }
 
         @media (min-width: 1024px) {
             html {
-                font-size: 17.5px;
-            }
-        }
-
-        @media (min-width: 1440px) {
-            html {
-                font-size: 18px;
+                font-size: 20px;
             }
         }
 
@@ -1023,7 +1024,7 @@ $reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode
             gap: 8px !important;
             height: 40px !important;
             padding: 0 16px !important;
-            font: 500 15px/1 'Inter', 'DM Sans', system-ui, -apple-system, sans-serif !important;
+            font: 500 15px/1 'DM Sans', system-ui, -apple-system, sans-serif !important;
             color: var(--_text) !important;
             background: linear-gradient(180deg, var(--_from) 0%, var(--_to) 100%) !important;
             border: 1px solid var(--_border) !important;
@@ -1080,7 +1081,7 @@ $reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode
             gap: 8px !important;
             height: 40px !important;
             padding: 0 16px !important;
-            font: 500 15px/1 'Inter', 'DM Sans', system-ui, -apple-system, sans-serif !important;
+            font: 500 15px/1 'DM Sans', system-ui, -apple-system, sans-serif !important;
             color: #1f2937 !important;
             background: #ffffff !important;
             border: 1px solid #d1d5db !important;
@@ -4875,7 +4876,7 @@ $reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode
 </head>
 
 
-<body class="bg-slate-50 text-gray-800 antialiased font-sans min-h-screen">
+<body class="app-body bg-slate-50 text-gray-800 antialiased font-sans min-h-screen">
 
     <!-- =========================================================
          GLOBAL AMBIENT SOLID SPLASH ART BACKGROUND

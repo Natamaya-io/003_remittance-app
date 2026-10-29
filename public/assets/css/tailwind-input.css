@@ -270,7 +270,7 @@
     gap: 8px;
     height: 40px;
     padding: 0 16px;
-    font: 500 15px/1 'Inter', 'DM Sans', system-ui, -apple-system, sans-serif;
+    font: 500 15px/1 'DM Sans', system-ui, -apple-system, sans-serif;
     color: var(--_text);
     background: linear-gradient(180deg, var(--_from) 0%, var(--_to) 100%);
     border: 1px solid var(--_border);
@@ -335,7 +335,7 @@
     gap: 8px;
     height: 40px;
     padding: 0 16px;
-    font: 500 15px/1 'Inter', 'DM Sans', system-ui, -apple-system, sans-serif;
+    font: 500 15px/1 'DM Sans', system-ui, -apple-system, sans-serif;
     color: #1f2937;
     background: #ffffff;
     border: 1px solid #d1d5db;
@@ -378,7 +378,7 @@
     gap: 8px;
     height: 40px;
     padding: 0 16px;
-    font: 500 15px/1 'Inter', 'DM Sans', system-ui, -apple-system, sans-serif;
+    font: 500 15px/1 'DM Sans', system-ui, -apple-system, sans-serif;
     color: #ffffff;
     background: #dc2626;
     border: 1px solid #b91c1c;
@@ -517,7 +517,7 @@
     height: 20px;
     min-width: 20px;
     padding: 0 5px;
-    font-family: var(--font-cta, 'Inter', 'DM Sans', system-ui, sans-serif);
+    font-family: var(--font-cta, 'DM Sans', system-ui, sans-serif);
     font-size: 11px;
     font-weight: 600;
     line-height: 1;
