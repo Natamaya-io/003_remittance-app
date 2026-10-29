@@ -1,10 +1,23 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" fill="none" preserveAspectRatio="xMidYMid slice">
-  <!-- Top-Right Calm Arcs -->
-  <circle cx="1920" cy="0" r="380" stroke="#315B8C" stroke-width="1" stroke-opacity="0.035" />
-  <circle cx="1920" cy="0" r="720" stroke="#315B8C" stroke-width="1" stroke-opacity="0.025" />
-  <!-- Bottom-Left Calm Arcs -->
-  <circle cx="0" cy="1080" r="340" stroke="#315B8C" stroke-width="1" stroke-opacity="0.035" />
-  <circle cx="0" cy="1080" r="680" stroke="#315B8C" stroke-width="1" stroke-opacity="0.025" />
-  <!-- Soft Coral Accent Arc -->
-  <circle cx="1400" cy="750" r="280" stroke="#F2765E" stroke-width="1" stroke-opacity="0.03" />
+  <!-- Top-Right Ripple Cluster -->
+  <circle cx="1650" cy="180" r="140" stroke="#315B8C" stroke-width="1.8" stroke-opacity="0.16" />
+  <circle cx="1650" cy="180" r="260" stroke="#315B8C" stroke-width="1.6" stroke-opacity="0.14" />
+  <circle cx="1650" cy="180" r="380" stroke="#315B8C" stroke-width="1.5" stroke-opacity="0.12" />
+  <circle cx="1650" cy="180" r="500" stroke="#315B8C" stroke-width="1.5" stroke-opacity="0.1" />
+  <circle cx="1650" cy="180" r="620" stroke="#315B8C" stroke-width="1.4" stroke-opacity="0.08" />
+  <circle cx="1650" cy="180" r="200" stroke="#F2765E" stroke-width="1.6" stroke-opacity="0.14" />
+  <!-- Bottom-Left Anchor Cluster -->
+  <circle cx="240" cy="880" r="120" stroke="#315B8C" stroke-width="1.8" stroke-opacity="0.16" />
+  <circle cx="240" cy="880" r="240" stroke="#315B8C" stroke-width="1.6" stroke-opacity="0.14" />
+  <circle cx="240" cy="880" r="360" stroke="#315B8C" stroke-width="1.5" stroke-opacity="0.12" />
+  <circle cx="240" cy="880" r="480" stroke="#315B8C" stroke-width="1.5" stroke-opacity="0.1" />
+  <circle cx="240" cy="880" r="600" stroke="#315B8C" stroke-width="1.4" stroke-opacity="0.08" />
+  <circle cx="240" cy="880" r="180" stroke="#F2765E" stroke-width="1.6" stroke-opacity="0.14" />
+  <!-- Sweeping Global Financial Orbits -->
+  <circle cx="960" cy="540" r="460" stroke="#315B8C" stroke-width="1.6" stroke-opacity="0.11" />
+  <circle cx="960" cy="540" r="720" stroke="#315B8C" stroke-width="1.5" stroke-opacity="0.09" />
+  <circle cx="960" cy="540" r="980" stroke="#413333" stroke-width="1.4" stroke-opacity="0.07" />
+  <!-- Subtle Satellite Accents -->
+  <circle cx="1150" cy="320" r="160" stroke="#315B8C" stroke-width="1.5" stroke-opacity="0.11" />
+  <circle cx="680" cy="700" r="190" stroke="#F2765E" stroke-width="1.5" stroke-opacity="0.10" />
 </svg>

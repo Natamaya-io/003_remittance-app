@@ -133,7 +133,7 @@ $flashes = Flash::all();
          ========================================================= -->
     <div class="global-ambient-art" aria-hidden="true">
         <img
-            src="<?= e(url('/ambient-circles.svg')) ?>"
+            src="<?= e(url('/ambient-circles.svg?v=20261029_v2')) ?>"
             alt=""
             class="global-ambient-art-svg select-none pointer-events-none"
             loading="eager"

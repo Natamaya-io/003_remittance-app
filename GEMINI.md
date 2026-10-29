@@ -2100,14 +2100,19 @@ Seluruh tombol berbasis tanda silang / penutup (Tombol "X") di seluruh aplikasi 
 
 ---
 
-### 21.2. Spesifikasi Vektor Geometris Lingkaran Tenang & Anti-Kelelahan Mata (Anti-Eye Strain Calm Circular Vector Asset)
+### 21.2. Spesifikasi Vektor Geometris Lingkaran Seimbang & Nyaman di Mata (Balanced Ambient Circular Vector Asset)
 
 Aset visual art background dikunci menggunakan format vektor murni **`public/ambient-circles.svg`** (`public/assets/img/ambient-circles.svg`):
-- **Pemusnahan Efek Moiré & Getaran Optik (Anti-Eye Strain Discipline):**
-  - **DILARANG KERAS** menggunakan garis putus-putus (*dashed lines* / `stroke-dasharray`), matriks titik padat (*dot grids*), atau riak konsentris berlapis-lapis rapat yang memicu getaran optik (*moiré effect*) atau kelelahan mata (*eye strain*).
-  - Mengeliminasi seluruh kerumitan visual menjadi **5 busur lingkaran perimetrik besar berjarak sangat lega (> 300px)** di sudut kanvas yang tenang, stabil, dan adem dipandang.
-- **Karakteristik Ultra-Ringan (693 Bytes):** Berukuran mikro hanya **693 bytes** (menggantikan file bitmap ~885 KB dan file moiré ~11 KB), tanpa overhead komputasi CPU/GPU sedikit pun.
-- **Kepatuhan Palet 4 Warna Master & Opasitas Bisikan Mikro:** Menggunakan warna resmi `#315B8C` (Deep Brand Blue) dan `#F2765E` (Vibrant Coral Accent) dengan garis solid hairline (`stroke-width="1"`) dan opasitas bisikan mikro terkalibrasi (**0.025 hingga 0.035**), menghasilkan latar belakang yang sangat tenang, menyatu organik dengan kanvas dasar `#F5F2F2`, serta menjamin kenyamanan penglihatan 100% saat membaca data perbankan.
+- **Komposisi Lingkaran Seimbang (15 Busur Geometris Presisi):**
+  - Mengeliminasi getaran optik (*moiré effect*) dengan **mengharamkan garis putus-putus (`stroke-dasharray`) dan matriks titik (*dot grids*)**.
+  - Mengatur **15 lingkaran konsentris dan busur orbit tenang** berjarak sangat lega (120px) yang terdistribusi secara seimbang:
+    1. *Top-Right Ripple Hub*: 5 lingkaran konsentris bertahap (`#315B8C`) + 1 aksen coral (`#F2765E`).
+    2. *Bottom-Left Anchor*: 5 lingkaran konsentris bertahap (`#315B8C`) + 1 aksen coral (`#F2765E`).
+    3. *Global Sweeping Orbits*: 3 busur orbit finansial melintang kanvas.
+- **Keterbacaan Visual Nyata (Anti-Hilang) & Bebas Sakit Mata:**
+  - Garis solid dibuat berbobot terdefinisi **`stroke-width="1.5"` s/d `"1.8"`** sehingga tidak lenyap oleh antialiasing subpixel layar.
+  - Opasitas stroke terkalibrasi secara optimal **0.08 hingga 0.16** (8% s/d 16%), menjamin visual art terlihat jelas sebagai estetika latar perbankan elegan, tanpa menjadi terlalu pucat hingga hilang dan tanpa menyilaukan mata.
+- **Karakteristik Ringan (1.9 KB):** Berukuran sangat kecil **1.9 KB** dengan parameter cache-busting `?v=20261029_v2` agar browser memuat ulang versi terbaru secara instan.
 
 ---
 
@@ -2119,7 +2124,7 @@ Elemen art dirender tepat di bawah tag pembuka `<body>` pada seluruh berkas layo
 <!-- GLOBAL AMBIENT CIRCULAR ART BACKGROUND -->
 <div class="global-ambient-art" aria-hidden="true">
     <img
-        src="<?= e(url('/ambient-circles.svg')) ?>"
+        src="<?= e(url('/ambient-circles.svg?v=20261029_v2')) ?>"
         alt=""
         class="global-ambient-art-svg select-none pointer-events-none"
         loading="eager"
