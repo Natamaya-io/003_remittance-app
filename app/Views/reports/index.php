@@ -806,9 +806,6 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                                 </div>
                                 <div class="min-w-0">
                                     <strong class="text-base font-semibold font-heading text-gray-900 block truncate"><?= e($monthLabel) ?></strong>
-                                    <span class="inline-flex items-center py-0.5 px-2 rounded-full text-[11px] tabular-nums font-semibold bg-gray-100 text-gray-600">
-                                        <?= e($monthKey) ?>
-                                    </span>
                                 </div>
                             </div>
                         </div>
