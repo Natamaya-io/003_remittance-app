@@ -50,14 +50,7 @@ $defaultReportName = 'LAPORAN - ' . ($monthNames[$monthNumber] ?? strtoupper(dat
                     </div>
 
                     <div>
-                        <div class="flex items-center gap-1.5 mb-1.5">
-                            <label class="block text-xs font-semibold text-gray-700">Tanggal report *</label>
-                            <?= render_tooltip(
-                                'Membentuk kartu tanggal pada bulan report.',
-                                '<span class="info-toggle-btn cursor-help" aria-label="Info tanggal report"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
-                                ['placement' => 'top']
-                            ) ?>
-                        </div>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Tanggal report *</label>
                         <?= render_datepicker('report_date', (string) old('report_date', $selectedDate), ['required' => true, 'placeholder' => 'Pilih tanggal']) ?>
                     </div>
 
