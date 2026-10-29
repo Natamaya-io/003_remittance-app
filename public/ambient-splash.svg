@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" fill="none" preserveAspectRatio="xMidYMid slice">
+  <!-- =========================================================
+       REMITGO! SOLID AMBIENT SPLASH BACKGROUND ART
+       Organic fluid silhouettes & solid liquid splashes that blend
+       harmoniously with #F5F2F2 canvas. Zero line-vibration.
+       ========================================================= -->
+
+  <!-- Top-Right Major Fluid Splash (Deep Brand Blue #315B8C) -->
+  <path d="M 1920,0 L 1480,0 C 1490,90 1520,150 1460,210 C 1390,280 1330,220 1280,310 C 1240,380 1300,460 1370,490 C 1450,520 1500,470 1580,530 C 1650,580 1620,670 1710,700 C 1790,730 1860,650 1920,680 Z" 
+        fill="#315B8C" fill-opacity="0.055" />
+
+  <!-- Top-Right Dynamic Overlay Splash (Vibrant Coral #F2765E) -->
+  <path d="M 1920,60 L 1640,0 C 1660,70 1710,110 1670,180 C 1630,250 1540,240 1520,320 C 1500,400 1580,440 1650,420 C 1730,400 1760,490 1840,470 C 1890,460 1900,380 1920,360 Z" 
+        fill="#F2765E" fill-opacity="0.045" />
+
+  <!-- Top-Right Secondary Fluid Tongue -->
+  <path d="M 1920,240 C 1820,220 1780,310 1710,290 C 1650,270 1660,190 1620,140 C 1580,90 1640,30 1680,0 L 1920,0 Z" 
+        fill="#315B8C" fill-opacity="0.04" />
+
+  <!-- Top-Right Detached Splash Droplets -->
+  <path d="M 1320,180 C 1300,160 1270,180 1270,210 C 1270,240 1310,260 1330,240 C 1350,220 1340,190 1320,180 Z" 
+        fill="#315B8C" fill-opacity="0.06" />
+  <path d="M 1220,340 C 1200,320 1170,335 1175,360 C 1180,385 1210,400 1230,380 C 1245,365 1235,350 1220,340 Z" 
+        fill="#F2765E" fill-opacity="0.05" />
+  <path d="M 1440,390 C 1425,380 1400,390 1400,410 C 1400,430 1430,445 1445,430 C 1460,415 1450,400 1440,390 Z" 
+        fill="#315B8C" fill-opacity="0.05" />
+  <circle cx="1260" cy="460" r="16" fill="#315B8C" fill-opacity="0.045" />
+  <circle cx="1520" cy="590" r="22" fill="#315B8C" fill-opacity="0.04" />
+  <circle cx="1680" cy="640" r="14" fill="#F2765E" fill-opacity="0.05" />
+
+  <!-- Bottom-Left Major Fluid Splash (Deep Brand Blue #315B8C) -->
+  <path d="M 0,1080 L 0,620 C 60,610 110,660 170,610 C 240,550 210,460 300,430 C 390,400 440,490 510,460 C 590,430 580,330 670,350 C 740,370 730,480 690,560 C 640,650 510,670 480,760 C 450,850 520,920 460,990 C 420,1040 330,1030 260,1080 Z" 
+        fill="#315B8C" fill-opacity="0.05" />
+
+  <!-- Bottom-Left Fluid Undercurrent (Deep Asphalt #413333) -->
+  <path d="M 0,1080 L 0,800 C 80,780 140,840 220,790 C 300,740 290,640 380,660 C 460,680 430,780 410,850 C 390,930 460,990 410,1050 C 380,1080 320,1080 280,1080 Z" 
+        fill="#413333" fill-opacity="0.035" />
+
+  <!-- Bottom-Left Accent Splash Tongue (Vibrant Coral #F2765E) -->
+  <path d="M 0,980 C 70,950 120,990 190,940 C 260,890 280,790 350,810 C 410,830 380,920 340,980 C 300,1030 210,1040 140,1080 L 0,1080 Z" 
+        fill="#F2765E" fill-opacity="0.045" />
+
+  <!-- Bottom-Left Detached Splash Droplets -->
+  <path d="M 420,410 C 400,395 375,410 380,435 C 385,460 415,470 430,450 C 440,435 435,420 420,410 Z" 
+        fill="#315B8C" fill-opacity="0.055" />
+  <path d="M 590,310 C 575,295 550,305 555,325 C 560,345 585,355 600,340 C 610,325 600,315 590,310 Z" 
+        fill="#F2765E" fill-opacity="0.05" />
+  <circle cx="740" cy="320" r="18" fill="#315B8C" fill-opacity="0.045" />
+  <circle cx="560" cy="520" r="14" fill="#315B8C" fill-opacity="0.04" />
+  <circle cx="350" cy="560" r="20" fill="#F2765E" fill-opacity="0.045" />
+  <circle cx="520" cy="710" r="16" fill="#315B8C" fill-opacity="0.045" />
+
+  <!-- Mid-Field Ambient Organic Floating Splash Elements (Off-Center) -->
+  <path d="M 820,160 C 850,140 890,165 890,200 C 885,235 845,260 815,240 C 790,220 795,180 820,160 Z" 
+        fill="#315B8C" fill-opacity="0.035" />
+  <path d="M 1120,840 C 1160,820 1205,850 1200,890 C 1195,930 1150,960 1115,935 C 1085,910 1090,860 1120,840 Z" 
+        fill="#F2765E" fill-opacity="0.035" />
+  <circle cx="940" cy="220" r="12" fill="#F2765E" fill-opacity="0.035" />
+  <circle cx="1060" cy="870" r="15" fill="#315B8C" fill-opacity="0.035" />
+</svg>

@@ -4878,13 +4878,13 @@ $reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode
 <body class="bg-slate-50 text-gray-800 antialiased font-sans min-h-screen">
 
     <!-- =========================================================
-         GLOBAL AMBIENT CIRCULAR ART BACKGROUND
-         Aset desain lingkaran geometris ringan & dinamis yang samar & menyatu
-         pada background kanvas #F5F2F2 di semua halaman aplikasi.
+         GLOBAL AMBIENT SOLID SPLASH ART BACKGROUND
+         Aset solid organic splash siluet yang samar & menyatu secara
+         elegan pada background kanvas #F5F2F2 di semua halaman aplikasi.
          ========================================================= -->
     <div class="global-ambient-art" aria-hidden="true">
         <img
-            src="<?= e(url('/ambient-circles.svg?v=20261029_v2')) ?>"
+            src="<?= e(url('/ambient-splash.svg?v=20261029_v3')) ?>"
             alt=""
             class="global-ambient-art-svg select-none pointer-events-none"
             loading="eager"

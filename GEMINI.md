@@ -2100,19 +2100,19 @@ Seluruh tombol berbasis tanda silang / penutup (Tombol "X") di seluruh aplikasi 
 
 ---
 
-### 21.2. Spesifikasi Vektor Geometris Lingkaran Seimbang & Nyaman di Mata (Balanced Ambient Circular Vector Asset)
+### 21.2. Spesifikasi Vektor Siluet Solid Splash (Solid Ambient Splash Vector Asset)
 
-Aset visual art background dikunci menggunakan format vektor murni **`public/ambient-circles.svg`** (`public/assets/img/ambient-circles.svg`):
-- **Komposisi Lingkaran Seimbang (15 Busur Geometris Presisi):**
-  - Mengeliminasi getaran optik (*moiré effect*) dengan **mengharamkan garis putus-putus (`stroke-dasharray`) dan matriks titik (*dot grids*)**.
-  - Mengatur **15 lingkaran konsentris dan busur orbit tenang** berjarak sangat lega (120px) yang terdistribusi secara seimbang:
-    1. *Top-Right Ripple Hub*: 5 lingkaran konsentris bertahap (`#315B8C`) + 1 aksen coral (`#F2765E`).
-    2. *Bottom-Left Anchor*: 5 lingkaran konsentris bertahap (`#315B8C`) + 1 aksen coral (`#F2765E`).
-    3. *Global Sweeping Orbits*: 3 busur orbit finansial melintang kanvas.
-- **Keterbacaan Visual Nyata (Anti-Hilang) & Bebas Sakit Mata:**
-  - Garis solid dibuat berbobot terdefinisi **`stroke-width="1.5"` s/d `"1.8"`** sehingga tidak lenyap oleh antialiasing subpixel layar.
-  - Opasitas stroke terkalibrasi secara optimal **0.08 hingga 0.16** (8% s/d 16%), menjamin visual art terlihat jelas sebagai estetika latar perbankan elegan, tanpa menjadi terlalu pucat hingga hilang dan tanpa menyilaukan mata.
-- **Karakteristik Ringan (1.9 KB):** Berukuran sangat kecil **1.9 KB** dengan parameter cache-busting `?v=20261029_v2` agar browser memuat ulang versi terbaru secara instan.
+Aset visual art background dikunci menggunakan format vektor murni **`public/ambient-splash.svg`** (`public/assets/img/ambient-splash.svg`):
+- **Bentuk Solid Siluet Organik (Bukan Garis Wireframe):**
+  - Mengeliminasi seluruh bentuk garis kawat tipis, cincin konsentris rapat, garis putus-putus, dan titik getar yang memicu kelelahan mata.
+  - Menggunakan **siluet splash cair/organik yang terisi solid (*solid filled fluid shapes & droplets*)** dengan kurva bezier mulus di sudut-sudut viewport:
+    1. *Top-Right Major Fluid Splash*: Bentukan lidah cairan dinamis solid `#315B8C` (Deep Brand Blue) dan `#F2765E` (Vibrant Coral Accent) dengan tetesan mikro melayang.
+    2. *Bottom-Left Fluid Anchor*: Kontur aliran cairan tenang solid `#315B8C` berpadu `#413333` (Deep Asphalt Brown) di sudut kiri bawah.
+    3. *Mid-Field Ambient Droplets*: Aksen tetesan organik mengambang lembut di area negatif luar.
+- **Karakteristik Visual Tenang & Nyaman di Mata:**
+  - Bentuk berupa permukaan solid bidang luas beropasitas terkalibrasi **3.5% hingga 5.5% (`fill-opacity="0.035" - "0.055"`)**.
+  - Menghasilkan bayangan siluet yang anggun dan menyatu (*blend*) secara organik dengan kanvas `#F5F2F2` (Asphalt Off-White Base) layaknya watermark cat air/tinta perbankan, 100% bebas dari getaran optik (*zero moiré effect*).
+- **Performa Ultra-Ringan (4 KB):** Berukuran sangat kecil **4 KB**, dirender dengan akselerasi GPU 60 FPS, serta dilengkapi parameter cache-buster `?v=20261029_v3`.
 
 ---
 
@@ -2121,10 +2121,10 @@ Aset visual art background dikunci menggunakan format vektor murni **`public/amb
 Elemen art dirender tepat di bawah tag pembuka `<body>` pada seluruh berkas layout utama (`app/Views/layouts/app.php` dan `app/Views/layouts/guest.php`):
 
 ```html
-<!-- GLOBAL AMBIENT CIRCULAR ART BACKGROUND -->
+<!-- GLOBAL AMBIENT SOLID SPLASH ART BACKGROUND -->
 <div class="global-ambient-art" aria-hidden="true">
     <img
-        src="<?= e(url('/ambient-circles.svg?v=20261029_v2')) ?>"
+        src="<?= e(url('/ambient-splash.svg?v=20261029_v3')) ?>"
         alt=""
         class="global-ambient-art-svg select-none pointer-events-none"
         loading="eager"

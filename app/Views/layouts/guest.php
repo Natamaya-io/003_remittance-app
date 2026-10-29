@@ -127,13 +127,13 @@ $flashes = Flash::all();
 <body class="login-body h-screen max-h-screen bg-[#F5F2F2] text-gray-900 antialiased font-sans overflow-hidden">
 
     <!-- =========================================================
-         GLOBAL AMBIENT CIRCULAR ART BACKGROUND
-         Aset desain lingkaran geometris ringan & dinamis yang samar & menyatu
-         pada background kanvas #F5F2F2 di semua halaman aplikasi.
+         GLOBAL AMBIENT SOLID SPLASH ART BACKGROUND
+         Aset solid organic splash siluet yang samar & menyatu secara
+         elegan pada background kanvas #F5F2F2 di semua halaman aplikasi.
          ========================================================= -->
     <div class="global-ambient-art" aria-hidden="true">
         <img
-            src="<?= e(url('/ambient-circles.svg?v=20261029_v2')) ?>"
+            src="<?= e(url('/ambient-splash.svg?v=20261029_v3')) ?>"
             alt=""
             class="global-ambient-art-svg select-none pointer-events-none"
             loading="eager"
