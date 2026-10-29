@@ -215,79 +215,66 @@ $manualColumns = [
 
 <div class="transaction-import-page">
 
-
     <!-- =====================================================
-         WORKFLOW
+         HEADER & PAGE ACTION
     ====================================================== -->
-
-    <section class="trx-workflow">
-
-        <div class="trx-workflow-copy">
-
-            <h2>
-                Excel / Copy Paste
-                <span>→</span>
-                Bentuk Tahap 2
-                <span>→</span>
-                Bersihkan Tahap 3
-                <span>→</span>
-                Download
-            </h2>
-
-            <p>
-                Tahap pertama menerima tabel Excel atau copy paste.
-                Data payer dapat dipilih langsung dari master Rekening Payer.
-            </p>
-
+    <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-2">
+        <div>
+            <?= render_heading_with_info(
+                'Input Transaksi BRI',
+                'Tahap 1: Input data transaksi melalui copy paste spreadsheet atau unggah file Excel/CSV. Data payer dapat dipilih langsung dari master Rekening Payer.',
+                [
+                    'titleTag'     => 'h1',
+                    'titleClass'   => 'text-xl font-semibold font-heading text-gray-900 m-0',
+                    'wrapperClass' => 'inline-flex items-center gap-2',
+                ]
+            ) ?>
         </div>
 
-
-        <div class="trx-workflow-steps">
-
-            <div class="trx-step active">
-                <b>1</b>
-                <span>Input</span>
-            </div>
-
-            <div class="trx-step">
-                <b>2</b>
-                <span>Bentuk tabel</span>
-            </div>
-
-            <div class="trx-step">
-                <b>3</b>
-                <span>Hapus tanda baca</span>
-            </div>
-
-            <div class="trx-step">
-                <b>4</b>
-                <span>Download</span>
-            </div>
-
+        <div class="flex items-center gap-2">
+            <a class="btn-secondary" href="<?= url('/transactions') ?>">
+                <i class="bi bi-arrow-left"></i>
+                <span>Pilihan Bank</span>
+            </a>
         </div>
-
-    </section>
-
+    </header>
 
     <!-- =====================================================
-         ACTIONS
+         GAMIFIED STEPPER (4 TAHAP WORKFLOW)
     ====================================================== -->
+    <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm mb-2">
+        <div class="flex items-center justify-between gap-2 overflow-x-auto text-xs sm:text-sm select-none">
+            <div class="flex items-center gap-2 text-[#315B8C] font-semibold flex-shrink-0">
+                <span class="w-6 h-6 rounded-full bg-[#315B8C] text-white flex items-center justify-center text-xs font-semibold">1</span>
+                <span>Input Data</span>
+            </div>
 
-    <div class="page-actions d-flex justify-content-end mb-4">
-        <a
-            class="btn-secondary"
-            href="<?= url('/transactions') ?>"
-        >
-            <i class="bi bi-arrow-left"></i>
-            <span>Pilihan Bank</span>
-        </a>
+            <i class="bi bi-chevron-right text-gray-300 text-xs flex-shrink-0"></i>
+
+            <div class="flex items-center gap-2 text-gray-400 font-medium flex-shrink-0">
+                <span class="w-6 h-6 rounded-full bg-[#F5F2F2] text-gray-500 border border-gray-200 flex items-center justify-center text-xs font-medium">2</span>
+                <span>Bentuk Format</span>
+            </div>
+
+            <i class="bi bi-chevron-right text-gray-300 text-xs flex-shrink-0"></i>
+
+            <div class="flex items-center gap-2 text-gray-400 font-medium flex-shrink-0">
+                <span class="w-6 h-6 rounded-full bg-[#F5F2F2] text-gray-500 border border-gray-200 flex items-center justify-center text-xs font-medium">3</span>
+                <span>Hapus Tanda Baca</span>
+            </div>
+
+            <i class="bi bi-chevron-right text-gray-300 text-xs flex-shrink-0"></i>
+
+            <div class="flex items-center gap-2 text-gray-400 font-medium flex-shrink-0">
+                <span class="w-6 h-6 rounded-full bg-[#F5F2F2] text-gray-500 border border-gray-200 flex items-center justify-center text-xs font-medium">4</span>
+                <span>Download File</span>
+            </div>
+        </div>
     </div>
-
 
     <!-- =====================================================
          FORM
     ====================================================== -->
-
     <form
         method="post"
         action="<?= url('/transactions/import') ?>"
@@ -295,60 +282,36 @@ $manualColumns = [
         id="transactionSourceForm"
         class="trx-form"
     >
-
         <?= csrf_field() ?>
 
-
         <!-- =================================================
-             CONFIGURATION
+             CARD 1: PENGATURAN TRANSAKSI
         ================================================== -->
-
         <section class="trx-card">
-
             <header class="trx-card-head">
-
-                <span class="trx-card-number">
-                    01
-                </span>
-
-                <div>
-
-                    <h3>
-                        Pengaturan transaksi
-                    </h3>
-
-                    <p>
-                        Tentukan batch, email output, dan tim.
-                    </p>
-
-                </div>
-
+                <?= render_heading_with_info(
+                    'Pengaturan Transaksi',
+                    'Tentukan nama batch transaksi, email penerima file hasil olahan, dan alokasi tim operasional.',
+                    [
+                        'titleTag'     => 'h3',
+                        'titleClass'   => 'text-base font-semibold font-heading text-gray-900 m-0',
+                        'wrapperClass' => 'inline-flex items-center gap-2',
+                    ]
+                ) ?>
             </header>
 
-
             <div class="trx-config-grid">
-
                 <label>
-
-                    <span class="form-label">
-                        Nama batch
-                    </span>
-
+                    <span class="form-label">Nama batch</span>
                     <input
                         class="custom-form-input"
                         name="job_name"
                         placeholder="Contoh: TRANSAKSI 11 AGUSTUS 2026"
                     >
-
                 </label>
 
-
                 <label>
-
-                    <span class="form-label">
-                        Email output
-                    </span>
-
+                    <span class="form-label">Email output</span>
                     <input
                         class="custom-form-input"
                         type="email"
@@ -356,191 +319,115 @@ $manualColumns = [
                         value="remit.service09@gmail.com"
                         required
                     >
-
                 </label>
 
-
-                <?php if (
-                    !App\Core\Auth::isTransactionAdmin()
-                ): ?>
-
+                <?php if (!App\Core\Auth::isTransactionAdmin()): ?>
                     <label>
-
-                        <span class="form-label">
-                            Tim
-                        </span>
-
+                        <span class="form-label">Tim</span>
                         <select
                             class="custom-form-select"
                             name="team_no"
                         >
-
-                            <?php for (
-                                $i = 1;
-                                $i <= 4;
-                                $i++
-                            ): ?>
-
-                                <option value="<?= $i ?>">
-                                    Tim <?= $i ?>
-                                </option>
-
+                            <?php for ($i = 1; $i <= 4; $i++): ?>
+                                <option value="<?= $i ?>">Tim <?= $i ?></option>
                             <?php endfor; ?>
-
                         </select>
-
                     </label>
-
                 <?php endif; ?>
 
-
                 <label class="trx-check">
-
                     <input
                         type="checkbox"
                         name="auto_create_company"
                         value="1"
                         checked
                     >
-
-                    <span>
-                        Buat perusahaan otomatis jika payer belum tersedia.
-                    </span>
-
+                    <span>Buat perusahaan otomatis jika payer belum tersedia.</span>
                 </label>
-
             </div>
-
         </section>
 
-
         <!-- =================================================
-             SOURCE
+             CARD 2: SUMBER DATA
         ================================================== -->
-
         <section class="trx-card">
-
             <header class="trx-card-head">
-
-                <span class="trx-card-number">
-                    02
-                </span>
-
-                <div>
-
-                    <h3>
-                        Sumber data
-                    </h3>
-
-                    <p>
-                        Gunakan copy paste spreadsheet atau import file.
-                    </p>
-
-                </div>
-
+                <?= render_heading_with_info(
+                    'Sumber Data Transaksi',
+                    'Pilih mode sumber data: copy paste langsung dari spreadsheet atau unggah file Excel/CSV.',
+                    [
+                        'titleTag'     => 'h3',
+                        'titleClass'   => 'text-base font-semibold font-heading text-gray-900 m-0',
+                        'wrapperClass' => 'inline-flex items-center gap-2',
+                    ]
+                ) ?>
             </header>
 
-
             <div class="trx-source-tabs">
-
                 <label
                     class="trx-source-tab active"
                     data-source-option="manual"
                 >
-
                     <input
                         type="radio"
                         name="source_mode"
                         value="manual"
                         checked
                     >
-
                     <i class="bi bi-grid-3x3-gap"></i>
-
                     <span>
-                        <strong>
-                            Copy Paste Excel
-                        </strong>
-
-                        <small>
-                            Input seperti spreadsheet
-                        </small>
+                        <strong>Copy Paste Excel</strong>
+                        <small>Input seperti spreadsheet</small>
                     </span>
-
                 </label>
-
 
                 <label
                     class="trx-source-tab"
                     data-source-option="file"
                 >
-
                     <input
                         type="radio"
                         name="source_mode"
                         value="file"
                     >
-
                     <i class="bi bi-file-earmark-excel"></i>
-
                     <span>
-                        <strong>
-                            Import Excel
-                        </strong>
-
-                        <small>
-                            XLSX, XLS XML, CSV
-                        </small>
+                        <strong>Import Excel</strong>
+                        <small>XLSX, XLS XML, CSV</small>
                     </span>
-
                 </label>
-
             </div>
 
-
             <!-- =============================================
-                 FILE
+                 FILE PANEL
             ============================================== -->
-
             <div
                 class="trx-source-panel"
                 data-source-panel="file"
                 hidden
             >
-
                 <label class="trx-drop-zone">
-
                     <input
                         type="file"
                         name="transaction_file"
                         accept=".xlsx,.xls,.csv"
                         id="transactionFile"
                     >
-
                     <i class="bi bi-cloud-arrow-up"></i>
-
-                    <strong>
-                        Pilih file transaksi
-                    </strong>
-
+                    <strong>Pilih file transaksi</strong>
                     <span id="transactionFileName">
                         XLSX, XLS XML, atau CSV
                     </span>
-
                 </label>
-
             </div>
 
-
             <!-- =============================================
-                 MANUAL
+                 MANUAL SPREADSHEET PANEL
             ============================================== -->
-
             <div
                 class="trx-source-panel active"
                 data-source-panel="manual"
             >
-
                 <input
                     type="hidden"
                     name="manual_rows_json"
@@ -548,24 +435,20 @@ $manualColumns = [
                     value="[]"
                 >
 
-
                 <div class="trx-grid-toolbar">
-
                     <div>
-
-                        <strong>
-                            Spreadsheet transaksi
-                        </strong>
-
-                        <span>
-                            Copy dari Excel lalu tekan Ctrl + V pada sel pertama.
-                        </span>
-
+                        <?= render_heading_with_info(
+                            'Spreadsheet Transaksi',
+                            'Copy dari Excel lalu tekan Ctrl + V pada sel pertama. Data payer dapat dipilih otomatis.',
+                            [
+                                'titleTag'     => 'strong',
+                                'titleClass'   => 'text-sm font-semibold font-heading text-gray-900 m-0',
+                                'wrapperClass' => 'inline-flex items-center gap-1.5',
+                            ]
+                        ) ?>
                     </div>
 
-
                     <div class="trx-toolbar-actions">
-
                         <span
                             class="trx-row-count"
                             id="manualRowCount"
@@ -590,1119 +473,581 @@ $manualColumns = [
                             <i class="bi bi-eraser"></i>
                             <span>Bersihkan</span>
                         </button>
-
                     </div>
-
                 </div>
-
 
                 <div class="trx-master-note">
-
                     <i class="bi bi-bank"></i>
-
                     <div>
-
-                        <strong>
-                            Master Rekening Payer
-                        </strong>
-
+                        <strong>Master Rekening Payer</strong>
                         <span>
-                            Memilih salah satu master akan mengisi Bill To,
-                            Nomor Rekening, Alamat, Kota, dan Negara pada baris
-                            yang sama.
+                            Memilih salah satu master akan mengisi Bill To, Nomor Rekening, Alamat, Kota, dan Negara pada baris yang sama.
                         </span>
-
                     </div>
-
                 </div>
-
 
                 <div
                     class="trx-grid-wrap"
                     id="manualGridScroll"
                 >
-
                     <table
                         class="trx-excel-grid"
                         id="manualTransactionGrid"
                     >
-
                         <colgroup>
-
-                            <?php foreach (
-                                $manualColumns
-                                as $index => $column
-                            ): ?>
-
+                            <?php foreach ($manualColumns as $index => $column): ?>
                                 <col
                                     data-grid-column="<?= $index ?>"
-                                    data-column-key="<?= e(
-                                        $column['key']
-                                    ) ?>"
+                                    data-column-key="<?= e($column['key']) ?>"
                                 >
-
                             <?php endforeach; ?>
-
                         </colgroup>
 
-
                         <thead>
-
                             <tr class="trx-number-row">
-
-                                <?php foreach (
-                                    $manualColumns
-                                    as $index => $column
-                                ): ?>
-
-                                    <th>
-                                        <?= $index + 1 ?>
-                                    </th>
-
+                                <?php foreach ($manualColumns as $index => $column): ?>
+                                    <th><?= $index + 1 ?></th>
                                 <?php endforeach; ?>
-
                             </tr>
-
 
                             <tr class="trx-header-row">
-
-                                <?php foreach (
-                                    $manualColumns
-                                    as $column
-                                ): ?>
-
-                                    <th>
-                                        <?= e(
-                                            $column['label']
-                                        ) ?>
-                                    </th>
-
+                                <?php foreach ($manualColumns as $column): ?>
+                                    <th><?= e($column['label']) ?></th>
                                 <?php endforeach; ?>
-
                             </tr>
-
                         </thead>
 
-
                         <tbody></tbody>
-
                     </table>
-
                 </div>
-
 
                 <div class="trx-grid-footer">
-
-                    <span>
-                        Kolom 15 sampai 18 memakai master Rekening Payer.
-                    </span>
-
-                    <span>
-                        Sel kosong tetap putih.
-                    </span>
-
+                    <span>Kolom 15 sampai 18 memakai master Rekening Payer.</span>
+                    <span>Sel kosong tetap putih.</span>
                 </div>
-
             </div>
-
         </section>
 
-
         <!-- =================================================
-             SUBMIT
+             SUBMIT BAR
         ================================================== -->
-
         <section class="trx-submit-card">
-
-            <div>
-
-                <i class="bi bi-arrow-right-circle"></i>
-
-                <span>
-
-                    <strong>
-                        Siap diproses
-                    </strong>
-
-                    <small>
-                        Tahap 2 dan Tahap 3 dibuat otomatis.
-                    </small>
-
-                </span>
-
+            <div class="flex items-center gap-3">
+                <i class="bi bi-check2-circle text-xl text-gray-700"></i>
+                <div>
+                    <strong class="text-sm font-semibold text-gray-900 block">Siap diproses</strong>
+                    <span class="text-xs text-gray-500">Tahap 2 dan Tahap 3 dibuat otomatis.</span>
+                </div>
             </div>
 
-
             <button
-                class="btn btn-primary"
+                class="btn-primary"
                 type="submit"
                 id="processTransactionButton"
             >
                 <i class="bi bi-play-fill"></i>
-                Proses Tahap 1
+                <span>Proses Tahap 1</span>
             </button>
-
         </section>
-
     </form>
-
 </div>
 
-
 <style>
-
 /* =========================================================
    PAGE
 ========================================================= */
-
 .transaction-import-page {
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: 20px;
     width: 100%;
     min-width: 0;
 }
 
-
 /* =========================================================
-   WORKFLOW
+   FORM & CARDS
 ========================================================= */
-
-.trx-workflow {
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(480px, .85fr);
-    align-items: center;
-    gap: 30px;
-
-    padding: 26px 30px;
-
-    border: 1px solid #ead5e7;
-    border-radius: 26px;
-
-    background:
-        linear-gradient(
-            115deg,
-            #ffdce9 0%,
-            #f0dcff 52%,
-            #cfeeff 100%
-        );
-}
-
-
-.trx-workflow-copy {
-    min-width: 0;
-}
-
-
-.trx-kicker {
-    display: block;
-    margin-bottom: 10px;
-
-    color: #ffffff;
-
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: .14em;
-}
-
-
-.trx-workflow h2 {
-    max-width: 760px;
-
-    margin: 0;
-
-    color: #4c2f57;
-
-    font-size: clamp(22px, 2.1vw, 32px);
-    line-height: 1.35;
-    letter-spacing: -.03em;
-}
-
-
-.trx-workflow h2 span {
-    color: #9348d6;
-}
-
-
-.trx-workflow p {
-    max-width: 710px;
-
-    margin: 12px 0 0;
-
-    color: #775f79;
-
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-
-.trx-workflow-steps {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-}
-
-
-.trx-step {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-
-    min-width: 0;
-    min-height: 54px;
-
-    padding: 10px 15px;
-
-    border: 1px solid rgba(255,255,255,.8);
-    border-radius: 999px;
-
-    color: #65506b;
-
-    background: rgba(255,255,255,.75);
-
-    font-weight: 700;
-}
-
-
-.trx-step b {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 32px;
-    height: 32px;
-
-    flex: 0 0 32px;
-
-    border-radius: 50%;
-
-    color: #7450b7;
-    background: #eee6f4;
-}
-
-
-.trx-step.active {
-    color: #ffffff;
-
-    border-color: transparent;
-
-    background:
-        linear-gradient(
-            105deg,
-            #7841df,
-            #ab43d2,
-            #eb408b
-        );
-}
-
-
-.trx-step.active b {
-    color: #ffffff;
-    background: rgba(255,255,255,.2);
-}
-
-
-/* =========================================================
-   HEADING
-========================================================= */
-
-.trx-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 30px;
-
-    padding: 8px 2px;
-}
-
-
-.trx-heading > div {
-    min-width: 0;
-    max-width: 1000px;
-}
-
-
-.trx-heading h1 {
-    margin: 8px 0 8px;
-
-    color: #4b3056;
-
-    font-size: clamp(30px, 3vw, 42px);
-    line-height: 1.1;
-    letter-spacing: -.035em;
-}
-
-
-.trx-heading p {
-    margin: 0;
-
-    color: #847286;
-
-    font-size: 14px;
-    line-height: 1.55;
-}
-
-
-/* =========================================================
-   FORM
-========================================================= */
-
 .trx-form {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 20px;
 }
-
 
 .trx-card {
     padding: 24px;
-
-    border: 1px solid #eaddea;
-    border-radius: 22px;
-
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
     background: #ffffff;
-
-    box-shadow:
-        0 10px 28px
-        rgba(92, 53, 105, .045);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
-
 
 .trx-card-head {
     display: flex;
     align-items: center;
-    gap: 13px;
-
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 }
-
-
-.trx-card-number {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 44px;
-    height: 44px;
-
-    flex: 0 0 44px;
-
-    border-radius: 14px;
-
-    color: #7741d8;
-    background: #eee1ff;
-
-    font-size: 12px;
-    font-weight: 800;
-}
-
-
-.trx-card-head h3 {
-    margin: 0;
-
-    color: #4e3457;
-
-    font-size: 18px;
-}
-
-
-.trx-card-head p {
-    margin: 3px 0 0;
-
-    color: #8c7c8f;
-
-    font-size: 12px;
-}
-
 
 /* =========================================================
    CONFIGURATION
 ========================================================= */
-
 .trx-config-grid {
     display: grid;
-    grid-template-columns:
-        minmax(260px, 1.3fr)
-        minmax(260px, 1.1fr)
-        minmax(220px, .8fr);
-
-    gap: 14px;
+    grid-template-columns: minmax(260px, 1.3fr) minmax(260px, 1.1fr) minmax(220px, .8fr);
+    gap: 16px;
     align-items: end;
 }
-
 
 .trx-config-grid label:not(.trx-check) {
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 6px;
 }
 
+.form-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #413333;
+}
 
 .trx-check {
     display: flex;
     align-items: center;
     gap: 10px;
-
-    min-height: 49px;
-
-    padding: 10px 13px;
-
-    border: 1px solid #e8dce9;
-    border-radius: 13px;
-
-    background: #fffafd;
-
-    color: #654f6a;
-
-    font-size: 12px;
+    min-height: 40px;
+    padding: 8px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    background: #F5F2F2;
+    color: #413333;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    user-select: none;
 }
-
 
 .trx-check input {
-    accent-color: #7741d8;
+    accent-color: #315B8C;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
 }
-
 
 /* =========================================================
    SOURCE TABS
 ========================================================= */
-
 .trx-source-tabs {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    gap: 12px;
-
-    margin-bottom: 16px;
+    gap: 14px;
+    margin-bottom: 20px;
 }
-
 
 .trx-source-tab {
     position: relative;
-
     display: grid;
-    grid-template-columns: auto minmax(0,1fr);
+    grid-template-columns: auto minmax(0, 1fr);
     align-items: center;
-
-    gap: 12px;
-
-    min-height: 74px;
-
-    padding: 14px 16px;
-
-    border: 1px solid #e6dae8;
-    border-radius: 16px;
-
-    background: #ffffff;
-
+    gap: 14px;
+    min-height: 64px;
+    padding: 12px 18px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #F5F2F2;
     cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
 }
-
 
 .trx-source-tab input {
     position: absolute;
     opacity: 0;
+    pointer-events: none;
 }
-
 
 .trx-source-tab > i {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
-    width: 44px;
-    height: 44px;
-
-    border-radius: 13px;
-
-    color: #7741d8;
-
-    background: #eee3ff;
-
-    font-size: 20px;
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    color: #413333;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    font-size: 18px;
+    transition: background-color 0.15s ease, color 0.15s ease;
 }
-
 
 .trx-source-tab > span {
     min-width: 0;
-
     display: flex;
     flex-direction: column;
-
     gap: 2px;
 }
 
-
 .trx-source-tab strong {
-    color: #4e3856;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #413333;
 }
-
 
 .trx-source-tab small {
-    color: #8a7a8d;
+    font-size: 12px;
+    color: #6b7280;
 }
-
 
 .trx-source-tab.active {
-    border-color: #b47ad6;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff7fb,
-            #f5ebff
-        );
+    border-color: #315B8C;
+    background: #315B8C;
 }
 
+.trx-source-tab.active > i {
+    color: #315B8C;
+    background: #ffffff;
+    border-color: #ffffff;
+}
+
+.trx-source-tab.active strong {
+    color: #ffffff;
+}
+
+.trx-source-tab.active small {
+    color: rgba(255, 255, 255, 0.85);
+}
 
 /* =========================================================
-   PANEL
+   PANELS & FILE DROP ZONE
 ========================================================= */
-
 .trx-source-panel {
     display: none;
 }
 
-
 .trx-source-panel.active {
     display: block;
 }
-
-
-/* =========================================================
-   FILE
-========================================================= */
 
 .trx-drop-zone {
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
-    gap: 5px;
-
-    min-height: 145px;
-
+    gap: 6px;
+    min-height: 140px;
     padding: 24px;
-
-    border: 1px dashed #c09bd5;
-    border-radius: 16px;
-
-    background: #fffafd;
-
+    border: 1.5px dashed #315B8C;
+    border-radius: 12px;
+    background: #F5F2F2;
     cursor: pointer;
+    transition: background-color 0.15s ease;
 }
 
+.trx-drop-zone:hover {
+    background: #eef2f6;
+}
 
 .trx-drop-zone input {
     display: none;
 }
 
-
 .trx-drop-zone > i {
-    margin-bottom: 5px;
-
-    color: #8448dd;
-
-    font-size: 30px;
+    margin-bottom: 4px;
+    color: #315B8C;
+    font-size: 28px;
 }
-
 
 .trx-drop-zone strong {
-    color: #4f3758;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #413333;
 }
 
-
 .trx-drop-zone span {
-    color: #8a788d;
-
+    color: #6b7280;
     font-size: 12px;
 }
 
-
 /* =========================================================
-   TOOLBAR
+   GRID TOOLBAR & MASTER NOTE
 ========================================================= */
-
 .trx-grid-toolbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    gap: 18px;
-
+    gap: 16px;
     margin-bottom: 12px;
-    padding: 13px 15px;
-
-    border: 1px solid #eaddea;
-    border-radius: 14px;
-
-    background: #fffafd;
+    padding: 10px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: #F5F2F2;
 }
-
-
-.trx-grid-toolbar > div:first-child {
-    min-width: 0;
-
-    display: flex;
-    flex-direction: column;
-
-    gap: 2px;
-}
-
-
-.trx-grid-toolbar strong {
-    color: #4d3656;
-}
-
-
-.trx-grid-toolbar span {
-    color: #88788b;
-
-    font-size: 12px;
-}
-
 
 .trx-toolbar-actions {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-
     gap: 8px;
 }
-
 
 .trx-row-count {
     display: inline-flex;
     align-items: center;
-
-    min-height: 34px;
-
-    padding: 0 11px;
-
+    min-height: 32px;
+    padding: 0 12px;
     border-radius: 999px;
-
-    color: #7440cd;
-
-    background: #efe4ff;
-
-    font-size: 11px !important;
-    font-weight: 750;
+    color: #413333;
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    font-size: 11px;
+    font-weight: 600;
 }
-
-
-/* =========================================================
-   MASTER NOTE
-========================================================= */
 
 .trx-master-note {
     display: flex;
-    align-items: flex-start;
-
-    gap: 11px;
-
-    margin-bottom: 12px;
-    padding: 12px 14px;
-
-    border-radius: 13px;
-
-    color: #6e5874;
-
-    background:
-        linear-gradient(
-            135deg,
-            #f5eaff,
-            #edf7ff
-        );
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    padding: 10px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    color: #413333;
+    background: #F5F2F2;
 }
-
 
 .trx-master-note > i {
-    margin-top: 1px;
-
-    color: #7842d6;
-
-    font-size: 17px;
+    color: #315B8C;
+    font-size: 18px;
+    flex-shrink: 0;
 }
-
 
 .trx-master-note > div {
     display: flex;
     flex-direction: column;
-
-    gap: 2px;
+    gap: 1px;
 }
-
 
 .trx-master-note strong {
-    color: #53385d;
+    font-size: 12px;
+    font-weight: 600;
+    color: #413333;
 }
-
 
 .trx-master-note span {
-    font-size: 12px;
-    line-height: 1.45;
+    font-size: 11.5px;
+    color: #6b7280;
+    line-height: 1.4;
 }
 
-
 /* =========================================================
-   TABLE WRAPPER
+   TABLE WRAPPER & SPREADSHEET GRID
 ========================================================= */
-
 .trx-grid-wrap {
     position: relative;
-
     width: 100%;
     max-width: 100%;
-
     max-height: 520px;
-
     overflow: auto;
-
-    border: 1px solid #dfd3e3;
-    border-radius: 14px;
-
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
     background: #ffffff;
-
     scrollbar-width: thin;
-    scrollbar-color: #bf91d4 #f7f1f8;
+    scrollbar-color: #cbd5e1 #f8fafc;
 }
 
+.trx-grid-wrap::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
 
-/* =========================================================
-   TABLE
-========================================================= */
+.trx-grid-wrap::-webkit-scrollbar-track {
+    background: #f8fafc;
+}
+
+.trx-grid-wrap::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 9999px;
+}
+
+.trx-grid-wrap::-webkit-scrollbar-thumb:hover {
+    background: #315B8C;
+}
 
 .trx-excel-grid {
     width: max-content;
     min-width: 100%;
-
     border-collapse: separate;
     border-spacing: 0;
-
     table-layout: fixed;
-
     background: #ffffff;
 }
 
-
 .trx-excel-grid th,
 .trx-excel-grid td {
-    height: 40px;
-
-    padding: 7px 9px;
-
-    border-right: 1px solid #e5dce7;
-    border-bottom: 1px solid #e5dce7;
-
+    height: 38px;
+    padding: 6px 8px;
+    border-right: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
     box-sizing: border-box;
-
     font-size: 12px;
     line-height: 1.35;
-
     vertical-align: middle;
 }
 
-
-/* NUMBER */
-
+/* ROW 1: NUMBER ROW (SOLID DEEP BRAND BLUE #315B8C) */
 .trx-number-row th {
     position: sticky;
     top: 0;
-
     z-index: 12;
-
-    height: 34px;
-
+    height: 32px;
     color: #ffffff;
-
-    background:
-        linear-gradient(
-            100deg,
-            #783fe0,
-            #a340d2,
-            #df3c96
-        );
-
-    font-weight: 800;
+    background: #315B8C;
+    font-size: 11px;
+    font-weight: 600;
     text-align: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid #1e3c5d;
 }
 
-
-/* HEADER */
-
+/* ROW 2: HEADER ROW (SOLID ASPHALT OFF-WHITE #F5F2F2) */
 .trx-header-row th {
     position: sticky;
-    top: 34px;
-
+    top: 32px;
     z-index: 11;
-
-    min-height: 56px;
-
-    color: #4b3156;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff0f8,
-            #f2e8ff,
-            #e8efff
-        );
-
-    font-weight: 750;
+    min-height: 50px;
+    color: #413333;
+    background: #F5F2F2;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
     text-align: center;
-
+    border-bottom: 2px solid #d1d5db;
     white-space: normal;
     overflow-wrap: anywhere;
 }
 
-
-/* CELL */
-
+/* CELLS */
 .trx-excel-grid td {
-    color: #503f57;
-
+    color: #111827;
     background: #ffffff;
-
     outline: none;
-
     white-space: pre-wrap;
     overflow-wrap: anywhere;
 }
 
+.trx-excel-grid tbody tr:nth-child(even) td:not(.has-value) {
+    background: #F5F2F2;
+}
 
 .trx-excel-grid td.has-value {
-    background: #fffafd;
+    background: #ffffff;
+    font-weight: 500;
 }
-
-
-.trx-excel-grid td:not(.has-value) {
-    background: #ffffff !important;
-}
-
 
 .trx-excel-grid td[contenteditable="true"]:focus {
     position: relative;
     z-index: 4;
-
-    background: #f8efff !important;
-
-    box-shadow:
-        inset
-        0 0 0 2px
-        #8545dd;
+    background: #eff6ff !important;
+    box-shadow: inset 0 0 0 2px #315B8C;
 }
-
 
 /* =========================================================
    MASTER SELECT
 ========================================================= */
-
 .trx-excel-grid td.payer-master-cell {
-    padding: 4px 5px;
-
+    padding: 3px 4px;
     background: #ffffff !important;
 }
 
-
 .payer-master-select {
     width: 100%;
-    height: 32px;
-
-    padding: 4px 28px 4px 8px;
-
-    border: 1px solid #ded2e1;
-    border-radius: 8px;
-
+    height: 30px;
+    padding: 2px 24px 2px 6px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
     outline: 0;
-
-    color: #503a57;
-
+    color: #413333;
     background: #ffffff;
-
     font-family: inherit;
     font-size: 11px;
-    font-weight: 600;
-
+    font-weight: 500;
     cursor: pointer;
 }
 
-
 .payer-master-select:hover {
-    border-color: #bd91d5;
+    border-color: #9ca3af;
 }
-
 
 .payer-master-select:focus {
-    border-color: #7e43db;
-
-    box-shadow:
-        0 0 0 2px
-        rgba(
-            126,
-            67,
-            219,
-            .10
-        );
+    border-color: #315B8C;
+    box-shadow: 0 0 0 2px rgba(49, 91, 140, 0.15);
 }
-
 
 td[data-key="payer_account"] .payer-master-select {
-    color: #7440d5;
+    color: #315B8C;
+    font-weight: 600;
 }
-
 
 td[data-key="payer_city"] .payer-master-select {
-    color: #087c98;
+    color: #413333;
 }
-
 
 td[data-key="payer_country"] .payer-master-select {
-    color: #15785c;
+    color: #413333;
 }
 
-
 /* =========================================================
-   FOOTER
+   GRID FOOTER
 ========================================================= */
-
 .trx-grid-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     gap: 12px;
-
-    padding-top: 9px;
-
-    color: #8a798e;
-
-    font-size: 11px;
+    padding-top: 10px;
+    color: #6b7280;
+    font-size: 11.5px;
 }
 
-
 /* =========================================================
-   SUBMIT
+   SUBMIT BAR
 ========================================================= */
-
 .trx-submit-card {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     gap: 20px;
-
-    padding: 17px 20px;
-
-    border: 1px solid #e7d9e9;
-    border-radius: 18px;
-
-    background:
-        linear-gradient(
-            110deg,
-            #fff7fb,
-            #f4ecff
-        );
+    padding: 18px 22px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
-
-
-.trx-submit-card > div {
-    display: flex;
-    align-items: center;
-
-    gap: 12px;
-}
-
-
-.trx-submit-card > div > i {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 42px;
-    height: 42px;
-
-    border-radius: 13px;
-
-    color: #7741d7;
-
-    background: #ede2ff;
-
-    font-size: 19px;
-}
-
-
-.trx-submit-card span {
-    display: flex;
-    flex-direction: column;
-}
-
-
-.trx-submit-card strong {
-    color: #4c3455;
-}
-
-
-.trx-submit-card small {
-    margin-top: 2px;
-
-    color: #8b7a8d;
-}
-
 
 /* =========================================================
    RESPONSIVE
 ========================================================= */
-
-@media (max-width: 1250px) {
-
-    .trx-workflow {
-        grid-template-columns: 1fr;
-    }
-
-    .trx-workflow-steps {
-        grid-template-columns:
-            repeat(
-                4,
-                minmax(0,1fr)
-            );
-    }
-
+@media (max-width: 1024px) {
     .trx-config-grid {
-        grid-template-columns:
-            repeat(
-                2,
-                minmax(0,1fr)
-            );
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-
 }
 
-
-@media (max-width: 800px) {
-
-    .trx-workflow-steps,
+@media (max-width: 768px) {
     .trx-config-grid,
     .trx-source-tabs {
         grid-template-columns: 1fr;
     }
 
-
-    .trx-heading,
     .trx-grid-toolbar,
     .trx-submit-card {
         align-items: stretch;
         flex-direction: column;
     }
 
-
     .trx-toolbar-actions {
         justify-content: flex-start;
     }
-
 }
-
 </style>
 
 
