@@ -484,9 +484,6 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                                 </div>
                                 <div class="min-w-0">
                                     <strong class="text-base font-semibold font-heading text-gray-900 block truncate"><?= e($dateLabel) ?></strong>
-                                    <span class="inline-flex items-center py-0.5 px-2 rounded-full text-[11px] font-semibold tabular-nums <?= $pending > 0 ? 'bg-amber-50 text-amber-700 border border-amber-200' : 'bg-emerald-50 text-emerald-700 border border-emerald-200' ?>">
-                                        <?= $pending > 0 ? $pending . ' pending' : 'Selesai' ?>
-                                    </span>
                                 </div>
                             </div>
                         </div>
