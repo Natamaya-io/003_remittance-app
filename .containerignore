@@ -1,0 +1,9 @@
+.git
+.github
+.gitignore
+.gemini
+node_modules
+target
+*.log
+storage/logs/*
+storage/cache/*
