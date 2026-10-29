@@ -392,8 +392,6 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                     x-data="{
                         searchQuery: '',
                         emptyResults: false,
-                        canScrollLeft: false,
-                        canScrollRight: false,
                         filterCards() {
                             const el = this.$refs.bankSlider;
                             if (!el) return;
@@ -407,31 +405,32 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                                 if (matches) visibleCount++;
                             });
                             this.emptyResults = visibleCount === 0;
-                            this.checkScroll();
-                        },
-                        checkScroll() {
-                            this.$nextTick(() => {
-                                const el = this.$refs.bankSlider;
-                                if (!el) return;
-                                this.canScrollLeft = el.scrollLeft > 4;
-                                this.canScrollRight = Math.ceil(el.scrollLeft + el.clientWidth) < (el.scrollWidth - 4);
-                            });
                         },
                         scrollSlider(dir) {
                             const el = this.$refs.bankSlider;
                             if (!el) return;
-                            const firstCard = el.querySelector('.bank-slider-card:not([style*=\'display: none\'])');
-                            const cardWidth = firstCard ? firstCard.offsetWidth : 280;
-                            const scrollStep = cardWidth + 20;
-                            el.scrollBy({
-                                left: dir === 'left' ? -scrollStep : scrollStep,
-                                behavior: 'smooth'
-                            });
-                            setTimeout(() => this.checkScroll(), 320);
+                            const cards = Array.from(el.querySelectorAll('.bank-slider-card:not([style*=\'display: none\'])'));
+                            if (cards.length === 0) return;
+                            const cardWidth = cards[0].offsetWidth + 20;
+                            const maxScroll = el.scrollWidth - el.clientWidth;
+                            const currentScroll = el.scrollLeft;
+
+                            if (dir === 'right') {
+                                if (currentScroll >= maxScroll - 15) {
+                                    el.scrollTo({ left: 0, behavior: 'smooth' });
+                                } else {
+                                    el.scrollBy({ left: cardWidth, behavior: 'smooth' });
+                                }
+                            } else {
+                                if (currentScroll <= 15) {
+                                    el.scrollTo({ left: maxScroll, behavior: 'smooth' });
+                                } else {
+                                    el.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+                                }
+                            }
                         }
                     }"
-                    x-effect="if (openTransactionModal) { searchQuery = ''; $nextTick(() => { filterCards(); setTimeout(() => checkScroll(), 80); }); }"
-                    @resize.window.debounce.150ms="checkScroll()"
+                    x-effect="if (openTransactionModal) { searchQuery = ''; $nextTick(() => { filterCards(); if ($refs.bankSlider) $refs.bankSlider.scrollLeft = 0; }); }"
                 >
                     <!-- Modal Header -->
                     <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-white">
@@ -453,7 +452,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                                 <button
                                     type="button"
                                     @click="scrollSlider('left')"
-                                    :disabled="!canScrollLeft || emptyResults"
+                                    :disabled="emptyResults"
                                     class="slider-nav-btn"
                                     aria-label="Geser pilihan bank ke kiri"
                                     title="Geser ke kiri"
@@ -463,7 +462,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                                 <button
                                     type="button"
                                     @click="scrollSlider('right')"
-                                    :disabled="!canScrollRight || emptyResults"
+                                    :disabled="emptyResults"
                                     class="slider-nav-btn"
                                     aria-label="Geser pilihan bank ke kanan"
                                     title="Geser ke kanan"
@@ -524,8 +523,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                         <button
                             type="button"
                             @click="scrollSlider('left')"
-                            x-show="canScrollLeft && !emptyResults"
-                            x-cloak
+                            x-show="!emptyResults"
                             class="slider-floating-btn slider-floating-left"
                             aria-label="Geser pilihan bank ke kiri"
                             title="Geser ke kiri"
@@ -537,8 +535,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                         <button
                             type="button"
                             @click="scrollSlider('right')"
-                            x-show="canScrollRight && !emptyResults"
-                            x-cloak
+                            x-show="!emptyResults"
                             class="slider-floating-btn slider-floating-right"
                             aria-label="Geser pilihan bank ke kanan"
                             title="Geser ke kanan"
@@ -571,11 +568,10 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                         <div
                             x-show="!emptyResults"
                             x-ref="bankSlider"
-                            @scroll.passive="checkScroll()"
                             class="bank-slider-track flex items-stretch gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory py-1 px-1 -my-1 -mx-1 no-scrollbar w-full"
                         >
                             <!-- KARTU BANK BRI -->
-                            <div class="bank-slider-card w-[calc(100%-1.5rem)] sm:w-[calc(50%-0.625rem)] min-w-[270px] sm:min-w-[280px] shrink-0 snap-start bg-white border border-gray-200 rounded-xl p-5 shadow-xs hover:border-[#315B8C] transition-all flex flex-col justify-between space-y-4">
+                            <div class="bank-slider-card w-[calc(100%-2.5rem)] sm:w-[calc(100%-4.5rem)] min-w-[280px] shrink-0 snap-start bg-white border border-gray-200 rounded-xl p-5 sm:p-6 shadow-xs hover:border-[#315B8C] transition-all flex flex-col justify-between space-y-4">
                                 <div>
                                     <img src="<?= e(url('/bri-logo.svg')) ?>" alt="Bank BRI" class="h-10 w-auto max-w-[130px] mb-3 object-contain select-none">
                                     <span class="text-[11px] font-semibold tracking-wider text-gray-500 uppercase block">BANK BRI</span>
@@ -599,7 +595,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                             </div>
 
                             <!-- KARTU BANK BNI -->
-                            <div class="bank-slider-card w-[calc(100%-1.5rem)] sm:w-[calc(50%-0.625rem)] min-w-[270px] sm:min-w-[280px] shrink-0 snap-start bg-white border border-gray-200 rounded-xl p-5 shadow-xs hover:border-[#315B8C] transition-all flex flex-col justify-between space-y-4">
+                            <div class="bank-slider-card w-[calc(100%-2.5rem)] sm:w-[calc(100%-4.5rem)] min-w-[280px] shrink-0 snap-start bg-white border border-gray-200 rounded-xl p-5 sm:p-6 shadow-xs hover:border-[#315B8C] transition-all flex flex-col justify-between space-y-4">
                                 <div>
                                     <img src="<?= e(url('/bni-logo.svg')) ?>" alt="Bank BNI" class="h-10 w-auto max-w-[130px] mb-3 object-contain select-none">
                                     <span class="text-[11px] font-semibold tracking-wider text-gray-500 uppercase block">BANK BNI</span>
