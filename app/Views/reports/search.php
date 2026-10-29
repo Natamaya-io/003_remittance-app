@@ -360,11 +360,10 @@ $queryText = (string) ($filters['q'] ?? '');
             <?php endforeach; ?>
 
             <?php if ($batches === []): ?>
-                <div class="col-span-full py-10 text-center text-gray-400">
-                    <i class="bi bi-file-earmark-x text-3xl block mb-2 text-gray-300"></i>
-                    <h3 class="text-sm font-semibold font-heading text-gray-700">Tidak ada report yang cocok</h3>
-                </div>
-                </div>
+                <?= render_empty_state([
+                    'wrapper_class' => 'col-span-full py-10 text-center',
+                    'img_class' => 'w-24 sm:w-28 h-auto mx-auto mb-2 object-contain select-none pointer-events-none',
+                ]) ?>
             <?php endif; ?>
         </div>
     </section>
@@ -418,12 +417,9 @@ $queryText = (string) ($filters['q'] ?? '');
                     </tr>
                 <?php endforeach; ?>
                 <?php if ($rows === []): ?>
-                    <tr>
-                        <td colspan="12" class="py-10 text-center text-gray-400">
-                            <i class="bi bi-file-earmark-x text-2xl block mb-2 text-gray-300"></i>
-                            Tidak ada baris transaksi yang cocok.
-                        </td>
-                    </tr>
+                    <?= render_table_empty_state(12, [
+                        'img_class' => 'w-24 sm:w-28 h-auto mx-auto mb-2 object-contain select-none pointer-events-none',
+                    ]) ?>
                 <?php endif; ?>
                 </tbody>
             </table>

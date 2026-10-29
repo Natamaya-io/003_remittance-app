@@ -755,15 +755,11 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                         <?php endforeach; ?>
 
                         <?php if ($months === []): ?>
-                            <tr>
-                                <td colspan="9" class="text-center py-12 px-6">
-                                    <div class="flex flex-col items-center justify-center gap-2">
-                                        <i class="bi bi-calendar-x text-3xl text-gray-400"></i>
-                                        <strong class="text-sm font-bold text-gray-800">Tidak ada periode bulan report</strong>
-                                        <span class="text-xs text-gray-500">Ubah filter atau upload berkas Excel baru untuk mulai mengisi data.</span>
-                                    </div>
-                                </td>
-                            </tr>
+                            <?= render_table_empty_state(9, [
+                                'action_url' => url('/reports/create'),
+                                'action_label' => 'Upload Excel',
+                                'action_permission' => 'report.manage',
+                            ]) ?>
                         <?php endif; ?>
                     </tbody>
                 </table>
@@ -872,21 +868,11 @@ $activeFilterSummary = implode(' · ', $filterDescs);
             <?php endforeach; ?>
 
             <?php if ($months === []): ?>
-                <div class="col-span-full bg-white border border-gray-200 rounded-2xl p-12 text-center shadow-xs">
-                    <img
-                        src="<?= e(url('/data_not_found.png')) ?>"
-                        alt="Tidak ada data yang cocok"
-                        class="w-32 sm:w-40 h-auto mx-auto mb-4 object-contain select-none pointer-events-none"
-                        loading="lazy"
-                    >
-                    <h3 class="text-base font-semibold font-heading text-gray-800 mb-4">Tidak ada data yang cocok</h3>
-                    <?php if (can('report.manage')): ?>
-                        <a class="btn-primary" href="<?= e(url('/reports/create')) ?>">
-                            <i class="bi bi-cloud-arrow-up text-sm"></i>
-                            <span>Upload Excel</span>
-                        </a>
-                    <?php endif; ?>
-                </div>
+                <?= render_empty_state([
+                    'action_url' => url('/reports/create'),
+                    'action_label' => 'Upload Excel',
+                    'action_permission' => 'report.manage',
+                ]) ?>
             <?php endif; ?>
         </div>
 

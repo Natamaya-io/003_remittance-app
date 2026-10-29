@@ -857,6 +857,105 @@ function render_table_view_toggle(string $modelVar = 'viewMode', array $options 
     return (string) ob_get_clean();
 }
 
+/**
+ * Render Empty State Kartu/Kontainer Kustom (GEMINI.md - Standarisasi UI "Tidak ada data yang cocok")
+ *
+ * Menghasilkan komponen empty state standar dengan ilustrasi data_not_found.png,
+ * judul terstandarisasi "Tidak ada data yang cocok", dan tombol aksi opsional (.btn-primary).
+ *
+ * @param array{
+ *   title?: string,
+ *   action_url?: string,
+ *   action_label?: string,
+ *   action_icon?: string,
+ *   action_permission?: string,
+ *   wrapper_class?: string,
+ *   img_class?: string
+ * } $options
+ */
+function render_empty_state(array $options = []): string
+{
+    $title = (string) ($options['title'] ?? 'Tidak ada data yang cocok');
+    $actionUrl = (string) ($options['action_url'] ?? '');
+    $actionLabel = (string) ($options['action_label'] ?? 'Upload Excel');
+    $actionIcon = (string) ($options['action_icon'] ?? 'bi-cloud-arrow-up');
+    $actionPermission = (string) ($options['action_permission'] ?? 'report.manage');
+    $wrapperClass = (string) ($options['wrapper_class'] ?? 'col-span-full bg-white border border-gray-200 rounded-2xl p-12 text-center shadow-xs');
+    $imgClass = (string) ($options['img_class'] ?? 'w-32 sm:w-40 h-auto mx-auto mb-4 object-contain select-none pointer-events-none');
+
+    ob_start();
+    ?>
+    <div class="<?= e($wrapperClass) ?>">
+        <img
+            src="<?= e(url('/data_not_found.png')) ?>"
+            alt="<?= e($title) ?>"
+            class="<?= e($imgClass) ?>"
+            loading="lazy"
+        >
+        <h3 class="text-base font-semibold font-heading text-gray-800 mb-4"><?= e($title) ?></h3>
+        <?php if ($actionUrl !== '' && ($actionPermission === '' || can($actionPermission))): ?>
+            <a class="btn-primary" href="<?= e($actionUrl) ?>">
+                <i class="bi <?= e($actionIcon) ?> text-sm"></i>
+                <span><?= e($actionLabel) ?></span>
+            </a>
+        <?php endif; ?>
+    </div>
+    <?php
+    return (string) ob_get_clean();
+}
+
+/**
+ * Render Empty State Baris Tabel Kustom (GEMINI.md - Standarisasi UI "Tidak ada data yang cocok")
+ *
+ * Menghasilkan baris tabel (<tr><td colspan="...">) dengan ilustrasi data_not_found.png,
+ * judul terstandarisasi "Tidak ada data yang cocok", dan tombol aksi opsional.
+ *
+ * @param int $colspan Jumlah kolom tabel yang direntangkan
+ * @param array{
+ *   title?: string,
+ *   action_url?: string,
+ *   action_label?: string,
+ *   action_icon?: string,
+ *   action_permission?: string,
+ *   img_class?: string
+ * } $options
+ */
+function render_table_empty_state(int $colspan, array $options = []): string
+{
+    $title = (string) ($options['title'] ?? 'Tidak ada data yang cocok');
+    $actionUrl = (string) ($options['action_url'] ?? '');
+    $actionLabel = (string) ($options['action_label'] ?? 'Upload Excel');
+    $actionIcon = (string) ($options['action_icon'] ?? 'bi-cloud-arrow-up');
+    $actionPermission = (string) ($options['action_permission'] ?? 'report.manage');
+    $imgClass = (string) ($options['img_class'] ?? 'w-28 sm:w-32 h-auto mx-auto mb-2 object-contain select-none pointer-events-none');
+
+    ob_start();
+    ?>
+    <tr>
+        <td colspan="<?= (int) $colspan ?>" class="text-center py-12 px-6">
+            <div class="flex flex-col items-center justify-center gap-2">
+                <img
+                    src="<?= e(url('/data_not_found.png')) ?>"
+                    alt="<?= e($title) ?>"
+                    class="<?= e($imgClass) ?>"
+                    loading="lazy"
+                >
+                <strong class="text-sm font-semibold font-heading text-gray-800"><?= e($title) ?></strong>
+                <?php if ($actionUrl !== '' && ($actionPermission === '' || can($actionPermission))): ?>
+                    <div class="mt-2">
+                        <a class="btn-primary" href="<?= e($actionUrl) ?>">
+                            <i class="bi <?= e($actionIcon) ?> text-sm"></i>
+                            <span><?= e($actionLabel) ?></span>
+                        </a>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </td>
+    </tr>
+    <?php
+    return (string) ob_get_clean();
+}
+
 
 
 

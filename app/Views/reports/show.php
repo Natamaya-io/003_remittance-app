@@ -560,12 +560,9 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                     </tr>
                 <?php endforeach; ?>
                 <?php if ($rows === []): ?>
-                    <tr>
-                        <td colspan="30" class="py-12 text-center text-gray-400">
-                            <i class="bi bi-file-earmark-x text-2xl block mb-2 text-gray-300"></i>
-                            Tidak ada baris yang cocok dengan filter.
-                        </td>
-                    </tr>
+                    <?= render_table_empty_state(30, [
+                        'img_class' => 'w-24 sm:w-28 h-auto mx-auto mb-2 object-contain select-none pointer-events-none',
+                    ]) ?>
                 <?php endif; ?>
                 </tbody>
             </table>

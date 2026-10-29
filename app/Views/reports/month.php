@@ -315,15 +315,11 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                         <?php endforeach; ?>
 
                         <?php if ($dates === []): ?>
-                            <tr>
-                                <td colspan="8" class="text-center py-12 px-6">
-                                    <div class="flex flex-col items-center justify-center gap-2">
-                                        <i class="bi bi-calendar-x text-3xl text-gray-400"></i>
-                                        <strong class="text-sm font-bold text-gray-800">Belum ada report pada bulan ini</strong>
-                                        <span class="text-xs text-gray-500">Upload berkas Excel untuk membentuk daftar tanggal transaksi otomatis.</span>
-                                    </div>
-                                </td>
-                            </tr>
+                            <?= render_table_empty_state(8, [
+                                'action_url' => url('/reports/create?month=' . urlencode($month)),
+                                'action_label' => 'Upload Excel',
+                                'action_permission' => 'report.manage',
+                            ]) ?>
                         <?php endif; ?>
                     </tbody>
                 </table>
@@ -427,16 +423,11 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
             <?php endforeach; ?>
 
             <?php if ($dates === []): ?>
-                <div class="col-span-full bg-white border border-gray-200 rounded-2xl p-12 text-center shadow-xs">
-                    <i class="bi bi-calendar-x text-3xl text-gray-400 block mb-3"></i>
-                    <h3 class="text-base font-semibold font-heading text-gray-800 mb-4">Belum ada report pada bulan ini</h3>
-                    <?php if (can('report.manage')): ?>
-                        <a class="btn-primary" href="<?= e(url('/reports/create?month=' . urlencode($month))) ?>">
-                            <i class="bi bi-cloud-arrow-up text-sm"></i>
-                            <span>Upload Excel</span>
-                        </a>
-                    <?php endif; ?>
-                </div>
+                <?= render_empty_state([
+                    'action_url' => url('/reports/create?month=' . urlencode($month)),
+                    'action_label' => 'Upload Excel',
+                    'action_permission' => 'report.manage',
+                ]) ?>
             <?php endif; ?>
         </div>
 

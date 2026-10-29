@@ -236,12 +236,9 @@ $print = (bool) ($print ?? false);
                     </tr>
                 <?php endforeach; ?>
                 <?php if ($rows === []): ?>
-                    <tr>
-                        <td colspan="24" class="py-12 text-center text-gray-400">
-                            <i class="bi bi-calendar-x text-2xl block mb-2"></i>
-                            Belum ada transaksi pada filter yang dipilih.
-                        </td>
-                    </tr>
+                    <?= render_table_empty_state(24, [
+                        'img_class' => 'w-24 sm:w-28 h-auto mx-auto mb-2 object-contain select-none pointer-events-none',
+                    ]) ?>
                 <?php endif; ?>
                 </tbody>
             </table>

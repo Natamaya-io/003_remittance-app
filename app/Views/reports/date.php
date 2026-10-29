@@ -502,15 +502,11 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                         <?php endforeach; ?>
 
                         <?php if ($batches === []): ?>
-                            <tr>
-                                <td colspan="6" class="text-center py-12 px-6">
-                                    <div class="flex flex-col items-center justify-center gap-2">
-                                        <i class="bi bi-file-earmark-x text-3xl text-gray-400"></i>
-                                        <strong class="text-sm font-bold text-gray-800">Tidak ada report tim</strong>
-                                        <span class="text-xs text-gray-500">Belum ada berkas pada tanggal ini atau data tidak cocok dengan filter yang dipilih.</span>
-                                    </div>
-                                </td>
-                            </tr>
+                            <?= render_table_empty_state(6, [
+                                'action_url' => url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date])),
+                                'action_label' => 'Upload Excel',
+                                'action_permission' => 'report.manage',
+                            ]) ?>
                         <?php endif; ?>
                     </tbody>
                 </table>
@@ -608,16 +604,11 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
             <?php endforeach; ?>
 
             <?php if ($batches === []): ?>
-                <div class="col-span-full bg-white border border-gray-200 rounded-2xl p-12 text-center shadow-xs">
-                    <i class="bi bi-file-earmark-x text-3xl text-gray-400 block mb-3"></i>
-                    <h3 class="text-base font-semibold font-heading text-gray-800 mb-4">Tidak ada report tim</h3>
-                    <?php if (can('report.manage')): ?>
-                        <a class="btn-primary" href="<?= e(url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date]))) ?>">
-                            <i class="bi bi-cloud-arrow-up text-sm"></i>
-                            <span>Tambah Excel</span>
-                        </a>
-                    <?php endif; ?>
-                </div>
+                <?= render_empty_state([
+                    'action_url' => url('/reports/create?' . http_build_query(['month' => $monthKey, 'date' => $date])),
+                    'action_label' => 'Upload Excel',
+                    'action_permission' => 'report.manage',
+                ]) ?>
             <?php endif; ?>
         </div>
 
