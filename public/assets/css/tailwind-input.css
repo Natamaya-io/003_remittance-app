@@ -1018,8 +1018,8 @@
   }
 
   /* =========================================================
-     GLOBAL CUSTOM UI: DATEPICKER & DATE INPUTS (GEMINI.MD SECTION 3)
-     LOCKED GAMIFIED ASPHALT SPECIFICATION - COMPREHENSIVE UI
+     GLOBAL CUSTOM UI: FLAT DATEPICKER TRIGGER & DATE INPUTS
+     CLEAN FLAT WHITE SPECIFICATION - ZERO INSET SKEUOMORPHISM
      ========================================================= */
   .custom-datepicker-trigger,
   .form-datepicker,
@@ -1031,14 +1031,14 @@
     height: 40px;
     padding: 0 12px;
     font-family: var(--font-sans);
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 400;
     line-height: 40px;
     color: #111827;
-    background-color: #F5F2F2;
+    background-color: #ffffff;
     border: 1px solid #d1d5db;
     border-radius: 9px;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     outline: none;
     cursor: pointer;
     user-select: none;
@@ -1049,6 +1049,7 @@
   .custom-datepicker-trigger:hover,
   .form-datepicker:hover,
   .datepicker-input:hover {
+    background-color: #fafafa;
     border-color: #9ca3af;
   }
 
@@ -1060,21 +1061,21 @@
     outline: none;
     background-color: #ffffff;
     border-color: #315B8C;
-    box-shadow: 0 0 0 3px rgba(49, 91, 140, 0.15), inset 0 1px 1px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 0 0 3px rgba(49, 91, 140, 0.15);
   }
 
   .custom-datepicker-trigger .datepicker-placeholder,
   .form-datepicker .datepicker-placeholder {
     color: #9ca3af;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 13.5px;
   }
 
   .custom-datepicker-trigger .datepicker-value,
   .form-datepicker .datepicker-value {
     color: #111827;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 13.5px;
   }
 
   /* Datepicker Wrapper with Prefix/Suffix Icon */

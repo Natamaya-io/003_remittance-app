@@ -106,15 +106,22 @@ Setiap blok alert wajib mengikuti struktur hierarki berikut:
 
 ## 3. Aturan Terkunci: Sistem Datepicker Kustom Global (Anti-Native Datepicker Law)
 
-Penggunaan `<input type="date">` dan `<input type="month">` native browser memicu kalender Shadow DOM sistem operasi yang kaku dan tidak konsisten lintas perangkat. Oleh karena itu, seluruh aplikasi RemitGo! **MUTLAK WAJIB** menggunakan custom datepicker kalender Alpine.js dengan komponen pemicu terstandarisasi **Gamified Asphalt (.custom-datepicker-trigger)**.
+Penggunaan `<input type="date">` dan `<input type="month">` native browser memicu kalender Shadow DOM sistem operasi yang kaku dan tidak konsisten lintas perangkat. Oleh karena itu, seluruh aplikasi RemitGo! **MUTLAK WAJIB** menggunakan custom datepicker kalender Alpine.js dengan komponen pemicu terstandarisasi **Flat Custom Datepicker (.custom-datepicker-trigger)**.
 
 ### 3.1. Arsitektur Komponen & Pemicu Terkunci (.custom-datepicker-trigger)
-- **Kepatuhan Kustom UI Komprehensif (Bagian 18):** Tombol pemicu datepicker **MUTLAK DILARANG** menggunakan rantai kelas utilitas atomik sementara (*ad-hoc quick placeholder string*). Pemicu wajib menggunakan kelas komponen terpusat `.custom-datepicker-trigger` yang selaras 1:1 dengan `.custom-form-input` (Bagian 17) dan `.btn-primary` (Bagian 13).
-- **Geometri Terkunci:** Tinggi presisi **40px (`h-10`)**, radius modular **`rounded-[9px]`**, padding horizontal 12px, font-family **Roboto**, font-size 14px, dan line-height 40px.
-- **Permukaan Taktil (Surface Well):** Latar normal menggunakan **Asphalt Off-White Base `#F5F2F2`** dengan bayangan cekung mikro `box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04)` dan kontur batas netral `1px solid #d1d5db` (Anti *Flat White-on-White Slop*).
-- **State Fokus & Buka (Focus & Is-Open):** Transisi bersih ke latar putih bersih (`#ffffff`), border solid **`#315B8C`** (*Deep Brand Blue*), dan halo aktif `box-shadow: 0 0 0 3px rgba(49, 91, 140, 0.15)`. DILARANG KERAS menggunakan warna biru alien generic Tailwind (`blue-500` / `#3b82f6`).
-- **Simulasi Placeholder Terstandarisasi:** Teks placeholder menggunakan kelas `.datepicker-placeholder` dengan warna `#9ca3af` (font-weight 400). Saat tanggal telah terpilih, teks beralih ke `.datepicker-value` dengan warna `#111827` (font-weight 500).
-- **Sterilisasi Warna Popover Kalender:** Seluruh tanggal aktif, hari ini, dan tombol shortcut aksi pada popover kalender **MUTLAK MENGGUNAKAN WARNA MASTER `#315B8C`** (*Deep Brand Blue*), dilarang menggunakan warna alien `blue-600` / `#2563eb`.
+- **Desain Flat Bersih & Anti-Inset Skeuomorphism:** Tombol pemicu datepicker beroperasi dengan desain flat bersih: latar putih murni (`#ffffff`), border solid netral `1px solid #d1d5db`, dan bayangan luar halus `box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04)`. **DILARANG KERAS** menggunakan bayangan cekung (`inset shadow`) atau latar abu-abu semen yang membuat tombol tampak seperti placeholder kusam atau input disabled.
+- **Geometri Terkunci:** Tinggi presisi **40px (`h-10`)**, radius modular **`rounded-[9px]`**, padding horizontal 12px, font-family **Roboto**, font-size 13.5px, dan line-height 40px.
+- **State Interaksi:**
+  - **Hover:** Transisi halus ke `background-color: #fafafa; border-color: #9ca3af;`.
+  - **Focus & Buka (Is-Open):** Background putih `#ffffff`, border solid **`#315B8C`** (*Deep Brand Blue*), dan halo aktif `box-shadow: 0 0 0 3px rgba(49, 91, 140, 0.15)`. DILARANG KERAS menggunakan warna biru alien generic Tailwind (`blue-500` / `#3b82f6`).
+- **Tipografi Placeholder & Nilai Terstandarisasi:** Teks placeholder menggunakan kelas `.datepicker-placeholder` dengan warna `#9ca3af` (font-weight 400). Saat tanggal telah terpilih, teks beralih ke `.datepicker-value` dengan warna `#111827` (font-weight 500).
+- **Arsitektur Popover Kalender Flat & Kontras Tinggi:**
+  - Kontainer: Background putih `#ffffff`, border `1px solid #e5e7eb`, radius 12px (`rounded-xl`), bayangan halus `shadow-lg`, padding 14px (`p-3.5`).
+  - Navigasi Bulan/Tahun: Tombol panah flat minimalis `size-7 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded-lg`.
+  - Teks Tanggal Normal: Teks hitam tajam kontras tinggi (`text-gray-900`) dengan hover flat `hover:bg-gray-100`. DILARANG menggunakan teks abu-abu pudar `text-gray-700`.
+  - Tanggal Aktif: Solid master **`bg-[#315B8C] text-white font-semibold`**.
+  - Tanggal Hari Ini: Teks kontras **`text-[#315B8C] font-bold hover:bg-blue-50/60`**.
+  - Aksi Footer: Tombol teks flat responsif untuk shortcut "Hari ini" / "Bulan ini" (`text-[#315B8C] hover:bg-blue-50/60`) dan "Hapus" (`text-gray-400 hover:text-red-600 hover:bg-red-50`).
 - **Nilai Form (Persistence):** Nilai tanggal tersimpan murni di dalam `<input type="hidden" :name="name" :value="value">` sehingga pengiriman form (GET dan POST) 100% kompatibel dan identik dengan input native.
 
 ### 3.2. Penggunaan via Helper PHP Resmi
