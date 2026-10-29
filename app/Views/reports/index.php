@@ -390,18 +390,37 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                     x-transition:leave-start="opacity-100"
                     x-transition:leave-end="opacity-0"
                     x-data="{
+                        searchQuery: '',
+                        emptyResults: false,
                         canScrollLeft: false,
                         canScrollRight: false,
-                        checkScroll() {
+                        filterCards() {
                             const el = this.$refs.bankSlider;
                             if (!el) return;
-                            this.canScrollLeft = el.scrollLeft > 4;
-                            this.canScrollRight = Math.ceil(el.scrollLeft + el.clientWidth) < (el.scrollWidth - 4);
+                            const cards = el.querySelectorAll('.bank-slider-card');
+                            const q = (this.searchQuery || '').toLowerCase().trim();
+                            let visibleCount = 0;
+                            cards.forEach(card => {
+                                const text = (card.innerText || card.textContent || '').toLowerCase();
+                                const matches = !q || text.includes(q);
+                                card.style.display = matches ? '' : 'none';
+                                if (matches) visibleCount++;
+                            });
+                            this.emptyResults = visibleCount === 0;
+                            this.checkScroll();
+                        },
+                        checkScroll() {
+                            this.$nextTick(() => {
+                                const el = this.$refs.bankSlider;
+                                if (!el) return;
+                                this.canScrollLeft = el.scrollLeft > 4;
+                                this.canScrollRight = Math.ceil(el.scrollLeft + el.clientWidth) < (el.scrollWidth - 4);
+                            });
                         },
                         scrollSlider(dir) {
                             const el = this.$refs.bankSlider;
                             if (!el) return;
-                            const firstCard = el.querySelector('.bank-slider-card');
+                            const firstCard = el.querySelector('.bank-slider-card:not([style*=\'display: none\'])');
                             const cardWidth = firstCard ? firstCard.offsetWidth : 280;
                             const scrollStep = cardWidth + 20;
                             el.scrollBy({
@@ -411,7 +430,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                             setTimeout(() => this.checkScroll(), 320);
                         }
                     }"
-                    x-effect="if (openTransactionModal) { $nextTick(() => { setTimeout(() => checkScroll(), 80); }); }"
+                    x-effect="if (openTransactionModal) { searchQuery = ''; $nextTick(() => { filterCards(); setTimeout(() => checkScroll(), 80); }); }"
                     @resize.window.debounce.150ms="checkScroll()"
                 >
                     <!-- Modal Header -->
@@ -434,7 +453,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                                 <button
                                     type="button"
                                     @click="scrollSlider('left')"
-                                    :disabled="!canScrollLeft"
+                                    :disabled="!canScrollLeft || emptyResults"
                                     class="slider-nav-btn"
                                     aria-label="Geser pilihan bank ke kiri"
                                     title="Geser ke kiri"
@@ -444,7 +463,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                                 <button
                                     type="button"
                                     @click="scrollSlider('right')"
-                                    :disabled="!canScrollRight"
+                                    :disabled="!canScrollRight || emptyResults"
                                     class="slider-nav-btn"
                                     aria-label="Geser pilihan bank ke kanan"
                                     title="Geser ke kanan"
@@ -465,13 +484,47 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                         </div>
                     </div>
 
+                    <!-- Modal Search Bar (Pencarian Jalur Bank) -->
+                    <div class="px-6 pt-3.5 pb-3 bg-white border-b border-gray-100">
+                        <div class="custom-search-bar relative flex items-center w-full">
+                            <span class="search-leading-icon pointer-events-none" aria-hidden="true">
+                                <i class="bi bi-search text-gray-400"></i>
+                            </span>
+
+                            <input
+                                x-ref="bankSearchInput"
+                                x-model="searchQuery"
+                                @input="filterCards()"
+                                @keydown.escape.stop="if (searchQuery) { searchQuery = ''; filterCards(); } else { openTransactionModal = false; }"
+                                type="search"
+                                placeholder="Cari nama bank atau jalur transaksi..."
+                                class="custom-search-input h-10 w-full text-xs sm:text-sm ps-9 pe-9 rounded-xl bg-[#F5F2F2] border border-gray-200 focus:bg-white focus:border-[#315B8C] focus:ring-2 focus:ring-[#315B8C]/15 text-gray-900 placeholder:text-gray-400 font-normal outline-none transition-all"
+                                autocomplete="off"
+                                spellcheck="false"
+                            >
+
+                            <!-- Tombol Clear Pencarian -->
+                            <button
+                                type="button"
+                                x-show="searchQuery && searchQuery.length > 0"
+                                x-cloak
+                                @click="searchQuery = ''; filterCards(); $refs.bankSearchInput.focus()"
+                                class="search-clear-btn"
+                                aria-label="Hapus kata kunci pencarian"
+                                title="Hapus pencarian"
+                            >
+                                <i class="bi bi-x-circle-fill text-xs leading-none text-gray-400 hover:text-gray-600"></i>
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- Modal Body: Opsi Jalur Bank (Slider Carousel Terproteksi) -->
                     <div class="p-6 bg-gray-50/50 relative">
                         <!-- Floating Left Arrow -->
                         <button
                             type="button"
                             @click="scrollSlider('left')"
-                            x-show="canScrollLeft"
+                            x-show="canScrollLeft && !emptyResults"
                             x-cloak
                             class="slider-floating-btn slider-floating-left"
                             aria-label="Geser pilihan bank ke kiri"
@@ -484,7 +537,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                         <button
                             type="button"
                             @click="scrollSlider('right')"
-                            x-show="canScrollRight"
+                            x-show="canScrollRight && !emptyResults"
                             x-cloak
                             class="slider-floating-btn slider-floating-right"
                             aria-label="Geser pilihan bank ke kanan"
@@ -493,8 +546,30 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                             <i class="bi bi-chevron-right text-xs leading-none"></i>
                         </button>
 
+                        <!-- Empty State saat pencarian tidak menemukan bank -->
+                        <div
+                            x-show="emptyResults"
+                            x-cloak
+                            class="w-full py-10 px-6 text-center bg-white border border-gray-200 rounded-xl shadow-xs"
+                        >
+                            <i class="bi bi-search text-3xl text-gray-300 mb-2 block"></i>
+                            <h4 class="text-sm font-semibold font-heading text-gray-900 mb-1">Jalur Bank Tidak Ditemukan</h4>
+                            <p class="text-xs text-gray-500 font-sans max-w-sm mx-auto leading-relaxed">
+                                Tidak ada opsi bank yang cocok dengan kata kunci "<span x-text="searchQuery" class="font-medium text-gray-800"></span>". Coba cari dengan singkatan atau nama bank lain.
+                            </p>
+                            <button
+                                type="button"
+                                @click="searchQuery = ''; filterCards(); $refs.bankSearchInput.focus()"
+                                class="btn-secondary mt-4 inline-flex items-center gap-1.5"
+                            >
+                                <i class="bi bi-arrow-counterclockwise text-xs"></i>
+                                <span>Reset Pencarian</span>
+                            </button>
+                        </div>
+
                         <!-- Slider Track -->
                         <div
+                            x-show="!emptyResults"
                             x-ref="bankSlider"
                             @scroll.passive="checkScroll()"
                             class="bank-slider-track flex items-stretch gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory py-1 px-1 -my-1 -mx-1 no-scrollbar w-full"
