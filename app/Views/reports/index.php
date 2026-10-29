@@ -877,7 +877,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
             <?php if ($months === []): ?>
                 <div class="col-span-full bg-white border border-gray-200 rounded-2xl p-12 text-center shadow-xs">
                     <i class="bi bi-calendar-x text-3xl text-gray-400 block mb-3"></i>
-                    <h3 class="text-base font-semibold font-heading text-gray-800 mb-4">Tidak ada bulan yang cocok</h3>
+                    <h3 class="text-base font-semibold font-heading text-gray-800 mb-4">Tidak ada data yang cocok</h3>
                     <?php if (can('report.manage')): ?>
                         <a class="btn-primary" href="<?= e(url('/reports/create')) ?>">
                             <i class="bi bi-cloud-arrow-up text-sm"></i>
