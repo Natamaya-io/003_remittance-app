@@ -2100,16 +2100,14 @@ Seluruh tombol berbasis tanda silang / penutup (Tombol "X") di seluruh aplikasi 
 
 ---
 
-### 21.2. Spesifikasi Vektor Geometris Lingkaran (Circular Ambient Vector Asset)
+### 21.2. Spesifikasi Vektor Geometris Lingkaran Tenang & Anti-Kelelahan Mata (Anti-Eye Strain Calm Circular Vector Asset)
 
 Aset visual art background dikunci menggunakan format vektor murni **`public/ambient-circles.svg`** (`public/assets/img/ambient-circles.svg`):
-- **Komposisi Lingkaran ("Cukup Banyak"):** Terdiri dari lebih dari 120 elemen lingkaran geometris presisi yang mencakup:
-  1. *Concentric Wave Clusters*: Riak gelombang konsentris di sudut kanan-atas (hub perbankan) dan kiri-bawah (jangkar transaksi).
-  2. *Global Financial Orbits*: Cincin-cincin orbit besar melintang yang menghubungkan seluruh bentang kanvas.
-  3. *Nodal Satellite Rings*: Cincin konsentris target pada titik-titik simpul koneksi data.
-  4. *Matrix Dot Grids*: Matriks titik lingkaran halus $5\times 5$ sebagai aksen tekstur digital perbankan modern.
-- **Karakteristik Ultra-Ringan ("Namun Ringan"):** Berukuran hanya ~11 KB (sekitar 2.5 KB terkompresi gzip), membebaskan memori dan bandwidth dari file raster berat (menggantikan file bitmap ~885 KB), serta dirender dengan akselerasi GPU 60 FPS.
-- **Kepatuhan Palet 4 Warna Master:** Menggunakan warna resmi `#315B8C` (Deep Brand Blue), `#F2765E` (Vibrant Coral Accent), dan `#413333` (Deep Asphalt Brown) dengan opasitas stroke halus terkalibrasi (0.06 hingga 0.15), menghasilkan efek samar dan menyatu alami dengan kanvas dasar `#F5F2F2`.
+- **Pemusnahan Efek Moiré & Getaran Optik (Anti-Eye Strain Discipline):**
+  - **DILARANG KERAS** menggunakan garis putus-putus (*dashed lines* / `stroke-dasharray`), matriks titik padat (*dot grids*), atau riak konsentris berlapis-lapis rapat yang memicu getaran optik (*moiré effect*) atau kelelahan mata (*eye strain*).
+  - Mengeliminasi seluruh kerumitan visual menjadi **5 busur lingkaran perimetrik besar berjarak sangat lega (> 300px)** di sudut kanvas yang tenang, stabil, dan adem dipandang.
+- **Karakteristik Ultra-Ringan (693 Bytes):** Berukuran mikro hanya **693 bytes** (menggantikan file bitmap ~885 KB dan file moiré ~11 KB), tanpa overhead komputasi CPU/GPU sedikit pun.
+- **Kepatuhan Palet 4 Warna Master & Opasitas Bisikan Mikro:** Menggunakan warna resmi `#315B8C` (Deep Brand Blue) dan `#F2765E` (Vibrant Coral Accent) dengan garis solid hairline (`stroke-width="1"`) dan opasitas bisikan mikro terkalibrasi (**0.025 hingga 0.035**), menghasilkan latar belakang yang sangat tenang, menyatu organik dengan kanvas dasar `#F5F2F2`, serta menjamin kenyamanan penglihatan 100% saat membaca data perbankan.
 
 ---
 
