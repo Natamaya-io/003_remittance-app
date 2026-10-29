@@ -381,7 +381,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
             <!-- 2. Modal Positioning Container (Terpusat Vertikal & Horizontal) -->
             <div class="min-h-full flex items-center justify-center p-4 relative z-10 pointer-events-none">
                 <div
-                    class="bg-white rounded-2xl max-w-2xl w-full shadow-2xl border border-gray-200 text-left relative my-8 pointer-events-auto overflow-hidden"
+                    class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-gray-200 text-left relative my-8 pointer-events-auto overflow-hidden"
                     x-show="openTransactionModal"
                     x-transition:enter="transition ease-out duration-150"
                     x-transition:enter-start="opacity-0"
@@ -411,7 +411,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                             if (!el) return;
                             const cards = Array.from(el.querySelectorAll('.bank-slider-card:not([style*=\'display: none\'])'));
                             if (cards.length === 0) return;
-                            const cardWidth = cards[0].offsetWidth + 20;
+                            const cardWidth = cards[0].offsetWidth + 16;
                             const maxScroll = el.scrollWidth - el.clientWidth;
                             const currentScroll = el.scrollLeft;
 
@@ -539,20 +539,20 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                         <div
                             x-show="!emptyResults"
                             x-ref="bankSlider"
-                            class="bank-slider-track flex items-stretch gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory py-1 px-1 -my-1 -mx-1 no-scrollbar w-full"
+                            class="bank-slider-track flex items-stretch gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory py-1 px-1 -my-1 -mx-1 no-scrollbar w-full"
                         >
                             <!-- KARTU BANK BRI -->
-                            <div class="bank-slider-card w-[calc(100%-2.5rem)] sm:w-[calc(100%-4.5rem)] min-w-[280px] shrink-0 snap-start bg-white border border-gray-200 rounded-xl p-5 sm:p-6 shadow-xs hover:border-[#315B8C] transition-all flex flex-col justify-between space-y-4">
+                            <div class="bank-slider-card w-[260px] sm:w-[275px] min-w-[260px] max-w-[280px] shrink-0 snap-start bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-xs hover:border-[#315B8C] transition-all flex flex-col justify-between space-y-3.5">
                                 <div>
-                                    <img src="<?= e(url('/bri-logo.svg')) ?>" alt="Bank BRI" class="h-10 w-auto max-w-[130px] mb-3 object-contain select-none">
-                                    <span class="text-[11px] font-semibold tracking-wider text-gray-500 uppercase block">BANK BRI</span>
-                                    <h4 class="text-sm font-semibold font-heading text-gray-900 mt-1 mb-1.5">Transaksi BRI</h4>
+                                    <img src="<?= e(url('/bri-logo.svg')) ?>" alt="Bank BRI" class="h-8 sm:h-9 w-auto max-w-[110px] mb-2.5 object-contain select-none">
+                                    <span class="text-[10.5px] font-semibold tracking-wider text-gray-500 uppercase block">BANK BRI</span>
+                                    <h4 class="text-sm font-semibold font-heading text-gray-900 mt-0.5 mb-1">Transaksi BRI</h4>
                                     <p class="text-xs text-gray-600 leading-relaxed font-sans m-0">Input data, bentuk tabel batch, bersihkan tanda baca otomatis, lalu ekspor Excel BRI final.</p>
                                 </div>
                                 <div class="pt-3 border-t border-gray-100 flex items-center justify-between gap-2 mt-auto">
                                     <span class="text-xs text-gray-500 font-sans tabular-nums"><strong class="font-semibold text-gray-800"><?= number_format($briJobs, 0, ',', '.') ?></strong> batch</span>
                                     <div class="flex items-center gap-1.5">
-                                        <a class="py-1.5 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors" href="<?= url('/transactions/bri/history') ?>">
+                                        <a class="py-1.5 px-2.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors" href="<?= url('/transactions/bri/history') ?>">
                                             Riwayat
                                         </a>
                                         <?php if (can('transaction.manage')): ?>
@@ -566,11 +566,11 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                             </div>
 
                             <!-- KARTU BANK BNI -->
-                            <div class="bank-slider-card w-[calc(100%-2.5rem)] sm:w-[calc(100%-4.5rem)] min-w-[280px] shrink-0 snap-start bg-white border border-gray-200 rounded-xl p-5 sm:p-6 shadow-xs hover:border-[#315B8C] transition-all flex flex-col justify-between space-y-4">
+                            <div class="bank-slider-card w-[260px] sm:w-[275px] min-w-[260px] max-w-[280px] shrink-0 snap-start bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-xs hover:border-[#315B8C] transition-all flex flex-col justify-between space-y-3.5">
                                 <div>
-                                    <img src="<?= e(url('/bni-logo.svg')) ?>" alt="Bank BNI" class="h-10 w-auto max-w-[130px] mb-3 object-contain select-none">
-                                    <span class="text-[11px] font-semibold tracking-wider text-gray-500 uppercase block">BANK BNI</span>
-                                    <h4 class="text-sm font-semibold font-heading text-gray-900 mt-1 mb-1.5">Transaksi BNI</h4>
+                                    <img src="<?= e(url('/bni-logo.svg')) ?>" alt="Bank BNI" class="h-8 sm:h-9 w-auto max-w-[110px] mb-2.5 object-contain select-none">
+                                    <span class="text-[10.5px] font-semibold tracking-wider text-gray-500 uppercase block">BANK BNI</span>
+                                    <h4 class="text-sm font-semibold font-heading text-gray-900 mt-0.5 mb-1">Transaksi BNI</h4>
                                     <p class="text-xs text-gray-600 leading-relaxed font-sans m-0">Copy-paste tabel Excel, bentuk data formulir Kiriman Uang BNI, lalu cetak PDF atau preview.</p>
                                 </div>
                                 <div class="pt-3 border-t border-gray-100 flex items-center justify-between gap-2 mt-auto">
@@ -582,7 +582,7 @@ $activeFilterSummary = implode(' · ', $filterDescs);
                                                 <span>Import</span>
                                             </a>
                                         <?php else: ?>
-                                            <a class="py-1.5 px-3 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors" href="<?= url('/transactions/bni') ?>">
+                                            <a class="py-1.5 px-2.5 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 transition-colors" href="<?= url('/transactions/bni') ?>">
                                                 Lihat BNI
                                             </a>
                                         <?php endif; ?>
