@@ -895,7 +895,7 @@ $fxBoardFile =
             <a
                 class="dashboard-small-link"
                 href="<?= e(
-                    url('/transactions')
+                    url('/reports')
                 ) ?>"
             >
 

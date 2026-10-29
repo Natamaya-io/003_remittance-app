@@ -27,7 +27,6 @@ $canOpenDocuments = in_array(
 );
 
 $isDashboard = $path === parse_url(url('/'), PHP_URL_PATH);
-$isTransactions = str_contains($path, '/transactions');
 $isPayerAccounts = str_contains($path, '/payer-accounts');
 $isReports = str_contains($path, '/reports');
 $isCompanies = str_contains($path, '/companies');
@@ -89,18 +88,6 @@ $userRoleName = trim(
         <i class="bi bi-grid-1x2-fill"></i>
         <span>Dashboard</span>
     </a>
-
-    <?php if (can('transaction.view')): ?>
-        <a
-            href="<?= url('/transactions') ?>"
-            class="spa-dock-tab <?= $isTransactions ? 'is-active' : '' ?>"
-            <?= $isTransactions ? 'aria-current="page"' : '' ?>
-            title="Transaksi"
-        >
-            <i class="bi bi-arrow-left-right"></i>
-            <span>Transaksi</span>
-        </a>
-    <?php endif; ?>
 
     <?php if (can('report.view')): ?>
         <a
@@ -282,18 +269,6 @@ $userRoleName = trim(
             <i class="bi bi-grid-1x2-fill text-lg"></i>
             <span class="text-[10px] font-medium leading-none">Dashboard</span>
         </a>
-
-        <!-- Transaksi -->
-        <?php if (can('transaction.view')): ?>
-            <a
-                href="<?= url('/transactions') ?>"
-                class="spa-mobile-tab <?= $isTransactions ? 'is-active text-blue-600' : 'text-gray-600' ?>"
-                <?= $isTransactions ? 'aria-current="page"' : '' ?>
-            >
-                <i class="bi bi-arrow-left-right text-lg"></i>
-                <span class="text-[10px] font-medium leading-none">Transaksi</span>
-            </a>
-        <?php endif; ?>
 
         <!-- Laporan -->
         <?php if (can('report.view')): ?>

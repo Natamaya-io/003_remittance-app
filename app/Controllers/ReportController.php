@@ -52,12 +52,23 @@ final class ReportController extends BaseController
         $statement->execute($params);
         $months = $statement->fetchAll(PDO::FETCH_ASSOC);
 
+        $briJobs = 0;
+        $bniBatches = 0;
+        try {
+            $briJobs = (int) App::db()->query("SELECT COUNT(*) FROM transaction_jobs")->fetchColumn();
+            $bniBatches = (int) App::db()->query("SELECT COUNT(*) FROM bni_transaction_batches")->fetchColumn();
+        } catch (\Throwable $e) {
+            // fallback jika tabel belum siap
+        }
+
         $this->view('reports/index', [
             'title' => 'Laporan',
             'months' => $months,
             'filters' => $filters,
             'teams' => $this->teamOptions(),
             'availableYears' => $this->availableReportYears(),
+            'briJobs' => $briJobs,
+            'bniBatches' => $bniBatches,
         ]);
     }
 

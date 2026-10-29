@@ -17,21 +17,7 @@ final class TransactionBankController extends BaseController
     public function index(): void
     {
         $this->permission('transaction.view');
-        $this->ensureBniTables();
-
-        $briJobs = (int) App::db()->query(
-            "SELECT COUNT(*) FROM transaction_jobs"
-        )->fetchColumn();
-
-        $bniBatches = (int) App::db()->query(
-            "SELECT COUNT(*) FROM bni_transaction_batches"
-        )->fetchColumn();
-
-        $this->view('transactions/index', [
-            'title' => 'Transaksi',
-            'briJobs' => $briJobs,
-            'bniBatches' => $bniBatches,
-        ]);
+        redirect('/reports?action=transaction');
     }
 
     public function bniForm(): void
