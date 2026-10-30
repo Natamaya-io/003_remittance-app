@@ -266,9 +266,7 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                             <tr class="even:bg-gray-50/50 [data-no-hover]">
                                 <td class="py-4 px-5 whitespace-nowrap">
                                     <div class="flex items-center gap-x-3">
-                                        <div class="size-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-sm shadow-xs">
-                                            <i class="bi bi-calendar-event"></i>
-                                        </div>
+                                        <img src="<?= e(url('/reports_date.svg')) ?>" alt="Ikon Tanggal" class="size-9 object-contain select-none shrink-0" width="36" height="36" loading="lazy" decoding="async">
                                         <div>
                                             <strong class="text-sm font-semibold text-gray-900 block"><?= e($dateLabel) ?></strong>
                                             <span class="text-xs text-gray-500 tabular-nums"><?= e($dateValue) ?></span>
@@ -355,9 +353,7 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                     <div class="space-y-3">
                         <div class="flex items-center justify-between gap-3">
                             <div class="flex items-center gap-x-3 min-w-0">
-                                <div class="size-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg shadow-xs shrink-0">
-                                    <i class="bi bi-calendar-date"></i>
-                                </div>
+                                <img src="<?= e(url('/reports_date.svg')) ?>" alt="Ikon Tanggal" class="size-10 object-contain select-none shrink-0" width="40" height="40" loading="lazy" decoding="async">
                                 <div class="min-w-0">
                                     <strong class="text-base font-semibold font-heading text-gray-900 block truncate"><?= e($dateLabel) ?></strong>
                                 </div>
