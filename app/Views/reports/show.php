@@ -167,9 +167,9 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
             </a>
 
             <?php if (can('report.manage')): ?>
-                <a class="btn-secondary" href="<?= e(url('/reports/' . $batch['id'] . '/edit')) ?>" aria-label="Edit Metadata Report" title="Edit nama, tanggal, dan metadata report batch">
+                <a class="btn-secondary" href="<?= e(url('/reports/' . $batch['id'] . '/edit')) ?>" aria-label="Edit Laporan" title="Edit nama, tanggal, dan data laporan batch">
                     <i class="bi bi-pencil"></i>
-                    <span>Edit Metadata Report</span>
+                    <span>Edit Laporan</span>
                 </a>
             <?php endif; ?>
 
