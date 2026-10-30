@@ -9,6 +9,15 @@ declare(strict_types=1);
 */
 
 $batch = is_array($batch ?? null) ? $batch : [];
+$teams = is_array($teams ?? null) ? $teams : [];
+$allTeams = $teams;
+$currentTeam = trim((string) ($batch['team_name'] ?? $batch['client_name'] ?? ''));
+if ($currentTeam !== '' && !in_array($currentTeam, $allTeams, true)) {
+    $allTeams[] = $currentTeam;
+    sort($allTeams);
+}
+$currentDate = (string) ($batch['report_date'] ?? '');
+$currentName = (string) ($batch['name'] ?? '');
 ?>
 
 <div class="max-w-7xl mx-auto space-y-6">
@@ -26,41 +35,111 @@ $batch = is_array($batch ?? null) ? $batch : [];
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- FORM CARD -->
         <section class="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-6 shadow-xs">
-            <form method="post" action="<?= url('/reports/' . $batch['id']) ?>">
+            <form
+                method="post"
+                action="<?= url('/reports/' . $batch['id']) ?>"
+                x-data="reportEditForm({
+                    initialDate: '<?= e(addslashes($currentDate)) ?>',
+                    initialName: '<?= e(addslashes($currentName)) ?>',
+                    initialTeam: '<?= e(addslashes($currentTeam)) ?>'
+                })"
+                @submit="if (!teamName) { $event.preventDefault(); window.remitToast ? window.remitToast.warning('Silakan pilih nama tim terlebih dahulu.') : alert('Silakan pilih nama tim.'); }"
+            >
                 <?= csrf_field() ?>
                 <?= method_field('PUT') ?>
+                <input type="hidden" name="month_key" :value="reportDate ? reportDate.substring(0, 7) : '<?= e($batch['month_key'] ?? '') ?>'">
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                     <div class="sm:col-span-2">
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama report *</label>
-                        <input class="custom-form-input" name="name" required value="<?= e($batch['name'] ?? '') ?>">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Bulan report *</label>
-                        <?= render_datepicker('month_key', (string) ($batch['month_key'] ?? ''), ['mode' => 'month', 'required' => true, 'placeholder' => 'Pilih bulan']) ?>
+                        <input
+                            class="custom-form-input"
+                            name="name"
+                            required
+                            placeholder="Contoh: REPORT HARIAN - 5 AGUSTUS 2026"
+                            x-model="reportName"
+                        >
                     </div>
 
                     <div>
                         <div class="flex items-center gap-1.5 mb-1.5">
-                            <label class="block text-xs font-semibold text-gray-700">Tanggal report</label>
+                            <label class="block text-xs font-semibold text-gray-700">Tanggal report *</label>
                             <?= render_tooltip(
-                                'Tanggal harus berada pada bulan report yang dipilih.',
+                                'Mengubah tanggal report otomatis memperbarui nama report.',
                                 '<span class="info-toggle-btn cursor-help" aria-label="Info tanggal report"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
                                 ['placement' => 'top']
                             ) ?>
                         </div>
-                        <?= render_datepicker('report_date', (string) ($batch['report_date'] ?? ''), ['placeholder' => 'Pilih tanggal']) ?>
+                        <div @change="if ($event.detail && $event.detail.value) onDateSelected($event.detail.value)">
+                            <?= render_datepicker('report_date', (string) ($batch['report_date'] ?? ''), ['required' => true, 'placeholder' => 'Pilih tanggal']) ?>
+                        </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama tim</label>
-                        <input class="custom-form-input" name="team_name" value="<?= e($batch['team_name'] ?? '') ?>" placeholder="Contoh: PARK, GOSYEN, EKAWIRA">
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama tim *</label>
+                        <div class="custom-select-root relative" @click.outside="teamOpen = false">
+                            <input type="hidden" name="team_name" :value="teamName">
+                            <button
+                                type="button"
+                                class="dropdown-toggle"
+                                @click="teamOpen = !teamOpen"
+                                :aria-expanded="teamOpen.toString()"
+                                aria-label="Pilih Nama Tim"
+                            >
+                                <div class="flex items-center gap-2 truncate">
+                                    <i class="bi bi-people text-gray-400"></i>
+                                    <span class="truncate" :class="teamName ? 'text-gray-900 font-medium' : 'text-gray-400'" x-text="teamLabel"></span>
+                                </div>
+                                <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200 shrink-0 ms-1.5" :class="{ 'rotate-180': teamOpen }"></i>
+                            </button>
+
+                            <div
+                                class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
+                                x-show="teamOpen"
+                                x-cloak
+                                x-transition:enter="transition ease-out duration-100"
+                                x-transition:enter-start="opacity-0"
+                                x-transition:enter-end="opacity-100"
+                                x-transition:leave="transition ease-in duration-75"
+                                x-transition:leave-start="opacity-100"
+                                x-transition:leave-end="opacity-0"
+                                style="display: none;"
+                                role="listbox"
+                            >
+                                <button
+                                    type="button"
+                                    class="dropdown-item justify-between"
+                                    :class="{ 'active': teamName === '' }"
+                                    @click="selectTeam('')"
+                                >
+                                    <span class="text-gray-400 italic">-- Pilih Tim --</span>
+                                    <i x-show="teamName === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                </button>
+                                <?php foreach ($allTeams as $team): ?>
+                                    <?php $tVal = trim((string) $team); if ($tVal === '') continue; ?>
+                                    <button
+                                        type="button"
+                                        class="dropdown-item justify-between"
+                                        :class="{ 'active': teamName === '<?= e(addslashes($tVal)) ?>' }"
+                                        @click="selectTeam('<?= e(addslashes($tVal)) ?>')"
+                                    >
+                                        <span class="font-medium"><?= e($tVal) ?></span>
+                                        <i x-show="teamName === '<?= e(addslashes($tVal)) ?>'" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                    </button>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
                     </div>
 
-                    <div>
+                    <div class="sm:col-span-2">
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama klien</label>
-                        <input class="custom-form-input" name="client_name" value="<?= e($batch['client_name'] ?? '') ?>">
+                        <input
+                            class="custom-form-input"
+                            name="client_name"
+                            value="<?= e($batch['client_name'] ?? '') ?>"
+                            x-model="clientName"
+                            placeholder="Opsional (misal: PARK)"
+                        >
                     </div>
 
                     <div class="sm:col-span-2">
@@ -117,5 +196,47 @@ $batch = is_array($batch ?? null) ? $batch : [];
             });
         }
     });
+
+    function reportEditForm(config) {
+        return {
+            reportDate: config.initialDate || '',
+            reportName: config.initialName || '',
+            teamName: config.initialTeam || '',
+            teamLabel: config.initialTeam || 'Pilih Tim',
+            teamOpen: false,
+            clientName: '<?= e(addslashes($batch['client_name'] ?? '')) ?>',
+
+            formatTitle(dateStr) {
+                if (!dateStr || typeof dateStr !== 'string') return '';
+                const parts = dateStr.trim().split('-');
+                if (parts.length !== 3) return '';
+                const months = [
+                    'JANUARI', 'FEBRUARI', 'MARET', 'APRIL', 'MEI', 'JUNI',
+                    'JULI', 'AGUSTUS', 'SEPTEMBER', 'OKTOBER', 'NOVEMBER', 'DESEMBER'
+                ];
+                const y = parts[0];
+                const m = parseInt(parts[1], 10) - 1;
+                const d = parseInt(parts[2], 10);
+                if (isNaN(d) || isNaN(m) || !months[m]) return '';
+                return `REPORT HARIAN - ${d} ${months[m]} ${y}`;
+            },
+
+            onDateSelected(newDate) {
+                this.reportDate = newDate;
+                if (newDate) {
+                    this.reportName = this.formatTitle(newDate);
+                }
+            },
+
+            selectTeam(team) {
+                this.teamName = team;
+                this.teamLabel = team || 'Pilih Tim';
+                this.teamOpen = false;
+                if (!this.clientName) {
+                    this.clientName = team;
+                }
+            }
+        };
+    }
     </script>
 </div>

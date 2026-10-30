@@ -144,6 +144,14 @@ function initCustomDatePicker() {
       this.value = dateStr;
       this.open = false;
       this.$dispatch('change', { value: this.value });
+      this.$nextTick(() => {
+        const input = this.$el.querySelector('input[type="hidden"]');
+        if (input) {
+          input.value = this.value;
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
     },
 
     selectMonth(monthIndex) {
@@ -152,6 +160,14 @@ function initCustomDatePicker() {
       this.viewMonth = monthIndex;
       this.open = false;
       this.$dispatch('change', { value: this.value });
+      this.$nextTick(() => {
+        const input = this.$el.querySelector('input[type="hidden"]');
+        if (input) {
+          input.value = this.value;
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
     },
 
     setToday() {
@@ -170,6 +186,14 @@ function initCustomDatePicker() {
       this.value = '';
       this.open = false;
       this.$dispatch('change', { value: '' });
+      this.$nextTick(() => {
+        const input = this.$el.querySelector('input[type="hidden"]');
+        if (input) {
+          input.value = '';
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+          input.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      });
     }
   }));
 }

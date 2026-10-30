@@ -152,6 +152,28 @@ function format_datetime(
     );
 }
 
+function format_report_name_from_date(?string $date): string
+{
+    $date = trim((string) $date);
+    if ($date === '') {
+        return '';
+    }
+    $months = [
+        1 => 'JANUARI', 2 => 'FEBRUARI', 3 => 'MARET', 4 => 'APRIL',
+        5 => 'MEI', 6 => 'JUNI', 7 => 'JULI', 8 => 'AGUSTUS',
+        9 => 'SEPTEMBER', 10 => 'OKTOBER', 11 => 'NOVEMBER', 12 => 'DESEMBER',
+    ];
+    try {
+        $dt = new DateTime($date);
+        $d = $dt->format('j');
+        $m = $months[(int) $dt->format('n')] ?? strtoupper($dt->format('F'));
+        $y = $dt->format('Y');
+        return "REPORT HARIAN - {$d} {$m} {$y}";
+    } catch (Throwable) {
+        return '';
+    }
+}
+
 function format_money(
     float|int|string|null $amount,
     string $currency = 'IDR'

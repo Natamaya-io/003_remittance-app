@@ -8,16 +8,17 @@ declare(strict_types=1);
 |--------------------------------------------------------------------------
 */
 
-$monthNames = [
-    1 => 'JANUARI', 2 => 'FEBRUARI', 3 => 'MARET', 4 => 'APRIL',
-    5 => 'MEI', 6 => 'JUNI', 7 => 'JULI', 8 => 'AGUSTUS',
-    9 => 'SEPTEMBER', 10 => 'OKTOBER', 11 => 'NOVEMBER', 12 => 'DESEMBER',
-];
-$selectedMonth = (string) ($defaultMonth ?? date('Y-m'));
+$teams = is_array($teams ?? null) ? $teams : [];
+$allTeams = $teams;
 $selectedDate = (string) ($defaultDate ?? '');
 $selectedTeam = (string) ($defaultTeam ?? '');
-$monthNumber = (int) substr($selectedMonth, 5, 2);
-$defaultReportName = 'LAPORAN - ' . ($monthNames[$monthNumber] ?? strtoupper(date('F'))) . ' ' . substr($selectedMonth, 0, 4);
+$initialTeam = (string) old('team_name', $selectedTeam);
+if ($initialTeam !== '' && !in_array($initialTeam, $allTeams, true)) {
+    $allTeams[] = $initialTeam;
+    sort($allTeams);
+}
+$defaultReportName = $selectedDate !== '' ? format_report_name_from_date($selectedDate) : '';
+$initialReportName = (string) old('name', $defaultReportName);
 ?>
 
 <div class="max-w-7xl mx-auto space-y-6">
@@ -35,33 +36,104 @@ $defaultReportName = 'LAPORAN - ' . ($monthNames[$monthNumber] ?? strtoupper(dat
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- FORM CARD (2 KOLOM DESKTOP) -->
         <section class="lg:col-span-2 bg-white border border-gray-200 rounded-2xl p-6 shadow-xs">
-            <form method="post" action="<?= url('/reports') ?>" enctype="multipart/form-data" data-upload-form x-data="{ dragging: false, fileName: '' }">
+            <form
+                method="post"
+                action="<?= url('/reports') ?>"
+                enctype="multipart/form-data"
+                data-upload-form
+                x-data="reportCreateForm({
+                    initialDate: '<?= e(addslashes($selectedDate)) ?>',
+                    initialName: '<?= e(addslashes($initialReportName)) ?>',
+                    initialTeam: '<?= e(addslashes($initialTeam)) ?>'
+                })"
+                @submit="if (!teamName) { $event.preventDefault(); window.remitToast ? window.remitToast.warning('Silakan pilih nama tim terlebih dahulu.') : alert('Silakan pilih nama tim.'); }"
+            >
                 <?= csrf_field() ?>
+                <input type="hidden" name="month_key" :value="reportDate ? reportDate.substring(0, 7) : ''">
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                     <div class="sm:col-span-2">
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama report *</label>
-                        <input class="custom-form-input" name="name" required placeholder="Contoh: LAPORAN AGUSTUS 2026 PARK" value="<?= e(old('name', $defaultReportName)) ?>">
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Bulan report *</label>
-                        <?= render_datepicker('month_key', (string) old('month_key', $selectedMonth), ['mode' => 'month', 'required' => true, 'placeholder' => 'Pilih bulan']) ?>
+                        <input
+                            class="custom-form-input"
+                            name="name"
+                            required
+                            placeholder="Contoh: REPORT HARIAN - 5 AGUSTUS 2026"
+                            x-model="reportName"
+                        >
                     </div>
 
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Tanggal report *</label>
-                        <?= render_datepicker('report_date', (string) old('report_date', $selectedDate), ['required' => true, 'placeholder' => 'Pilih tanggal']) ?>
+                        <div @change="if ($event.detail && $event.detail.value) onDateSelected($event.detail.value)">
+                            <?= render_datepicker('report_date', (string) old('report_date', $selectedDate), ['required' => true, 'placeholder' => 'Pilih tanggal']) ?>
+                        </div>
                     </div>
 
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama tim *</label>
-                        <input class="custom-form-input" name="team_name" required placeholder="Contoh: PARK, GOSYEN, EKAWIRA" value="<?= e(old('team_name', $selectedTeam)) ?>">
+                        <div class="custom-select-root relative" @click.outside="teamOpen = false">
+                            <input type="hidden" name="team_name" :value="teamName">
+                            <button
+                                type="button"
+                                class="dropdown-toggle"
+                                @click="teamOpen = !teamOpen"
+                                :aria-expanded="teamOpen.toString()"
+                                aria-label="Pilih Nama Tim"
+                            >
+                                <div class="flex items-center gap-2 truncate">
+                                    <i class="bi bi-people text-gray-400"></i>
+                                    <span class="truncate" :class="teamName ? 'text-gray-900 font-medium' : 'text-gray-400'" x-text="teamLabel"></span>
+                                </div>
+                                <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200 shrink-0 ms-1.5" :class="{ 'rotate-180': teamOpen }"></i>
+                            </button>
+
+                            <div
+                                class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
+                                x-show="teamOpen"
+                                x-cloak
+                                x-transition:enter="transition ease-out duration-100"
+                                x-transition:enter-start="opacity-0"
+                                x-transition:enter-end="opacity-100"
+                                x-transition:leave="transition ease-in duration-75"
+                                x-transition:leave-start="opacity-100"
+                                x-transition:leave-end="opacity-0"
+                                style="display: none;"
+                                role="listbox"
+                            >
+                                <button
+                                    type="button"
+                                    class="dropdown-item justify-between"
+                                    :class="{ 'active': teamName === '' }"
+                                    @click="selectTeam('')"
+                                >
+                                    <span class="text-gray-400 italic">-- Pilih Tim --</span>
+                                    <i x-show="teamName === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                </button>
+                                <?php foreach ($allTeams as $team): ?>
+                                    <?php $tVal = trim((string) $team); if ($tVal === '') continue; ?>
+                                    <button
+                                        type="button"
+                                        class="dropdown-item justify-between"
+                                        :class="{ 'active': teamName === '<?= e(addslashes($tVal)) ?>' }"
+                                        @click="selectTeam('<?= e(addslashes($tVal)) ?>')"
+                                    >
+                                        <span class="font-medium"><?= e($tVal) ?></span>
+                                        <i x-show="teamName === '<?= e(addslashes($tVal)) ?>'" class="bi bi-check2 text-blue-600 text-sm"></i>
+                                    </button>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
                     </div>
 
-                    <div>
+                    <div class="sm:col-span-2">
                         <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama klien</label>
-                        <input class="custom-form-input" name="client_name" placeholder="Opsional (misal: PARK)" value="<?= e(old('client_name')) ?>">
+                        <input
+                            class="custom-form-input"
+                            name="client_name"
+                            placeholder="Opsional (misal: PARK)"
+                            x-model="clientName"
+                        >
                     </div>
                 </div>
 
@@ -145,10 +217,10 @@ $defaultReportName = 'LAPORAN - ' . ($monthNames[$monthNumber] ?? strtoupper(dat
                     <li class="flex items-start gap-3">
                         <span class="size-6 rounded-full border border-gray-300 text-gray-700 font-medium text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
                         <div class="inline-flex items-center gap-1.5 pt-0.5">
-                            <strong class="text-xs font-semibold text-gray-800">Pilih bulan</strong>
+                            <strong class="text-xs font-semibold text-gray-800">Tentukan tanggal</strong>
                             <?= render_tooltip(
-                                'File otomatis dikelompokkan ke kartu bulan (contoh: Agustus 2026).',
-                                '<span class="info-toggle-btn cursor-help" aria-label="Info pilih bulan"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
+                                'Sistem membentuk kartu tanggal transaksi dan otomatis mengisi nama report.',
+                                '<span class="info-toggle-btn cursor-help" aria-label="Info tentukan tanggal"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
                                 ['placement' => 'top']
                             ) ?>
                         </div>
@@ -156,18 +228,7 @@ $defaultReportName = 'LAPORAN - ' . ($monthNames[$monthNumber] ?? strtoupper(dat
                     <li class="flex items-start gap-3">
                         <span class="size-6 rounded-full border border-gray-300 text-gray-700 font-medium text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
                         <div class="inline-flex items-center gap-1.5 pt-0.5">
-                            <strong class="text-xs font-semibold text-gray-800">Tentukan tanggal</strong>
-                            <?= render_tooltip(
-                                'Sistem membentuk kartu tanggal transaksi (contoh: 5 Agustus 2026).',
-                                '<span class="info-toggle-btn cursor-help" aria-label="Info tentukan tanggal"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
-                                ['placement' => 'top']
-                            ) ?>
-                        </div>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <span class="size-6 rounded-full border border-gray-300 text-gray-700 font-medium text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
-                        <div class="inline-flex items-center gap-1.5 pt-0.5">
-                            <strong class="text-xs font-semibold text-gray-800">Isi nama tim</strong>
+                            <strong class="text-xs font-semibold text-gray-800">Pilih nama tim</strong>
                             <?= render_tooltip(
                                 'File tampil sebagai kartu batch tim independen pada tanggal tersebut.',
                                 '<span class="info-toggle-btn cursor-help" aria-label="Info nama tim"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
@@ -185,3 +246,55 @@ $defaultReportName = 'LAPORAN - ' . ($monthNames[$monthNumber] ?? strtoupper(dat
         </aside>
     </div>
 </div>
+
+<script>
+function reportCreateForm(config) {
+    return {
+        dragging: false,
+        fileName: '',
+        reportDate: config.initialDate || '',
+        reportName: config.initialName || '',
+        teamName: config.initialTeam || '',
+        teamLabel: config.initialTeam || 'Pilih Tim',
+        teamOpen: false,
+        clientName: '<?= e(addslashes(old('client_name', ''))) ?>',
+
+        init() {
+            if (this.reportDate && !this.reportName) {
+                this.reportName = this.formatTitle(this.reportDate);
+            }
+        },
+
+        formatTitle(dateStr) {
+            if (!dateStr || typeof dateStr !== 'string') return '';
+            const parts = dateStr.trim().split('-');
+            if (parts.length !== 3) return '';
+            const months = [
+                'JANUARI', 'FEBRUARI', 'MARET', 'APRIL', 'MEI', 'JUNI',
+                'JULI', 'AGUSTUS', 'SEPTEMBER', 'OKTOBER', 'NOVEMBER', 'DESEMBER'
+            ];
+            const y = parts[0];
+            const m = parseInt(parts[1], 10) - 1;
+            const d = parseInt(parts[2], 10);
+            if (isNaN(d) || isNaN(m) || !months[m]) return '';
+            return `REPORT HARIAN - ${d} ${months[m]} ${y}`;
+        },
+
+        onDateSelected(newDate) {
+            this.reportDate = newDate;
+            if (newDate) {
+                this.reportName = this.formatTitle(newDate);
+            }
+        },
+
+        selectTeam(team) {
+            this.teamName = team;
+            this.teamLabel = team || 'Pilih Tim';
+            this.teamOpen = false;
+            if (!this.clientName) {
+                this.clientName = team;
+            }
+        }
+    };
+}
+</script>

@@ -260,6 +260,7 @@ final class ReportController extends BaseController
             'defaultMonth' => $defaultMonth,
             'defaultDate' => $defaultDate,
             'defaultTeam' => $defaultTeam,
+            'teams' => $this->teamOptions(),
         ]);
     }
 
@@ -273,15 +274,34 @@ final class ReportController extends BaseController
         $clientName = trim((string) ($_POST['client_name'] ?? '')) ?: null;
         $teamName = trim((string) ($_POST['team_name'] ?? '')) ?: $clientName;
 
-        if ($name === '' || !preg_match('/^\d{4}-\d{2}$/', $month)) {
+        if ($reportDate !== null && (!$this->isValidDate($reportDate))) {
             remember_old($_POST);
-            flash('danger', 'Nama report dan bulan wajib diisi.');
+            flash('danger', 'Tanggal report tidak valid.');
             redirect('/reports/create');
         }
-        if ($reportDate !== null && (!$this->isValidDate($reportDate) || substr($reportDate, 0, 7) !== $month)) {
+
+        if ($reportDate !== null && ($month === '' || !preg_match('/^\d{4}-\d{2}$/', $month))) {
+            $month = substr($reportDate, 0, 7);
+        }
+
+        if ($name === '' && $reportDate !== null) {
+            $name = format_report_name_from_date($reportDate);
+        }
+
+        if ($name === '' || $reportDate === null) {
             remember_old($_POST);
-            flash('danger', 'Tanggal report harus valid dan berada pada bulan yang dipilih.');
+            flash('danger', 'Nama report dan tanggal report wajib diisi.');
             redirect('/reports/create');
+        }
+
+        if ($teamName === null || $teamName === '') {
+            remember_old($_POST);
+            flash('danger', 'Nama tim wajib dipilih.');
+            redirect('/reports/create');
+        }
+
+        if ($month === '' || !preg_match('/^\d{4}-\d{2}$/', $month)) {
+            $month = substr($reportDate, 0, 7);
         }
         if (empty($_FILES['report_file']['tmp_name'])) {
             remember_old($_POST);
@@ -503,6 +523,7 @@ final class ReportController extends BaseController
         $this->view('reports/edit', [
             'title' => 'Edit Report',
             'batch' => $batch,
+            'teams' => $this->teamOptions(),
         ]);
     }
 
@@ -522,13 +543,26 @@ final class ReportController extends BaseController
         $clientName = trim((string) ($_POST['client_name'] ?? '')) ?: null;
         $teamName = trim((string) ($_POST['team_name'] ?? '')) ?: $clientName;
 
-        if ($name === '' || !preg_match('/^\d{4}-\d{2}$/', $month)) {
-            flash('danger', 'Nama report dan bulan wajib diisi.');
+        if ($reportDate !== null && (!$this->isValidDate($reportDate))) {
+            flash('danger', 'Tanggal report tidak valid.');
             redirect('/reports/' . $batchId . '/edit');
         }
-        if ($reportDate !== null && (!$this->isValidDate($reportDate) || substr($reportDate, 0, 7) !== $month)) {
-            flash('danger', 'Tanggal report harus valid dan berada pada bulan yang dipilih.');
+
+        if ($reportDate !== null && ($month === '' || !preg_match('/^\d{4}-\d{2}$/', $month))) {
+            $month = substr($reportDate, 0, 7);
+        }
+
+        if ($name === '' && $reportDate !== null) {
+            $name = format_report_name_from_date($reportDate);
+        }
+
+        if ($name === '') {
+            flash('danger', 'Nama report wajib diisi.');
             redirect('/reports/' . $batchId . '/edit');
+        }
+
+        if ($month === '') {
+            $month = $before['month_key'] ?? date('Y-m');
         }
 
         App::db()->prepare(
