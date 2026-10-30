@@ -16,7 +16,35 @@ $distinctTeams = is_array($distinctTeams ?? null) ? $distinctTeams : [];
 $distinctCurrencies = is_array($distinctCurrencies ?? null) ? $distinctCurrencies : [];
 
 $queryText = (string) ($filters['q'] ?? '');
+$currDelivery = (string) ($filters['delivery_status'] ?? '');
+$currResult = (string) ($filters['result_status'] ?? '');
 $returnQuery = http_build_query($filters);
+
+$currDeliveryLabel = match ($currDelivery) {
+    'PENDING' => 'Belum Terkirim',
+    'SENT'    => 'Terkirim',
+    default   => 'Semua status kirim',
+};
+
+$currResultLabel = match ($currResult) {
+    'PENDING' => 'Pending',
+    'SUCCESS' => 'Success',
+    'FAILED'  => 'Failed',
+    default   => 'Semua hasil',
+};
+
+$activeFilterList = [];
+if ($queryText !== '') {
+    $activeFilterList[] = 'Cari: ' . $queryText;
+}
+if ($currDelivery !== '') {
+    $activeFilterList[] = 'Kirim: ' . $currDeliveryLabel;
+}
+if ($currResult !== '') {
+    $activeFilterList[] = 'Hasil: ' . $currResultLabel;
+}
+$activeFiltersCount = count($activeFilterList);
+$activeFilterSummary = implode(' · ', $activeFilterList);
 
 $batchDate = (string) ($batch['effective_date'] ?? $effectiveDate ?? $batch['report_date'] ?? '');
 $dateBackUrl = $batchDate !== '' ? url('/reports/date/' . $batchDate) : url('/reports');
@@ -35,6 +63,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
         selectedCount: 0,
         allSelected: false,
         editModalOpen: false,
+        openFilterModal: false,
         activeRow: {
             id: 0,
             order: '1',
@@ -150,12 +179,276 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                 </div>
             </div>
 
+            <!-- Tombol Filter Modal di Samping Download Excel -->
+            <button
+                type="button"
+                @click="openFilterModal = true"
+                class="btn-primary"
+                aria-label="Buka Filter Transaksi Batch"
+                title="Filter berdasarkan kata kunci, status kirim, dan hasil transaksi"
+            >
+                <i class="bi bi-sliders text-sm"></i>
+                <span>Filter</span>
+                <?php if ($activeFiltersCount > 0): ?>
+                    <span class="btn-filter-badge" aria-label="<?= $activeFiltersCount ?> filter aktif"><?= $activeFiltersCount ?></span>
+                <?php endif; ?>
+            </button>
+
             <a class="btn-primary" href="<?= e(url('/reports/' . $batch['id'] . '/export')) ?>">
                 <i class="bi bi-download"></i>
                 <span>Download Excel</span>
             </a>
         </div>
     </div>
+
+    <!-- =========================================================
+         MODAL FILTER TRANSAKSI LAPORAN BATCH (ALPINE.JS TELEPORTED TO BODY)
+         ========================================================= -->
+    <template x-teleport="body">
+        <div
+            x-show="openFilterModal"
+            x-cloak
+            class="fixed inset-0 z-[9999] overflow-y-auto"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-batch-filter-title"
+            style="display: none;"
+            @keydown.escape.window="openFilterModal = false"
+        >
+            <!-- 1. Full-screen Backdrop -->
+            <div
+                x-show="openFilterModal"
+                x-transition:enter="transition-opacity ease-out duration-150"
+                x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100"
+                x-transition:leave="transition-opacity ease-in duration-100"
+                x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                class="fixed inset-0 w-full h-full bg-gray-900/60 backdrop-blur-sm"
+                @click="openFilterModal = false"
+                aria-hidden="true"
+            ></div>
+
+            <!-- 2. Modal Positioning Container -->
+            <div class="min-h-full flex items-center justify-center p-4 relative z-10 pointer-events-none">
+                <div
+                    class="bg-white rounded-2xl max-w-xl w-full shadow-2xl border border-gray-200 text-left relative my-8 pointer-events-auto"
+                    x-show="openFilterModal"
+                    x-transition:enter="transition ease-out duration-150"
+                    x-transition:enter-start="opacity-0"
+                    x-transition:enter-end="opacity-100"
+                    x-transition:leave="transition ease-in duration-100"
+                    x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0"
+                >
+                    <!-- Modal Header -->
+                    <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-white rounded-t-2xl">
+                        <div class="flex items-center gap-2.5">
+                            <i class="bi bi-sliders text-gray-800 text-lg"></i>
+                            <div class="flex items-center gap-1.5">
+                                <strong id="modal-batch-filter-title" class="text-sm font-semibold text-gray-900 block">Filter Transaksi Batch</strong>
+                                <?= render_tooltip(
+                                    'Saring transaksi batch laporan berdasarkan kata kunci pencarian, status kirim, dan hasil eksekusi.',
+                                    '<span class="hs-tooltip-toggle info-toggle-btn cursor-help" aria-label="Info filter transaksi"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
+                                    ['placement' => 'top', 'contentClass' => 'z-[100000]']
+                                ) ?>
+                            </div>
+                        </div>
+                        <button
+                            type="button"
+                            @click="openFilterModal = false"
+                            class="modal-close"
+                            aria-label="Tutup modal"
+                            title="Tutup modal"
+                        >
+                            <i class="bi bi-x-lg text-xs leading-none"></i>
+                        </button>
+                    </div>
+
+                    <!-- Modal Form Body -->
+                    <form method="get" action="<?= e(url('/reports/' . $batch['id'])) ?>" class="m-0 p-0">
+                        <div class="p-5 space-y-4">
+                            <!-- Input Pencarian (Full Width) -->
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-700 mb-1">Cari Transaksi</label>
+                                <?= render_search_input('q', $queryText, [
+                                    'placeholder' => 'Cari payer, beneficiary, bank, invoice, SWIFT, akun...',
+                                ]) ?>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <!-- Dropdown Status Kirim -->
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700 mb-1">Status Kirim</label>
+                                    <div class="custom-select-root relative" :class="{ 'z-20': open }" x-data="{ open: false, selected: '<?= e(addslashes($currDelivery)) ?>', label: '<?= e(addslashes($currDeliveryLabel)) ?>' }" @click.outside="open = false">
+                                        <input type="hidden" name="delivery_status" :value="selected">
+                                        <button
+                                            type="button"
+                                            @click="open = !open"
+                                            class="dropdown-toggle"
+                                            :aria-expanded="open.toString()"
+                                            aria-label="Filter Status Kirim"
+                                        >
+                                            <i class="bi bi-send text-gray-400"></i>
+                                            <span class="truncate text-gray-900" x-text="label"></span>
+                                            <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                                        </button>
+                                        <div
+                                            x-show="open"
+                                            x-cloak
+                                            x-transition:leave="transition ease-in duration-100"
+                                            x-transition:leave-start="opacity-100"
+                                            x-transition:leave-end="opacity-0"
+                                            :class="{ 'block': open, 'hidden': !open }"
+                                            class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
+                                            style="display: none;"
+                                            role="listbox"
+                                        >
+                                            <button
+                                                type="button"
+                                                class="dropdown-item justify-between"
+                                                :class="{ 'active': selected === '' }"
+                                                @click="selected = ''; label = 'Semua status kirim'; open = false"
+                                            >
+                                                <span>Semua status kirim</span>
+                                                <i x-show="selected === ''" class="bi bi-check2 text-[#315B8C] text-sm"></i>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="dropdown-item justify-between"
+                                                :class="{ 'active': selected === 'PENDING' }"
+                                                @click="selected = 'PENDING'; label = 'Belum Terkirim'; open = false"
+                                            >
+                                                <span>Belum Terkirim</span>
+                                                <i x-show="selected === 'PENDING'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="dropdown-item justify-between"
+                                                :class="{ 'active': selected === 'SENT' }"
+                                                @click="selected = 'SENT'; label = 'Terkirim'; open = false"
+                                            >
+                                                <span>Terkirim</span>
+                                                <i x-show="selected === 'SENT'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dropdown Status Hasil -->
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700 mb-1">Hasil Transaksi</label>
+                                    <div class="custom-select-root relative" :class="{ 'z-20': open }" x-data="{ open: false, selected: '<?= e(addslashes($currResult)) ?>', label: '<?= e(addslashes($currResultLabel)) ?>' }" @click.outside="open = false">
+                                        <input type="hidden" name="result_status" :value="selected">
+                                        <button
+                                            type="button"
+                                            @click="open = !open"
+                                            class="dropdown-toggle"
+                                            :aria-expanded="open.toString()"
+                                            aria-label="Filter Hasil Transaksi"
+                                        >
+                                            <i class="bi bi-check-circle text-gray-400"></i>
+                                            <span class="truncate text-gray-900" x-text="label"></span>
+                                            <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                                        </button>
+                                        <div
+                                            x-show="open"
+                                            x-cloak
+                                            x-transition:leave="transition ease-in duration-100"
+                                            x-transition:leave-start="opacity-100"
+                                            x-transition:leave-end="opacity-0"
+                                            :class="{ 'block': open, 'hidden': !open }"
+                                            class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
+                                            style="display: none;"
+                                            role="listbox"
+                                        >
+                                            <button
+                                                type="button"
+                                                class="dropdown-item justify-between"
+                                                :class="{ 'active': selected === '' }"
+                                                @click="selected = ''; label = 'Semua hasil'; open = false"
+                                            >
+                                                <span>Semua hasil</span>
+                                                <i x-show="selected === ''" class="bi bi-check2 text-[#315B8C] text-sm"></i>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="dropdown-item justify-between"
+                                                :class="{ 'active': selected === 'PENDING' }"
+                                                @click="selected = 'PENDING'; label = 'Pending'; open = false"
+                                            >
+                                                <span>Pending</span>
+                                                <i x-show="selected === 'PENDING'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="dropdown-item justify-between"
+                                                :class="{ 'active': selected === 'SUCCESS' }"
+                                                @click="selected = 'SUCCESS'; label = 'Success'; open = false"
+                                            >
+                                                <span>Success</span>
+                                                <i x-show="selected === 'SUCCESS'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="dropdown-item justify-between"
+                                                :class="{ 'active': selected === 'FAILED' }"
+                                                @click="selected = 'FAILED'; label = 'Failed'; open = false"
+                                            >
+                                                <span>Failed</span>
+                                                <i x-show="selected === 'FAILED'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal Footer -->
+                        <div class="px-5 py-3.5 bg-gray-50/70 border-t border-gray-100 flex items-center justify-between gap-3 rounded-b-2xl">
+                            <a
+                                class="py-2 px-3.5 inline-flex justify-center items-center text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-none transition-colors"
+                                href="<?= e(url('/reports/' . $batch['id'])) ?>"
+                            >
+                                Reset Filter
+                            </a>
+
+                            <div class="flex items-center gap-2">
+                                <button
+                                    type="button"
+                                    @click="openFilterModal = false"
+                                    class="btn-secondary"
+                                >
+                                    <span>Batal</span>
+                                </button>
+                                <button
+                                    class="btn-primary"
+                                    type="submit"
+                                >
+                                    <i class="bi bi-funnel"></i>
+                                    <span>Terapkan Filter</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <?php if ($activeFiltersCount > 0): ?>
+        <!-- FLOATING TOAST NOTIFICATION (GEMINI.MD SECTION 16 - ZERO LAYOUT SHIFT) -->
+        <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.remitToast && typeof window.remitToast.info === 'function') {
+                window.remitToast.info('Menampilkan transaksi batch: <?= e(addslashes($activeFilterSummary)) ?>', {
+                    title: 'Filter Transaksi Aktif',
+                    duration: 5000
+                });
+            }
+        });
+        </script>
+    <?php endif; ?>
 
     <?php if ($pendingRows > 0): ?>
         <!-- ALERT STATUS: PENDING TRANSAKSI -->
@@ -222,177 +515,17 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
     </div>
 
     <!-- =========================================================
-         FILTER PENCARIAN & PARAMETER TABEL
-         ========================================================= -->
-    <div class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-xs">
-        <form method="get" action="<?= e(url('/reports/' . $batch['id'])) ?>" class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
-                <div class="md:col-span-2">
-                    <label class="block text-xs font-semibold text-gray-700 mb-1">Cari transaksi dalam report ini</label>
-                    <?= render_search_input('q', $queryText, [
-                        'placeholder' => 'Cari payer, beneficiary, bank, invoice, SWIFT, akun...',
-                    ]) ?>
-                </div>
-
-                <div x-data="{
-                    open: false,
-                    selected: '<?= e($filters['delivery_status'] ?? '') ?>',
-                    label: '<?= ($filters['delivery_status'] ?? '') === 'PENDING' ? 'Belum Terkirim' : (($filters['delivery_status'] ?? '') === 'SENT' ? 'Terkirim' : 'Semua status kirim') ?>'
-                }">
-                    <label class="block text-xs font-semibold text-gray-700 mb-1">Status kirim</label>
-                    <div class="custom-select-root relative" @click.outside="open = false">
-                        <input type="hidden" name="delivery_status" :value="selected">
-                        <button
-                            type="button"
-                            class="dropdown-toggle"
-                            @click="open = !open"
-                            :aria-expanded="open"
-                            aria-label="Filter Status Kirim"
-                        >
-                            <i class="bi bi-send text-gray-400"></i>
-                            <span class="truncate text-gray-900" x-text="label"></span>
-                            <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
-                        </button>
-
-                        <div
-                            class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
-                            x-show="open"
-                            x-cloak
-                            x-transition:enter="transition ease-out duration-100"
-                            x-transition:enter-start="opacity-0"
-                            x-transition:enter-end="opacity-100"
-                            x-transition:leave="transition ease-in duration-75"
-                            x-transition:leave-start="opacity-100"
-                            x-transition:leave-end="opacity-0"
-                            :class="{ 'block': open, 'hidden': !open }"
-                            style="display: none;"
-                            role="listbox"
-                        >
-                            <button
-                                type="button"
-                                class="dropdown-item"
-                                :class="{ 'active': selected === '' }"
-                                @click="selected = ''; label = 'Semua status kirim'; open = false"
-                            >
-                                <span>Semua status kirim</span>
-                                <i x-show="selected === ''" class="bi bi-check2 text-[#315B8C] text-sm ml-auto"></i>
-                            </button>
-                            <button
-                                type="button"
-                                class="dropdown-item"
-                                :class="{ 'active': selected === 'PENDING' }"
-                                @click="selected = 'PENDING'; label = 'Belum Terkirim'; open = false"
-                            >
-                                <span>Belum Terkirim</span>
-                                <i x-show="selected === 'PENDING'" class="bi bi-check2 text-[#315B8C] text-sm ml-auto"></i>
-                            </button>
-                            <button
-                                type="button"
-                                class="dropdown-item"
-                                :class="{ 'active': selected === 'SENT' }"
-                                @click="selected = 'SENT'; label = 'Terkirim'; open = false"
-                            >
-                                <span>Terkirim</span>
-                                <i x-show="selected === 'SENT'" class="bi bi-check2 text-[#315B8C] text-sm ml-auto"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div x-data="{
-                    open: false,
-                    selected: '<?= e($filters['result_status'] ?? '') ?>',
-                    label: '<?= ($filters['result_status'] ?? '') === 'PENDING' ? 'Pending' : (($filters['result_status'] ?? '') === 'SUCCESS' ? 'Success' : (($filters['result_status'] ?? '') === 'FAILED' ? 'Failed' : 'Semua hasil')) ?>'
-                }">
-                    <label class="block text-xs font-semibold text-gray-700 mb-1">Hasil transaksi</label>
-                    <div class="custom-select-root relative" @click.outside="open = false">
-                        <input type="hidden" name="result_status" :value="selected">
-                        <button
-                            type="button"
-                            class="dropdown-toggle"
-                            @click="open = !open"
-                            :aria-expanded="open"
-                            aria-label="Filter Hasil Transaksi"
-                        >
-                            <i class="bi bi-check-circle text-gray-400"></i>
-                            <span class="truncate text-gray-900" x-text="label"></span>
-                            <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
-                        </button>
-
-                        <div
-                            class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
-                            x-show="open"
-                            x-cloak
-                            x-transition:enter="transition ease-out duration-100"
-                            x-transition:enter-start="opacity-0"
-                            x-transition:enter-end="opacity-100"
-                            x-transition:leave="transition ease-in duration-75"
-                            x-transition:leave-start="opacity-100"
-                            x-transition:leave-end="opacity-0"
-                            :class="{ 'block': open, 'hidden': !open }"
-                            style="display: none;"
-                            role="listbox"
-                        >
-                            <button
-                                type="button"
-                                class="dropdown-item"
-                                :class="{ 'active': selected === '' }"
-                                @click="selected = ''; label = 'Semua hasil'; open = false"
-                            >
-                                <span>Semua hasil</span>
-                                <i x-show="selected === ''" class="bi bi-check2 text-[#315B8C] text-sm ml-auto"></i>
-                            </button>
-                            <button
-                                type="button"
-                                class="dropdown-item"
-                                :class="{ 'active': selected === 'PENDING' }"
-                                @click="selected = 'PENDING'; label = 'Pending'; open = false"
-                            >
-                                <span>Pending</span>
-                                <i x-show="selected === 'PENDING'" class="bi bi-check2 text-[#315B8C] text-sm ml-auto"></i>
-                            </button>
-                            <button
-                                type="button"
-                                class="dropdown-item"
-                                :class="{ 'active': selected === 'SUCCESS' }"
-                                @click="selected = 'SUCCESS'; label = 'Success'; open = false"
-                            >
-                                <span>Success</span>
-                                <i x-show="selected === 'SUCCESS'" class="bi bi-check2 text-[#315B8C] text-sm ml-auto"></i>
-                            </button>
-                            <button
-                                type="button"
-                                class="dropdown-item"
-                                :class="{ 'active': selected === 'FAILED' }"
-                                @click="selected = 'FAILED'; label = 'Failed'; open = false"
-                            >
-                                <span>Failed</span>
-                                <i x-show="selected === 'FAILED'" class="bi bi-check2 text-[#315B8C] text-sm ml-auto"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex items-center justify-end gap-2 pt-2 border-t border-gray-100">
-                <a class="btn-secondary" href="<?= e(url('/reports/' . $batch['id'])) ?>">
-                    <span>Reset</span>
-                </a>
-                <button class="btn-primary" type="submit">
-                    <i class="bi bi-funnel"></i>
-                    <span>Terapkan Filter</span>
-                </button>
-            </div>
-        </form>
-    </div>
-
-    <!-- =========================================================
          WIDE TRANSACTION DATA TABLE (PRELINE UI + THE NAKED ZEBRA)
          ========================================================= -->
     <section class="bg-white border border-gray-200 rounded-2xl shadow-xs overflow-hidden">
-        <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-            <div>
+        <div class="px-5 py-4 border-b border-gray-100 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2 flex-wrap">
                 <h3 class="text-sm font-semibold font-heading text-gray-900"><?= number_format(count($rows), 0, ',', '.') ?> Baris Transaksi</h3>
+                <?php if ($activeFiltersCount > 0): ?>
+                    <span class="text-xs text-gray-400">·</span>
+                    <span class="text-xs text-gray-600">Filter aktif: <strong class="text-gray-900 font-medium"><?= e($activeFilterSummary) ?></strong></span>
+                    <a href="<?= e(url('/reports/' . $batch['id'])) ?>" class="text-xs text-[#315B8C] hover:underline font-medium ml-1" title="Hapus semua filter transaksi">(Reset)</a>
+                <?php endif; ?>
             </div>
             <?php if (can('report.manage')): ?>
                 <div class="text-xs text-gray-500">
