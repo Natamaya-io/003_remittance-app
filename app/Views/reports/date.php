@@ -414,7 +414,7 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                 <table class="min-w-full text-start">
                     <thead class="bg-gray-50/75 border-b border-gray-200">
                         <tr>
-                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Batch, Tim &amp; Nama Report</th>
+                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Batch &amp; Tim</th>
                             <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Berkas</th>
                             <th scope="col" class="py-3.5 px-5 text-end text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Total Baris</th>
                             <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider" style="min-width: 170px;">Status Kirim</th>
@@ -444,10 +444,6 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                                         <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-700">
                                             <i class="bi bi-people text-gray-400" aria-hidden="true"></i>
                                             <span><?= e(strtoupper((string) ($batch['effective_team'] ?? 'Tanpa Tim'))) ?></span>
-                                        </span>
-                                        <span class="text-xs text-gray-300">·</span>
-                                        <span class="text-xs text-gray-500 truncate max-w-xs" title="<?= e($batch['name']) ?>">
-                                            <?= e($batch['name']) ?>
                                         </span>
                                     </div>
                                 </td>
@@ -533,7 +529,7 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                     <div class="space-y-3">
                         <div class="flex items-start justify-between gap-3">
                             <div class="min-w-0">
-                                <div class="flex items-center gap-2 mb-1.5 min-w-0">
+                                <div class="flex items-center gap-2 mb-1.5 min-w-0 flex-wrap">
                                     <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-900 tabular-nums shrink-0">
                                         <i class="bi bi-layers text-gray-400" aria-hidden="true"></i>
                                         <span>Batch #<?= (int) $batch['id'] ?></span>
@@ -542,10 +538,6 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                                     <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-700 shrink-0">
                                         <i class="bi bi-people text-gray-400" aria-hidden="true"></i>
                                         <span><?= e(strtoupper((string) ($batch['effective_team'] ?? 'Tanpa Tim'))) ?></span>
-                                    </span>
-                                    <span class="text-xs text-gray-300 shrink-0">·</span>
-                                    <span class="text-xs text-gray-500 truncate min-w-0" title="<?= e($batch['name']) ?>">
-                                        <?= e($batch['name']) ?>
                                     </span>
                                 </div>
                                 <strong class="text-sm font-semibold font-heading text-gray-900 block truncate" title="<?= e($batch['source_filename']) ?>">
