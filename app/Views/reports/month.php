@@ -58,7 +58,7 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                 type="button"
                 @click="openFilterModal = true"
                 class="btn-primary"
-                aria-label="Buka Filter Laporan Bulan <?= e($monthLabel) ?>"
+                aria-label="Buka Filter Laporan"
                 title="Filter berdasarkan rentang tanggal"
             >
                 <i class="bi bi-sliders text-sm"></i>
@@ -122,10 +122,10 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                         <div class="flex items-center gap-2.5">
                             <i class="bi bi-calendar3 text-gray-800 text-lg"></i>
                             <div class="flex items-center gap-1.5">
-                                <strong id="modal-month-filter-title" class="text-sm font-semibold text-gray-900 block">Filter Laporan <?= e($monthLabel) ?></strong>
+                                <strong id="modal-month-filter-title" class="text-sm font-semibold text-gray-900 block">Filter Laporan</strong>
                                 <?= render_tooltip(
-                                    'Saring data laporan bulan ' . e($monthLabel) . ' berdasarkan rentang tanggal mulai dan tanggal akhir.',
-                                    '<span class="hs-tooltip-toggle info-toggle-btn cursor-help" aria-label="Info filter bulan"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
+                                    'Saring data laporan berdasarkan rentang tanggal mulai dan tanggal akhir.',
+                                    '<span class="hs-tooltip-toggle info-toggle-btn cursor-help" aria-label="Info filter laporan"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
                                     ['placement' => 'top', 'contentClass' => 'z-[100000]']
                                 ) ?>
                             </div>
