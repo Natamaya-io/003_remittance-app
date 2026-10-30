@@ -166,51 +166,12 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                 <span>Report per Tim</span>
             </a>
 
-            <!-- Alpine Dropdown Opsi Batch -->
-            <div class="relative inline-flex" x-data="{ openOptions: false }" @click.outside="openOptions = false">
-                <button
-                    type="button"
-                    class="dropdown-toggle"
-                    @click="openOptions = !openOptions"
-                    :aria-expanded="openOptions"
-                    aria-label="Menu Opsi Batch"
-                >
-                    <i class="bi bi-sliders"></i>
-                    <span>Opsi Batch</span>
-                    <i class="bi bi-chevron-down text-xs text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': openOptions }"></i>
-                </button>
-
-                <div
-                    class="dropdown-menu absolute right-0 top-full mt-2 w-52 z-50 bg-white"
-                    x-show="openOptions"
-                    x-transition:enter="transition ease-out duration-100"
-                    x-transition:enter-start="opacity-0"
-                    x-transition:enter-end="opacity-100"
-                    x-transition:leave="transition ease-in duration-75"
-                    x-transition:leave-start="opacity-100"
-                    x-transition:leave-end="opacity-0"
-                    style="display: none;"
-                    role="menu"
-                >
-                    <span class="dropdown-header">Export &amp; Berkas</span>
-                    <a class="dropdown-item" href="<?= e(url('/reports/' . $batch['id'] . '/export')) ?>">
-                        <i class="bi bi-file-earmark-excel"></i>
-                        <span>Download File Excel</span>
-                    </a>
-                    <?php if (can('report.manage')): ?>
-                        <div class="dropdown-divider"></div>
-                        <span class="dropdown-header">Manajemen</span>
-                        <a class="dropdown-item" href="<?= e(url('/reports/' . $batch['id'] . '/edit')) ?>">
-                            <i class="bi bi-pencil"></i>
-                            <span>Edit Metadata Report</span>
-                        </a>
-                        <a class="dropdown-item" href="<?= e(url('/reports/create?' . http_build_query(['month' => $batch['month_key'] ?? '', 'date' => $batchDate]))) ?>">
-                            <i class="bi bi-cloud-arrow-up"></i>
-                            <span>Tambah Berkas Excel</span>
-                        </a>
-                    <?php endif; ?>
-                </div>
-            </div>
+            <?php if (can('report.manage')): ?>
+                <a class="btn-secondary" href="<?= e(url('/reports/' . $batch['id'] . '/edit')) ?>" aria-label="Edit Metadata Report" title="Edit nama, tanggal, dan metadata report batch">
+                    <i class="bi bi-pencil"></i>
+                    <span>Edit Metadata Report</span>
+                </a>
+            <?php endif; ?>
 
             <!-- Tombol Filter Modal di Samping Download Excel -->
             <button
