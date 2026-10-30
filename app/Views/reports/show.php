@@ -761,89 +761,237 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
          UNIVERSAL ROW STATUS EDIT MODAL (CLEAN & NON-CLIPPING)
          ========================================================= -->
     <?php if (can('report.manage')): ?>
-        <div
-            x-show="editModalOpen"
-            x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="opacity-0"
-            x-transition:enter-end="opacity-100"
-            x-transition:leave="transition ease-in duration-150"
-            x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0"
-            class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs"
-            style="display: none;"
-            @keydown.escape.window="editModalOpen = false"
-        >
+        <template x-teleport="body">
             <div
-                class="bg-white rounded-2xl border border-gray-200 shadow-2xl w-full max-w-md p-6 relative space-y-4"
-                @click.outside="editModalOpen = false"
+                x-show="editModalOpen"
+                x-cloak
+                class="fixed inset-0 z-[9999] overflow-y-auto"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="modal-edit-row-title"
+                style="display: none;"
+                @keydown.escape.window="editModalOpen = false"
             >
-                <!-- Modal Header -->
-                <div class="flex items-center justify-between pb-3 border-b border-gray-100">
-                    <div>
-                        <h3 class="text-sm font-semibold font-heading text-gray-900">Ubah Status Transaksi #<span x-text="activeRow.order"></span></h3>
-                        <p class="text-xs text-gray-500 mt-0.5 truncate max-w-xs" x-text="activeRow.beneficiary"></p>
-                    </div>
-                    <button
-                        type="button"
-                        @click="editModalOpen = false"
-                        class="modal-close"
-                        aria-label="Tutup modal"
-                        title="Tutup modal"
+                <!-- 1. Full-screen Backdrop -->
+                <div
+                    x-show="editModalOpen"
+                    x-transition:enter="transition-opacity ease-out duration-150"
+                    x-transition:enter-start="opacity-0"
+                    x-transition:enter-end="opacity-100"
+                    x-transition:leave="transition-opacity ease-in duration-100"
+                    x-transition:leave-start="opacity-100"
+                    x-transition:leave-end="opacity-0"
+                    class="fixed inset-0 w-full h-full bg-gray-900/60 backdrop-blur-sm"
+                    @click="editModalOpen = false"
+                    aria-hidden="true"
+                ></div>
+
+                <!-- 2. Modal Positioning Container -->
+                <div class="min-h-full flex items-center justify-center p-4 relative z-10 pointer-events-none">
+                    <div
+                        class="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-gray-200 text-left relative my-8 pointer-events-auto"
+                        x-show="editModalOpen"
+                        x-transition:enter="transition ease-out duration-150"
+                        x-transition:enter-start="opacity-0"
+                        x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition ease-in duration-100"
+                        x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0"
                     >
-                        <i class="bi bi-x-lg text-xs leading-none"></i>
-                    </button>
+                        <!-- Modal Header -->
+                        <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-white rounded-t-2xl">
+                            <div class="flex items-center gap-2.5">
+                                <i class="bi bi-pencil-square text-gray-800 text-lg"></i>
+                                <div class="flex items-center gap-1.5">
+                                    <strong id="modal-edit-row-title" class="text-sm font-semibold text-gray-900 block">
+                                        Ubah Status Transaksi #<span x-text="activeRow.order"></span>
+                                    </strong>
+                                    <?= render_tooltip(
+                                        'Perbarui status pengiriman, hasil transaksi, atau catatan operasional baris report ini.',
+                                        '<span class="hs-tooltip-toggle info-toggle-btn cursor-help" aria-label="Info ubah status"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
+                                        ['placement' => 'top', 'contentClass' => 'z-[100000]']
+                                    ) ?>
+                                </div>
+                            </div>
+                            <button
+                                type="button"
+                                @click="editModalOpen = false"
+                                class="modal-close"
+                                aria-label="Tutup modal"
+                                title="Tutup modal"
+                            >
+                                <i class="bi bi-x-lg text-xs leading-none"></i>
+                            </button>
+                        </div>
+
+                        <!-- Modal Form Body -->
+                        <form method="post" :action="'<?= e(url('/reports/' . $batch['id'] . '/rows/')) ?>' + activeRow.id + '/status'" class="m-0 p-0">
+                            <?= csrf_field() ?>
+                            <input type="hidden" name="return_query" value="<?= e($returnQuery) ?>">
+
+                            <div class="p-5 space-y-4">
+                                <!-- Transaction Preview Card -->
+                                <div class="bg-[#F5F2F2] rounded-xl p-3.5 border border-gray-200/80 text-xs space-y-2">
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <div>
+                                            <span class="text-gray-500 block text-[11px] mb-0.5">Payer (Pengirim):</span>
+                                            <strong class="text-gray-900 font-medium truncate block" x-text="activeRow.payer || '-'"></strong>
+                                        </div>
+                                        <div>
+                                            <span class="text-gray-500 block text-[11px] mb-0.5">Beneficiary (Penerima):</span>
+                                            <strong class="text-gray-900 font-medium truncate block" x-text="activeRow.beneficiary || '-'"></strong>
+                                        </div>
+                                    </div>
+                                    <div class="pt-2 border-t border-gray-200/60 flex items-center justify-between">
+                                        <span class="text-gray-500 text-[11px]">Nominal Transaksi:</span>
+                                        <strong class="text-[#315B8C] font-semibold text-sm tabular-nums font-heading" x-text="activeRow.amount || '-'"></strong>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <!-- Custom Dropdown: Status Kirim -->
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-700 mb-1">Status Kirim</label>
+                                        <div class="custom-select-root relative" :class="{ 'z-20': open }" x-data="{ open: false }" @click.outside="open = false">
+                                            <input type="hidden" name="delivery_status" :value="activeRow.delivery">
+                                            <button
+                                                type="button"
+                                                @click="open = !open"
+                                                class="dropdown-toggle"
+                                                :aria-expanded="open.toString()"
+                                                aria-label="Status Kirim"
+                                            >
+                                                <i class="bi bi-send text-gray-400"></i>
+                                                <span class="truncate text-gray-900" x-text="activeRow.delivery === 'SENT' ? 'Terkirim' : 'Belum Terkirim'"></span>
+                                                <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                                            </button>
+                                            <div
+                                                x-show="open"
+                                                x-cloak
+                                                x-transition:leave="transition ease-in duration-100"
+                                                x-transition:leave-start="opacity-100"
+                                                x-transition:leave-end="opacity-0"
+                                                :class="{ 'block': open, 'hidden': !open }"
+                                                class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 z-50 bg-white"
+                                                style="display: none;"
+                                                role="listbox"
+                                            >
+                                                <button
+                                                    type="button"
+                                                    class="dropdown-item justify-between"
+                                                    :class="{ 'active': activeRow.delivery === 'PENDING' }"
+                                                    @click="activeRow.delivery = 'PENDING'; open = false"
+                                                >
+                                                    <span>Belum Terkirim</span>
+                                                    <i x-show="activeRow.delivery === 'PENDING'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    class="dropdown-item justify-between"
+                                                    :class="{ 'active': activeRow.delivery === 'SENT' }"
+                                                    @click="activeRow.delivery = 'SENT'; open = false"
+                                                >
+                                                    <span>Terkirim</span>
+                                                    <i x-show="activeRow.delivery === 'SENT'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Custom Dropdown: Hasil Transaksi -->
+                                    <div>
+                                        <label class="block text-xs font-semibold text-gray-700 mb-1">Hasil Transaksi</label>
+                                        <div class="custom-select-root relative" :class="{ 'z-20': open }" x-data="{ open: false }" @click.outside="open = false">
+                                            <input type="hidden" name="result_status" :value="activeRow.result">
+                                            <button
+                                                type="button"
+                                                @click="open = !open"
+                                                class="dropdown-toggle"
+                                                :aria-expanded="open.toString()"
+                                                aria-label="Hasil Transaksi"
+                                            >
+                                                <i class="bi bi-check-circle text-gray-400"></i>
+                                                <span class="truncate text-gray-900" x-text="activeRow.result === 'SUCCESS' ? 'Success' : (activeRow.result === 'FAILED' ? 'Failed' : 'Pending')"></span>
+                                                <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                                            </button>
+                                            <div
+                                                x-show="open"
+                                                x-cloak
+                                                x-transition:leave="transition ease-in duration-100"
+                                                x-transition:leave-start="opacity-100"
+                                                x-transition:leave-end="opacity-0"
+                                                :class="{ 'block': open, 'hidden': !open }"
+                                                class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 z-50 bg-white"
+                                                style="display: none;"
+                                                role="listbox"
+                                            >
+                                                <button
+                                                    type="button"
+                                                    class="dropdown-item justify-between"
+                                                    :class="{ 'active': activeRow.result === 'PENDING' }"
+                                                    @click="activeRow.result = 'PENDING'; open = false"
+                                                >
+                                                    <span>Pending</span>
+                                                    <i x-show="activeRow.result === 'PENDING'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    class="dropdown-item justify-between"
+                                                    :class="{ 'active': activeRow.result === 'SUCCESS' }"
+                                                    @click="activeRow.result = 'SUCCESS'; open = false"
+                                                >
+                                                    <span>Success</span>
+                                                    <i x-show="activeRow.result === 'SUCCESS'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    class="dropdown-item justify-between"
+                                                    :class="{ 'active': activeRow.result === 'FAILED' }"
+                                                    @click="activeRow.result = 'FAILED'; open = false"
+                                                >
+                                                    <span>Failed</span>
+                                                    <i x-show="activeRow.result === 'FAILED'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Catatan Operasional -->
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700 mb-1">Catatan Operasional</label>
+                                    <textarea
+                                        class="custom-form-textarea"
+                                        name="notes"
+                                        rows="2"
+                                        x-model="activeRow.notes"
+                                        placeholder="Catatan opsional operasional transaksi..."
+                                    ></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Modal Footer -->
+                            <div class="px-5 py-3.5 bg-gray-50/70 border-t border-gray-100 flex items-center justify-end gap-2 rounded-b-2xl">
+                                <button
+                                    type="button"
+                                    @click="editModalOpen = false"
+                                    class="btn-secondary"
+                                >
+                                    <span>Batal</span>
+                                </button>
+                                <button
+                                    class="btn-primary"
+                                    type="submit"
+                                >
+                                    <i class="bi bi-check2"></i>
+                                    <span>Simpan Perubahan</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-
-                <!-- Transaction Preview Strip -->
-                <div class="bg-gray-50 rounded-xl p-3 border border-gray-200 text-xs space-y-1">
-                    <div class="flex justify-between text-gray-500">
-                        <span>Payer:</span>
-                        <strong class="text-gray-800 font-medium truncate max-w-[200px]" x-text="activeRow.payer"></strong>
-                    </div>
-                    <div class="flex justify-between text-gray-500">
-                        <span>Nominal:</span>
-                        <strong class="text-[#315B8C] font-semibold tabular-nums font-heading" x-text="activeRow.amount"></strong>
-                    </div>
-                </div>
-
-                <!-- Edit Form -->
-                <form method="post" :action="'<?= e(url('/reports/' . $batch['id'] . '/rows/')) ?>' + activeRow.id + '/status'" class="space-y-4">
-                    <?= csrf_field() ?>
-                    <input type="hidden" name="return_query" value="<?= e($returnQuery) ?>">
-
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1">Status Kirim</label>
-                        <select class="custom-form-select" name="delivery_status" x-model="activeRow.delivery">
-                            <option value="PENDING">Belum Terkirim</option>
-                            <option value="SENT">Terkirim</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1">Hasil Transaksi</label>
-                        <select class="custom-form-select" name="result_status" x-model="activeRow.result">
-                            <option value="PENDING">Pending</option>
-                            <option value="SUCCESS">Success</option>
-                            <option value="FAILED">Failed</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1">Catatan Operasional</label>
-                        <textarea class="custom-form-textarea" name="notes" rows="2" x-model="activeRow.notes" placeholder="Catatan opsional..."></textarea>
-                    </div>
-
-                    <div class="flex items-center justify-end gap-2 pt-2 border-t border-gray-100">
-                        <button type="button" @click="editModalOpen = false" class="btn-secondary">
-                            <span>Batal</span>
-                        </button>
-                        <button type="submit" class="btn-primary">
-                            <span>Simpan Perubahan</span>
-                        </button>
-                    </div>
-                </form>
             </div>
-        </div>
+        </template>
     <?php endif; ?>
 
 </div>
