@@ -2290,15 +2290,23 @@ $reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode
                 !important;
 
             align-items:
-                center
+                flex-end
                 !important;
 
             justify-content:
-                center
+                flex-end
+                !important;
+
+            align-self:
+                flex-end
                 !important;
 
             flex-shrink:
                 0
+                !important;
+
+            margin-bottom:
+                -24px
                 !important;
 
             pointer-events:
@@ -2320,11 +2328,11 @@ $reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode
                 !important;
 
             max-height:
-                130px
+                160px
                 !important;
 
             max-width:
-                150px
+                180px
                 !important;
 
             object-fit:
@@ -2343,11 +2351,11 @@ $reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode
         @media (min-width: 640px) {
             .dashboard-hero-illustration {
                 max-height:
-                    150px
+                    185px
                     !important;
 
                 max-width:
-                    170px
+                    210px
                     !important;
             }
         }
@@ -2355,11 +2363,11 @@ $reportViewMode = function_exists('get_report_view_mode') ? get_report_view_mode
         @media (min-width: 1024px) {
             .dashboard-hero-illustration {
                 max-height:
-                    165px
+                    200px
                     !important;
 
                 max-width:
-                    190px
+                    230px
                     !important;
             }
         }
