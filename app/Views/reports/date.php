@@ -414,8 +414,8 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                 <table class="min-w-full text-start">
                     <thead class="bg-gray-50/75 border-b border-gray-200">
                         <tr>
-                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Batch &amp; Tim</th>
-                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Berkas &amp; Nama Report</th>
+                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Batch, Tim &amp; Nama Report</th>
+                            <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Berkas</th>
                             <th scope="col" class="py-3.5 px-5 text-end text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Total Baris</th>
                             <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider" style="min-width: 170px;">Status Kirim</th>
                             <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Hasil Eksekusi</th>
@@ -435,27 +435,27 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                             ?>
                             <tr class="even:bg-[#F5F2F2] [data-no-hover]">
                                 <td class="py-4 px-5 whitespace-nowrap">
-                                    <div class="space-y-1">
-                                        <div class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-900 tabular-nums">
+                                    <div class="flex items-center gap-2">
+                                        <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-900 tabular-nums">
                                             <i class="bi bi-layers text-gray-400" aria-hidden="true"></i>
                                             <span>Batch #<?= (int) $batch['id'] ?></span>
-                                        </div>
-                                        <div class="flex items-center gap-1.5 text-xs font-medium text-gray-600">
+                                        </span>
+                                        <span class="text-xs text-gray-300">·</span>
+                                        <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-700">
                                             <i class="bi bi-people text-gray-400" aria-hidden="true"></i>
                                             <span><?= e(strtoupper((string) ($batch['effective_team'] ?? 'Tanpa Tim'))) ?></span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="py-4 px-5 whitespace-nowrap">
-                                    <div>
-                                        <strong class="text-sm font-semibold text-gray-900 block truncate max-w-xs" title="<?= e($batch['source_filename']) ?>">
-                                            <i class="bi bi-file-earmark-excel me-1"></i>
-                                            <?= e($batch['source_filename']) ?>
-                                        </strong>
-                                        <span class="text-xs text-gray-500 block truncate max-w-xs mt-0.5">
+                                        </span>
+                                        <span class="text-xs text-gray-300">·</span>
+                                        <span class="text-xs text-gray-500 truncate max-w-xs" title="<?= e($batch['name']) ?>">
                                             <?= e($batch['name']) ?>
                                         </span>
                                     </div>
+                                </td>
+                                <td class="py-4 px-5 whitespace-nowrap">
+                                    <strong class="text-sm font-semibold text-gray-900 block truncate max-w-xs" title="<?= e($batch['source_filename']) ?>">
+                                        <i class="bi bi-file-earmark-excel me-1 text-gray-400"></i>
+                                        <?= e($batch['source_filename']) ?>
+                                    </strong>
                                 </td>
                                 <td class="py-4 px-5 whitespace-nowrap text-end tabular-nums font-semibold text-gray-900">
                                     <?= number_format($total, 0, ',', '.') ?>
@@ -533,23 +533,24 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                     <div class="space-y-3">
                         <div class="flex items-start justify-between gap-3">
                             <div class="min-w-0">
-                                <div class="flex items-center gap-2 mb-1.5 flex-wrap">
-                                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-900 tabular-nums">
+                                <div class="flex items-center gap-2 mb-1.5 min-w-0">
+                                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-900 tabular-nums shrink-0">
                                         <i class="bi bi-layers text-gray-400" aria-hidden="true"></i>
                                         <span>Batch #<?= (int) $batch['id'] ?></span>
                                     </span>
-                                    <span class="text-xs text-gray-300">·</span>
-                                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-700">
+                                    <span class="text-xs text-gray-300 shrink-0">·</span>
+                                    <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-700 shrink-0">
                                         <i class="bi bi-people text-gray-400" aria-hidden="true"></i>
                                         <span><?= e(strtoupper((string) ($batch['effective_team'] ?? 'Tanpa Tim'))) ?></span>
+                                    </span>
+                                    <span class="text-xs text-gray-300 shrink-0">·</span>
+                                    <span class="text-xs text-gray-500 truncate min-w-0" title="<?= e($batch['name']) ?>">
+                                        <?= e($batch['name']) ?>
                                     </span>
                                 </div>
                                 <strong class="text-sm font-semibold font-heading text-gray-900 block truncate" title="<?= e($batch['source_filename']) ?>">
                                     <?= e($batch['source_filename']) ?>
                                 </strong>
-                                <span class="text-xs text-gray-500 block truncate mt-0.5">
-                                    <?= e($batch['name']) ?>
-                                </span>
                             </div>
                         </div>
 
