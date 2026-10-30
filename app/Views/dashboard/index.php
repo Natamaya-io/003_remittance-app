@@ -371,31 +371,15 @@ $fxBoardFile =
 
 
         <div class="dashboard-hero-visual" aria-hidden="true">
-
-            <picture>
-
-                <source
-                    srcset="<?= e(asset('img/dashboard-1.avif')) ?>"
-                    type="image/avif"
-                >
-
-                <source
-                    srcset="<?= e(asset('img/dashboard-1.webp')) ?>"
-                    type="image/webp"
-                >
-
-                <img
-                    class="dashboard-hero-illustration"
-                    src="<?= e(url('/dashboard-1.png')) ?>"
-                    alt="Ilustrasi Selamat Datang"
-                    width="200"
-                    height="195"
-                    loading="eager"
-                    decoding="async"
-                >
-
-            </picture>
-
+            <img
+                class="dashboard-hero-illustration"
+                src="<?= e(url('/main_card.svg')) ?>"
+                alt="Ilustrasi Selamat Datang"
+                width="200"
+                height="200"
+                loading="eager"
+                decoding="async"
+            >
         </div>
 
 
