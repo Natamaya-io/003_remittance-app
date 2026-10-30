@@ -72,11 +72,11 @@ if ($batchDate !== '') {
 $rawBatchName = trim((string) ($batch['name'] ?? ''));
 if ($formattedBatchDateUpper !== '') {
     if (preg_match('/^(REPORT|LAPORAN)\s+HARIAN/i', $rawBatchName)) {
-        $pageHeadingTitle = 'REPORT HARIAN - ' . $formattedBatchDateUpper;
+        $pageHeadingTitle = 'LAPORAN HARIAN - ' . $formattedBatchDateUpper;
     } elseif ($rawBatchName !== '') {
         $pageHeadingTitle = $rawBatchName . ' - ' . $formattedBatchDateUpper;
     } else {
-        $pageHeadingTitle = 'REPORT HARIAN - ' . $formattedBatchDateUpper;
+        $pageHeadingTitle = 'LAPORAN HARIAN - ' . $formattedBatchDateUpper;
     }
 } else {
     $pageHeadingTitle = $rawBatchName !== '' ? $rawBatchName : 'Detail Batch Report';

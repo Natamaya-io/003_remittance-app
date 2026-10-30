@@ -56,7 +56,7 @@ $currentName = (string) ($batch['name'] ?? '');
                             class="custom-form-input"
                             name="name"
                             required
-                            placeholder="Contoh: REPORT HARIAN - 5 AGUSTUS 2026"
+                            placeholder="Contoh: LAPORAN HARIAN - 5 AGUSTUS 2026"
                             x-model="reportName"
                         >
                     </div>
@@ -218,7 +218,7 @@ $currentName = (string) ($batch['name'] ?? '');
                 const m = parseInt(parts[1], 10) - 1;
                 const d = parseInt(parts[2], 10);
                 if (isNaN(d) || isNaN(m) || !months[m]) return '';
-                return `REPORT HARIAN - ${d} ${months[m]} ${y}`;
+                return `LAPORAN HARIAN - ${d} ${months[m]} ${y}`;
             },
 
             onDateSelected(newDate) {

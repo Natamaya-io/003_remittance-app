@@ -168,7 +168,7 @@ function format_report_name_from_date(?string $date): string
         $d = $dt->format('j');
         $m = $months[(int) $dt->format('n')] ?? strtoupper($dt->format('F'));
         $y = $dt->format('Y');
-        return "REPORT HARIAN - {$d} {$m} {$y}";
+        return "LAPORAN HARIAN - {$d} {$m} {$y}";
     } catch (Throwable) {
         return '';
     }
