@@ -50,6 +50,38 @@ $batchDate = (string) ($batch['effective_date'] ?? $effectiveDate ?? $batch['rep
 $dateBackUrl = $batchDate !== '' ? url('/reports/date/' . $batchDate) : url('/reports');
 $teamNameDisplay = (string) ($batch['effective_team'] ?? $batch['team_name'] ?? $batch['client_name'] ?? 'Tanpa Tim');
 
+$monthNamesUpper = [
+    1 => 'JANUARI', 2 => 'FEBRUARI', 3 => 'MARET', 4 => 'APRIL',
+    5 => 'MEI', 6 => 'JUNI', 7 => 'JULI', 8 => 'AGUSTUS',
+    9 => 'SEPTEMBER', 10 => 'OKTOBER', 11 => 'NOVEMBER', 12 => 'DESEMBER',
+];
+
+$formattedBatchDateUpper = '';
+if ($batchDate !== '') {
+    try {
+        $dateObj = new \DateTime($batchDate);
+        $day = $dateObj->format('j');
+        $monthUpper = $monthNamesUpper[(int) $dateObj->format('n')] ?? strtoupper($dateObj->format('F'));
+        $year = $dateObj->format('Y');
+        $formattedBatchDateUpper = $day . ' ' . $monthUpper . ' ' . $year;
+    } catch (\Throwable) {
+        $formattedBatchDateUpper = '';
+    }
+}
+
+$rawBatchName = trim((string) ($batch['name'] ?? ''));
+if ($formattedBatchDateUpper !== '') {
+    if (preg_match('/^(REPORT|LAPORAN)\s+HARIAN/i', $rawBatchName)) {
+        $pageHeadingTitle = 'REPORT HARIAN - ' . $formattedBatchDateUpper;
+    } elseif ($rawBatchName !== '') {
+        $pageHeadingTitle = $rawBatchName . ' - ' . $formattedBatchDateUpper;
+    } else {
+        $pageHeadingTitle = 'REPORT HARIAN - ' . $formattedBatchDateUpper;
+    }
+} else {
+    $pageHeadingTitle = $rawBatchName !== '' ? $rawBatchName : 'Detail Batch Report';
+}
+
 $totalRows = (int) ($summary['total_rows'] ?? count($rows));
 $sentRows = (int) ($summary['sent_rows'] ?? 0);
 $pendingRows = (int) ($summary['pending_rows'] ?? 0);
@@ -105,7 +137,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
             <?= render_heading_with_info(
-                (string) (($batch['name'] ?? '') !== '' ? $batch['name'] : 'Detail Batch Report'),
+                $pageHeadingTitle,
                 'Detail seluruh baris transaksi dan status pengiriman untuk batch laporan ini.',
                 [
                     'titleTag'     => 'h1',
@@ -114,15 +146,16 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                 ]
             ) ?>
             <div class="flex items-center gap-2 mt-1.5 flex-wrap">
-                <span class="inline-flex items-center py-0.5 px-2.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-700">
-                    <?= e((string) ($batch['month_key'] ?? '')) ?>
+                <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-900 tabular-nums">
+                    <i class="bi bi-layers text-gray-400" aria-hidden="true"></i>
+                    <span>Batch #<?= (int) ($batch['id'] ?? 0) ?></span>
                 </span>
-                <span class="inline-flex items-center py-0.5 px-2.5 rounded-full text-xs font-semibold bg-gray-100 text-gray-700">
-                    <?= e(format_date($batchDate)) ?>
+                <span class="text-xs text-gray-300">·</span>
+                <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-700">
+                    <i class="bi bi-people text-gray-400" aria-hidden="true"></i>
+                    <span><?= e($teamNameDisplay) ?></span>
                 </span>
-                <span class="text-xs text-gray-400">·</span>
-                <span class="text-xs font-semibold text-gray-700"><?= e($teamNameDisplay) ?></span>
-                <span class="text-xs text-gray-400">·</span>
+                <span class="text-xs text-gray-300">·</span>
                 <span class="text-xs text-gray-500">Berkas: <span class="font-medium text-gray-700"><?= e((string) ($batch['source_filename'] ?? '')) ?></span></span>
             </div>
         </div>
