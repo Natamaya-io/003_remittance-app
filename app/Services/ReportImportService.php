@@ -35,7 +35,7 @@ final class ReportImportService
             && preg_match('/^\d{4}-\d{2}$/', $expectedMonth) !== 1
         ) {
             throw new RuntimeException(
-                'Format bulan report tidak valid. Gunakan YYYY-MM.'
+                'Format bulan laporan tidak valid. Gunakan YYYY-MM.'
             );
         }
 
@@ -44,7 +44,7 @@ final class ReportImportService
             && $fallbackDate !== ''
             && $this->parseDate($fallbackDate) === null
         ) {
-            throw new RuntimeException('Tanggal report tidak valid.');
+            throw new RuntimeException('Tanggal laporan tidak valid.');
         }
 
         $clientName = $this->cleanText($clientName);
@@ -373,7 +373,7 @@ final class ReportImportService
                 : '';
 
             throw new RuntimeException(
-                'Tidak ada baris report valid yang dapat diimpor.' . $detail
+                'Tidak ada baris laporan valid yang dapat diimpor.' . $detail
             );
         }
 

@@ -114,7 +114,7 @@ final class ReportController extends BaseController
         $dates = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         $this->view('reports/month', [
-            'title' => 'Report ' . $this->monthLabel($month),
+            'title' => 'Laporan ' . $this->monthLabel($month),
             'month' => $month,
             'dates' => $dates,
             'filters' => $filters,
@@ -168,7 +168,7 @@ final class ReportController extends BaseController
         $batches = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         $this->view('reports/date', [
-            'title' => 'Report ' . $this->dateLabel($date),
+            'title' => 'Laporan ' . $this->dateLabel($date),
             'date' => $date,
             'batches' => $batches,
             'filters' => $filters,
@@ -233,7 +233,7 @@ final class ReportController extends BaseController
         $rows = $rowStatement->fetchAll(PDO::FETCH_ASSOC);
 
         $this->view('reports/search', [
-            'title' => 'Pencarian Report',
+            'title' => 'Pencarian Laporan',
             'filters' => $filters,
             'teams' => $this->teamOptions(),
             'batches' => $batches,
@@ -276,7 +276,7 @@ final class ReportController extends BaseController
 
         if ($reportDate !== null && (!$this->isValidDate($reportDate))) {
             remember_old($_POST);
-            flash('danger', 'Tanggal report tidak valid.');
+            flash('danger', 'Tanggal laporan tidak valid.');
             redirect('/reports/create');
         }
 
@@ -290,7 +290,7 @@ final class ReportController extends BaseController
 
         if ($name === '' || $reportDate === null) {
             remember_old($_POST);
-            flash('danger', 'Nama report dan tanggal report wajib diisi.');
+            flash('danger', 'Nama laporan dan tanggal laporan wajib diisi.');
             redirect('/reports/create');
         }
 
@@ -314,12 +314,12 @@ final class ReportController extends BaseController
         try {
             $extension = strtolower(pathinfo((string) ($_FILES['report_file']['name'] ?? ''), PATHINFO_EXTENSION));
             if (!in_array($extension, ['xlsx', 'csv'], true)) {
-                throw new \RuntimeException('Format report harus XLSX atau CSV. File XLS lama perlu disimpan ulang menjadi XLSX.');
+                throw new \RuntimeException('Format laporan harus XLSX atau CSV. File XLS lama perlu disimpan ulang menjadi XLSX.');
             }
 
             $storedPath = UploadService::store($_FILES['report_file'], 'reports/' . str_replace('-', '/', $month));
             if ($storedPath === null) {
-                throw new \RuntimeException('File report gagal disimpan.');
+                throw new \RuntimeException('File laporan gagal disimpan.');
             }
 
             $absolutePath = BASE_PATH . '/public/' . $storedPath;
@@ -439,7 +439,7 @@ final class ReportController extends BaseController
                 @unlink(BASE_PATH . '/public/' . $storedPath);
             }
             remember_old($_POST);
-            flash('danger', 'Import report gagal: ' . $exception->getMessage());
+            flash('danger', 'Import laporan gagal: ' . $exception->getMessage());
             redirect('/reports/create');
         }
     }
@@ -448,7 +448,7 @@ final class ReportController extends BaseController
     {
         $this->permission('report.view');
         if (!ctype_digit($id) && !is_numeric($id)) {
-            flash('danger', 'Report tidak ditemukan atau telah dihapus.');
+            flash('danger', 'Laporan tidak ditemukan atau telah dihapus.');
             redirect('/reports');
         }
         $batch = $this->findBatch((int) $id);
@@ -515,13 +515,13 @@ final class ReportController extends BaseController
     {
         $this->permission('report.manage');
         if (!ctype_digit($id) && !is_numeric($id)) {
-            flash('danger', 'Report tidak ditemukan atau telah dihapus.');
+            flash('danger', 'Laporan tidak ditemukan atau telah dihapus.');
             redirect('/reports');
         }
         $batch = $this->findBatch((int) $id);
 
         $this->view('reports/edit', [
-            'title' => 'Edit Report',
+            'title' => 'Edit Laporan',
             'batch' => $batch,
             'teams' => $this->teamOptions(),
         ]);
@@ -531,7 +531,7 @@ final class ReportController extends BaseController
     {
         $this->permission('report.manage');
         if (!ctype_digit($id) && !is_numeric($id)) {
-            flash('danger', 'Report tidak ditemukan atau telah dihapus.');
+            flash('danger', 'Laporan tidak ditemukan atau telah dihapus.');
             redirect('/reports');
         }
         $batchId = (int) $id;
@@ -544,7 +544,7 @@ final class ReportController extends BaseController
         $teamName = trim((string) ($_POST['team_name'] ?? '')) ?: $clientName;
 
         if ($reportDate !== null && (!$this->isValidDate($reportDate))) {
-            flash('danger', 'Tanggal report tidak valid.');
+            flash('danger', 'Tanggal laporan tidak valid.');
             redirect('/reports/' . $batchId . '/edit');
         }
 
@@ -557,7 +557,7 @@ final class ReportController extends BaseController
         }
 
         if ($name === '') {
-            flash('danger', 'Nama report wajib diisi.');
+            flash('danger', 'Nama laporan wajib diisi.');
             redirect('/reports/' . $batchId . '/edit');
         }
 
@@ -581,7 +581,7 @@ final class ReportController extends BaseController
 
         $after = $this->findBatch($batchId);
         AuditService::log('update', 'report_batch', $batchId, $before, $after);
-        flash('success', 'Metadata report berhasil diperbarui.');
+        flash('success', 'Metadata laporan berhasil diperbarui.');
 
         if ($reportDate !== null) {
             redirect('/reports/date/' . $reportDate);
@@ -608,7 +608,7 @@ final class ReportController extends BaseController
         $statement = App::db()->prepare('UPDATE report_rows SET delivery_status=?,result_status=?,notes=?,updated_at=NOW() WHERE id=? AND batch_id=?');
         $statement->execute([$delivery, $result, $notes, $rowId, $batchId]);
         $this->refreshBatchCounts($batchId);
-        flash('success', 'Status baris report diperbarui.');
+        flash('success', 'Status baris laporan diperbarui.');
         redirect('/reports/' . $batchId . $this->returnQuery());
     }
 
@@ -618,7 +618,7 @@ final class ReportController extends BaseController
         $batchId = (int) $id;
         $rowIds = array_values(array_filter(array_map('intval', (array) ($_POST['row_ids'] ?? []))));
         if ($rowIds === []) {
-            flash('warning', 'Pilih minimal satu baris report.');
+            flash('warning', 'Pilih minimal satu baris laporan.');
             redirect('/reports/' . $batchId . $this->returnQuery());
         }
 
@@ -646,7 +646,7 @@ final class ReportController extends BaseController
         );
         $statement->execute($params);
         $this->refreshBatchCounts($batchId);
-        flash('success', count($rowIds) . ' baris report berhasil diperbarui.');
+        flash('success', count($rowIds) . ' baris laporan berhasil diperbarui.');
         redirect('/reports/' . $batchId . $this->returnQuery());
     }
 
@@ -654,7 +654,7 @@ final class ReportController extends BaseController
     {
         $this->permission('report.view');
         if (!ctype_digit($id) && !is_numeric($id)) {
-            flash('danger', 'Report tidak ditemukan atau telah dihapus.');
+            flash('danger', 'Laporan tidak ditemukan atau telah dihapus.');
             redirect('/reports');
         }
         $batch = $this->findBatch((int) $id);
@@ -675,7 +675,7 @@ final class ReportController extends BaseController
 
         $effectiveDate = $this->effectiveDateSql('b');
         $statement = App::db()->prepare(
-            "SELECT b.id, b.name, COALESCE(NULLIF(b.team_name,''), NULLIF(b.client_name,''), CONCAT('Report ', b.id)) AS team_name
+            "SELECT b.id, b.name, COALESCE(NULLIF(b.team_name,''), NULLIF(b.client_name,''), CONCAT('Laporan ', b.id)) AS team_name
              FROM report_batches b
              WHERE {$effectiveDate}=?
              ORDER BY team_name, b.id"
@@ -694,18 +694,18 @@ final class ReportController extends BaseController
         }
 
         if ($sheets === []) {
-            flash('warning', 'Tidak ada report pada tanggal tersebut.');
+            flash('warning', 'Tidak ada laporan pada tanggal tersebut.');
             redirect('/reports/date/' . $date);
         }
 
-        $this->downloadRows($sheets, 'Report ' . $date . '.xlsx');
+        $this->downloadRows($sheets, 'Laporan ' . $date . '.xlsx');
     }
 
     public function destroy(string $id): void
     {
         $this->permission('report.manage');
         if (!ctype_digit($id) && !is_numeric($id)) {
-            flash('danger', 'Report tidak ditemukan atau telah dihapus.');
+            flash('danger', 'Laporan tidak ditemukan atau telah dihapus.');
             redirect('/reports');
         }
         $batch = $this->findBatch((int) $id);
@@ -714,7 +714,7 @@ final class ReportController extends BaseController
             @unlink(BASE_PATH . '/public/' . $batch['source_path']);
         }
         AuditService::log('delete', 'report_batch', (int) $id, $batch, null);
-        flash('success', 'Report dan seluruh barisnya berhasil dihapus.');
+        flash('success', 'Laporan dan seluruh barisnya berhasil dihapus.');
         redirect($this->safeReturnPath('/reports'));
     }
 
@@ -1005,7 +1005,7 @@ final class ReportController extends BaseController
     private function findBatch(int $id): array
     {
         if ($id <= 0) {
-            flash('danger', 'Report tidak ditemukan atau telah dihapus.');
+            flash('danger', 'Laporan tidak ditemukan atau telah dihapus.');
             redirect('/reports');
         }
 
@@ -1020,7 +1020,7 @@ final class ReportController extends BaseController
         $statement->execute([$id]);
         $batch = $statement->fetch(PDO::FETCH_ASSOC);
         if (!$batch) {
-            flash('danger', 'Report tidak ditemukan atau telah dihapus.');
+            flash('danger', 'Laporan tidak ditemukan atau telah dihapus.');
             redirect('/reports');
         }
         return $batch;
@@ -1091,7 +1091,7 @@ final class ReportController extends BaseController
 
     private function uniqueSheetName(string $name, array $existing): string
     {
-        $base = preg_replace('/[\\\/\?\*\[\]:]/', ' ', trim($name)) ?: 'Report';
+        $base = preg_replace('/[\\\/\?\*\[\]:]/', ' ', trim($name)) ?: 'Laporan';
         $base = substr($base, 0, 27);
         $candidate = $base;
         $counter = 2;

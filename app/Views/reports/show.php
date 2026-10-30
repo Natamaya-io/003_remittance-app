@@ -79,7 +79,7 @@ if ($formattedBatchDateUpper !== '') {
         $pageHeadingTitle = 'LAPORAN HARIAN - ' . $formattedBatchDateUpper;
     }
 } else {
-    $pageHeadingTitle = $rawBatchName !== '' ? $rawBatchName : 'Detail Batch Report';
+    $pageHeadingTitle = $rawBatchName !== '' ? $rawBatchName : 'Detail Batch Laporan';
 }
 
 $totalRows = (int) ($summary['total_rows'] ?? count($rows));
@@ -163,7 +163,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
         <div class="flex flex-wrap items-center gap-2">
             <a class="btn-secondary" href="<?= e($dateBackUrl) ?>">
                 <i class="bi bi-arrow-left"></i>
-                <span>Report per Tim</span>
+                <span>Laporan per Tim</span>
             </a>
 
             <?php if (can('report.manage')): ?>
@@ -461,7 +461,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                 </span>
                 <div class="alert-body">
                     <strong class="alert-title font-semibold">Transaksi Pending</strong>
-                    <div class="alert-message">Terdapat <?= number_format($pendingRows, 0, ',', '.') ?> baris transaksi yang belum terkirim (pending) pada berkas report ini.</div>
+                    <div class="alert-message">Terdapat <?= number_format($pendingRows, 0, ',', '.') ?> baris transaksi yang belum terkirim (pending) pada berkas laporan ini.</div>
                 </div>
             </div>
             <button
@@ -807,7 +807,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                                         Ubah Status Transaksi #<span x-text="activeRow.order"></span>
                                     </strong>
                                     <?= render_tooltip(
-                                        'Perbarui status pengiriman, hasil transaksi, atau catatan operasional baris report ini.',
+                                        'Perbarui status pengiriman, hasil transaksi, atau catatan operasional baris laporan ini.',
                                         '<span class="hs-tooltip-toggle info-toggle-btn cursor-help" aria-label="Info ubah status"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
                                         ['placement' => 'top', 'contentClass' => 'z-[100000]']
                                     ) ?>

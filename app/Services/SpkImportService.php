@@ -16,7 +16,7 @@ use RuntimeException;
 final class SpkImportService
 {
     public const SOURCE_TYPES = [
-        'report_2024' => 'Report Sukses 2024',
+        'report_2024' => 'Laporan Sukses 2024',
         'actual' => 'Actual LIST MT199 (Refund BNI + BRI)',
     ];
 
@@ -190,7 +190,7 @@ final class SpkImportService
         }
 
         if ($usedSheet === null) {
-            throw new RuntimeException('Format Report 2024 tidak dikenali.');
+            throw new RuntimeException('Format Laporan 2024 tidak dikenali.');
         }
 
         return [

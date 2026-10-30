@@ -265,8 +265,8 @@ final class SpkAnalysisService
                         'refunds' => $refundP2,
                     ],
                     'sources' => [
-                        'C1-C5' => 'Report Sukses 2024',
-                        'C6' => 'Report Sukses 2024 + Actual LIST MT199 (REFUND BNI/BRI)',
+                        'C1-C5' => 'Laporan Sukses 2024',
+                        'C6' => 'Laporan Sukses 2024 + Actual LIST MT199 (REFUND BNI/BRI)',
                     ],
                 ];
                 $detailJson = json_encode($detail, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
@@ -305,7 +305,7 @@ final class SpkAnalysisService
         $ready = $this->sourceReadiness();
         if (!$ready['report_2024'] || !$ready['actual']) {
             $missing = [];
-            if (!$ready['report_2024']) $missing[] = 'Report Sukses 2024';
+            if (!$ready['report_2024']) $missing[] = 'Laporan Sukses 2024';
             if (!$ready['actual']) $missing[] = 'Actual LIST MT199';
             throw new RuntimeException(
                 'Sumber analisis belum lengkap. Import terlebih dahulu: ' . implode(' dan ', $missing) . '.'
@@ -386,7 +386,7 @@ final class SpkAnalysisService
             $alternatives = $calculation['alternatives'];
             $criteriaSnapshot = [
                 'periods' => $calculation['periods'] ?? null,
-                'sources' => ['Report Sukses 2024', 'Actual LIST MT199 - REFUND BNI/BRI'],
+                'sources' => ['Laporan Sukses 2024', 'Actual LIST MT199 - REFUND BNI/BRI'],
                 'criteria' => $criteria,
                 'entropy_method' => 'Benefit Kij = Xij / max(Xj); aij = Kij / Sum(Kij); Ej; Dj=1-Ej; Wj=Dj/Sum(Dj)',
                 'topsis_method' => 'Rij vector normalization; Yij=Wj*Rij; A+/A-; D+/D-; Vi=D-/(D++D-)',

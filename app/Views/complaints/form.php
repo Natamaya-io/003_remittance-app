@@ -23,7 +23,7 @@ $histories = is_array($histories ?? null) ? $histories : [];
                 <div class="flex items-center gap-2">
                     <h3 class="text-base font-semibold text-gray-900 m-0">Sumber kasus</h3>
                     <?= render_tooltip(
-                        'Pilih baris report untuk mengisi perusahaan, subjek, dan detail secara otomatis.',
+                        'Pilih baris laporan untuk mengisi perusahaan, subjek, dan detail secara otomatis.',
                         '<span class="info-toggle-btn cursor-help" aria-label="Info sumber"><i class="bi bi-info-circle text-xs leading-none"></i></span>',
                         ['placement' => 'top']
                     ) ?>
@@ -35,13 +35,13 @@ $histories = is_array($histories ?? null) ? $histories : [];
                     <div class="flex items-center gap-1.5 mb-1">
                         <label class="block text-xs font-semibold text-gray-700">Baris Laporan</label>
                         <?= render_tooltip(
-                            'Hanya 1.000 baris report terbaru ditampilkan. Gunakan tombol "Buat Complain" pada halaman report untuk memilih baris tertentu.',
+                            'Hanya 1.000 baris laporan terbaru ditampilkan. Gunakan tombol "Buat Complain" pada halaman laporan untuk memilih baris tertentu.',
                             '<span class="info-toggle-btn cursor-help" aria-label="Info batas baris"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
                             ['placement' => 'top']
                         ) ?>
                     </div>
                     <select class="custom-form-select" name="report_row_id" data-report-row-select>
-                        <option value="">Complain manual / tidak terkait report</option>
+                        <option value="">Complain manual / tidak terkait laporan</option>
                         <?php foreach ($reportRows as $row):
                             $statusText = ($row['delivery_status'] ?? '-') . ' / ' . ($row['result_status'] ?? '-');
                             $amountText = trim((string) ($row['currency'] ?? '')) . ' ' . number_format((float) ($row['amount'] ?? 0), 2, ',', '.');
@@ -168,7 +168,7 @@ $histories = is_array($histories ?? null) ? $histories : [];
             <li class="flex items-start gap-2.5">
                 <span class="size-6 rounded-full border border-gray-300 text-gray-700 font-medium text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
                 <div>
-                    <strong class="text-xs font-semibold text-gray-800 block">Pilih sumber report</strong>
+                    <strong class="text-xs font-semibold text-gray-800 block">Pilih sumber laporan</strong>
                     <span class="text-xs text-gray-500">Data beneficiary, nominal, dan status ditarik otomatis.</span>
                 </div>
             </li>

@@ -58,7 +58,7 @@
                             <strong><?= e($complaint['company_name']) ?></strong>
                             <?php if (!empty($complaint['report_row_id'])): ?>
                                 <small class="d-block text-[#315B8C]">
-                                    <i class="bi bi-table"></i> <?= e(($complaint['report_batch_name'] ?? 'Report') . ' · ' . ($complaint['report_month'] ?? '')) ?>
+                                    <i class="bi bi-table"></i> <?= e(($complaint['report_batch_name'] ?? 'Laporan') . ' · ' . ($complaint['report_month'] ?? '')) ?>
                                 </small>
                             <?php else: ?>
                                 <small class="d-block text-muted"><?= e($complaint['reference_no'] ?? 'Manual') ?></small>

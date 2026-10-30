@@ -69,7 +69,7 @@ final class ComplaintController extends BaseController
         $id = (int) App::db()->lastInsertId();
         AuditService::log('create', 'complaint', $id, null, $data);
         $this->logHistory($id, 'created', 'Complain dibuat dari ' . ($data['report_row_id'] ? 'Laporan' : 'input manual') . '.', null, (string) $data['status']);
-        flash('success', 'Complain berhasil dibuat dan sumber report tersimpan.');
+        flash('success', 'Complain berhasil dibuat dan sumber laporan tersimpan.');
         redirect('/complaints');
     }
 
@@ -138,7 +138,7 @@ final class ComplaintController extends BaseController
             $stmt->execute([$reportRowId]);
             $source = $stmt->fetch(PDO::FETCH_ASSOC);
             if (!$source) {
-                flash('danger', 'Baris report yang dipilih tidak ditemukan.');
+                flash('danger', 'Baris laporan yang dipilih tidak ditemukan.');
                 redirect($_SERVER['HTTP_REFERER'] ?? '/complaints/create');
             }
             if ($companyId <= 0 && (int) ($source['matched_company_id'] ?? 0) > 0) {
@@ -146,7 +146,7 @@ final class ComplaintController extends BaseController
             }
             if ($description === null) {
                 $description = sprintf(
-                    "Sumber report: %s (%s)\nBeneficiary: %s\nNominal: %s %s\nBank/SWIFT: %s / %s\nStatus: %s / %s",
+                    "Sumber laporan: %s (%s)\nBeneficiary: %s\nNominal: %s %s\nBank/SWIFT: %s / %s\nStatus: %s / %s",
                     (string) $source['batch_name'],
                     (string) $source['month_key'],
                     (string) $source['beneficiary_name'],
@@ -162,7 +162,7 @@ final class ComplaintController extends BaseController
 
         $subject = trim((string) ($_POST['subject'] ?? ''));
         if ($subject === '' || $companyId <= 0) {
-            flash('danger', 'Perusahaan dan subjek wajib diisi. Pilih perusahaan secara manual apabila nama payer report belum cocok dengan Data PT.');
+            flash('danger', 'Perusahaan dan subjek wajib diisi. Pilih perusahaan secara manual apabila nama payer laporan belum cocok dengan Data PT.');
             redirect($_SERVER['HTTP_REFERER'] ?? '/complaints');
         }
 

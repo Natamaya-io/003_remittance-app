@@ -177,7 +177,7 @@ if ($canTransactionManage) {
 if ($canReportManage) {
 
     $quickActions[] = [
-        'title' => 'Report Bulanan',
+        'title' => 'Laporan Bulanan',
         'description' => 'Import monitoring bulanan.',
         'icon' => 'bi-calendar2-data',
         'tone' => 'purple',
@@ -191,7 +191,7 @@ if ($canComplaintManage) {
 
     $quickActions[] = [
         'title' => 'Buat Complain',
-        'description' => 'Tarik data dari report.',
+        'description' => 'Tarik data dari laporan.',
         'icon' => 'bi-headset',
         'tone' => 'orange',
         'url' => url('/complaints/create'),
@@ -316,7 +316,7 @@ $fxBoardFile =
 
             <?= render_heading_with_info(
                 'Selamat datang, ' . e($userName),
-                'Pantau transaksi, report, kurs referensi, complain, invoice, dan analisis keputusan melalui satu dashboard operasional.',
+                'Pantau transaksi, laporan, kurs referensi, complain, invoice, dan analisis keputusan melalui satu dashboard operasional.',
                 [
                     'titleTag'     => 'h2',
                     'titleClass'   => 'm-0',
@@ -357,7 +357,7 @@ $fxBoardFile =
 
                         <i class="bi bi-file-earmark-spreadsheet"></i>
 
-                        Import Report
+                        Import Laporan
 
                     </a>
 
@@ -586,7 +586,7 @@ $fxBoardFile =
                     ) ?>"
                 >
 
-                    Buka report
+                    Buka laporan
 
                     <i class="bi bi-arrow-right"></i>
 

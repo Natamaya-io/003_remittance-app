@@ -348,12 +348,12 @@ final class AnalysisController extends BaseController
     private function rules(): array
     {
         return [
-            'growth_transaction_count' => 'C1 - Pertumbuhan jumlah transaksi (Report 2024)',
-            'growth_tx_per_active_day' => 'C2 - Pertumbuhan transaksi per hari aktif (Report 2024)',
-            'growth_country_count' => 'C3 - Pertumbuhan cakupan negara (Report 2024)',
-            'growth_bank_swift_count' => 'C4 - Pertumbuhan cakupan bank/SWIFT (Report 2024)',
-            'growth_currency_count' => 'C5 - Pertumbuhan keragaman mata uang (Report 2024)',
-            'no_refund_rate_p2' => 'C6 - Tingkat transaksi tanpa refund P2 (Report + Actual)',
+            'growth_transaction_count' => 'C1 - Pertumbuhan jumlah transaksi (Laporan 2024)',
+            'growth_tx_per_active_day' => 'C2 - Pertumbuhan transaksi per hari aktif (Laporan 2024)',
+            'growth_country_count' => 'C3 - Pertumbuhan cakupan negara (Laporan 2024)',
+            'growth_bank_swift_count' => 'C4 - Pertumbuhan cakupan bank/SWIFT (Laporan 2024)',
+            'growth_currency_count' => 'C5 - Pertumbuhan keragaman mata uang (Laporan 2024)',
+            'no_refund_rate_p2' => 'C6 - Tingkat transaksi tanpa refund P2 (Laporan + Actual)',
             'manual' => 'Manual (tidak digunakan pada mode penelitian)',
         ];
     }

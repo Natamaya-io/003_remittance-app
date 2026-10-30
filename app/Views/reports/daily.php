@@ -43,7 +43,7 @@ $print = (bool) ($print ?? false);
     <div class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-xs">
         <form method="get" action="<?= url('/reports/daily') ?>" class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
             <div class="md:col-span-3">
-                <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal report</label>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Tanggal laporan</label>
                 <?= render_datepicker('date', (string) $date, ['placeholder' => 'Pilih tanggal']) ?>
             </div>
             <div class="md:col-span-4"
@@ -165,7 +165,7 @@ $print = (bool) ($print ?? false);
     <div class="bg-white border border-gray-200 rounded-2xl shadow-xs overflow-hidden print-report">
         <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
             <div>
-                <h3 class="text-sm font-bold text-gray-900">Report <?= e(format_date($date)) ?></h3>
+                <h3 class="text-sm font-bold text-gray-900">Laporan <?= e(format_date($date)) ?></h3>
                 <span class="text-xs text-gray-500 font-mono"><?= number_format(count($rows), 0, ',', '.') ?> transaksi ditemukan pada filter aktif.</span>
             </div>
         </div>

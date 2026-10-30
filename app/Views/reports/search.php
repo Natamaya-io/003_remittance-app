@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /*
 |--------------------------------------------------------------------------
-| HASIL PENCARIAN REPORT (PRELINE UI & TAILWIND CSS NATIVE)
+| HASIL PENCARIAN LAPORAN (PRELINE UI & TAILWIND CSS NATIVE)
 |--------------------------------------------------------------------------
 */
 
@@ -23,7 +23,7 @@ $queryText = (string) ($filters['q'] ?? '');
     <div class="flex items-center justify-end gap-2">
         <a class="py-2 px-3.5 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-gray-200 bg-white text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 transition-colors" href="<?= e(url('/reports')) ?>">
             <i class="bi bi-arrow-left"></i>
-            Kembali ke Report
+            Kembali ke Laporan
         </a>
     </div>
 
@@ -281,7 +281,7 @@ $queryText = (string) ($filters['q'] ?? '');
                 </span>
                 <div class="alert-body">
                     <strong class="alert-title">Tidak Ada Hasil</strong>
-                    <div class="alert-message">Tidak ditemukan berkas report atau transaksi yang cocok dengan kata kunci &quot;<?= e($queryText) ?>&quot;. Silakan periksa kembali kata kunci atau gunakan parameter filter yang lebih longgar.</div>
+                    <div class="alert-message">Tidak ditemukan berkas laporan atau transaksi yang cocok dengan kata kunci &quot;<?= e($queryText) ?>&quot;. Silakan periksa kembali kata kunci atau gunakan parameter filter yang lebih longgar.</div>
                 </div>
             </div>
             <button
@@ -305,7 +305,7 @@ $queryText = (string) ($filters['q'] ?? '');
             <strong class="text-base sm:text-lg font-bold text-blue-900 block truncate"><?= e($queryText !== '' ? $queryText : '(Semua)') ?></strong>
         </div>
         <div class="bg-white border border-gray-200 rounded-2xl p-4 shadow-xs">
-            <span class="text-xs font-semibold text-gray-500 block mb-1">Report Ditemukan</span>
+            <span class="text-xs font-semibold text-gray-500 block mb-1">Laporan Ditemukan</span>
             <strong class="text-2xl font-bold text-gray-900 block font-mono"><?= number_format(count($batches), 0, ',', '.') ?></strong>
         </div>
         <div class="bg-emerald-50/60 border border-emerald-200 rounded-2xl p-4 shadow-xs">
@@ -315,11 +315,11 @@ $queryText = (string) ($filters['q'] ?? '');
     </div>
 
     <!-- =========================================================
-         REPORT BATCH CARDS GRID
+         LAPORAN BATCH CARDS GRID
          ========================================================= -->
     <section class="bg-white border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-xs">
         <div class="mb-4 pb-3 border-b border-gray-100 flex items-center justify-between">
-            <h3 class="text-sm font-semibold font-heading text-gray-900">Berkas Report yang Cocok</h3>
+            <h3 class="text-sm font-semibold font-heading text-gray-900">Berkas Laporan yang Cocok</h3>
             <span class="text-xs tabular-nums text-gray-500"><?= number_format(count($batches), 0, ',', '.') ?> berkas</span>
         </div>
 
@@ -349,7 +349,7 @@ $queryText = (string) ($filters['q'] ?? '');
 
                     <div class="flex items-center gap-2 pt-2 border-t border-gray-200">
                         <a class="btn-primary flex-1 justify-center" href="<?= e(url('/reports/' . $batch['id'] . '?q=' . urlencode($queryText))) ?>">
-                            <span>Buka Report</span>
+                            <span>Buka Laporan</span>
                         </a>
                         <?php $batchDateLink = !empty($batch['effective_date']) ? url('/reports/date/' . $batch['effective_date']) : url('/reports'); ?>
                         <a class="btn-secondary flex-1 justify-center" href="<?= e($batchDateLink) ?>">
@@ -383,7 +383,7 @@ $queryText = (string) ($filters['q'] ?? '');
                     <tr class="bg-gray-50/80 border-b border-gray-200 text-gray-600 font-semibold text-[11px] uppercase tracking-wider">
                         <th class="py-3 px-3 font-heading">Tanggal</th>
                         <th class="py-3 px-3 font-heading">Tim</th>
-                        <th class="py-3 px-3 font-heading">Report</th>
+                        <th class="py-3 px-3 font-heading">Laporan</th>
                         <th class="py-3 px-3 font-heading">Payer</th>
                         <th class="py-3 px-3 font-heading">Beneficiary</th>
                         <th class="py-3 px-3 font-heading">Bank</th>

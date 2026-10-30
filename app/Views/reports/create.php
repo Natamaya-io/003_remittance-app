@@ -53,7 +53,7 @@ $initialReportName = (string) old('name', $defaultReportName);
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                     <div class="sm:col-span-2">
-                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama report *</label>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama laporan *</label>
                         <input
                             class="custom-form-input"
                             name="name"
@@ -64,7 +64,7 @@ $initialReportName = (string) old('name', $defaultReportName);
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Tanggal report *</label>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Tanggal laporan *</label>
                         <div @change="if ($event.detail && $event.detail.value) onDateSelected($event.detail.value)">
                             <?= render_datepicker('report_date', (string) old('report_date', $selectedDate), ['required' => true, 'placeholder' => 'Pilih tanggal']) ?>
                         </div>
@@ -200,7 +200,7 @@ $initialReportName = (string) old('name', $defaultReportName);
                     </a>
                     <button class="btn-primary" type="submit">
                         <i class="bi bi-database-check"></i>
-                        <span>Import Report</span>
+                        <span>Import Laporan</span>
                     </button>
                 </div>
             </form>
@@ -211,7 +211,7 @@ $initialReportName = (string) old('name', $defaultReportName);
             <div>
                 <h3 class="text-base font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-100 flex items-center gap-2">
                     <i class="bi bi-diagram-3 text-gray-800"></i>
-                    Struktur Data Report
+                    Struktur Data Laporan
                 </h3>
                 <ol class="space-y-4 mb-6">
                     <li class="flex items-start gap-3">
@@ -219,7 +219,7 @@ $initialReportName = (string) old('name', $defaultReportName);
                         <div class="inline-flex items-center gap-1.5 pt-0.5">
                             <strong class="text-xs font-semibold text-gray-800">Tentukan tanggal</strong>
                             <?= render_tooltip(
-                                'Sistem membentuk kartu tanggal transaksi dan otomatis mengisi nama report.',
+                                'Sistem membentuk kartu tanggal transaksi dan otomatis mengisi nama laporan.',
                                 '<span class="info-toggle-btn cursor-help" aria-label="Info tentukan tanggal"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
                                 ['placement' => 'top']
                             ) ?>

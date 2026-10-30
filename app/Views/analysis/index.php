@@ -30,7 +30,7 @@
             </div>
             <div class="spk-source">
                 <div class="spk-source-icon"><i class="bi bi-file-earmark-spreadsheet"></i></div>
-                <div class="flex-grow-1"><strong>Report Sukses 2024</strong><div class="spk-muted">Sumber C1-C5: transaksi, hari aktif, negara, bank/SWIFT, dan mata uang.</div></div>
+                <div class="flex-grow-1"><strong>Laporan Sukses 2024</strong><div class="spk-muted">Sumber C1-C5: transaksi, hari aktif, negara, bank/SWIFT, dan mata uang.</div></div>
                 <span class="badge-spk <?= !empty($sourceReadiness['report_2024']) ? 'active' : '' ?>"><?= !empty($sourceReadiness['report_2024']) ? 'SIAP' : 'BELUM DIIMPORT' ?></span>
             </div>
             <div class="spk-source">
@@ -83,7 +83,7 @@
             <span>Lihat Perhitungan</span>
         </a>
     </div>
-    <div class="spk-formula mb-3"><strong>Pembentukan matriks:</strong> Report 2024 + Actual -> P1/P2 -> C1-C6 -> Matriks X</div>
+    <div class="spk-formula mb-3"><strong>Pembentukan matriks:</strong> Laporan 2024 + Actual -> P1/P2 -> C1-C6 -> Matriks X</div>
     <div class="spk-formula mb-3"><strong>Entropy:</strong> Benefit Kij = Xij / max(Xj) -> aij = Kij / Sum(Kij) -> Ej -> Dj = 1 - Ej -> Wj</div>
     <div class="spk-formula"><strong>TOPSIS:</strong> Rij -> Yij = Wj x Rij -> A+ / A- -> D+ / D- -> Vi = D- / (D+ + D-) -> Ranking</div>
 </div>

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /*
 |--------------------------------------------------------------------------
-| LAPORAN - TINGKAT TIM DAN REPORT (PRELINE UI & ALPINE.JS NATIVE)
+| LAPORAN - TINGKAT TIM DAN LAPORAN (PRELINE UI & ALPINE.JS NATIVE)
 |--------------------------------------------------------------------------
 */
 
@@ -487,7 +487,7 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                                         <?= render_tooltip('Export Excel', '<a class="btn-action-icon" href="' . e(url('/reports/' . $batch['id'] . '/export')) . '" aria-label="Export Excel Batch #' . (int) $batch['id'] . '"><i class="bi bi-file-earmark-excel"></i></a>') ?>
                                         <?php if (can('report.manage')): ?>
                                             <?= render_tooltip('Edit Metadata', '<a class="btn-action-icon" href="' . e(url('/reports/' . $batch['id'] . '/edit')) . '" aria-label="Edit Metadata Batch #' . (int) $batch['id'] . '"><i class="bi bi-pencil"></i></a>') ?>
-                                            <form class="inline-block m-0" method="post" action="<?= e(url('/reports/' . $batch['id'])) ?>" data-confirm="Hapus report ini beserta seluruh barisnya?">
+                                            <form class="inline-block m-0" method="post" action="<?= e(url('/reports/' . $batch['id'])) ?>" data-confirm="Hapus laporan ini beserta seluruh barisnya?">
                                                 <?= csrf_field() ?>
                                                 <?= method_field('DELETE') ?>
                                                 <input type="hidden" name="return_to" value="<?= e($returnPath) ?>">
@@ -584,7 +584,7 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                             <?= render_tooltip('Export Excel', '<a class="btn-action-icon" href="' . e(url('/reports/' . $batch['id'] . '/export')) . '" aria-label="Export Excel Batch #' . (int) $batch['id'] . '"><i class="bi bi-file-earmark-excel"></i></a>') ?>
                             <?php if (can('report.manage')): ?>
                                 <?= render_tooltip('Edit Metadata', '<a class="btn-action-icon" href="' . e(url('/reports/' . $batch['id'] . '/edit')) . '" aria-label="Edit Metadata Batch #' . (int) $batch['id'] . '"><i class="bi bi-pencil"></i></a>') ?>
-                                <form class="inline-block m-0" method="post" action="<?= e(url('/reports/' . $batch['id'])) ?>" data-confirm="Hapus report ini beserta seluruh barisnya?">
+                                <form class="inline-block m-0" method="post" action="<?= e(url('/reports/' . $batch['id'])) ?>" data-confirm="Hapus laporan ini beserta seluruh barisnya?">
                                     <?= csrf_field() ?>
                                     <?= method_field('DELETE') ?>
                                     <input type="hidden" name="return_to" value="<?= e($returnPath) ?>">
@@ -595,7 +595,7 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
 
                         <a class="btn-primary btn-primary-sm" href="<?= e(url('/reports/' . $batch['id'])) ?>">
                             <i class="bi bi-table"></i>
-                            <span>Buka Report</span>
+                            <span>Buka Laporan</span>
                         </a>
                     </div>
                 </article>

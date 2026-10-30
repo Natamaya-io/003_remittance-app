@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 /*
 |--------------------------------------------------------------------------
-| LAPORAN - EDIT METADATA (PRELINE & ALPINE NATIVE)
+| LAPORAN - EDIT LAPORAN (PRELINE & ALPINE NATIVE)
 |--------------------------------------------------------------------------
 */
 
@@ -51,7 +51,7 @@ $currentName = (string) ($batch['name'] ?? '');
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                     <div class="sm:col-span-2">
-                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama report *</label>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1.5">Nama laporan *</label>
                         <input
                             class="custom-form-input"
                             name="name"
@@ -63,10 +63,10 @@ $currentName = (string) ($batch['name'] ?? '');
 
                     <div>
                         <div class="flex items-center gap-1.5 mb-1.5">
-                            <label class="block text-xs font-semibold text-gray-700">Tanggal report *</label>
+                            <label class="block text-xs font-semibold text-gray-700">Tanggal laporan *</label>
                             <?= render_tooltip(
-                                'Mengubah tanggal report otomatis memperbarui nama report.',
-                                '<span class="info-toggle-btn cursor-help" aria-label="Info tanggal report"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
+                                'Mengubah tanggal laporan otomatis memperbarui nama laporan.',
+                                '<span class="info-toggle-btn cursor-help" aria-label="Info tanggal laporan"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
                                 ['placement' => 'top']
                             ) ?>
                         </div>
@@ -146,7 +146,7 @@ $currentName = (string) ($batch['name'] ?? '');
                         <div class="flex items-center gap-1.5 mb-1.5">
                             <label class="block text-xs font-semibold text-gray-700">File sumber</label>
                             <?= render_tooltip(
-                                'Untuk mengganti berkas Excel transaksi, hapus report lama dan upload file baru dengan tanggal yang sama.',
+                                'Untuk mengganti berkas Excel transaksi, hapus laporan lama dan upload file baru dengan tanggal yang sama.',
                                 '<span class="info-toggle-btn cursor-help" aria-label="Info pergantian berkas"><i class="bi bi-info-circle text-[10px] leading-none"></i></span>',
                                 ['placement' => 'top']
                             ) ?>
@@ -172,7 +172,7 @@ $currentName = (string) ($batch['name'] ?? '');
             <div>
                 <h3 class="text-base font-semibold text-gray-900 mb-4 pb-2 border-b border-gray-100 flex items-center gap-2">
                     <i class="bi bi-info-circle text-gray-800"></i>
-                    Informasi Report
+                    Informasi Laporan
                 </h3>
                 <dl class="divide-y divide-gray-100 text-xs">
                     <div class="py-2.5 flex justify-between items-center"><dt class="text-gray-500 font-medium">Batch ID</dt><dd class="font-bold text-gray-900 font-mono">#<?= (int) ($batch['id'] ?? 0) ?></dd></div>
@@ -190,7 +190,7 @@ $currentName = (string) ($batch['name'] ?? '');
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         if (window.remitToast && typeof window.remitToast.warning === 'function') {
-            window.remitToast.warning('Untuk mengganti berkas Excel transaksi, hapus report lama dan upload file baru dengan tanggal yang sama.', {
+            window.remitToast.warning('Untuk mengganti berkas Excel transaksi, hapus laporan lama dan upload file baru dengan tanggal yang sama.', {
                 title: 'Pergantian Berkas',
                 duration: 6000
             });
