@@ -375,8 +375,8 @@ $fxBoardFile =
                 class="dashboard-hero-illustration"
                 src="<?= e(url('/main_card.svg')) ?>"
                 alt="Ilustrasi Selamat Datang"
-                width="230"
-                height="200"
+                width="240"
+                height="215"
                 loading="eager"
                 decoding="async"
             >
