@@ -236,7 +236,6 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                             <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Tim</th>
                             <th scope="col" class="py-3.5 px-5 text-end text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Total Baris</th>
                             <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider" style="min-width: 170px;">Progress Kirim</th>
-                            <th scope="col" class="py-3.5 px-5 text-center text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Dilewati</th>
                             <th scope="col" class="py-3.5 px-5 text-start text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Upload Terakhir</th>
                             <th scope="col" class="py-3.5 px-5 text-end text-xs font-semibold font-heading text-gray-600 uppercase tracking-wider">Aksi</th>
                         </tr>
@@ -251,7 +250,6 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                             $total = (int) ($dateCard['total_rows'] ?? 0);
                             $sent = (int) ($dateCard['sent_rows'] ?? 0);
                             $pending = (int) ($dateCard['pending_rows'] ?? 0);
-                            $skipped = (int) ($dateCard['skipped_rows'] ?? 0);
                             $progress = $total > 0 ? min(100, (int) round(($sent / $total) * 100)) : 0;
 
                             $query = array_filter([
@@ -293,13 +291,6 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                                         </div>
                                     </div>
                                 </td>
-                                <td class="py-4 px-5 whitespace-nowrap text-center">
-                                    <?php if ($skipped > 0): ?>
-                                        <?= render_tooltip('Baris dilewati saat import', '<span class="inline-flex items-center py-0.5 px-2 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-200 cursor-default">' . number_format($skipped, 0, ',', '.') . '</span>') ?>
-                                    <?php else: ?>
-                                        <span class="text-xs text-gray-400">0</span>
-                                    <?php endif; ?>
-                                </td>
                                 <td class="py-4 px-5 whitespace-nowrap text-xs text-gray-500">
                                     <?= e(format_datetime($lastUpload)) ?>
                                 </td>
@@ -313,7 +304,7 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                         <?php endforeach; ?>
 
                         <?php if ($dates === []): ?>
-                            <?= render_table_empty_state(8, [
+                            <?= render_table_empty_state(7, [
                                 'action_url' => url('/reports/create?month=' . urlencode($month)),
                                 'action_label' => 'Upload Excel',
                                 'action_permission' => 'report.manage',
@@ -337,7 +328,6 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                 $total = (int) ($dateCard['total_rows'] ?? 0);
                 $sent = (int) ($dateCard['sent_rows'] ?? 0);
                 $pending = (int) ($dateCard['pending_rows'] ?? 0);
-                $skipped = (int) ($dateCard['skipped_rows'] ?? 0);
                 $progress = $total > 0 ? min(100, (int) round(($sent / $total) * 100)) : 0;
 
                 $query = array_filter([
@@ -374,7 +364,7 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                         </div>
 
                         <!-- KPI Grid -->
-                        <div class="grid grid-cols-2 gap-2 pt-2 border-t border-gray-100 text-xs">
+                        <div class="grid grid-cols-3 gap-2 pt-2 border-t border-gray-100 text-xs">
                             <div class="bg-gray-50/75 rounded-xl p-2.5">
                                 <span class="text-gray-500 block text-[11px]">Total Baris</span>
                                 <strong class="text-sm font-semibold text-gray-900 tabular-nums"><?= number_format($total, 0, ',', '.') ?></strong>
@@ -386,10 +376,6 @@ $activeFilterSummary = implode(' · ', $activeFilterList);
                             <div class="bg-amber-50/50 rounded-xl p-2.5 border border-amber-100">
                                 <span class="text-amber-700 block text-[11px]">Pending</span>
                                 <strong class="text-sm font-semibold text-amber-800 tabular-nums"><?= number_format($pending, 0, ',', '.') ?></strong>
-                            </div>
-                            <div class="bg-gray-50/75 rounded-xl p-2.5">
-                                <span class="text-gray-500 block text-[11px]">Dilewati</span>
-                                <strong class="text-sm font-semibold text-gray-700 tabular-nums"><?= number_format($skipped, 0, ',', '.') ?></strong>
                             </div>
                         </div>
 

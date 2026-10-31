@@ -259,6 +259,124 @@ function status_badge(
 }
 
 /**
+ * Resolusi Status Operasional Terpadu untuk Laporan RemitGo!
+ * Memetakan kombinasi 2 dimensi (delivery_status & result_status) menjadi 1 status operasional cerdas.
+ *
+ * @param string $deliveryStatus
+ * @param string $resultStatus
+ * @return array{key: string, label: string, full_label: string, badge_class: string, icon: string, delivery: string, result: string}
+ */
+function report_operational_status(string $deliveryStatus, string $resultStatus): array
+{
+    $delivery = strtoupper(trim($deliveryStatus));
+    $result = strtoupper(trim($resultStatus));
+
+    if ($result === 'SUCCESS') {
+        return [
+            'key' => 'SUCCESS',
+            'label' => 'Sukses',
+            'full_label' => 'Sukses (Selesai)',
+            'badge_class' => 'bg-emerald-50 text-emerald-700 border-emerald-200',
+            'icon' => 'bi-check-lg',
+            'delivery' => 'SENT',
+            'result' => 'SUCCESS',
+        ];
+    }
+
+    if ($result === 'FAILED') {
+        return [
+            'key' => 'FAILED',
+            'label' => 'Gagal / Retur',
+            'full_label' => 'Gagal / Retur (Ditolak Bank)',
+            'badge_class' => 'bg-red-50 text-red-700 border-red-200',
+            'icon' => 'bi-x-lg',
+            'delivery' => 'SENT',
+            'result' => 'FAILED',
+        ];
+    }
+
+    if ($delivery === 'SENT') {
+        return [
+            'key' => 'SENT',
+            'label' => 'Terkirim (Proses Bank)',
+            'full_label' => 'Terkirim (Menunggu Kliring Bank)',
+            'badge_class' => 'bg-blue-50 text-blue-700 border-blue-200',
+            'icon' => 'bi-send-check',
+            'delivery' => 'SENT',
+            'result' => 'PENDING',
+        ];
+    }
+
+    return [
+        'key' => 'NEW',
+        'label' => 'Antrean Baru',
+        'full_label' => 'Antrean Baru (Belum Kirim)',
+        'badge_class' => 'bg-amber-50 text-amber-700 border-amber-200',
+        'icon' => 'bi-hourglass-split',
+        'delivery' => 'PENDING',
+        'result' => 'PENDING',
+    ];
+}
+
+/**
+ * Render Badge Status Operasional Terpadu untuk Tabel Laporan
+ */
+function render_report_status_badge(string $deliveryStatus, string $resultStatus): string
+{
+    $status = report_operational_status($deliveryStatus, $resultStatus);
+    return '<span class="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-semibold border ' .
+        $status['badge_class'] .
+        '"><i class="bi ' .
+        $status['icon'] .
+        '"></i> ' .
+        e($status['label']) .
+        '</span>';
+}
+
+/**
+ * Daftar Preset Status Operasional untuk Filter & Form
+ *
+ * @return array<string, array{label: string, short_label: string, delivery: string, result: string, icon: string, color: string}>
+ */
+function get_report_status_presets(): array
+{
+    return [
+        'NEW' => [
+            'label' => 'Antrean Baru (Belum Kirim)',
+            'short_label' => 'Antrean Baru',
+            'delivery' => 'PENDING',
+            'result' => 'PENDING',
+            'icon' => 'bi-hourglass-split',
+            'color' => '#d97706',
+        ],
+        'SENT' => [
+            'label' => 'Terkirim (Menunggu Kliring Bank)',
+            'short_label' => 'Terkirim (Proses Bank)',
+            'delivery' => 'SENT',
+            'result' => 'PENDING',
+            'icon' => 'bi-send-check',
+            'color' => '#2563eb',
+        ],
+        'SUCCESS' => [
+            'label' => 'Sukses (Selesai)',
+            'short_label' => 'Sukses',
+            'delivery' => 'SENT',
+            'result' => 'SUCCESS',
+            'icon' => 'bi-check-lg',
+            'color' => '#059669',
+        ],
+        'FAILED' => [
+            'label' => 'Gagal / Retur',
+            'short_label' => 'Gagal / Retur',
+            'delivery' => 'SENT',
+            'result' => 'FAILED',
+            'icon' => 'bi-x-lg',
+            'color' => '#dc2626',
+        ],
+    ];
+}
+
+/**
  * Render Custom Asphalt/Tailwind Datepicker Component (Alpine.js driven)
  * Completely eliminates browser-native OS calendar popups.
  *

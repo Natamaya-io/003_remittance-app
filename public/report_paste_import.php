@@ -1340,11 +1340,6 @@ kolom
                 let message =
                     `${result.inserted} baris berhasil diimpor.`;
 
-                if (result.skipped > 0) {
-                    message +=
-                        ` ${result.skipped} baris dilewati.`;
-                }
-
                 if (
                     Array.isArray(
                         result.errors

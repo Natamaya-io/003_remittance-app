@@ -71,7 +71,7 @@ declare(strict_types=1);
                 action="<?= e(url('/login')) ?>"
                 class="space-y-4 sm:space-y-5"
                 x-data="{ loading: false }"
-                @submit="loading = true"
+                @submit="loading = true; try { sessionStorage.removeItem('remitgo_postpone_password_modal'); } catch (e) {}"
             >
                 <?= csrf_field() ?>
 

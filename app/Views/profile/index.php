@@ -46,7 +46,7 @@
                     ) ?>
                 </div>
             </div>
-            <form method="post" action="<?= url('/profile/password') ?>" class="space-y-4">
+            <form method="post" action="<?= url('/profile/password') ?>" class="space-y-4" onsubmit="try { sessionStorage.removeItem('remitgo_postpone_password_modal'); } catch (e) {}">
                 <?= csrf_field() . method_field('PUT') ?>
                 <div>
                     <label class="block text-xs font-semibold text-gray-700 mb-1">Password Saat Ini</label>

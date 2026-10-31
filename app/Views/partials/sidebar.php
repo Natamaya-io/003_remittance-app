@@ -236,7 +236,7 @@ $userRoleName = trim(
                 <span>Pengaturan Akun</span>
             </a>
             <div class="dropdown-divider my-1"></div>
-            <form method="post" action="<?= url('/logout') ?>" class="m-0">
+            <form method="post" action="<?= url('/logout') ?>" class="m-0" onsubmit="try { sessionStorage.removeItem('remitgo_postpone_password_modal'); } catch (e) {}">
                 <?= csrf_field() ?>
                 <button
                     type="submit"
@@ -378,7 +378,7 @@ $userRoleName = trim(
                             <p class="text-[11px] text-gray-500 font-medium truncate"><?= e($userRoleName) ?></p>
                         </div>
                     </div>
-                    <form method="post" action="<?= url('/logout') ?>" class="m-0 shrink-0">
+                    <form method="post" action="<?= url('/logout') ?>" class="m-0 shrink-0" onsubmit="try { sessionStorage.removeItem('remitgo_postpone_password_modal'); } catch (e) {}">
                         <?= csrf_field() ?>
                         <button
                             type="submit"

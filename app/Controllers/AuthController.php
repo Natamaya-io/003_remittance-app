@@ -45,7 +45,6 @@ final class AuthController extends BaseController
         clear_old();
         AuditService::log('login', 'auth', Auth::id());
         flash('success', 'Selamat datang, ' . Auth::user()['name'] . '.');
-        if ((int) Auth::user()['must_change_password'] === 1) redirect('/profile');
         redirect('/');
     }
 

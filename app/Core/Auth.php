@@ -202,6 +202,14 @@ final class Auth
     }
 
     /**
+     * Membersihkan cache user dalam memory agar membaca data terbaru dari database.
+     */
+    public static function refresh(): void
+    {
+        self::$cachedUser = null;
+    }
+
+    /**
      * Mendapatkan ID pengguna.
      */
     public static function id(): ?int

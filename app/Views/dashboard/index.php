@@ -19,6 +19,12 @@ $userName = trim(
     )
 );
 
+$mustChangePassword = (int) (
+    $currentUser['must_change_password']
+    ?? \App\Core\Auth::user()['must_change_password']
+    ?? 0
+) === 1;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -1211,6 +1217,221 @@ $fxBoardFile =
 
 </div>
 
+<?php if ($mustChangePassword): ?>
+<!-- =========================================================
+     MODAL WAJIB PERBARUI KATA SANDI (DASHBOARD)
+     ========================================================= -->
+<div x-data="{
+    showPasswordModal: (function() {
+        try {
+            return sessionStorage.getItem('remitgo_postpone_password_modal') !== '1';
+        } catch (e) {
+            return true;
+        }
+    })(),
+    dismissModal() {
+        this.showPasswordModal = false;
+        try {
+            sessionStorage.setItem('remitgo_postpone_password_modal', '1');
+        } catch (e) {}
+    }
+}">
+    <template x-teleport="body">
+        <div
+            x-show="showPasswordModal"
+            x-cloak
+            class="fixed inset-0 z-[9999] overflow-y-auto"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-password-title"
+            style="display: none;"
+            @keydown.escape.window="dismissModal()"
+        >
+    <!-- 1. Full-screen Backdrop -->
+    <div
+        x-show="showPasswordModal"
+        x-transition:enter="transition-opacity ease-out duration-150"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition-opacity ease-in duration-100"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="fixed inset-0 w-full h-full bg-gray-900/60 backdrop-blur-sm"
+        @click="dismissModal()"
+        aria-hidden="true"
+    ></div>
+
+    <!-- 2. Modal Positioning Container (Terpusat) -->
+    <div class="min-h-full flex items-center justify-center p-4 relative z-10 pointer-events-none">
+        <div
+            class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-gray-200 text-left relative my-8 pointer-events-auto overflow-hidden p-6 sm:p-7"
+            x-show="showPasswordModal"
+            x-transition:enter="transition ease-out duration-150"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-100"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+        >
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between gap-4 mb-5 pb-4 border-b border-gray-100">
+                <div class="flex items-center gap-3">
+                    <i class="bi bi-shield-lock text-2xl text-gray-800 shrink-0"></i>
+                    <div class="flex items-center gap-2">
+                        <h3 id="modal-password-title" class="text-base font-semibold font-heading text-gray-900 m-0">Perbarui Kata Sandi</h3>
+                        <?= render_tooltip(
+                            'Demi keamanan operasional, akun Anda wajib memperbarui kata sandi awal bawaan.',
+                            '<span class="hs-tooltip-toggle info-toggle-btn cursor-help" aria-label="Info perbarui kata sandi"><i class="bi bi-info-circle text-xs leading-none"></i></span>',
+                            ['placement' => 'top']
+                        ) ?>
+                    </div>
+                </div>
+                <button
+                    type="button"
+                    @click="dismissModal()"
+                    class="modal-close"
+                    aria-label="Tutup modal"
+                    title="Tutup modal"
+                >
+                    <i class="bi bi-x-lg text-xs leading-none"></i>
+                </button>
+            </div>
+
+            <!-- Form Ubah Password -->
+            <form
+                method="post"
+                action="<?= url('/profile/password') ?>"
+                class="space-y-4"
+                x-data="{ showCurrent: false, showNew: false, showConfirm: false }"
+                @submit="try { sessionStorage.removeItem('remitgo_postpone_password_modal'); } catch (e) {}"
+            >
+                <?= csrf_field() . method_field('PUT') ?>
+                <input type="hidden" name="return_to" value="<?= e(url('/')) ?>">
+
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Kata Sandi Saat Ini</label>
+                    <div class="relative flex items-center">
+                        <input
+                            :type="showCurrent ? 'text' : 'password'"
+                            class="custom-form-input has-trailing-action"
+                            name="current_password"
+                            placeholder="Masukkan kata sandi saat ini"
+                            required
+                            autocomplete="current-password"
+                        >
+                        <i
+                            x-show="!showCurrent"
+                            @click="showCurrent = true"
+                            role="button"
+                            tabindex="0"
+                            class="bi bi-eye absolute right-3 text-gray-400 hover:text-gray-700 cursor-pointer text-base select-none leading-none p-1 transition-colors"
+                            aria-label="Tampilkan kata sandi"
+                            title="Tampilkan kata sandi"
+                        ></i>
+                        <i
+                            x-show="showCurrent"
+                            x-cloak
+                            @click="showCurrent = false"
+                            role="button"
+                            tabindex="0"
+                            class="bi bi-eye-slash absolute right-3 text-gray-400 hover:text-gray-700 cursor-pointer text-base select-none leading-none p-1 transition-colors"
+                            aria-label="Sembunyikan kata sandi"
+                            title="Sembunyikan kata sandi"
+                        ></i>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Kata Sandi Baru</label>
+                    <div class="relative flex items-center">
+                        <input
+                            :type="showNew ? 'text' : 'password'"
+                            class="custom-form-input has-trailing-action"
+                            name="new_password"
+                            placeholder="Minimal 8 karakter"
+                            minlength="8"
+                            required
+                            autocomplete="new-password"
+                        >
+                        <i
+                            x-show="!showNew"
+                            @click="showNew = true"
+                            role="button"
+                            tabindex="0"
+                            class="bi bi-eye absolute right-3 text-gray-400 hover:text-gray-700 cursor-pointer text-base select-none leading-none p-1 transition-colors"
+                            aria-label="Tampilkan kata sandi"
+                            title="Tampilkan kata sandi"
+                        ></i>
+                        <i
+                            x-show="showNew"
+                            x-cloak
+                            @click="showNew = false"
+                            role="button"
+                            tabindex="0"
+                            class="bi bi-eye-slash absolute right-3 text-gray-400 hover:text-gray-700 cursor-pointer text-base select-none leading-none p-1 transition-colors"
+                            aria-label="Sembunyikan kata sandi"
+                            title="Sembunyikan kata sandi"
+                        ></i>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Konfirmasi Kata Sandi Baru</label>
+                    <div class="relative flex items-center">
+                        <input
+                            :type="showConfirm ? 'text' : 'password'"
+                            class="custom-form-input has-trailing-action"
+                            name="new_password_confirmation"
+                            placeholder="Ulangi kata sandi baru"
+                            minlength="8"
+                            required
+                            autocomplete="new-password"
+                        >
+                        <i
+                            x-show="!showConfirm"
+                            @click="showConfirm = true"
+                            role="button"
+                            tabindex="0"
+                            class="bi bi-eye absolute right-3 text-gray-400 hover:text-gray-700 cursor-pointer text-base select-none leading-none p-1 transition-colors"
+                            aria-label="Tampilkan kata sandi"
+                            title="Tampilkan kata sandi"
+                        ></i>
+                        <i
+                            x-show="showConfirm"
+                            x-cloak
+                            @click="showConfirm = false"
+                            role="button"
+                            tabindex="0"
+                            class="bi bi-eye-slash absolute right-3 text-gray-400 hover:text-gray-700 cursor-pointer text-base select-none leading-none p-1 transition-colors"
+                            aria-label="Sembunyikan kata sandi"
+                            title="Sembunyikan kata sandi"
+                        ></i>
+                    </div>
+                </div>
+
+                <div class="pt-3 border-t border-gray-100 flex items-center justify-end gap-2">
+                    <button
+                        type="button"
+                        @click="dismissModal()"
+                        class="btn-secondary"
+                    >
+                        <span>Nanti Saja</span>
+                    </button>
+                    <button
+                        type="submit"
+                        class="btn-primary"
+                    >
+                        <i class="bi bi-shield-check"></i>
+                        <span>Simpan Kata Sandi</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+        </div>
+    </template>
+</div>
+<?php endif; ?>
 
 <!-- =========================================================
      DASHBOARD DATA UNTUK JAVASCRIPT

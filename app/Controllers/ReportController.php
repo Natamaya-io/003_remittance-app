@@ -422,9 +422,6 @@ final class ReportController extends BaseController
             ]);
 
             $message = count($rows) . ' baris valid berhasil diimpor.';
-            if ((int) $parsed['skipped'] > 0) {
-                $message .= ' ' . (int) $parsed['skipped'] . ' baris tidak sesuai ketentuan dilewati.';
-            }
             flash('success', $message);
 
             if ($reportDate !== null) {

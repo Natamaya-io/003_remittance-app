@@ -13,6 +13,32 @@ $teams = is_array($teams ?? null) ? $teams : [];
 $batches = is_array($batches ?? null) ? $batches : [];
 $rows = is_array($rows ?? null) ? $rows : [];
 $queryText = (string) ($filters['q'] ?? '');
+$currDelivery = (string) ($filters['delivery_status'] ?? '');
+$currResult = (string) ($filters['result_status'] ?? '');
+
+$statusPresets = get_report_status_presets();
+$activeStatusPreset = '';
+$currStatusLabel = 'Semua status';
+
+if ($currResult === 'SUCCESS') {
+    $activeStatusPreset = 'SUCCESS';
+    $currStatusLabel = $statusPresets['SUCCESS']['short_label'];
+} elseif ($currResult === 'FAILED') {
+    $activeStatusPreset = 'FAILED';
+    $currStatusLabel = $statusPresets['FAILED']['short_label'];
+} elseif ($currDelivery === 'SENT' && $currResult === 'PENDING') {
+    $activeStatusPreset = 'SENT';
+    $currStatusLabel = $statusPresets['SENT']['short_label'];
+} elseif ($currDelivery === 'PENDING' && $currResult === 'PENDING') {
+    $activeStatusPreset = 'NEW';
+    $currStatusLabel = $statusPresets['NEW']['short_label'];
+} elseif ($currDelivery === 'SENT') {
+    $currStatusLabel = 'Terkirim';
+} elseif ($currDelivery === 'PENDING') {
+    $currStatusLabel = 'Belum Terkirim';
+} elseif ($currResult !== '') {
+    $currStatusLabel = ucfirst(strtolower($currResult));
+}
 ?>
 
 <div class="max-w-7xl mx-auto space-y-6">
@@ -115,20 +141,30 @@ $queryText = (string) ($filters['q'] ?? '');
 
             <div x-data="{
                 open: false,
-                selected: '<?= e($filters['delivery_status'] ?? '') ?>',
-                label: '<?= ($filters['delivery_status'] ?? '') === 'PENDING' ? 'Pending' : (($filters['delivery_status'] ?? '') === 'SENT' ? 'Terkirim' : 'Semua status') ?>'
+                preset: '<?= e(addslashes($activeStatusPreset)) ?>',
+                label: '<?= e(addslashes($currStatusLabel)) ?>',
+                delivery: '<?= e(addslashes($currDelivery)) ?>',
+                result: '<?= e(addslashes($currResult)) ?>',
+                choose(key, lbl, d, r) {
+                    this.preset = key;
+                    this.label = lbl;
+                    this.delivery = d;
+                    this.result = r;
+                    this.open = false;
+                }
             }">
-                <label class="block text-xs font-semibold text-gray-700 mb-1">Status kirim</label>
+                <label class="block text-xs font-semibold text-gray-700 mb-1">Status operasional</label>
                 <div class="custom-select-root relative" @click.outside="open = false">
-                    <input type="hidden" name="delivery_status" :value="selected">
+                    <input type="hidden" name="delivery_status" :value="delivery">
+                    <input type="hidden" name="result_status" :value="result">
                     <button
                         type="button"
                         class="dropdown-toggle"
                         @click="open = !open"
                         :aria-expanded="open"
-                        aria-label="Filter Status Kirim"
+                        aria-label="Filter Status Operasional"
                     >
-                        <i class="bi bi-send text-gray-400"></i>
+                        <i class="bi bi-tag text-gray-400"></i>
                         <span class="truncate text-gray-900" x-text="label"></span>
                         <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
                     </button>
@@ -149,104 +185,60 @@ $queryText = (string) ($filters['q'] ?? '');
                     >
                         <button
                             type="button"
-                            class="dropdown-item"
-                            :class="{ 'active': selected === '' }"
-                            @click="selected = ''; label = 'Semua status'; open = false"
+                            class="dropdown-item justify-between"
+                            :class="{ 'active': preset === '' }"
+                            @click="choose('', 'Semua status', '', '')"
                         >
                             <span>Semua status</span>
-                            <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                            <i x-show="preset === ''" class="bi bi-check2 text-blue-600 text-sm"></i>
                         </button>
                         <button
                             type="button"
-                            class="dropdown-item"
-                            :class="{ 'active': selected === 'PENDING' }"
-                            @click="selected = 'PENDING'; label = 'Pending'; open = false"
+                            class="dropdown-item justify-between"
+                            :class="{ 'active': preset === 'NEW' }"
+                            @click="choose('NEW', 'Antrean Baru', 'PENDING', 'PENDING')"
                         >
-                            <span>Pending</span>
-                            <i x-show="selected === 'PENDING'" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                            <span class="inline-flex items-center gap-2">
+                                <span class="size-2 rounded-full bg-amber-500"></span>
+                                <span>Antrean Baru (Belum Kirim)</span>
+                            </span>
+                            <i x-show="preset === 'NEW'" class="bi bi-check2 text-blue-600 text-sm"></i>
                         </button>
                         <button
                             type="button"
-                            class="dropdown-item"
-                            :class="{ 'active': selected === 'SENT' }"
-                            @click="selected = 'SENT'; label = 'Terkirim'; open = false"
+                            class="dropdown-item justify-between"
+                            :class="{ 'active': preset === 'SENT' }"
+                            @click="choose('SENT', 'Terkirim (Menunggu Bank)', 'SENT', 'PENDING')"
                         >
-                            <span>Terkirim</span>
-                            <i x-show="selected === 'SENT'" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div x-data="{
-                open: false,
-                selected: '<?= e($filters['result_status'] ?? '') ?>',
-                label: '<?= ($filters['result_status'] ?? '') === 'PENDING' ? 'Pending' : (($filters['result_status'] ?? '') === 'SUCCESS' ? 'Success' : (($filters['result_status'] ?? '') === 'FAILED' ? 'Failed' : 'Semua hasil')) ?>'
-            }">
-                <label class="block text-xs font-semibold text-gray-700 mb-1">Hasil transaksi</label>
-                <div class="custom-select-root relative" @click.outside="open = false">
-                    <input type="hidden" name="result_status" :value="selected">
-                    <button
-                        type="button"
-                        class="dropdown-toggle"
-                        @click="open = !open"
-                        :aria-expanded="open"
-                        aria-label="Filter Hasil Transaksi"
-                    >
-                        <i class="bi bi-check-circle text-gray-400"></i>
-                        <span class="truncate text-gray-900" x-text="label"></span>
-                        <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
-                    </button>
-
-                    <div
-                        class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
-                        x-show="open"
-                        x-cloak
-                        x-transition:enter="transition ease-out duration-100"
-                        x-transition:enter-start="opacity-0"
-                        x-transition:enter-end="opacity-100"
-                        x-transition:leave="transition ease-in duration-75"
-                        x-transition:leave-start="opacity-100"
-                        x-transition:leave-end="opacity-0"
-                        :class="{ 'block': open, 'hidden': !open }"
-                        style="display: none;"
-                        role="listbox"
-                    >
-                        <button
-                            type="button"
-                            class="dropdown-item"
-                            :class="{ 'active': selected === '' }"
-                            @click="selected = ''; label = 'Semua hasil'; open = false"
-                        >
-                            <span>Semua hasil</span>
-                            <i x-show="selected === ''" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                            <span class="inline-flex items-center gap-2">
+                                <span class="size-2 rounded-full bg-blue-500"></span>
+                                <span>Terkirim (Menunggu Kliring Bank)</span>
+                            </span>
+                            <i x-show="preset === 'SENT'" class="bi bi-check2 text-blue-600 text-sm"></i>
                         </button>
                         <button
                             type="button"
-                            class="dropdown-item"
-                            :class="{ 'active': selected === 'PENDING' }"
-                            @click="selected = 'PENDING'; label = 'Pending'; open = false"
+                            class="dropdown-item justify-between"
+                            :class="{ 'active': preset === 'SUCCESS' }"
+                            @click="choose('SUCCESS', 'Sukses', 'SENT', 'SUCCESS')"
                         >
-                            <span>Pending</span>
-                            <i x-show="selected === 'PENDING'" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                            <span class="inline-flex items-center gap-2">
+                                <span class="size-2 rounded-full bg-emerald-500"></span>
+                                <span>Sukses (Selesai)</span>
+                            </span>
+                            <i x-show="preset === 'SUCCESS'" class="bi bi-check2 text-blue-600 text-sm"></i>
                         </button>
                         <button
                             type="button"
-                            class="dropdown-item"
-                            :class="{ 'active': selected === 'SUCCESS' }"
-                            @click="selected = 'SUCCESS'; label = 'Success'; open = false"
+                            class="dropdown-item justify-between"
+                            :class="{ 'active': preset === 'FAILED' }"
+                            @click="choose('FAILED', 'Gagal / Retur', '', 'FAILED')"
                         >
-                            <span>Success</span>
-                            <i x-show="selected === 'SUCCESS'" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
-                        </button>
-                        <button
-                            type="button"
-                            class="dropdown-item"
-                            :class="{ 'active': selected === 'FAILED' }"
-                            @click="selected = 'FAILED'; label = 'Failed'; open = false"
-                        >
-                            <span>Failed</span>
-                            <i x-show="selected === 'FAILED'" class="bi bi-check2 text-blue-600 text-sm ml-auto"></i>
+                            <span class="inline-flex items-center gap-2">
+                                <span class="size-2 rounded-full bg-red-500"></span>
+                                <span>Gagal / Retur</span>
+                            </span>
+                            <i x-show="preset === 'FAILED'" class="bi bi-check2 text-blue-600 text-sm"></i>
                         </button>
                     </div>
                 </div>
@@ -408,7 +400,7 @@ $queryText = (string) ($filters['q'] ?? '');
                         <td class="py-2.5 px-3"><?= e((string) ($row['invoice_no'] ?? '')) ?></td>
                         <td class="py-2.5 px-3 font-semibold text-gray-800"><?= e((string) ($row['currency'] ?? '')) ?></td>
                         <td class="py-2.5 px-3 text-right text-nowrap font-semibold text-gray-900 tabular-nums"><?= e(number_format((float) ($row['amount'] ?? 0), 2, ',', '.')) ?></td>
-                        <td class="py-2.5 px-3"><?= status_badge((string) ($row['delivery_status'] ?? '')) ?></td>
+                        <td class="py-2.5 px-3 whitespace-nowrap"><?= render_report_status_badge((string) ($row['delivery_status'] ?? 'PENDING'), (string) ($row['result_status'] ?? 'PENDING')) ?></td>
                         <td class="py-2.5 px-3 text-right">
                             <a class="py-1 px-2.5 inline-flex items-center gap-x-1 text-xs font-semibold rounded-lg border border-gray-200 bg-white text-gray-700 hover:bg-gray-50 shadow-xs transition-colors focus:outline-hidden focus:bg-gray-50" href="<?= e(url('/reports/' . $row['batch_id'] . '?q=' . urlencode($queryText))) ?>">
                                 Buka

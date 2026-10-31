@@ -43,7 +43,8 @@ $histories = is_array($histories ?? null) ? $histories : [];
                     <select class="custom-form-select" name="report_row_id" data-report-row-select>
                         <option value="">Complain manual / tidak terkait laporan</option>
                         <?php foreach ($reportRows as $row):
-                            $statusText = ($row['delivery_status'] ?? '-') . ' / ' . ($row['result_status'] ?? '-');
+                            $statusObj = report_operational_status((string) ($row['delivery_status'] ?? ''), (string) ($row['result_status'] ?? ''));
+                            $statusText = $statusObj['label'];
                             $amountText = trim((string) ($row['currency'] ?? '')) . ' ' . number_format((float) ($row['amount'] ?? 0), 2, ',', '.');
                         ?>
                             <option value="<?= (int) $row['id'] ?>"

@@ -20,28 +20,36 @@ $currDelivery = (string) ($filters['delivery_status'] ?? '');
 $currResult = (string) ($filters['result_status'] ?? '');
 $returnQuery = http_build_query($filters);
 
-$currDeliveryLabel = match ($currDelivery) {
-    'PENDING' => 'Belum Terkirim',
-    'SENT'    => 'Terkirim',
-    default   => 'Semua status kirim',
-};
+$statusPresets = get_report_status_presets();
+$activeStatusPreset = '';
+$currStatusLabel = 'Semua status';
 
-$currResultLabel = match ($currResult) {
-    'PENDING' => 'Pending',
-    'SUCCESS' => 'Success',
-    'FAILED'  => 'Failed',
-    default   => 'Semua hasil',
-};
+if ($currResult === 'SUCCESS') {
+    $activeStatusPreset = 'SUCCESS';
+    $currStatusLabel = $statusPresets['SUCCESS']['short_label'];
+} elseif ($currResult === 'FAILED') {
+    $activeStatusPreset = 'FAILED';
+    $currStatusLabel = $statusPresets['FAILED']['short_label'];
+} elseif ($currDelivery === 'SENT' && $currResult === 'PENDING') {
+    $activeStatusPreset = 'SENT';
+    $currStatusLabel = $statusPresets['SENT']['short_label'];
+} elseif ($currDelivery === 'PENDING' && $currResult === 'PENDING') {
+    $activeStatusPreset = 'NEW';
+    $currStatusLabel = $statusPresets['NEW']['short_label'];
+} elseif ($currDelivery === 'SENT') {
+    $currStatusLabel = 'Terkirim';
+} elseif ($currDelivery === 'PENDING') {
+    $currStatusLabel = 'Belum Terkirim';
+} elseif ($currResult !== '') {
+    $currStatusLabel = ucfirst(strtolower($currResult));
+}
 
 $activeFilterList = [];
 if ($queryText !== '') {
     $activeFilterList[] = 'Cari: ' . $queryText;
 }
-if ($currDelivery !== '') {
-    $activeFilterList[] = 'Kirim: ' . $currDeliveryLabel;
-}
-if ($currResult !== '') {
-    $activeFilterList[] = 'Hasil: ' . $currResultLabel;
+if ($currDelivery !== '' || $currResult !== '') {
+    $activeFilterList[] = 'Status: ' . $currStatusLabel;
 }
 $activeFiltersCount = count($activeFilterList);
 $activeFilterSummary = implode(' · ', $activeFilterList);
@@ -96,6 +104,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
         allSelected: false,
         editModalOpen: false,
         openFilterModal: false,
+        activeOpStatus: 'NEW',
         activeRow: {
             id: 0,
             order: '1',
@@ -105,6 +114,37 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
             delivery: 'PENDING',
             result: 'PENDING',
             notes: ''
+        },
+        getOpKey(delivery, result) {
+            if (result === 'SUCCESS') return 'SUCCESS';
+            if (result === 'FAILED') return 'FAILED';
+            if (delivery === 'SENT') return 'SENT';
+            return 'NEW';
+        },
+        getOpLabel(key) {
+            const labels = {
+                'NEW': 'Antrean Baru (Belum Kirim)',
+                'SENT': 'Terkirim (Menunggu Kliring Bank)',
+                'SUCCESS': 'Sukses (Selesai)',
+                'FAILED': 'Gagal / Retur'
+            };
+            return labels[key] || 'Antrean Baru';
+        },
+        setOpKey(key) {
+            this.activeOpStatus = key;
+            if (key === 'SUCCESS') {
+                this.activeRow.delivery = 'SENT';
+                this.activeRow.result = 'SUCCESS';
+            } else if (key === 'FAILED') {
+                this.activeRow.delivery = 'SENT';
+                this.activeRow.result = 'FAILED';
+            } else if (key === 'SENT') {
+                this.activeRow.delivery = 'SENT';
+                this.activeRow.result = 'PENDING';
+            } else {
+                this.activeRow.delivery = 'PENDING';
+                this.activeRow.result = 'PENDING';
+            }
         },
         updateCount() {
             const checked = document.querySelectorAll('input[name=\'row_ids[]\']:checked').length;
@@ -117,16 +157,19 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
             this.updateCount();
         },
         openEditFromButton(btn) {
+            const d = btn.dataset.rowDelivery || 'PENDING';
+            const r = btn.dataset.rowResult || 'PENDING';
             this.activeRow = {
                 id: parseInt(btn.dataset.rowId, 10) || 0,
                 order: btn.dataset.rowOrder || '1',
                 payer: btn.dataset.rowPayer || '',
                 beneficiary: btn.dataset.rowBeneficiary || '',
                 amount: btn.dataset.rowAmount || '',
-                delivery: btn.dataset.rowDelivery || 'PENDING',
-                result: btn.dataset.rowResult || 'PENDING',
+                delivery: d,
+                result: r,
                 notes: btn.dataset.rowNotes || ''
             };
+            this.activeOpStatus = this.getOpKey(d, r);
             this.editModalOpen = true;
         }
      }">
@@ -270,129 +313,103 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                                 ]) ?>
                             </div>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <!-- Dropdown Status Kirim -->
-                                <div>
-                                    <label class="block text-xs font-semibold text-gray-700 mb-1">Status Kirim</label>
-                                    <div class="custom-select-root relative" :class="{ 'z-20': open }" x-data="{ open: false, selected: '<?= e(addslashes($currDelivery)) ?>', label: '<?= e(addslashes($currDeliveryLabel)) ?>' }" @click.outside="open = false">
-                                        <input type="hidden" name="delivery_status" :value="selected">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-700 mb-1">Status Operasional</label>
+                                <div class="custom-select-root relative" :class="{ 'z-20': open }" x-data="{
+                                    open: false,
+                                    preset: '<?= e(addslashes($activeStatusPreset)) ?>',
+                                    label: '<?= e(addslashes($currStatusLabel)) ?>',
+                                    delivery: '<?= e(addslashes($currDelivery)) ?>',
+                                    result: '<?= e(addslashes($currResult)) ?>',
+                                    choose(key, lbl, d, r) {
+                                        this.preset = key;
+                                        this.label = lbl;
+                                        this.delivery = d;
+                                        this.result = r;
+                                        this.open = false;
+                                    }
+                                }" @click.outside="open = false">
+                                    <input type="hidden" name="delivery_status" :value="delivery">
+                                    <input type="hidden" name="result_status" :value="result">
+                                    <button
+                                        type="button"
+                                        @click="open = !open"
+                                        class="dropdown-toggle"
+                                        :aria-expanded="open.toString()"
+                                        aria-label="Filter Status Operasional"
+                                    >
+                                        <i class="bi bi-tag text-gray-400"></i>
+                                        <span class="truncate text-gray-900" x-text="label"></span>
+                                        <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                                    </button>
+                                    <div
+                                        x-show="open"
+                                        x-cloak
+                                        x-transition:leave="transition ease-in duration-100"
+                                        x-transition:leave-start="opacity-100"
+                                        x-transition:leave-end="opacity-0"
+                                        :class="{ 'block': open, 'hidden': !open }"
+                                        class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
+                                        style="display: none;"
+                                        role="listbox"
+                                    >
                                         <button
                                             type="button"
-                                            @click="open = !open"
-                                            class="dropdown-toggle"
-                                            :aria-expanded="open.toString()"
-                                            aria-label="Filter Status Kirim"
+                                            class="dropdown-item justify-between"
+                                            :class="{ 'active': preset === '' }"
+                                            @click="choose('', 'Semua status', '', '')"
                                         >
-                                            <i class="bi bi-send text-gray-400"></i>
-                                            <span class="truncate text-gray-900" x-text="label"></span>
-                                            <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                                            <span>Semua status</span>
+                                            <i x-show="preset === ''" class="bi bi-check2 text-[#315B8C] text-sm"></i>
                                         </button>
-                                        <div
-                                            x-show="open"
-                                            x-cloak
-                                            x-transition:leave="transition ease-in duration-100"
-                                            x-transition:leave-start="opacity-100"
-                                            x-transition:leave-end="opacity-0"
-                                            :class="{ 'block': open, 'hidden': !open }"
-                                            class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
-                                            style="display: none;"
-                                            role="listbox"
-                                        >
-                                            <button
-                                                type="button"
-                                                class="dropdown-item justify-between"
-                                                :class="{ 'active': selected === '' }"
-                                                @click="selected = ''; label = 'Semua status kirim'; open = false"
-                                            >
-                                                <span>Semua status kirim</span>
-                                                <i x-show="selected === ''" class="bi bi-check2 text-[#315B8C] text-sm"></i>
-                                            </button>
-                                            <button
-                                                type="button"
-                                                class="dropdown-item justify-between"
-                                                :class="{ 'active': selected === 'PENDING' }"
-                                                @click="selected = 'PENDING'; label = 'Belum Terkirim'; open = false"
-                                            >
-                                                <span>Belum Terkirim</span>
-                                                <i x-show="selected === 'PENDING'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
-                                            </button>
-                                            <button
-                                                type="button"
-                                                class="dropdown-item justify-between"
-                                                :class="{ 'active': selected === 'SENT' }"
-                                                @click="selected = 'SENT'; label = 'Terkirim'; open = false"
-                                            >
-                                                <span>Terkirim</span>
-                                                <i x-show="selected === 'SENT'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Dropdown Status Hasil -->
-                                <div>
-                                    <label class="block text-xs font-semibold text-gray-700 mb-1">Hasil Transaksi</label>
-                                    <div class="custom-select-root relative" :class="{ 'z-20': open }" x-data="{ open: false, selected: '<?= e(addslashes($currResult)) ?>', label: '<?= e(addslashes($currResultLabel)) ?>' }" @click.outside="open = false">
-                                        <input type="hidden" name="result_status" :value="selected">
                                         <button
                                             type="button"
-                                            @click="open = !open"
-                                            class="dropdown-toggle"
-                                            :aria-expanded="open.toString()"
-                                            aria-label="Filter Hasil Transaksi"
+                                            class="dropdown-item justify-between"
+                                            :class="{ 'active': preset === 'NEW' }"
+                                            @click="choose('NEW', 'Antrean Baru', 'PENDING', 'PENDING')"
                                         >
-                                            <i class="bi bi-check-circle text-gray-400"></i>
-                                            <span class="truncate text-gray-900" x-text="label"></span>
-                                            <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                                            <span class="inline-flex items-center gap-2">
+                                                <span class="size-2 rounded-full bg-amber-500"></span>
+                                                <span>Antrean Baru (Belum Kirim)</span>
+                                            </span>
+                                            <i x-show="preset === 'NEW'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
                                         </button>
-                                        <div
-                                            x-show="open"
-                                            x-cloak
-                                            x-transition:leave="transition ease-in duration-100"
-                                            x-transition:leave-start="opacity-100"
-                                            x-transition:leave-end="opacity-0"
-                                            :class="{ 'block': open, 'hidden': !open }"
-                                            class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 max-h-60 overflow-y-auto z-50 bg-white"
-                                            style="display: none;"
-                                            role="listbox"
+                                        <button
+                                            type="button"
+                                            class="dropdown-item justify-between"
+                                            :class="{ 'active': preset === 'SENT' }"
+                                            @click="choose('SENT', 'Terkirim (Menunggu Bank)', 'SENT', 'PENDING')"
                                         >
-                                            <button
-                                                type="button"
-                                                class="dropdown-item justify-between"
-                                                :class="{ 'active': selected === '' }"
-                                                @click="selected = ''; label = 'Semua hasil'; open = false"
-                                            >
-                                                <span>Semua hasil</span>
-                                                <i x-show="selected === ''" class="bi bi-check2 text-[#315B8C] text-sm"></i>
-                                            </button>
-                                            <button
-                                                type="button"
-                                                class="dropdown-item justify-between"
-                                                :class="{ 'active': selected === 'PENDING' }"
-                                                @click="selected = 'PENDING'; label = 'Pending'; open = false"
-                                            >
-                                                <span>Pending</span>
-                                                <i x-show="selected === 'PENDING'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
-                                            </button>
-                                            <button
-                                                type="button"
-                                                class="dropdown-item justify-between"
-                                                :class="{ 'active': selected === 'SUCCESS' }"
-                                                @click="selected = 'SUCCESS'; label = 'Success'; open = false"
-                                            >
-                                                <span>Success</span>
-                                                <i x-show="selected === 'SUCCESS'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
-                                            </button>
-                                            <button
-                                                type="button"
-                                                class="dropdown-item justify-between"
-                                                :class="{ 'active': selected === 'FAILED' }"
-                                                @click="selected = 'FAILED'; label = 'Failed'; open = false"
-                                            >
-                                                <span>Failed</span>
-                                                <i x-show="selected === 'FAILED'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
-                                            </button>
-                                        </div>
+                                            <span class="inline-flex items-center gap-2">
+                                                <span class="size-2 rounded-full bg-blue-500"></span>
+                                                <span>Terkirim (Menunggu Kliring Bank)</span>
+                                            </span>
+                                            <i x-show="preset === 'SENT'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="dropdown-item justify-between"
+                                            :class="{ 'active': preset === 'SUCCESS' }"
+                                            @click="choose('SUCCESS', 'Sukses', 'SENT', 'SUCCESS')"
+                                        >
+                                            <span class="inline-flex items-center gap-2">
+                                                <span class="size-2 rounded-full bg-emerald-500"></span>
+                                                <span>Sukses (Selesai)</span>
+                                            </span>
+                                            <i x-show="preset === 'SUCCESS'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="dropdown-item justify-between"
+                                            :class="{ 'active': preset === 'FAILED' }"
+                                            @click="choose('FAILED', 'Gagal / Retur', '', 'FAILED')"
+                                        >
+                                            <span class="inline-flex items-center gap-2">
+                                                <span class="size-2 rounded-full bg-red-500"></span>
+                                                <span>Gagal / Retur</span>
+                                            </span>
+                                            <i x-show="preset === 'FAILED'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -560,8 +577,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                         <th class="py-3.5 px-3">Bank of Payer</th>
                         <th class="py-3.5 px-3">Invoice Link</th>
                         <th class="py-3.5 px-3">Bank Proses</th>
-                        <th class="py-3.5 px-3">Status Kirim</th>
-                        <th class="py-3.5 px-3">Hasil</th>
+                        <th class="py-3.5 px-3">Status</th>
                         <th class="py-3.5 px-3">Notes</th>
                         <th class="py-3.5 px-3">Sheet</th>
                         <th class="py-3.5 px-4 text-right sticky right-0 bg-gray-50/95 z-20 shadow-[-4px_0_10px_rgba(0,0,0,0.04)]">Aksi</th>
@@ -638,30 +654,7 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                         </td>
                         <td class="py-3 px-3 whitespace-nowrap"><?= e($processingBank ?: '-') ?></td>
                         <td class="py-3 px-3 whitespace-nowrap">
-                            <?php if ($deliveryStatus === 'SENT'): ?>
-                                <span class="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">
-                                    <i class="bi bi-send-check"></i> Terkirim
-                                </span>
-                            <?php else: ?>
-                                <span class="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">
-                                    <i class="bi bi-clock"></i> Belum
-                                </span>
-                            <?php endif; ?>
-                        </td>
-                        <td class="py-3 px-3 whitespace-nowrap">
-                            <?php if ($resultStatus === 'SUCCESS'): ?>
-                                <span class="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                                    <i class="bi bi-check-lg"></i> Sukses
-                                </span>
-                            <?php elseif ($resultStatus === 'FAILED'): ?>
-                                <span class="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-semibold bg-red-50 text-red-700 border border-red-200">
-                                    <i class="bi bi-x-lg"></i> Gagal
-                                </span>
-                            <?php else: ?>
-                                <span class="inline-flex items-center gap-1 py-0.5 px-2 rounded-full text-[11px] font-semibold bg-gray-100 text-gray-700">
-                                    Pending
-                                </span>
-                            <?php endif; ?>
+                            <?= render_report_status_badge($deliveryStatus, $resultStatus) ?>
                         </td>
                         <td class="py-3 px-3 whitespace-nowrap max-w-xs truncate text-gray-500" title="<?= e($notesStr) ?>"><?= e($notesStr ?: '-') ?></td>
                         <td class="py-3 px-3 text-gray-400 whitespace-nowrap"><?= e($sourceSheet) ?></td>
@@ -730,18 +723,42 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                         <span class="font-semibold text-gray-100">baris dipilih</span>
                     </div>
 
-                    <div class="flex items-center gap-2 flex-wrap">
-                        <select class="h-9 px-3 rounded-[9px] text-xs font-sans bg-gray-800 text-white border border-gray-600 focus:border-[#315B8C] focus:outline-none" name="delivery_status">
-                            <option value="">Status Kirim...</option>
-                            <option value="PENDING">Belum Terkirim</option>
-                            <option value="SENT">Terkirim</option>
-                        </select>
-
-                        <select class="h-9 px-3 rounded-[9px] text-xs font-sans bg-gray-800 text-white border border-gray-600 focus:border-[#315B8C] focus:outline-none" name="result_status">
-                            <option value="">Hasil...</option>
-                            <option value="PENDING">Pending</option>
-                            <option value="SUCCESS">Success</option>
-                            <option value="FAILED">Failed</option>
+                    <div x-data="{
+                        bulkOp: '',
+                        bulkDelivery: '',
+                        bulkResult: '',
+                        applyBulk(val) {
+                            this.bulkOp = val;
+                            if (val === 'SUCCESS') {
+                                this.bulkDelivery = 'SENT';
+                                this.bulkResult = 'SUCCESS';
+                            } else if (val === 'FAILED') {
+                                this.bulkDelivery = 'SENT';
+                                this.bulkResult = 'FAILED';
+                            } else if (val === 'SENT') {
+                                this.bulkDelivery = 'SENT';
+                                this.bulkResult = 'PENDING';
+                            } else if (val === 'NEW') {
+                                this.bulkDelivery = 'PENDING';
+                                this.bulkResult = 'PENDING';
+                            } else {
+                                this.bulkDelivery = '';
+                                this.bulkResult = '';
+                            }
+                        }
+                    }" class="flex items-center gap-2 flex-wrap">
+                        <input type="hidden" name="delivery_status" :value="bulkDelivery">
+                        <input type="hidden" name="result_status" :value="bulkResult">
+                        <select
+                            class="h-9 px-3 rounded-[9px] text-xs font-sans bg-gray-800 text-white border border-gray-600 focus:border-[#315B8C] focus:outline-none"
+                            @change="applyBulk($el.value)"
+                            required
+                        >
+                            <option value="">Pilih Status Operasional...</option>
+                            <option value="NEW">🟡 Antrean Baru (Belum Kirim)</option>
+                            <option value="SENT">🔵 Terkirim (Menunggu Kliring Bank)</option>
+                            <option value="SUCCESS">🟢 Sukses (Selesai)</option>
+                            <option value="FAILED">🔴 Gagal / Retur</option>
                         </select>
 
                         <button class="btn-primary" type="submit">
@@ -848,111 +865,81 @@ $totalAmount = (float) ($summary['total_amount'] ?? 0.0);
                                     </div>
                                 </div>
 
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <!-- Custom Dropdown: Status Kirim -->
-                                    <div>
-                                        <label class="block text-xs font-semibold text-gray-700 mb-1">Status Kirim</label>
-                                        <div class="custom-select-root relative" :class="{ 'z-20': open }" x-data="{ open: false }" @click.outside="open = false">
-                                            <input type="hidden" name="delivery_status" :value="activeRow.delivery">
+                                <div>
+                                    <label class="block text-xs font-semibold text-gray-700 mb-1">Status Operasional</label>
+                                    <div class="custom-select-root relative" :class="{ 'z-20': open }" x-data="{ open: false }" @click.outside="open = false">
+                                        <input type="hidden" name="delivery_status" :value="activeRow.delivery">
+                                        <input type="hidden" name="result_status" :value="activeRow.result">
+                                        <button
+                                            type="button"
+                                            @click="open = !open"
+                                            class="dropdown-toggle"
+                                            :aria-expanded="open.toString()"
+                                            aria-label="Pilih Status Operasional"
+                                        >
+                                            <i class="bi bi-tag text-gray-400"></i>
+                                            <span class="truncate text-gray-900" x-text="getOpLabel(activeOpStatus)"></span>
+                                            <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                                        </button>
+                                        <div
+                                            x-show="open"
+                                            x-cloak
+                                            x-transition:leave="transition ease-in duration-100"
+                                            x-transition:leave-start="opacity-100"
+                                            x-transition:leave-end="opacity-0"
+                                            :class="{ 'block': open, 'hidden': !open }"
+                                            class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 z-50 bg-white"
+                                            style="display: none;"
+                                            role="listbox"
+                                        >
                                             <button
                                                 type="button"
-                                                @click="open = !open"
-                                                class="dropdown-toggle"
-                                                :aria-expanded="open.toString()"
-                                                aria-label="Status Kirim"
+                                                class="dropdown-item justify-between"
+                                                :class="{ 'active': activeOpStatus === 'NEW' }"
+                                                @click="setOpKey('NEW'); open = false"
                                             >
-                                                <i class="bi bi-send text-gray-400"></i>
-                                                <span class="truncate text-gray-900" x-text="activeRow.delivery === 'SENT' ? 'Terkirim' : 'Belum Terkirim'"></span>
-                                                <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                                                <span class="inline-flex items-center gap-2">
+                                                    <span class="size-2 rounded-full bg-amber-500"></span>
+                                                    <span>Antrean Baru (Belum Kirim)</span>
+                                                </span>
+                                                <i x-show="activeOpStatus === 'NEW'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
                                             </button>
-                                            <div
-                                                x-show="open"
-                                                x-cloak
-                                                x-transition:leave="transition ease-in duration-100"
-                                                x-transition:leave-start="opacity-100"
-                                                x-transition:leave-end="opacity-0"
-                                                :class="{ 'block': open, 'hidden': !open }"
-                                                class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 z-50 bg-white"
-                                                style="display: none;"
-                                                role="listbox"
-                                            >
-                                                <button
-                                                    type="button"
-                                                    class="dropdown-item justify-between"
-                                                    :class="{ 'active': activeRow.delivery === 'PENDING' }"
-                                                    @click="activeRow.delivery = 'PENDING'; open = false"
-                                                >
-                                                    <span>Belum Terkirim</span>
-                                                    <i x-show="activeRow.delivery === 'PENDING'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    class="dropdown-item justify-between"
-                                                    :class="{ 'active': activeRow.delivery === 'SENT' }"
-                                                    @click="activeRow.delivery = 'SENT'; open = false"
-                                                >
-                                                    <span>Terkirim</span>
-                                                    <i x-show="activeRow.delivery === 'SENT'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Custom Dropdown: Hasil Transaksi -->
-                                    <div>
-                                        <label class="block text-xs font-semibold text-gray-700 mb-1">Hasil Transaksi</label>
-                                        <div class="custom-select-root relative" :class="{ 'z-20': open }" x-data="{ open: false }" @click.outside="open = false">
-                                            <input type="hidden" name="result_status" :value="activeRow.result">
                                             <button
                                                 type="button"
-                                                @click="open = !open"
-                                                class="dropdown-toggle"
-                                                :aria-expanded="open.toString()"
-                                                aria-label="Hasil Transaksi"
+                                                class="dropdown-item justify-between"
+                                                :class="{ 'active': activeOpStatus === 'SENT' }"
+                                                @click="setOpKey('SENT'); open = false"
                                             >
-                                                <i class="bi bi-check-circle text-gray-400"></i>
-                                                <span class="truncate text-gray-900" x-text="activeRow.result === 'SUCCESS' ? 'Success' : (activeRow.result === 'FAILED' ? 'Failed' : 'Pending')"></span>
-                                                <i class="bi bi-chevron-down text-xs text-gray-400 ml-auto transition-transform duration-200" :class="{ 'rotate-180': open }"></i>
+                                                <span class="inline-flex items-center gap-2">
+                                                    <span class="size-2 rounded-full bg-blue-500"></span>
+                                                    <span>Terkirim (Menunggu Kliring Bank)</span>
+                                                </span>
+                                                <i x-show="activeOpStatus === 'SENT'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
                                             </button>
-                                            <div
-                                                x-show="open"
-                                                x-cloak
-                                                x-transition:leave="transition ease-in duration-100"
-                                                x-transition:leave-start="opacity-100"
-                                                x-transition:leave-end="opacity-0"
-                                                :class="{ 'block': open, 'hidden': !open }"
-                                                class="dropdown-menu absolute left-0 right-0 top-full mt-1.5 z-50 bg-white"
-                                                style="display: none;"
-                                                role="listbox"
+                                            <button
+                                                type="button"
+                                                class="dropdown-item justify-between"
+                                                :class="{ 'active': activeOpStatus === 'SUCCESS' }"
+                                                @click="setOpKey('SUCCESS'); open = false"
                                             >
-                                                <button
-                                                    type="button"
-                                                    class="dropdown-item justify-between"
-                                                    :class="{ 'active': activeRow.result === 'PENDING' }"
-                                                    @click="activeRow.result = 'PENDING'; open = false"
-                                                >
-                                                    <span>Pending</span>
-                                                    <i x-show="activeRow.result === 'PENDING'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    class="dropdown-item justify-between"
-                                                    :class="{ 'active': activeRow.result === 'SUCCESS' }"
-                                                    @click="activeRow.result = 'SUCCESS'; open = false"
-                                                >
-                                                    <span>Success</span>
-                                                    <i x-show="activeRow.result === 'SUCCESS'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
-                                                </button>
-                                                <button
-                                                    type="button"
-                                                    class="dropdown-item justify-between"
-                                                    :class="{ 'active': activeRow.result === 'FAILED' }"
-                                                    @click="activeRow.result = 'FAILED'; open = false"
-                                                >
-                                                    <span>Failed</span>
-                                                    <i x-show="activeRow.result === 'FAILED'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
-                                                </button>
-                                            </div>
+                                                <span class="inline-flex items-center gap-2">
+                                                    <span class="size-2 rounded-full bg-emerald-500"></span>
+                                                    <span>Sukses (Selesai)</span>
+                                                </span>
+                                                <i x-show="activeOpStatus === 'SUCCESS'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                class="dropdown-item justify-between"
+                                                :class="{ 'active': activeOpStatus === 'FAILED' }"
+                                                @click="setOpKey('FAILED'); open = false"
+                                            >
+                                                <span class="inline-flex items-center gap-2">
+                                                    <span class="size-2 rounded-full bg-red-500"></span>
+                                                    <span>Gagal / Retur (Ditolak Bank)</span>
+                                                </span>
+                                                <i x-show="activeOpStatus === 'FAILED'" class="bi bi-check2 text-[#315B8C] text-sm"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
